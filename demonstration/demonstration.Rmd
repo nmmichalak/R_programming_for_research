@@ -1,0 +1,67 @@
+---
+title: "demonstration"
+author: "Nicholas Michalak"
+date: "6/20/2017"
+output: html_document
+---
+
+# packages
+
+```{r}
+# character vector of packages I want
+want_packages <- c("tidyverse", "psych", "afex", "lavaan", "lme4", "lmerTest", "readxl")
+
+# which of these packages do I already have (logical vector, TRUE / FALSE)
+have_packages <- want_packages %in% rownames(installed.packages())
+
+# if I don't have a package, install it
+if(any(have_packages == FALSE))
+  install.packages(want_packages[have_packages == FALSE])
+
+# load wanted packages
+lapply(want_packages, library, character.only = TRUE)
+
+```
+
+# data
+
+## supplementary xlsx
+
+```{r}
+# read and save data from xlsx file
+tybur_et_al_SO1 <- "pnas.1607398113.sd01.xlsx" %>%
+  read_xlsx()
+  
+```
+
+## table 1 from text
+
+```{r}
+# read and save data from xlsx file
+tybur_et_al_T1 <- "tybur_et_al_2016_table_1.xlsx" %>%
+  read_xlsx() %>%
+  mutate(nation = 1:30)
+```
+
+## merge them
+
+```{r}
+tybur_et_al <- full_join(tybur_et_al_SO1,
+                         tybur_et_al_T1 %>%
+                           select(Country, nation),
+                         by = "nation")
+```
+
+# reproduce scatterplots from Tybur et al.
+
+## figure 1
+
+```{r}
+tybur_et_al %>%
+  group_by(Country) %>%
+  summarise(trad_mean = mean(Traditionalim, na.rm = TRUE)) %>%
+  ggplot(mapping = aes(x = Parasite_PCA, y = trad_mean)) +
+  geom_point() +
+  geom_smooth()
+```
+
