@@ -889,57 +889,41 @@ test_slopes(y = y,
 
 
 ```r
+# model summary
 my_data %>%
   gather(variable, value, -id) %>%
-  lmer(formula = value ~ variable + (1 | id) + (1 | variable), data = .) %>%
+  lmer(formula = value ~ variable + (1 | id), data = .) %>%
   summary(.)
 ```
 
 ```
 ## Linear mixed model fit by REML t-tests use Satterthwaite approximations
 ##   to degrees of freedom [lmerMod]
-## Formula: value ~ variable + (1 | id) + (1 | variable)
+## Formula: value ~ variable + (1 | id)
 ##    Data: .
 ## 
 ## REML criterion at convergence: 1897.3
 ## 
 ## Scaled residuals: 
 ##      Min       1Q   Median       3Q      Max 
-## -2.32598 -0.57814 -0.05203  0.55597  2.54604 
+## -2.32599 -0.57814 -0.05203  0.55597  2.54604 
 ## 
 ## Random effects:
 ##  Groups   Name        Variance Std.Dev.
-##  id       (Intercept)   24.66   4.966  
-##  variable (Intercept) 3944.40  62.804  
-##  Residual               19.80   4.449  
-## Number of obs: 300, groups:  id, 100; variable, 3
+##  id       (Intercept) 24.66    4.966   
+##  Residual             19.80    4.449   
+## Number of obs: 300, groups:  id, 100
 ## 
 ## Fixed effects:
-##             Estimate Std. Error       df t value Pr(>|t|)  
-## (Intercept)  173.903     62.808    9.931   2.769   0.0199 *
-## variabley   -124.354     88.821    9.930  -1.400   0.1920  
-## variablez    -51.965     88.821    9.930  -0.585   0.5716  
+##              Estimate Std. Error        df t value Pr(>|t|)    
+## (Intercept)  173.9027     0.6667  183.8600  260.82   <2e-16 ***
+## variabley   -124.3544     0.6292  198.0000 -197.63   <2e-16 ***
+## variablez    -51.9646     0.6292  198.0000  -82.58   <2e-16 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## Correlation of Fixed Effects:
 ##           (Intr) varbly
-## variabley -0.707       
-## variablez -0.707  0.500
+## variabley -0.472       
+## variablez -0.472  0.500
 ```
-
-# plot of random subset of individual responses
-
-
-```r
-my_data %>%
-  sample_n(size = 12) %>%
-  gather(variable, value, -id) %>%
-  mutate(id = factor(id)) %>%
-  ggplot(aes(x = variable, y = value)) +
-  geom_point(stat = "identity", position = position_dodge(0.9)) +
-  facet_wrap(~ id)
-```
-
-![](r_for_research_demo_files/figure-html/unnamed-chunk-22-1.png)<!-- -->
-

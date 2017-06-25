@@ -370,23 +370,10 @@ test_slopes(y = y,
 
 ```{r}
 
+# model summary
 my_data %>%
   gather(variable, value, -id) %>%
-  lmer(formula = value ~ variable + (1 | id) + (1 | variable), data = .) %>%
+  lmer(formula = value ~ variable + (1 | id), data = .) %>%
   summary(.)
 
 ```
-
-# plot of random subset of individual responses
-
-```{r}
-my_data %>%
-  sample_n(size = 12) %>%
-  gather(variable, value, -id) %>%
-  mutate(id = factor(id)) %>%
-  ggplot(aes(x = variable, y = value)) +
-  geom_point(stat = "identity", position = position_dodge(0.9)) +
-  facet_wrap(~ id)
-  
-```
-
