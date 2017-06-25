@@ -29,6 +29,8 @@ have_packages <- want_packages %in% rownames(installed.packages())
 if(any(!have_packages))
   install.packages(want_packages[!have_packages])
 
+# lapply stands for "list" apply and it applies a function (this case, the library function) over a list of objects or a vector (in this case, the vector of character vector of package names)
+# I can give it an argument from the library function
 lapply(want_packages, library, character.only = TRUE)
 
 ```
@@ -370,7 +372,21 @@ test_slopes(y = y,
 
 my_data %>%
   gather(variable, value, -id) %>%
-  lmer(formula = value ~ variable + (1 | variable), data = .) %>%
+  lmer(formula = value ~ variable + (1 | id) + (1 | variable), data = .) %>%
   summary(.)
 
 ```
+
+# plot of random subset of individual responses
+
+```{r}
+my_data %>%
+  sample_n(size = 12) %>%
+  gather(variable, value, -id) %>%
+  mutate(id = factor(id)) %>%
+  ggplot(aes(x = variable, y = value)) +
+  geom_point(stat = "identity", position = position_dodge(0.9)) +
+  facet_wrap(~ id)
+  
+```
+

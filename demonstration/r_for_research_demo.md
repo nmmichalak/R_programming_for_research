@@ -16,6 +16,8 @@ have_packages <- want_packages %in% rownames(installed.packages())
 if(any(!have_packages))
   install.packages(want_packages[!have_packages])
 
+# lapply stands for "list" apply and it applies a function (this case, the library function) over a list of objects or a vector (in this case, the vector of character vector of package names)
+# I can give it an argument from the library function
 lapply(want_packages, library, character.only = TRUE)
 ```
 
@@ -889,36 +891,55 @@ test_slopes(y = y,
 ```r
 my_data %>%
   gather(variable, value, -id) %>%
-  lmer(formula = value ~ variable + (1 | variable), data = .) %>%
+  lmer(formula = value ~ variable + (1 | id) + (1 | variable), data = .) %>%
   summary(.)
 ```
 
 ```
 ## Linear mixed model fit by REML t-tests use Satterthwaite approximations
 ##   to degrees of freedom [lmerMod]
-## Formula: value ~ variable + (1 | variable)
+## Formula: value ~ variable + (1 | id) + (1 | variable)
 ##    Data: .
 ## 
-## REML criterion at convergence: 1983.6
+## REML criterion at convergence: 1897.3
 ## 
 ## Scaled residuals: 
-##     Min      1Q  Median      3Q     Max 
-## -3.2425 -0.6519 -0.0613  0.5737  2.8407 
+##      Min       1Q   Median       3Q      Max 
+## -2.32598 -0.57814 -0.05203  0.55597  2.54604 
 ## 
 ## Random effects:
 ##  Groups   Name        Variance Std.Dev.
-##  variable (Intercept) 3091.26  55.599  
-##  Residual               44.45   6.667  
-## Number of obs: 300, groups:  variable, 3
+##  id       (Intercept)   24.66   4.966  
+##  variable (Intercept) 3944.40  62.804  
+##  Residual               19.80   4.449  
+## Number of obs: 300, groups:  id, 100; variable, 3
 ## 
 ## Fixed effects:
-##              Estimate Std. Error        df t value Pr(>|t|)
-## (Intercept)  173.9027    55.6031    0.2027   3.128    0.595
-## variabley   -124.3544    78.6346    0.2027  -1.581    0.681
-## variablez    -51.9646    78.6346    0.2027  -0.661    0.798
+##             Estimate Std. Error       df t value Pr(>|t|)  
+## (Intercept)  173.903     62.808    9.931   2.769   0.0199 *
+## variabley   -124.354     88.821    9.930  -1.400   0.1920  
+## variablez    -51.965     88.821    9.930  -0.585   0.5716  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## Correlation of Fixed Effects:
 ##           (Intr) varbly
 ## variabley -0.707       
 ## variablez -0.707  0.500
 ```
+
+# plot of random subset of individual responses
+
+
+```r
+my_data %>%
+  sample_n(size = 12) %>%
+  gather(variable, value, -id) %>%
+  mutate(id = factor(id)) %>%
+  ggplot(aes(x = variable, y = value)) +
+  geom_point(stat = "identity", position = position_dodge(0.9)) +
+  facet_wrap(~ id)
+```
+
+![](r_for_research_demo_files/figure-html/unnamed-chunk-22-1.png)<!-- -->
+
