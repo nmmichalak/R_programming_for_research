@@ -1,24 +1,85 @@
-# R Programming for Research Demonstration
+# Day 0. Installation and demonstration
 Nicholas Michalak  
 6/24/2017  
 
-# load packages
+# install prerequisite packages
 
 
 ```r
-# packages I want to use in this analysis
-want_packages <- c("tidyverse", "psych", "haven", "lavaan", "lme4", "lmerTest", "afex", "compute.es")
+# character vector of packages you'll need for your whole analysis
+needed_packages <- c("tidyverse", "psych", "haven", "lavaan", "lme4", "lmerTest", "afex", "compute.es")
 
-# packages I have
-have_packages <- want_packages %in% rownames(installed.packages())
+# source custom function
+lapply(list.files(path = "custom_functions/", pattern = "\\.R", full.names = TRUE), source)
+```
 
-# install those I don"t have
-if(any(!have_packages))
-  install.packages(want_packages[!have_packages])
+```
+## [[1]]
+## [[1]]$value
+## function (needed_packages) 
+## {
+##     have_packages <- needed_packages %in% rownames(installed.packages())
+##     if (any(have_packages == FALSE) == TRUE) 
+##         install.packages(needed_packages[have_packages == FALSE])
+##     lapply(needed_packages, library, character.only = TRUE)
+## }
+## 
+## [[1]]$visible
+## [1] FALSE
+## 
+## 
+## [[2]]
+## [[2]]$value
+## function (y, x, z, sd_values = seq(-3, 3, 0.5), mean_center = TRUE, 
+##     alpha = 0.05) 
+## {
+##     if (mean_center == TRUE) {
+##         x <- x - mean(x, na.rm = TRUE)
+##         z <- z - mean(z, na.rm = TRUE)
+##     }
+##     descriptives <- sapply(list(y = y, x = x, z = z), function(v) {
+##         round(c(N = sum(is.na(v) == FALSE), Mean = mean(v, na.rm = TRUE), 
+##             SD = sd(v, na.rm = TRUE), Median = median(v, na.rm = TRUE), 
+##             Min = min(v, na.rm = TRUE), Max = max(v, na.rm = TRUE)), 
+##             digits = 3)
+##     })
+##     model <- lm(y ~ x * z)
+##     z_mean <- mean(z, na.rm = TRUE)
+##     z_sd <- sd(z, na.rm = TRUE)
+##     model_vcov <- vcov(model)
+##     est <- list()
+##     se <- list()
+##     for (i in 1:length(sd_values)) {
+##         est[[i]] <- coefficients(model)["x"] + coefficients(model)["x:z"] * 
+##             (z_mean + sd_values[i] * z_sd)
+##         se[[i]] <- sqrt(model_vcov["x", "x"] + 2 * (z_mean + 
+##             sd_values[i] * z_sd) * model_vcov["x", "x:z"] + (z_mean + 
+##             sd_values[i] * z_sd) * (z_mean + sd_values[i] * z_sd) * 
+##             model_vcov["x:z", "x:z"])
+##     }
+##     result <- data.frame(z_sd = sd_values * descriptives[3, 3], 
+##         est = unlist(est), se = unlist(se))
+##     result$t_val <- with(data = result, est/se)
+##     result$p_val <- with(data = result, 2 * pt(q = -abs(t_val), 
+##         df = model$df.residual))
+##     t_crit <- qt(p = 1 - alpha/2, df = model$df.residual)
+##     result$lwr_ci <- with(data = result, est - t_crit * se)
+##     result$upr_ci <- with(data = result, est + t_crit * se)
+##     result[, !colnames(result) %in% "p_val"] <- data.frame(apply(result[, 
+##         !colnames(result) %in% "p_val"], 2, function(i) round(i, 
+##         3)))
+##     print(paste0("Descriptives"))
+##     print(descriptives)
+##     return(result)
+## }
+## 
+## [[2]]$visible
+## [1] FALSE
+```
 
-# lapply stands for "list" apply and it applies a function (this case, the library function) over a list of objects or a vector (in this case, the vector of character vector of package names)
-# I can give it an argument from the library function
-lapply(want_packages, library, character.only = TRUE)
+```r
+# install needed packages
+install_needed_pkgs(needed_packages = needed_packages)
 ```
 
 ```
@@ -249,7 +310,7 @@ my_data %>%
   pairs.panels(pch = ".")
 ```
 
-![](r_for_research_demo_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
+![](day_00_installation_and_demonstration_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
 
 # histograms
 
@@ -266,7 +327,7 @@ my_data %>%
 ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
-![](r_for_research_demo_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
+![](day_00_installation_and_demonstration_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
 
 # boxplots
 
@@ -278,7 +339,7 @@ my_data %>%
   geom_boxplot()
 ```
 
-![](r_for_research_demo_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
+![](day_00_installation_and_demonstration_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
 
 # scatterplots
 
@@ -290,7 +351,7 @@ my_data %>%
   geom_smooth(method = "lm")
 ```
 
-![](r_for_research_demo_files/figure-html/unnamed-chunk-7-1.png)<!-- -->
+![](day_00_installation_and_demonstration_files/figure-html/unnamed-chunk-7-1.png)<!-- -->
 
 ```r
 my_data %>%
@@ -299,7 +360,7 @@ my_data %>%
   geom_smooth(method = "lm")
 ```
 
-![](r_for_research_demo_files/figure-html/unnamed-chunk-7-2.png)<!-- -->
+![](day_00_installation_and_demonstration_files/figure-html/unnamed-chunk-7-2.png)<!-- -->
 
 ```r
 my_data %>%
@@ -308,7 +369,7 @@ my_data %>%
   geom_smooth(method = "lm")
 ```
 
-![](r_for_research_demo_files/figure-html/unnamed-chunk-7-3.png)<!-- -->
+![](day_00_installation_and_demonstration_files/figure-html/unnamed-chunk-7-3.png)<!-- -->
 
 # correlation tests
 
@@ -760,89 +821,6 @@ my_data %>%
 ## Residual standard error: 4.808 on 96 degrees of freedom
 ## Multiple R-squared:  0.3476,	Adjusted R-squared:  0.3272 
 ## F-statistic: 17.05 on 3 and 96 DF,  p-value: 5.922e-09
-```
-
-## custom function for testing simple slopes
-
-
-```r
-# simple slopes function
-test_slopes <- function(y, x, z, sd_values = seq(-3, 3, 0.5), mean_center = TRUE, alpha = .05) {
-  
-  # Computes confidence intervals and test statistics at given moderator values (defaults to -3 SD to 3 SD)
-  # Arguments: 
-  #   y:           continuous outcome variable
-  #   x:           continuous predictor variable
-  #   z:           moderator variable (can be continuous or categorical but MUST be numeric or integer)
-  #   sd_values:   standard deviation multipliers of z for testing slopes
-  #   mean_center: center x and y around the their means (default set to TRUE)
-  #   alpha:       alpha level for 1-alpha confidence
-  # Returns:
-  #   some data descriptives and table of values for each of three tests: sd values for z, estimates, standard errors, t-statistics, p-values, and lower and upper confidence intervals
-  
-  if(mean_center == TRUE) {
-    x <- x - mean(x, na.rm = TRUE)
-    z <- z - mean(z, na.rm = TRUE)
-  }
-  
-  # matrix of descriptives
-  descriptives <- sapply(list(y = y, x = x, z = z), function(v) {
-    round(c(N = sum(is.na(v) == FALSE),
-    Mean = mean(v, na.rm = TRUE),
-    SD = sd(v, na.rm = TRUE),
-    Median = median(v, na.rm = TRUE),
-    Min = min(v, na.rm = TRUE),
-    Max = max(v, na.rm = TRUE)), digits = 3)
-    })
-
-  # fit model
-  model <- lm(y ~ x * z)
-  
-  # mean of z
-  z_mean <- mean(z, na.rm = TRUE)
-  
-  # sd of z
-  z_sd <- sd(z, na.rm = TRUE)
-  
-  # model covariance matrix
-  model_vcov <- vcov(model)
-  
-  est <- list()
-  se <- list()
-  for(i in 1:length(sd_values)) {
-    
-    est[[i]] <- coefficients(model)["x"] + coefficients(model)["x:z"] * (z_mean + sd_values[i] * z_sd)
-    se[[i]] <- sqrt(model_vcov["x", "x"] + 2 * (z_mean + sd_values[i] * z_sd) * model_vcov["x", "x:z"] + (z_mean + sd_values[i] * z_sd) * (z_mean + sd_values[i] * z_sd) * model_vcov["x:z", "x:z"])
-    
-  }
-  
-  # result table: estimates and standard errors
-  result <- data.frame(z_sd = sd_values * descriptives[3, 3],
-                       est = unlist(est),
-                       se = unlist(se))
-  
-  # t-statistics
-  result$t_val <- with(data = result, est / se)
-  
-  # p-values
-  result$p_val <- with(data = result, 2 * pt(q = -abs(t_val), df = model$df.residual))
-  
-  # t-critical
-  t_crit <- qt(p = 1 - alpha / 2, df = model$df.residual)
-  
-  # lower confidence intervals
-  result$lwr_ci <- with(data = result, est - t_crit * se)
-  
-  # upper confidence intervals
-  result$upr_ci <- with(data = result, est + t_crit * se)
-  
-  # round all values to 3 digits (except p-values, which should be exact)
-  result[, !colnames(result) %in% "p_val"] <- data.frame(apply(result[, !colnames(result) %in% "p_val"], 2, function(i) round(i, 3)))
-  
-  print(paste0("Descriptives"))
-  print(descriptives)
-  return(result)
-}
 ```
 
 ## simple slopes
