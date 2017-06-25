@@ -342,6 +342,80 @@ my_data %>%
 ## x-z  0.56 0.68  0.77 0
 ```
 
+# principal components analysis
+
+
+```r
+my_data %>%
+  select(-id) %>%
+  principal()
+```
+
+```
+## Principal Components Analysis
+## Call: principal(r = .)
+## Standardized loadings (pattern matrix) based upon correlation matrix
+##    PC1   h2   u2 com
+## y 0.77 0.59 0.41   1
+## x 0.83 0.69 0.31   1
+## z 0.91 0.83 0.17   1
+## 
+##                 PC1
+## SS loadings    2.11
+## Proportion Var 0.70
+## 
+## Mean item complexity =  1
+## Test of the hypothesis that 1 component is sufficient.
+## 
+## The root mean square of the residuals (RMSR) is  0.16 
+##  with the empirical chi square  16.08  with prob <  NA 
+## 
+## Fit based upon off diagonal values = 0.92
+```
+
+# exploratory factor analysis
+
+
+```r
+my_data %>%
+  select(-id) %>%
+  fa()
+```
+
+```
+## Factor Analysis using method =  minres
+## Call: fa(r = .)
+## Standardized loadings (pattern matrix) based upon correlation matrix
+##    MR1   h2     u2 com
+## y 0.58 0.34 0.6609   1
+## x 0.68 0.46 0.5374   1
+## z 1.00 1.00 0.0032   1
+## 
+##                MR1
+## SS loadings    1.8
+## Proportion Var 0.6
+## 
+## Mean item complexity =  1
+## Test of the hypothesis that 1 factor is sufficient.
+## 
+## The degrees of freedom for the null model are  3  and the objective function was  1.04 with Chi Square of  100.77
+## The degrees of freedom for the model are 0  and the objective function was  0 
+## 
+## The root mean square of the residuals (RMSR) is  0 
+## The df corrected root mean square of the residuals is  NA 
+## 
+## The harmonic number of observations is  100 with the empirical chi square  0  with prob <  NA 
+## The total number of observations was  100  with Likelihood Chi Square =  0.01  with prob <  NA 
+## 
+## Tucker Lewis Index of factoring reliability =  -Inf
+## Fit based upon off diagonal values = 1
+## Measures of factor score adequacy             
+##                                                 MR1
+## Correlation of scores with factors             1.00
+## Multiple R square of scores with factors       1.00
+## Minimum correlation of possible factor scores  0.99
+```
+
 # t-tests
 
 
@@ -654,6 +728,159 @@ my_mediaition %>%
 ## 6     x ~~       x       48.938 0.000     NA     NA   48.938   48.938
 ## 7    ab :=     a*b    ab  0.333 0.070  4.741  0.000    0.212    0.483
 ## 8 total := c+(a*b) total  0.328 0.086  3.809  0.000    0.163    0.507
+```
+
+# moderated regression
+
+
+```r
+my_data %>%
+  lm(y ~ x * z, data = .) %>%
+  summary(.)
+```
+
+```
+## 
+## Call:
+## lm(formula = y ~ x * z, data = .)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -14.5046  -3.2032   0.3644   2.8399  13.3920 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(>|t|)
+## (Intercept) -2.078e+02  1.866e+02  -1.114    0.268
+## x            1.148e+00  1.084e+00   1.058    0.293
+## z            2.080e+00  1.496e+00   1.391    0.168
+## x:z         -9.224e-03  8.651e-03  -1.066    0.289
+## 
+## Residual standard error: 4.808 on 96 degrees of freedom
+## Multiple R-squared:  0.3476,	Adjusted R-squared:  0.3272 
+## F-statistic: 17.05 on 3 and 96 DF,  p-value: 5.922e-09
+```
+
+## custom function for testing simple slopes
+
+
+```r
+# simple slopes function
+test_slopes <- function(y, x, z, sd_values = seq(-3, 3, 0.5), mean_center = TRUE, alpha = .05) {
+  
+  # Computes confidence intervals and test statistics at given moderator values (defaults to -3 SD to 3 SD)
+  # Arguments: 
+  #   y:           continuous outcome variable
+  #   x:           continuous predictor variable
+  #   z:           moderator variable (can be continuous or categorical but MUST be numeric or integer)
+  #   sd_values:   standard deviation multipliers of z for testing slopes
+  #   mean_center: center x and y around the their means (default set to TRUE)
+  #   alpha:       alpha level for 1-alpha confidence
+  # Returns:
+  #   some data descriptives and table of values for each of three tests: sd values for z, estimates, standard errors, t-statistics, p-values, and lower and upper confidence intervals
+  
+  if(mean_center == TRUE) {
+    x <- x - mean(x, na.rm = TRUE)
+    z <- z - mean(z, na.rm = TRUE)
+  }
+  
+  # matrix of descriptives
+  descriptives <- sapply(list(y = y, x = x, z = z), function(v) {
+    round(c(N = sum(is.na(v) == FALSE),
+    Mean = mean(v, na.rm = TRUE),
+    SD = sd(v, na.rm = TRUE),
+    Median = median(v, na.rm = TRUE),
+    Min = min(v, na.rm = TRUE),
+    Max = max(v, na.rm = TRUE)), digits = 3)
+    })
+
+  # fit model
+  model <- lm(y ~ x * z)
+  
+  # mean of z
+  z_mean <- mean(z, na.rm = TRUE)
+  
+  # sd of z
+  z_sd <- sd(z, na.rm = TRUE)
+  
+  # model covariance matrix
+  model_vcov <- vcov(model)
+  
+  est <- list()
+  se <- list()
+  for(i in 1:length(sd_values)) {
+    
+    est[[i]] <- coefficients(model)["x"] + coefficients(model)["x:z"] * (z_mean + sd_values[i] * z_sd)
+    se[[i]] <- sqrt(model_vcov["x", "x"] + 2 * (z_mean + sd_values[i] * z_sd) * model_vcov["x", "x:z"] + (z_mean + sd_values[i] * z_sd) * (z_mean + sd_values[i] * z_sd) * model_vcov["x:z", "x:z"])
+    
+  }
+  
+  # result table: estimates and standard errors
+  result <- data.frame(z_sd = sd_values * descriptives[3, 3],
+                       est = unlist(est),
+                       se = unlist(se))
+  
+  # t-statistics
+  result$t_val <- with(data = result, est / se)
+  
+  # p-values
+  result$p_val <- with(data = result, 2 * pt(q = -abs(t_val), df = model$df.residual))
+  
+  # t-critical
+  t_crit <- qt(p = 1 - alpha / 2, df = model$df.residual)
+  
+  # lower confidence intervals
+  result$lwr_ci <- with(data = result, est - t_crit * se)
+  
+  # upper confidence intervals
+  result$upr_ci <- with(data = result, est + t_crit * se)
+  
+  # round all values to 3 digits (except p-values, which should be exact)
+  result[, !colnames(result) %in% "p_val"] <- data.frame(apply(result[, !colnames(result) %in% "p_val"], 2, function(i) round(i, 3)))
+  
+  print(paste0("Descriptives"))
+  print(descriptives)
+  return(result)
+}
+```
+
+## simple slopes
+
+
+```r
+test_slopes(y = y,
+            x = x,
+            z = z,
+            sd_values = seq(-3, 3, 0.5),
+            mean_center = TRUE,
+            alpha = .05)
+```
+
+```
+## [1] "Descriptives"
+##              y       x       z
+## N      100.000 100.000 100.000
+## Mean    49.548   0.000   0.000
+## SD       5.862   7.031   7.040
+## Median  49.898  -1.595  -0.449
+## Min     27.929 -15.323 -15.750
+## Max     66.127  18.940  17.763
+```
+
+```
+##      z_sd    est    se  t_val     p_val lwr_ci upr_ci
+## 1  -21.12  0.218 0.228  0.953 0.3429087 -0.236  0.671
+## 2  -17.60  0.185 0.201  0.921 0.3591453 -0.214  0.584
+## 3  -14.08  0.153 0.175  0.875 0.3840237 -0.194  0.499
+## 4  -10.56  0.120 0.150  0.802 0.4242678 -0.177  0.418
+## 5   -7.04  0.088 0.127  0.688 0.4929933 -0.165  0.341
+## 6   -3.52  0.055 0.109  0.506 0.6139225 -0.161  0.272
+## 7    0.00  0.023 0.097  0.234 0.8150978 -0.170  0.216
+## 8    3.52 -0.010 0.094 -0.103 0.9181227 -0.196  0.177
+## 9    7.04 -0.042 0.100 -0.420 0.6751965 -0.241  0.157
+## 10  10.56 -0.075 0.115 -0.651 0.5167183 -0.302  0.153
+## 11  14.08 -0.107 0.135 -0.796 0.4278729 -0.374  0.160
+## 12  17.60 -0.140 0.158 -0.885 0.3785721 -0.453  0.174
+## 13  21.12 -0.172 0.183 -0.939 0.3499359 -0.536  0.192
 ```
 
 # linear mixed effects model
