@@ -2,17 +2,16 @@
 title: "Day 2. Workflow and data transformation"
 author: "Iris Wang"
 date: "June 23, 2017"
-output:
-  html_document: 
-    code_folding: show
+output: 
+  html_document:
     fig_height: 7.5
     fig_width: 10.5
     keep_md: yes
     theme: readable
-    toc: yes
+    toc: true
     toc_float:
-      collapsed: yes
-      smooth_scroll: yes
+      collapsed: false
+      smooth_scroll: false
 ---
 
 <style type="text/css">
