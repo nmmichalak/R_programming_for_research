@@ -1,0 +1,1177 @@
+File Manifest for ICPSR 21600
+
+Harris, Kathleen Mullan, and J. Richard Udry. National Longitudinal Study
+of Adolescent to Adult Health (Add Health), 1994-2008 [Public Use].
+ICPSR21600-v17. Chapel Hill, NC: Carolina Population Center, University of
+North Carolina-Chapel Hill/Ann Arbor, MI: Inter-university Consortium for
+Political and Social Research [distributors], 2016-05-25.
+http://doi.org/10.3886/ICPSR21600.v17
+
+Details on the version history can be found below the file listings.
+
+
+Study-level Documentation
+
+    Filename                            Record  Record    Var.    Date        MD5
+                                        Length  Count     Count   Updated     Checksum
+
+    21600-related_literature.txt        -       -         -       2017-06-25  -
+
+    21600-manifest.txt                  -       -         -       2017-06-26  -
+
+    21600-User_guide.pdf                -       -         -       2016-05-25  c3936471bb69a4b1a6f9a083470baa4a
+
+
+DS0001 Wave I: In-Home Questionnaire, Public Use Sample
+
+    Filename                            Record  Record    Var.    Date        MD5
+                                        Length  Count     Count   Updated     Checksum
+
+    21600-0001-Codebook_Questionnaire.pdf -       -         -       2016-05-25  ac4246de86d438df4752ae42a0936215
+
+    21600-0001-Data.dta                 -       6,504     2794    2016-05-25  359f76fdabf74510638f8e8874b76443
+
+    21600-0001-Data.rda                 -       6,504     2794    2016-05-25  6d16ea4692e5acf124ac8ecfc98a5914
+
+    21600-0001-Data.sav                 -       6,504     2794    2016-05-25  e89551740bcdcf218e7274df3dccb78c
+
+    21600-0001-Data.stc                 -       6,504     2794    2016-05-25  c723458e61c882e79f18ef6ce6b4b039
+
+    21600-0001-Data.tsv                 -       6,504     2794    2016-05-25  3a99e1302376a28819c9098752821dae
+
+    21600-0001-Data.txt                 3630    6,504     2794    2016-05-25  0d6b0f19731bb9b178c1c010001abfac
+
+    21600-0001-Frequencies.pdf          -       -         -       2016-05-25  ca82915d181d2312cd327576c607b26f
+
+    21600-0001-Setup.dct                -       -         -       2016-05-25  26c04694071d0f3a80214f0d15bc2a97
+
+    21600-0001-Setup.do                 -       -         -       2016-05-25  f5da9456505b11b1c0ecf7494110072f
+
+    21600-0001-Setup.sas                -       -         -       2016-05-25  7b28cf7bb25384a2342cacd9d2b70def
+
+    21600-0001-Setup.sps                -       -         -       2016-05-25  fd2be024b4ac8ec65bc556bae96f6514
+
+    21600-0001-Supplemental_syntax.do   -       -         -       2016-05-25  aea108485b0548a1a7d013a1080802d0
+
+    21600-0001-Supplemental_syntax.sas  -       -         -       2016-05-25  5b32e3b845a911d17ff2885ca8944d70
+
+    21600-0001-User_guide-MULTI.pdf     -       -         -       2016-05-25  8399b67e17a9a538f3cb1027a50203f6
+
+
+DS0002 Wave I: Public Use Contextual Database
+
+    Filename                            Record  Record    Var.    Date        MD5
+                                        Length  Count     Count   Updated     Checksum
+
+    21600-0002-Codebook_Questionnaire.pdf -       -         -       2016-05-25  416458f86027e8ce050ce43bd800a81b
+
+    21600-0002-Data.dta                 -       6,504     32      2016-05-25  c2e1d55541bd31d4a9ef6d715185bf5a
+
+    21600-0002-Data.rda                 -       6,504     32      2016-05-25  5b1ce6321e1184e934556797ef3ff602
+
+    21600-0002-Data.sav                 -       6,504     32      2016-05-25  7cad72218bd78f58e404f477185cd54b
+
+    21600-0002-Data.stc                 -       6,504     32      2016-05-25  1bc2cbcd61416381d055bdce41890eee
+
+    21600-0002-Data.tsv                 -       6,504     32      2016-05-25  cb81a06f9b47887afbc48b65f763b5b3
+
+    21600-0002-Data.txt                 125     6,504     32      2016-05-25  cd32fbe8ff5fe74d8d8053213445bbb9
+
+    21600-0002-Frequencies.pdf          -       -         -       2016-05-25  369c832ca4660e31f5676834aa58727a
+
+    21600-0002-Setup.dct                -       -         -       2016-05-25  92e6f619cdba0151b887933aca1da810
+
+    21600-0002-Setup.do                 -       -         -       2016-05-25  f0f82943d65f8d7a4a1bb00e6fddf1ed
+
+    21600-0002-Setup.sas                -       -         -       2016-05-25  6855d7dd87c2495c08fc0048db1e3688
+
+    21600-0002-Setup.sps                -       -         -       2016-05-25  187da96a8192391b07742649cae6240f
+
+    21600-0002-Supplemental_syntax.do   -       -         -       2016-05-25  f7cf1f0aa3bb5608daec2fb46aa76331
+
+    21600-0002-Supplemental_syntax.sas  -       -         -       2016-05-25  313901377fa718e3265b658a7b82bf47
+
+    21600-0002-User_guide-MULTI.pdf     -       -         -       2016-05-25  8399b67e17a9a538f3cb1027a50203f6
+
+
+DS0003 Wave I: Network Variables
+
+    Filename                            Record  Record    Var.    Date        MD5
+                                        Length  Count     Count   Updated     Checksum
+
+    21600-0003-Codebook_Questionnaire.pdf -       -         -       2016-05-25  b33bd9af1ba2ef7547442c3e741d9e13
+
+    21600-0003-Data.dta                 -       6,504     439     2016-05-25  47c2c06421f4679db785c45f36124250
+
+    21600-0003-Data.rda                 -       6,504     439     2016-05-25  3e9893a43672699068392a5ff437e545
+
+    21600-0003-Data.sav                 -       6,504     439     2016-05-25  fa0a993de3db99a563445c1393955585
+
+    21600-0003-Data.stc                 -       6,504     439     2016-05-25  dbad277ff3b98f16946951ccbb842c8b
+
+    21600-0003-Data.tsv                 -       6,504     439     2016-05-25  9fbf89e0bb894c10beb94647579f17c3
+
+    21600-0003-Data.txt                 3861    6,504     439     2016-05-25  274a2def7d4909585fead01a42a4d228
+
+    21600-0003-Frequencies.pdf          -       -         -       2016-05-25  4305e221e76494f3a3755fc3427fb464
+
+    21600-0003-Setup.dct                -       -         -       2016-05-25  0ae74a7124f69f846b49d9dc39c6fddd
+
+    21600-0003-Setup.do                 -       -         -       2016-05-25  570c9eea21c88e0bb3b66ad0785e0bd4
+
+    21600-0003-Setup.sas                -       -         -       2016-05-25  8d8d41f2d252674836ee4992d20f95e7
+
+    21600-0003-Setup.sps                -       -         -       2016-05-25  bc0665b7cf7410786dccbc16284d10f8
+
+    21600-0003-User_guide-MULTI.pdf     -       -         -       2016-05-25  8399b67e17a9a538f3cb1027a50203f6
+
+
+DS0004 Wave I: Public Use Grand Sample Weights
+
+    Filename                            Record  Record    Var.    Date        MD5
+                                        Length  Count     Count   Updated     Checksum
+
+    21600-0004-Codebook_Questionnaire.pdf -       -         -       2016-05-25  2b65ebae305fb52754790c359ed6ff29
+
+    21600-0004-Data.dta                 -       6,504     3       2016-05-25  3a0189986ac40604f9549dc467f3cb97
+
+    21600-0004-Data.rda                 -       6,504     3       2016-05-25  30f35bb8927cf93d67d9d58f645c1e16
+
+    21600-0004-Data.sav                 -       6,504     3       2016-05-25  01a85e4e4eda7bc9ec29ca5d37eeceb2
+
+    21600-0004-Data.stc                 -       6,504     3       2016-05-25  26d9ff907e9f8465ab7707a47ad44f8c
+
+    21600-0004-Data.tsv                 -       6,504     3       2016-05-25  de84fd3e359d042983e9fa0b790acc65
+
+    21600-0004-Data.txt                 26      6,504     3       2016-05-25  d9ca316d410878a47ca3d7743c349685
+
+    21600-0004-Frequencies.pdf          -       -         -       2016-05-25  687d005a83850a50f26d6b8526224815
+
+    21600-0004-Setup.dct                -       -         -       2016-05-25  85cff632066cd044ed3c42f19fdba7af
+
+    21600-0004-Setup.do                 -       -         -       2016-05-25  ca498f8360c39ee6e514c465208bff7e
+
+    21600-0004-Setup.sas                -       -         -       2016-05-25  6dc6209099996981713dd7bb4fd42487
+
+    21600-0004-Setup.sps                -       -         -       2016-05-25  5008aa2f232c41326527c5f0dbf7a22d
+
+    21600-0004-User_guide-MULTI.pdf     -       -         -       2016-05-25  8399b67e17a9a538f3cb1027a50203f6
+
+
+DS0005 Wave II: In-Home Questionnaire, Public Use Sample
+
+    Filename                            Record  Record    Var.    Date        MD5
+                                        Length  Count     Count   Updated     Checksum
+
+    21600-0005-Codebook_Questionnaire.pdf -       -         -       2016-05-25  7c581c612793c70cda458232084eadd1
+
+    21600-0005-Data.dta                 -       4,834     2532    2016-05-25  e0f3e5757af637d1a72b3b74ac830603
+
+    21600-0005-Data.rda                 -       4,834     2532    2016-05-25  d0198bbd7555a61fa7e3d5a56caccb9d
+
+    21600-0005-Data.sav                 -       4,834     2532    2016-05-25  d5afc373e2937e29250d64e9df2bb2a5
+
+    21600-0005-Data.stc                 -       4,834     2532    2016-05-25  fafa05f96afb939717a57624715b5cce
+
+    21600-0005-Data.tsv                 -       4,834     2532    2016-05-25  1467d30f3398f93cdf8274e8ea1fc218
+
+    21600-0005-Data.txt                 3636    4,834     2532    2016-05-25  6be731e3a92c3de7b72ffe26869b2b14
+
+    21600-0005-Frequencies.pdf          -       -         -       2016-05-25  b3b02d1737b2472c17e59633725a5834
+
+    21600-0005-Setup.dct                -       -         -       2016-05-25  6af70640f1a1a6c835ad21182b41d8fa
+
+    21600-0005-Setup.do                 -       -         -       2016-05-25  1917069f55b7facdccd893b7a3345d6d
+
+    21600-0005-Setup.sas                -       -         -       2016-05-25  1cf5c9ad1321e57a842ae2203ca8d41d
+
+    21600-0005-Setup.sps                -       -         -       2016-05-25  d14cb866cd13e3f8effd67e32bd96f2a
+
+    21600-0005-Supplemental_syntax.do   -       -         -       2016-05-25  f5a8a0c0bb8490df86c157adc21fe7f9
+
+    21600-0005-Supplemental_syntax.sas  -       -         -       2016-05-25  a84ba8a8a50aa451d779da5c8995781f
+
+
+DS0006 Wave II: Public Use Contextual Database
+
+    Filename                            Record  Record    Var.    Date        MD5
+                                        Length  Count     Count   Updated     Checksum
+
+    21600-0006-Codebook_Questionnaire.pdf -       -         -       2016-05-25  b95ac1e665b8b0bb0b860abf406bbb26
+
+    21600-0006-Data.dta                 -       4,834     32      2016-05-25  7980626358a8761390ba59388a4df1b3
+
+    21600-0006-Data.rda                 -       4,834     32      2016-05-25  bf69b5243840700a9657a53071a837f6
+
+    21600-0006-Data.sav                 -       4,834     32      2016-05-25  041a0d159db5cae4956b8bd3118bd995
+
+    21600-0006-Data.stc                 -       4,834     32      2016-05-25  79068369e2430a2e0994aa094e02e26c
+
+    21600-0006-Data.tsv                 -       4,834     32      2016-05-25  52446080baf9ced5bbb86165067a299a
+
+    21600-0006-Data.txt                 125     4,834     32      2016-05-25  459929c9a19817e23e606699c74ffbee
+
+    21600-0006-Frequencies.pdf          -       -         -       2016-05-25  e8922a57fa16a2aa8f1b8fb102b2f779
+
+    21600-0006-Setup.dct                -       -         -       2016-05-25  b44646487c2daf6d41782ae5ce78d94f
+
+    21600-0006-Setup.do                 -       -         -       2016-05-25  0a19559a7d4b72e39d96c4bf20dd5d2e
+
+    21600-0006-Setup.sas                -       -         -       2016-05-25  d3423528cb7af1460585920a737e9a5e
+
+    21600-0006-Setup.sps                -       -         -       2016-05-25  3653101fea8e10a674d1d33e991ae409
+
+    21600-0006-Supplemental_syntax.do   -       -         -       2016-05-25  499fecca9a25e55dcd275015daaace94
+
+    21600-0006-Supplemental_syntax.sas  -       -         -       2016-05-25  b21c265641103418ea25462dcd7201b2
+
+
+DS0007 Wave II: Public Use Grand Sample Weights
+
+    Filename                            Record  Record    Var.    Date        MD5
+                                        Length  Count     Count   Updated     Checksum
+
+    21600-0007-Codebook_Questionnaire.pdf -       -         -       2016-05-25  d4753db596120a210eeb55e08a006dda
+
+    21600-0007-Data.dta                 -       4,834     3       2016-05-25  30d530a179689c1019f6edd9f00dbe77
+
+    21600-0007-Data.rda                 -       4,834     3       2016-05-25  c429d9f44229d0c5674c4203c809dd99
+
+    21600-0007-Data.sav                 -       4,834     3       2016-05-25  298077397e2ce2a98f6c471850ae21b2
+
+    21600-0007-Data.stc                 -       4,834     3       2016-05-25  a43e8a5a4bf30bf1273f5be789189b89
+
+    21600-0007-Data.tsv                 -       4,834     3       2016-05-25  e081588d5b25e4e656b11cc2878d87f8
+
+    21600-0007-Data.txt                 26      4,834     3       2016-05-25  79a7c4c936a9a2a91e374771a8a7bd17
+
+    21600-0007-Frequencies.pdf          -       -         -       2016-05-25  7bd2ace3cf88fea6205cbee43a81e943
+
+    21600-0007-Setup.dct                -       -         -       2016-05-25  b51f63f055fa2dc1f24310163651fdd2
+
+    21600-0007-Setup.do                 -       -         -       2016-05-25  b5d48d883109a458263f217aa0e43d71
+
+    21600-0007-Setup.sas                -       -         -       2016-05-25  84eb30e99aa2ac41eb5b04f50eb932b1
+
+    21600-0007-Setup.sps                -       -         -       2016-05-25  c35d50408d196bf331f1a5327426dbc3
+
+
+DS0008 Wave III: In-Home Questionnaire, Public Use Sample
+
+    Filename                            Record  Record    Var.    Date        MD5
+                                        Length  Count     Count   Updated     Checksum
+
+    21600-0008-Codebook_Questionnaire.pdf -       -         -       2016-05-25  0300612243fa74bf44fc92f93a46045e
+
+    21600-0008-Data.dta                 -       4,882     1831    2016-05-25  c06bc3d162de5a07f15491068c49862a
+
+    21600-0008-Data.rda                 -       4,882     1831    2016-05-25  9474a59cb0616366e522fd1aba9bd477
+
+    21600-0008-Data.sav                 -       4,882     1831    2016-05-25  e38553c385339b878fec0633ee547381
+
+    21600-0008-Data.stc                 -       4,882     1831    2016-05-25  9a6d68e2e3ec6b0ba6905ccfb1402450
+
+    21600-0008-Data.tsv                 -       4,882     1831    2016-05-25  cebb3a54c0c17fc3f56b77600a5cf765
+
+    21600-0008-Data.txt                 3386    4,882     1831    2016-05-25  5479e4725d9ca2af448a6859a53b918d
+
+    21600-0008-Frequencies.pdf          -       -         -       2016-05-25  82facd177c1a06f76d33a830a96f0dfb
+
+    21600-0008-Setup.dct                -       -         -       2016-05-25  4412d875f0a281a262dfbfd1d2999f42
+
+    21600-0008-Setup.do                 -       -         -       2016-05-25  b038cc535254c085dfb17d77ab55f19b
+
+    21600-0008-Setup.sas                -       -         -       2016-05-25  90113a39ed5c6dc00409e3c094075885
+
+    21600-0008-Setup.sps                -       -         -       2016-05-25  a33b904f81d52a6f0742b923d46a3ccc
+
+    21600-0008-Supplemental_syntax.do   -       -         -       2016-05-25  a76ecf878f3224391c2e4faa6a53752c
+
+    21600-0008-Supplemental_syntax.sas  -       -         -       2016-05-25  66f6e76e89bd2cf0caef9168f15e6263
+
+    21600-0008-User_guide-MULTI.pdf     -       -         -       2016-05-25  8399b67e17a9a538f3cb1027a50203f6
+
+
+DS0009 Wave III: In-Home Questionnaire, Public Use Sample (Section 17:
+Relationships)
+
+    Filename                            Record  Record    Var.    Date        MD5
+                                        Length  Count     Count   Updated     Checksum
+
+    21600-0009-Codebook_Questionnaire.pdf -       -         -       2016-05-25  b5a7550589c1316b74f752b96cda0176
+
+    21600-0009-Data.dta                 -       13,998    19      2016-05-25  7dbe851fcdbaddec64383565e3516c97
+
+    21600-0009-Data.rda                 -       13,998    19      2016-05-25  07504d1ecbd00355f9c0b6aa5bfba957
+
+    21600-0009-Data.sav                 -       13,998    19      2016-05-25  86b949fb477b9c527c5d56565ca92b12
+
+    21600-0009-Data.stc                 -       13,998    19      2016-05-25  91e6d0ff96b3b479c0c94e47c6895966
+
+    21600-0009-Data.tsv                 -       13,998    19      2016-05-25  10632a508bff073bcaaefb68ce549bbd
+
+    21600-0009-Data.txt                 31      13,998    19      2016-05-25  a7c5ee6009485e36d6f32b88bac74bb4
+
+    21600-0009-Frequencies.pdf          -       -         -       2016-05-25  fe543fe94c2730fb84e82116b0796fae
+
+    21600-0009-Setup.dct                -       -         -       2016-05-25  04b1d27759c1c3df24a8a483925bc25f
+
+    21600-0009-Setup.do                 -       -         -       2016-05-25  11282f3b5032d9637728fa9bb106e2fd
+
+    21600-0009-Setup.sas                -       -         -       2016-05-25  79f060e016df8d158814a5d4c8e6711f
+
+    21600-0009-Setup.sps                -       -         -       2016-05-25  63e4dde7755a23f3b8fcebc06b4f9bdf
+
+    21600-0009-Supplemental_syntax.do   -       -         -       2016-05-25  609884dfcc4502836321483b3cd7783a
+
+    21600-0009-Supplemental_syntax.sas  -       -         -       2016-05-25  68317114a5f16d4c611141f61fb4a432
+
+    21600-0009-User_guide-MULTI.pdf     -       -         -       2016-05-25  8399b67e17a9a538f3cb1027a50203f6
+
+
+DS0010 Wave III: In-Home Questionnaire, Public Use Sample (Section 18:
+Pregnancies)
+
+    Filename                            Record  Record    Var.    Date        MD5
+                                        Length  Count     Count   Updated     Checksum
+
+    21600-0010-Codebook_Questionnaire.pdf -       -         -       2016-05-25  b42fc4863c969909c7fd7100d68155c2
+
+    21600-0010-Data.dta                 -       2,348     7       2016-05-25  57864be79eee1eebfc81bf0687c8dcf9
+
+    21600-0010-Data.rda                 -       2,348     7       2016-05-25  e4bc2fbd70989476fe826a3968241b81
+
+    21600-0010-Data.sav                 -       2,348     7       2016-05-25  92a2e1f9c744d337fe6fc81fe61a43e4
+
+    21600-0010-Data.stc                 -       2,348     7       2016-05-25  8ddc924f90806ea31caa9f3f41816c41
+
+    21600-0010-Data.tsv                 -       2,348     7       2016-05-25  f9143c59027ee7aa999a3c371ebf36b3
+
+    21600-0010-Data.txt                 20      2,348     7       2016-05-25  626b7596d61a4c1f7219befef464d7cd
+
+    21600-0010-Frequencies.pdf          -       -         -       2016-05-25  0dcefaaa12d99f0b1d20fb286169b2ca
+
+    21600-0010-Setup.dct                -       -         -       2016-05-25  2eafede457c6bcdddd38209263fccc4a
+
+    21600-0010-Setup.do                 -       -         -       2016-05-25  201e87b2d6306bfe25c02ca964a9f0d4
+
+    21600-0010-Setup.sas                -       -         -       2016-05-25  d224d3344eacc47f9d56fb63f57524f6
+
+    21600-0010-Setup.sps                -       -         -       2016-05-25  81ea444c59f28f0134c351dca4f5aae7
+
+    21600-0010-Supplemental_syntax.do   -       -         -       2016-05-25  1fb6e68f3f6a181a0a371b6121a36e4c
+
+    21600-0010-Supplemental_syntax.sas  -       -         -       2016-05-25  547c2aea85a28af1b86d1267620af9c5
+
+    21600-0010-User_guide-MULTI.pdf     -       -         -       2016-05-25  8399b67e17a9a538f3cb1027a50203f6
+
+
+DS0011 Wave III: In-Home Questionnaire, Public Use Sample (Section 19:
+Relationships in Detail)
+
+    Filename                            Record  Record    Var.    Date        MD5
+                                        Length  Count     Count   Updated     Checksum
+
+    21600-0011-Codebook_Questionnaire.pdf -       -         -       2016-05-25  1161a52ece25ca59b7cd2cafaf754bd8
+
+    21600-0011-Data.dta                 -       12,680    208     2016-05-25  2e17eeffd2f8364c6db17b744c3e4477
+
+    21600-0011-Data.rda                 -       12,680    208     2016-05-25  4978466df4dede74d17861eb4229fbc1
+
+    21600-0011-Data.sav                 -       12,680    208     2016-05-25  0748ea03f0a57d956802f1e92ef9851e
+
+    21600-0011-Data.stc                 -       12,680    208     2016-05-25  03c758c6726f820aade35546ff53334f
+
+    21600-0011-Data.tsv                 -       12,680    208     2016-05-25  7f55322f2895a0aa082ccee9d7c9cb05
+
+    21600-0011-Data.txt                 320     12,680    208     2016-05-25  05f834a80559720a118b72cdc216f096
+
+    21600-0011-Frequencies.pdf          -       -         -       2016-05-25  c7233b3de34d35c66a40ef1b54053753
+
+    21600-0011-Setup.dct                -       -         -       2016-05-25  8bc11375aae5d197a57631c0f4d53df9
+
+    21600-0011-Setup.do                 -       -         -       2016-05-25  34f3df98497e9669f01cf9e5a5d07ea9
+
+    21600-0011-Setup.sas                -       -         -       2016-05-25  0b0a81f87bc32c2d17a2a7751cd79a3e
+
+    21600-0011-Setup.sps                -       -         -       2016-05-25  39395779e4e7c56c624b8cae35923771
+
+    21600-0011-Supplemental_syntax.do   -       -         -       2016-05-25  c53adc4deb1fb046f416b650db140127
+
+    21600-0011-Supplemental_syntax.sas  -       -         -       2016-05-25  6a813b6bfefdff799f845b2a5e2f8e2d
+
+    21600-0011-User_guide-MULTI.pdf     -       -         -       2016-05-25  8399b67e17a9a538f3cb1027a50203f6
+
+
+DS0012 Wave III: In-Home Questionnaire, Public Use Sample (Section 22:
+Completed Pregnancies)
+
+    Filename                            Record  Record    Var.    Date        MD5
+                                        Length  Count     Count   Updated     Checksum
+
+    21600-0012-Codebook_Questionnaire.pdf -       -         -       2016-05-25  20a5033b293cda0ba3e8a3f986c09ad8
+
+    21600-0012-Data.dta                 -       2,163     39      2016-05-25  d5c2717d538f7b960d8e0fbb59d6f0d2
+
+    21600-0012-Data.rda                 -       2,163     39      2016-05-25  01580bc3b0d5b31115e3d3107819b9b7
+
+    21600-0012-Data.sav                 -       2,163     39      2016-05-25  d7c12ff1e296c17bb3143d72cbf52692
+
+    21600-0012-Data.stc                 -       2,163     39      2016-05-25  b37b897c8133fdf0eabe8bb774fefe09
+
+    21600-0012-Data.tsv                 -       2,163     39      2016-05-25  827c9c779ce77c26ba0d5a157caa989d
+
+    21600-0012-Data.txt                 57      2,163     39      2016-05-25  3703d5f26208f9e51d1e427ef08340af
+
+    21600-0012-Frequencies.pdf          -       -         -       2016-05-25  f8c285fe8d357fb1bad5d392523bcaf5
+
+    21600-0012-Setup.dct                -       -         -       2016-05-25  9da04857b57a7063d2190ce275dd0b4c
+
+    21600-0012-Setup.do                 -       -         -       2016-05-25  1bc7553815208deedcf43c0839e7dedb
+
+    21600-0012-Setup.sas                -       -         -       2016-05-25  0ea153db75997e4f89546de9bb258fd0
+
+    21600-0012-Setup.sps                -       -         -       2016-05-25  8ef4e9f781228d3e4a5e079a7a049c9e
+
+    21600-0012-Supplemental_syntax.do   -       -         -       2016-05-25  cd2ffef27536627ff6d0b0dfd5a65e94
+
+    21600-0012-Supplemental_syntax.sas  -       -         -       2016-05-25  6b54504f8747b145017d7d2dbae0a6bb
+
+    21600-0012-User_guide-MULTI.pdf     -       -         -       2016-05-25  8399b67e17a9a538f3cb1027a50203f6
+
+
+DS0013 Wave III: In-Home Questionnaire, Public Use Sample (Section 23:
+Current Pregnancies)
+
+    Filename                            Record  Record    Var.    Date        MD5
+                                        Length  Count     Count   Updated     Checksum
+
+    21600-0013-Codebook_Questionnaire.pdf -       -         -       2016-05-25  d3ce6ffa635309a94416cb6c5a8a51f1
+
+    21600-0013-Data.dta                 -       180       39      2016-05-25  33f1ead1aa12d9c16697b8ddc2762b9b
+
+    21600-0013-Data.rda                 -       180       39      2016-05-25  ca54e7804cf821b9d3bde427ec9f83c4
+
+    21600-0013-Data.sav                 -       180       39      2016-05-25  527df4f61af6de4d92e36888b8c45c63
+
+    21600-0013-Data.stc                 -       180       39      2016-05-25  d790df5462777c018c9d2999c5754368
+
+    21600-0013-Data.tsv                 -       180       39      2016-05-25  f59bdb4444304d5c60cd8027167ebaca
+
+    21600-0013-Data.txt                 57      180       39      2016-05-25  db9c89af9065cb0628d99a37ff178a5d
+
+    21600-0013-Frequencies.pdf          -       -         -       2016-05-25  bafd99487743dbdb0706b4a513f118fc
+
+    21600-0013-Setup.dct                -       -         -       2016-05-25  5beed33327d2895c808c84f8e397a54f
+
+    21600-0013-Setup.do                 -       -         -       2016-05-25  2d46ff4be2f33c4ebadccba24a29def3
+
+    21600-0013-Setup.sas                -       -         -       2016-05-25  d01d12a413dc87645436f42a07bcfa82
+
+    21600-0013-Setup.sps                -       -         -       2016-05-25  919048306122e098bbf7c048d6b614b9
+
+    21600-0013-Supplemental_syntax.do   -       -         -       2016-05-25  240e12ba9ee37d96638c604bcfcbab10
+
+    21600-0013-Supplemental_syntax.sas  -       -         -       2016-05-25  d6822296755e0823cb1723f082f7d69e
+
+    21600-0013-User_guide-MULTI.pdf     -       -         -       2016-05-25  8399b67e17a9a538f3cb1027a50203f6
+
+
+DS0014 Wave III: In-Home Questionnaire, Public Use Sample (Section 24: Live
+Births)
+
+    Filename                            Record  Record    Var.    Date        MD5
+                                        Length  Count     Count   Updated     Checksum
+
+    21600-0014-Codebook_Questionnaire.pdf -       -         -       2016-05-25  e382c2515f8f48c87a31ccfca285e03b
+
+    21600-0014-Data.dta                 -       1,357     20      2016-05-25  6450f5f7655f4b8c81720ec45ffb7fce
+
+    21600-0014-Data.rda                 -       1,357     20      2016-05-25  246037ff7d1f2096084ebf619c51b2ba
+
+    21600-0014-Data.sav                 -       1,357     20      2016-05-25  6ccf9e1d7e9a0961aa1dd9d9656ebb70
+
+    21600-0014-Data.stc                 -       1,357     20      2016-05-25  f947679bb04c1f0062889ed9b8c752da
+
+    21600-0014-Data.tsv                 -       1,357     20      2016-05-25  1e583dcfe84e44efc38f03b215a6190e
+
+    21600-0014-Data.txt                 37      1,357     20      2016-05-25  d05bcd8c8714b9c44b545f58760ec3e1
+
+    21600-0014-Frequencies.pdf          -       -         -       2016-05-25  ef6c20c15a86ff6bd4ce43622ebb9e28
+
+    21600-0014-Setup.dct                -       -         -       2016-05-25  c46be0352b2b5f92a24f899205024993
+
+    21600-0014-Setup.do                 -       -         -       2016-05-25  6f346bb62c28ec617967496c95733a4e
+
+    21600-0014-Setup.sas                -       -         -       2016-05-25  ffbe2e753869a13a9b8f74c222b086e3
+
+    21600-0014-Setup.sps                -       -         -       2016-05-25  1506d2cbee04fde06341a80495bf2599
+
+    21600-0014-Supplemental_syntax.do   -       -         -       2016-05-25  1bba041ca8b59de28da37b3b523ffc9f
+
+    21600-0014-Supplemental_syntax.sas  -       -         -       2016-05-25  7de42b41ade4f4bb9c2df0d3d7d75cfd
+
+    21600-0014-User_guide-MULTI.pdf     -       -         -       2016-05-25  8399b67e17a9a538f3cb1027a50203f6
+
+
+DS0015 Wave III: In-Home Questionnaire, Public Use Sample (Section 25:
+Children and Parenting)
+
+    Filename                            Record  Record    Var.    Date        MD5
+                                        Length  Count     Count   Updated     Checksum
+
+    21600-0015-Codebook_Questionnaire.pdf -       -         -       2016-05-25  696cbc315a9287cbe402e75c33e18dba
+
+    21600-0015-Data.dta                 -       1,323     74      2016-05-25  bcba47c1a03c02857737df8fb467a58c
+
+    21600-0015-Data.rda                 -       1,323     74      2016-05-25  3c60ae887b2d8734b997ca09ec806084
+
+    21600-0015-Data.sav                 -       1,323     74      2016-05-25  6b50590882e80d7dc36f23a8b375a9cf
+
+    21600-0015-Data.stc                 -       1,323     74      2016-05-25  ea2610466d206005184be18b90fae7b2
+
+    21600-0015-Data.tsv                 -       1,323     74      2016-05-25  4460f5f8710657d19b80a172d29f0fa3
+
+    21600-0015-Data.txt                 101     1,323     74      2016-05-25  3c55bd7593bb44e6eb6672b4e30d77bb
+
+    21600-0015-Frequencies.pdf          -       -         -       2016-05-25  ee38ec4c92b026b3b1b97cdf0a73f5de
+
+    21600-0015-Setup.dct                -       -         -       2016-05-25  22e1e754544909f8b4d0d5a81c771dbb
+
+    21600-0015-Setup.do                 -       -         -       2016-05-25  7ab862d763da4f05a95c60a9b4ccf5b0
+
+    21600-0015-Setup.sas                -       -         -       2016-05-25  7efa76892452477941cc50640071f8a3
+
+    21600-0015-Setup.sps                -       -         -       2016-05-25  d9c3d4b619fb06ffe848a948ca9bd405
+
+    21600-0015-Supplemental_syntax.do   -       -         -       2016-05-25  3a60abc7a8b591ad342dbaf6fa9c7ab6
+
+    21600-0015-Supplemental_syntax.sas  -       -         -       2016-05-25  59cf9b318000d8535114a85782cdea45
+
+    21600-0015-User_guide-MULTI.pdf     -       -         -       2016-05-25  8399b67e17a9a538f3cb1027a50203f6
+
+
+DS0016 Wave III: Public Use Education Data
+
+    Filename                            Record  Record    Var.    Date        MD5
+                                        Length  Count     Count   Updated     Checksum
+
+    21600-0016-Codebook_Questionnaire.pdf -       -         -       2016-05-25  e241a8713426c32613781c2e6eca8b05
+
+    21600-0016-Data.dta                 -       3,947     80      2016-05-25  b4ae636b69b60c432ef158a746b0e304
+
+    21600-0016-Data.rda                 -       3,947     80      2016-05-25  a8498c85503c968a33e19e801b01623a
+
+    21600-0016-Data.sav                 -       3,947     80      2016-05-25  c15a01795ed7dd785940280654788a20
+
+    21600-0016-Data.stc                 -       3,947     80      2016-05-25  0fe9087fb3d85aea2b2b619c77024914
+
+    21600-0016-Data.tsv                 -       3,947     80      2016-05-25  059f4f0051b4713a8249b5ca76ba5e0b
+
+    21600-0016-Data.txt                 491     3,947     80      2016-05-25  dfdf8e7cd0c7c961b507342ed5cba688
+
+    21600-0016-Frequencies.pdf          -       -         -       2016-05-25  413b264eb83ffb43347b8129bfd10b18
+
+    21600-0016-Setup.dct                -       -         -       2016-05-25  424f22cecf24e046439f101a41fa0832
+
+    21600-0016-Setup.do                 -       -         -       2016-05-25  b9abddb80070d73ddb5823b86ecaadf1
+
+    21600-0016-Setup.sas                -       -         -       2016-05-25  4f8664a4b68c6bc85871a1ca304c9754
+
+    21600-0016-Setup.sps                -       -         -       2016-05-25  4c2d22ecaeff1ec34ab831f434df68cf
+
+    21600-0016-Supplemental_syntax.do   -       -         -       2016-05-25  5857139594404c41b690a5026c304c1c
+
+    21600-0016-Supplemental_syntax.sas  -       -         -       2016-05-25  8b52b38d1433d35d38e787976f54eeb7
+
+    21600-0016-User_guide-MULTI.pdf     -       -         -       2016-05-25  8399b67e17a9a538f3cb1027a50203f6
+
+
+DS0017 Wave III: Public Use Graduation Data
+
+    Filename                            Record  Record    Var.    Date        MD5
+                                        Length  Count     Count   Updated     Checksum
+
+    21600-0017-Codebook_Questionnaire.pdf -       -         -       2016-05-25  5d76c3580196722ca76c09ed1c5eb306
+
+    21600-0017-Data.dta                 -       4,521     4       2016-05-25  d2898265f3327f6e8a2559f180f30a39
+
+    21600-0017-Data.rda                 -       4,521     4       2016-05-25  a7c09e111eba243a4497b80edce0e854
+
+    21600-0017-Data.sav                 -       4,521     4       2016-05-25  0faa1a3102fd2265407a68034472d582
+
+    21600-0017-Data.stc                 -       4,521     4       2016-05-25  35b2c8d591dbd72afe57ceb2f9c5f850
+
+    21600-0017-Data.tsv                 -       4,521     4       2016-05-25  26439580b1490330dc8cac1d23577d3f
+
+    21600-0017-Data.txt                 16      4,521     4       2016-05-25  7627e14a78ed2fca56242b25794da8c2
+
+    21600-0017-Frequencies.pdf          -       -         -       2016-05-25  c47bf9254107c7e2287c1d510587e58a
+
+    21600-0017-Setup.dct                -       -         -       2016-05-25  c411f42e9532fca4820c68a9af2022b9
+
+    21600-0017-Setup.do                 -       -         -       2016-05-25  55fac28aef01912e381ad71bbbce1605
+
+    21600-0017-Setup.sas                -       -         -       2016-05-25  e36ea507a6682d309bc554bec8e79644
+
+    21600-0017-Setup.sps                -       -         -       2016-05-25  8a9a1123143a393216ea44e6514c1ded
+
+    21600-0017-Supplemental_syntax.do   -       -         -       2016-05-25  97085f33bc58b673e8020d69e7ba75c5
+
+    21600-0017-Supplemental_syntax.sas  -       -         -       2016-05-25  672b684f0a18b343a0f0608153e9098f
+
+    21600-0017-User_guide-MULTI.pdf     -       -         -       2016-05-25  8399b67e17a9a538f3cb1027a50203f6
+
+
+DS0018 Wave III: Public Use Education Data Weights
+
+    Filename                            Record  Record    Var.    Date        MD5
+                                        Length  Count     Count   Updated     Checksum
+
+    21600-0018-Codebook_Questionnaire.pdf -       -         -       2016-05-25  8312522c24fda940ec6364934482764d
+
+    21600-0018-Data.dta                 -       3,964     3       2016-05-25  0ba2bd1725d4b8dabca0e02811e005a5
+
+    21600-0018-Data.rda                 -       3,964     3       2016-05-25  2f1ade4a6b16c9e44343eb2da93e59b0
+
+    21600-0018-Data.sav                 -       3,964     3       2016-05-25  b16809f7705abe309e14e497cc6a25a5
+
+    21600-0018-Data.stc                 -       3,964     3       2016-05-25  1c2c20e95af3e6f50e4955c015177be6
+
+    21600-0018-Data.tsv                 -       3,964     3       2016-05-25  1f5d4897f720c1b512ecbb59cf201f67
+
+    21600-0018-Data.txt                 38      3,964     3       2016-05-25  775c4ebf1f7d311cc8dd4bdbbb3d721c
+
+    21600-0018-Frequencies.pdf          -       -         -       2016-05-25  950f6b9daff1a14498d6b5e156522cfc
+
+    21600-0018-Setup.dct                -       -         -       2016-05-25  9de2cf888273d43a658e01535a208801
+
+    21600-0018-Setup.do                 -       -         -       2016-05-25  89f5ced49ae021eae0db54e7b8da91f2
+
+    21600-0018-Setup.sas                -       -         -       2016-05-25  0ff9adc61d3d46c4de9689bf594769b7
+
+    21600-0018-Setup.sps                -       -         -       2016-05-25  9b9cc349ff0faecac9f7fbeb8ad6cc77
+
+    21600-0018-User_guide-MULTI.pdf     -       -         -       2016-05-25  8399b67e17a9a538f3cb1027a50203f6
+
+
+DS0019 Wave III: Add Health School Weights
+
+    Filename                            Record  Record    Var.    Date        MD5
+                                        Length  Count     Count   Updated     Checksum
+
+    21600-0019-Codebook_Questionnaire.pdf -       -         -       2016-05-25  de1dc51805192d45ad25cdacd48961ef
+
+    21600-0019-Data.dta                 -       132       2       2016-05-25  7b5e6f32eab4a33ca33a66a7897ddff6
+
+    21600-0019-Data.rda                 -       132       2       2016-05-25  fb5ab68d9bb329e90adfe91adc90fb55
+
+    21600-0019-Data.sav                 -       132       2       2016-05-25  e837ab68760996a2936e16ddadc2563b
+
+    21600-0019-Data.stc                 -       132       2       2016-05-25  303e0810bf925240e85ffb51291c75e6
+
+    21600-0019-Data.tsv                 -       132       2       2016-05-25  031edf81644843d36577f4ba80ca971e
+
+    21600-0019-Data.txt                 11      132       2       2016-05-25  56a0f39902e97590a2cd0c2214160726
+
+    21600-0019-Frequencies.pdf          -       -         -       2016-05-25  27d5454e72be705e5b14eb4b5fcce41b
+
+    21600-0019-Setup.dct                -       -         -       2016-05-25  59e18c050288bf6b107afbff16ec1b79
+
+    21600-0019-Setup.do                 -       -         -       2016-05-25  0337a70cfb1e24c57f76c00bdd01542e
+
+    21600-0019-Setup.sas                -       -         -       2016-05-25  57ddffd114a41898e09751f2ece855e8
+
+    21600-0019-Setup.sps                -       -         -       2016-05-25  233d3fb636b2a4af6d16e44e2143fda1
+
+    21600-0019-User_guide-MULTI.pdf     -       -         -       2016-05-25  8399b67e17a9a538f3cb1027a50203f6
+
+
+DS0020 Wave III: Peabody Picture Vocabulary Test (PVT), Public Use
+
+    Filename                            Record  Record    Var.    Date        MD5
+                                        Length  Count     Count   Updated     Checksum
+
+    21600-0020-Codebook_Questionnaire.pdf -       -         -       2016-05-25  780efc6e8edb38663731ba33c835cf48
+
+    21600-0020-Data.dta                 -       4,882     8       2016-05-25  1f1a1b1558b6f812991a68badfb0fad9
+
+    21600-0020-Data.rda                 -       4,882     8       2016-05-25  ab8b42ae08d02d5ac228edbdd3bfff00
+
+    21600-0020-Data.sav                 -       4,882     8       2016-05-25  c27f01d3af229a4989ae696abe24cd73
+
+    21600-0020-Data.stc                 -       4,882     8       2016-05-25  e4b71b4fce6dd42eca0fdf4d6a158232
+
+    21600-0020-Data.tsv                 -       4,882     8       2016-05-25  1ec39cdb7aea7660592870751bce48c8
+
+    21600-0020-Data.txt                 29      4,882     8       2016-05-25  ff66d7976ee0ce04567bb7b3f38220ad
+
+    21600-0020-Frequencies.pdf          -       -         -       2016-05-25  3a28e0131166f3dc3d795d316bed313a
+
+    21600-0020-Setup.dct                -       -         -       2016-05-25  d94f7cc91557eea63a71158bd3bda19a
+
+    21600-0020-Setup.do                 -       -         -       2016-05-25  ed93f8ddd984e3e5acbe22035c073842
+
+    21600-0020-Setup.sas                -       -         -       2016-05-25  734aae9d2525bc046b8496e0f5afe410
+
+    21600-0020-Setup.sps                -       -         -       2016-05-25  d606c163c88832b494af6376604d4f22
+
+    21600-0020-Supplemental_syntax.do   -       -         -       2016-05-25  8898279f6530c56ff1b382afcd1ece2d
+
+    21600-0020-Supplemental_syntax.sas  -       -         -       2016-05-25  ddb6cc249fd163145fe28d67d9b55b26
+
+    21600-0020-User_guide-MULTI.pdf     -       -         -       2016-05-25  8399b67e17a9a538f3cb1027a50203f6
+
+
+DS0021 Wave III: Public In-Home Weights
+
+    Filename                            Record  Record    Var.    Date        MD5
+                                        Length  Count     Count   Updated     Checksum
+
+    21600-0021-Codebook_Questionnaire.pdf -       -         -       2016-05-25  72756849b856c0b266f49183058f553b
+
+    21600-0021-Data.dta                 -       4,882     4       2016-05-25  05cbfc76767af0a194d5f311c7eb5374
+
+    21600-0021-Data.rda                 -       4,882     4       2016-05-25  292c71803218aa1851c647af4d406eab
+
+    21600-0021-Data.sav                 -       4,882     4       2016-05-25  070b1a2e9465449f9eb6ebdec87f8140
+
+    21600-0021-Data.stc                 -       4,882     4       2016-05-25  052f9cda415b61c7081453a311e194cf
+
+    21600-0021-Data.tsv                 -       4,882     4       2016-05-25  82bdae8f16539b92372e273b63d95eed
+
+    21600-0021-Data.txt                 31      4,882     4       2016-05-25  f341cf8d372becb9afd134963d9bed08
+
+    21600-0021-Frequencies.pdf          -       -         -       2016-05-25  f4786c91dcad47886d605e37b90ad69f
+
+    21600-0021-Setup.dct                -       -         -       2016-05-25  9637619c1c60e683436f93831ecbac78
+
+    21600-0021-Setup.do                 -       -         -       2016-05-25  a627ee997d522b11e9b240a012687494
+
+    21600-0021-Setup.sas                -       -         -       2016-05-25  4814f8e27d28b932643b09df96d013a1
+
+    21600-0021-Setup.sps                -       -         -       2016-05-25  3a05778eca465eb55b66f3a2454d6569
+
+    21600-0021-User_guide-MULTI.pdf     -       -         -       2016-05-25  8399b67e17a9a538f3cb1027a50203f6
+
+
+DS0022 Wave IV: In-Home Questionnaire, Public Use Sample
+
+    Filename                            Record  Record    Var.    Date        MD5
+                                        Length  Count     Count   Updated     Checksum
+
+    21600-0022-Codebook_Questionnaire.pdf -       -         -       2016-05-25  2bf4dfcfe4409ff51a76c854e0cbd4e9
+
+    21600-0022-Data.dta                 -       5,114     920     2016-05-25  240a84f07d13000d67a850ed84fda00e
+
+    21600-0022-Data.rda                 -       5,114     920     2016-05-25  dfa996e6d3a5e9fb12189001367a2d03
+
+    21600-0022-Data.sav                 -       5,114     920     2016-05-25  2f646be6da9bbe174ed57f62afdb998a
+
+    21600-0022-Data.stc                 -       5,114     920     2016-05-25  7426236a7d6ec6605ad43776933bf076
+
+    21600-0022-Data.tsv                 -       5,114     920     2016-05-25  4de6a39e924955d82648d5dc84c90ecf
+
+    21600-0022-Data.txt                 1479    5,114     920     2016-05-25  5a1b21d0c46951aec93932a019f661d2
+
+    21600-0022-Frequencies.pdf          -       -         -       2016-05-25  c63d4760f38f6802f51c31db5dcc035f
+
+    21600-0022-Setup.dct                -       -         -       2016-05-25  a33a665535ccc7b4da767823825204dc
+
+    21600-0022-Setup.do                 -       -         -       2016-05-25  9c8c0fb4cbde5d8d7730e2025c23b158
+
+    21600-0022-Setup.sas                -       -         -       2016-05-25  6312e5d2992eeb76c99b86031cf250aa
+
+    21600-0022-Setup.sps                -       -         -       2016-05-25  10d6d3e35b8e4af2e8ab8059a57fcc1a
+
+    21600-0022-Supplemental_syntax.do   -       -         -       2016-05-25  15e2c7221a346246f7b496bd1a3fd0cf
+
+    21600-0022-Supplemental_syntax.sas  -       -         -       2016-05-25  5bfaf0b36ecf61438e3273cd18dce735
+
+    21600-0022-User_guide-MULTI.pdf     -       -         -       2016-05-25  8399b67e17a9a538f3cb1027a50203f6
+
+
+DS0023 Wave IV: In-Home Questionnaire, Public Use Sample (Section 16B:
+Relationships)
+
+    Filename                            Record  Record    Var.    Date        MD5
+                                        Length  Count     Count   Updated     Checksum
+
+    21600-0023-Codebook_Questionnaire.pdf -       -         -       2016-05-25  847e15702d3837bc5e4b69356013d8ab
+
+    21600-0023-Data.dta                 -       9,919     14      2016-05-25  e52384b7901b20aed30ab8a8fd01b926
+
+    21600-0023-Data.rda                 -       9,919     14      2016-05-25  a6143c91c38041c989128cd5b1c033ac
+
+    21600-0023-Data.sav                 -       9,919     14      2016-05-25  244c593824a3ecb1793027ab6ecc0f97
+
+    21600-0023-Data.stc                 -       9,919     14      2016-05-25  9045f85e6eb3840056599eee4dc99bc2
+
+    21600-0023-Data.tsv                 -       9,919     14      2016-05-25  900ade1906d9f5c96e9ec1727c89034b
+
+    21600-0023-Data.txt                 27      9,919     14      2016-05-25  2c3c2efc50b815fe91482c3c7528cee4
+
+    21600-0023-Frequencies.pdf          -       -         -       2016-05-25  71e4b3558491ebefdcfb382a86e963d1
+
+    21600-0023-Setup.dct                -       -         -       2016-05-25  c1704342be79cd3cee8dc0d7f66dfce6
+
+    21600-0023-Setup.do                 -       -         -       2016-05-25  ab89f11bd1581590ed1c3bfd6d051aeb
+
+    21600-0023-Setup.sas                -       -         -       2016-05-25  dc1950227f45fd053f402221d6c989aa
+
+    21600-0023-Setup.sps                -       -         -       2016-05-25  838758eb713c8e1a24e0a527ae8e53e4
+
+    21600-0023-Supplemental_syntax.do   -       -         -       2016-05-25  5c87f2e5d135884fe98f45cac8fb27a9
+
+    21600-0023-Supplemental_syntax.sas  -       -         -       2016-05-25  c90f6b840be45c3873ae0373a6a93b1d
+
+    21600-0023-User_guide-MULTI.pdf     -       -         -       2016-05-25  8399b67e17a9a538f3cb1027a50203f6
+
+
+DS0024 Wave IV: In-Home Questionnaire, Public Use Sample (Section 16C:
+Relationships)
+
+    Filename                            Record  Record    Var.    Date        MD5
+                                        Length  Count     Count   Updated     Checksum
+
+    21600-0024-Codebook_Questionnaire.pdf -       -         -       2016-05-25  60355e9c71b0bbd65e3d599b7e5761be
+
+    21600-0024-Data.dta                 -       11,849    8       2016-05-25  8e7fbacab07af22a97ad2b27b297b4e4
+
+    21600-0024-Data.rda                 -       11,849    8       2016-05-25  78a9939b04c3c12462a290d09834fc7d
+
+    21600-0024-Data.sav                 -       11,849    8       2016-05-25  392baed5344bdf2bbe38dbb8c3eb47a7
+
+    21600-0024-Data.stc                 -       11,849    8       2016-05-25  eb52509a28c6ad2f38ca830c20974941
+
+    21600-0024-Data.tsv                 -       11,849    8       2016-05-25  9c6b41d879faab7de497ae516e1838e0
+
+    21600-0024-Data.txt                 24      11,849    8       2016-05-25  dd64e7b33a83b722d1b1ee3e82095285
+
+    21600-0024-Frequencies.pdf          -       -         -       2016-05-25  9a3f0b47c1ff082e0aba138c7e81debc
+
+    21600-0024-Setup.dct                -       -         -       2016-05-25  257061992d1b93a896a53aae170ae846
+
+    21600-0024-Setup.do                 -       -         -       2016-05-25  74e5c851c0cd9879e3809a741314bc57
+
+    21600-0024-Setup.sas                -       -         -       2016-05-25  da0e8ed31a902546c9c18e9bda9a8e4e
+
+    21600-0024-Setup.sps                -       -         -       2016-05-25  bd90653912b5baee6b5e360d9a033da6
+
+    21600-0024-Supplemental_syntax.do   -       -         -       2016-05-25  49269b754dad4a1afdf4383544895b1f
+
+    21600-0024-Supplemental_syntax.sas  -       -         -       2016-05-25  eca7b67e2924ddf8ad46f72c50911af2
+
+    21600-0024-User_guide-MULTI.pdf     -       -         -       2016-05-25  8399b67e17a9a538f3cb1027a50203f6
+
+
+DS0025 Wave IV: In-Home Questionnaire, Public Use Sample (Section 18:
+Pregnancy Table)
+
+    Filename                            Record  Record    Var.    Date        MD5
+                                        Length  Count     Count   Updated     Checksum
+
+    21600-0025-Codebook_Questionnaire.pdf -       -         -       2016-05-25  c2f5a6c9a658ba13bc265132aa650aa2
+
+    21600-0025-Data.dta                 -       7,081     17      2016-05-25  f24682b99a30b20361bf4f230a53a093
+
+    21600-0025-Data.rda                 -       7,081     17      2016-05-25  962c49c5103e70e605cdc652b97c53bb
+
+    21600-0025-Data.sav                 -       7,081     17      2016-05-25  db47e05680dcb8f7c17706c3834ef4bc
+
+    21600-0025-Data.stc                 -       7,081     17      2016-05-25  c5d341645cd75e285da1d4fe17a7e30e
+
+    21600-0025-Data.tsv                 -       7,081     17      2016-05-25  005c556b99f59699612d21a17a017966
+
+    21600-0025-Data.txt                 37      7,081     17      2016-05-25  feb5218e0c34db7cd9bf8087fb78da1a
+
+    21600-0025-Frequencies.pdf          -       -         -       2016-05-25  4a082e333707f8af74c3a44aa020ab93
+
+    21600-0025-Setup.dct                -       -         -       2016-05-25  b95dd9751c0b41e9c0038d2848a7668b
+
+    21600-0025-Setup.do                 -       -         -       2016-05-25  aab4c1fa77616a6ddb8533827a8cf55e
+
+    21600-0025-Setup.sas                -       -         -       2016-05-25  fac49d98858c3c4688413d25c09b4d5f
+
+    21600-0025-Setup.sps                -       -         -       2016-05-25  b229ccc5498eaa1890d97ef6030df7a5
+
+    21600-0025-Supplemental_syntax.do   -       -         -       2016-05-25  aca77262c4ed0139771724380fe44aaa
+
+    21600-0025-Supplemental_syntax.sas  -       -         -       2016-05-25  c831fe97f1f82ae11dde8f1b35d7290e
+
+    21600-0025-User_guide-MULTI.pdf     -       -         -       2016-05-25  8399b67e17a9a538f3cb1027a50203f6
+
+
+DS0026 Wave IV: In-Home Questionnaire, Public Use Sample (Section 19: Live
+Births)
+
+    Filename                            Record  Record    Var.    Date        MD5
+                                        Length  Count     Count   Updated     Checksum
+
+    21600-0026-Codebook_Questionnaire.pdf -       -         -       2016-05-25  12021377e59a495f738a2d705e55f517
+
+    21600-0026-Data.dta                 -       4,828     17      2016-05-25  15c989ab83f18fa0e282425ee090d0ac
+
+    21600-0026-Data.rda                 -       4,828     17      2016-05-25  e270e74a047d9a9ccae8647e60396ed7
+
+    21600-0026-Data.sav                 -       4,828     17      2016-05-25  bb0ece744f512af3c7606f243a15cb02
+
+    21600-0026-Data.stc                 -       4,828     17      2016-05-25  90f9d041adacb6ec16b5cec5f5cc3001
+
+    21600-0026-Data.tsv                 -       4,828     17      2016-05-25  474a9bf904c009844e2d2f4cfed41256
+
+    21600-0026-Data.txt                 38      4,828     17      2016-05-25  36638826cca02432b39be4a9b3f8e69b
+
+    21600-0026-Frequencies.pdf          -       -         -       2016-05-25  fc94a875aef225b8cdfe8d49b4b4f9d2
+
+    21600-0026-Setup.dct                -       -         -       2016-05-25  e5d370bd63b1e604d301c9073eebbc51
+
+    21600-0026-Setup.do                 -       -         -       2016-05-25  f10d3b3eb96156a987fb6098d1b7d58e
+
+    21600-0026-Setup.sas                -       -         -       2016-05-25  f36c26559d11544cd91c74ac9db36f0d
+
+    21600-0026-Setup.sps                -       -         -       2016-05-25  0de544113bb90d3633e522a11f57b9ea
+
+    21600-0026-Supplemental_syntax.do   -       -         -       2016-05-25  2d3af84463f0ccb51e2f09eac01212b0
+
+    21600-0026-Supplemental_syntax.sas  -       -         -       2016-05-25  2468f9cbcfbeb06d6e26a2500831d92b
+
+    21600-0026-User_guide-MULTI.pdf     -       -         -       2016-05-25  8399b67e17a9a538f3cb1027a50203f6
+
+
+DS0027 Wave IV: In-Home Questionnaire, Public Use Sample (Section 20A:
+Children and Parenting)
+
+    Filename                            Record  Record    Var.    Date        MD5
+                                        Length  Count     Count   Updated     Checksum
+
+    21600-0027-Codebook_Questionnaire.pdf -       -         -       2016-05-25  9eea121889360ad8e3f231e408bf68fe
+
+    21600-0027-Data.dta                 -       4,756     46      2016-05-25  3aca6e608ce62de3c55aee4b9217209c
+
+    21600-0027-Data.rda                 -       4,756     46      2016-05-25  d2abe693ee0a5af392988a9cfde13d53
+
+    21600-0027-Data.sav                 -       4,756     46      2016-05-25  ffa3039906f3f42aebe00dc9063ad751
+
+    21600-0027-Data.stc                 -       4,756     46      2016-05-25  602878656070fdd5141a7a7d73aa2351
+
+    21600-0027-Data.tsv                 -       4,756     46      2016-05-25  89f39353762110a38ffad44d2d355e06
+
+    21600-0027-Data.txt                 62      4,756     46      2016-05-25  1c5d7d3d535dc659d7dee0a0011c7364
+
+    21600-0027-Frequencies.pdf          -       -         -       2016-05-25  fd6d77fd68838f9584eda8104dee882f
+
+    21600-0027-Setup.dct                -       -         -       2016-05-25  299844386a84d57599176e41f467132d
+
+    21600-0027-Setup.do                 -       -         -       2016-05-25  2b377c39ff67a9cf574a9e3a1630e958
+
+    21600-0027-Setup.sas                -       -         -       2016-05-25  909c89f4be7689167ead0daab998245e
+
+    21600-0027-Setup.sps                -       -         -       2016-05-25  53290815ff5940e01ccc875f0b884211
+
+    21600-0027-Supplemental_syntax.do   -       -         -       2016-05-25  44b8f5c5f27543cbea9004fd3fc236d5
+
+    21600-0027-Supplemental_syntax.sas  -       -         -       2016-05-25  77073a4ce0b5882124d4e267091c885a
+
+    21600-0027-User_guide-MULTI.pdf     -       -         -       2016-05-25  8399b67e17a9a538f3cb1027a50203f6
+
+
+DS0028 Wave IV: Biomarkers, Measures of Inflammation and Immune Function
+
+    Filename                            Record  Record    Var.    Date        MD5
+                                        Length  Count     Count   Updated     Checksum
+
+    21600-0028-Codebook_Questionnaire.pdf -       -         -       2016-05-25  e10aa7f8bcf259afef3de9a0bf497d4f
+
+    21600-0028-Data.dta                 -       5,114     16      2016-05-25  26f7532a14737e8a172d538634326580
+
+    21600-0028-Data.rda                 -       5,114     16      2016-05-25  bf0eb91dfbe467f829a54d3db296133b
+
+    21600-0028-Data.sav                 -       5,114     16      2016-05-25  fe8414d2162e3a79fd6038c04401c984
+
+    21600-0028-Data.stc                 -       5,114     16      2016-05-25  e03cc587bf07dc59e306d5d9e6bbac95
+
+    21600-0028-Data.tsv                 -       5,114     16      2016-05-25  6d1bab44a7ec824abaa88b5898627b47
+
+    21600-0028-Data.txt                 32      5,114     16      2016-05-25  243e031ac6d3828063e0d86a2659ebef
+
+    21600-0028-Frequencies.pdf          -       -         -       2016-05-25  793947c08072e647c4af1692337bed13
+
+    21600-0028-Report.pdf               -       -         -       2016-05-25  5ec1c8286055aeba1747a3ccb48db966
+
+    21600-0028-Setup.dct                -       -         -       2016-05-25  3e3f4e5c205a030c4cd5e1dadf8ce8e7
+
+    21600-0028-Setup.do                 -       -         -       2016-05-25  692f77af3afdb969a40186c41de2f32f
+
+    21600-0028-Setup.sas                -       -         -       2016-05-25  ed5955eba192b31c1e66434787778c8d
+
+    21600-0028-Setup.sps                -       -         -       2016-05-25  543eab326d30aea9e340c2c4af62b695
+
+    21600-0028-Supplemental_syntax.do   -       -         -       2016-05-25  1b6147c95eef4809433c72f64d3e6c48
+
+    21600-0028-Supplemental_syntax.sas  -       -         -       2016-05-25  885bc543df1d5b6b7b38d4de6519ee09
+
+    21600-0028-User_guide-MULTI.pdf     -       -         -       2016-05-25  8399b67e17a9a538f3cb1027a50203f6
+
+
+DS0029 Wave IV: Biomarkers, Measures of Glucose Homeostasis
+
+    Filename                            Record  Record    Var.    Date        MD5
+                                        Length  Count     Count   Updated     Checksum
+
+    21600-0029-Codebook_Questionnaire.pdf -       -         -       2016-05-25  a4cac751d9a9e5c309339859600801cc
+
+    21600-0029-Data.dta                 -       5,114     10      2016-05-25  4fc26dd7db0c6c3c3915ef357d450334
+
+    21600-0029-Data.rda                 -       5,114     10      2016-05-25  b3def5f369c3477e70533e7461185516
+
+    21600-0029-Data.sav                 -       5,114     10      2016-05-25  e60451df5e244d9e74e1c13920f41f03
+
+    21600-0029-Data.stc                 -       5,114     10      2016-05-25  b231a75aaca2e77e04649568026c2f57
+
+    21600-0029-Data.tsv                 -       5,114     10      2016-05-25  fb8596ad8a30ef8fffdc895f96758252
+
+    21600-0029-Data.txt                 25      5,114     10      2016-05-25  ad644ba5acc138fd7ec9d1a929699104
+
+    21600-0029-Frequencies.pdf          -       -         -       2016-05-25  076f05eb9545d55201f3837d372239b3
+
+    21600-0029-Report.pdf               -       -         -       2016-05-25  70bf0457f4b633dc1c4a477e9d67711b
+
+    21600-0029-Setup.dct                -       -         -       2016-05-25  7df16c32ba86c434be74a26a5252ed2d
+
+    21600-0029-Setup.do                 -       -         -       2016-05-25  bf5c56c808899f7efa34c9bd2ef166d2
+
+    21600-0029-Setup.sas                -       -         -       2016-05-25  71c7ed434ee6aa025745180604984c86
+
+    21600-0029-Setup.sps                -       -         -       2016-05-25  dee7e0fb3f7e3cac097e7eacbd520ba2
+
+    21600-0029-Supplemental_syntax.do   -       -         -       2016-05-25  1e8722ee5636a649066f21ca54426b6e
+
+    21600-0029-Supplemental_syntax.sas  -       -         -       2016-05-25  7803722969debb0b4b09f65f94cf3c26
+
+    21600-0029-User_guide-MULTI.pdf     -       -         -       2016-05-25  8399b67e17a9a538f3cb1027a50203f6
+
+
+DS0030 Wave IV: Biomarkers, Lipids
+
+    Filename                            Record  Record    Var.    Date        MD5
+                                        Length  Count     Count   Updated     Checksum
+
+    21600-0030-Codebook_Questionnaire.pdf -       -         -       2016-05-25  1fbd37af4e69d8567e3cfa749d605e91
+
+    21600-0030-Data.dta                 -       5,114     14      2016-05-25  0ea19214a3277ada0ef33ca574d0e6ba
+
+    21600-0030-Data.rda                 -       5,114     14      2016-05-25  8568fd9a8f7d8342927be6df627cb94f
+
+    21600-0030-Data.sav                 -       5,114     14      2016-05-25  6afa303a080dd3dd2031d98881b7bced
+
+    21600-0030-Data.stc                 -       5,114     14      2016-05-25  fe7e9fcef806bc23ef8536c00d7493cf
+
+    21600-0030-Data.tsv                 -       5,114     14      2016-05-25  371d9457ccbd5c2aec692b9eaae0708b
+
+    21600-0030-Data.txt                 30      5,114     14      2016-05-25  53d618a8eda55ea71290f987d685677a
+
+    21600-0030-Frequencies.pdf          -       -         -       2016-05-25  03677156602d2113690882aff4b48692
+
+    21600-0030-Report.pdf               -       -         -       2016-05-25  876416eee6575cd2c9db9c1c14bb4e0f
+
+    21600-0030-Setup.dct                -       -         -       2016-05-25  af1b87d2f13b04ce4c1ba2fc50da7796
+
+    21600-0030-Setup.do                 -       -         -       2016-05-25  a76b357d4e944e68aeccc698426b0413
+
+    21600-0030-Setup.sas                -       -         -       2016-05-25  12de2206b6403bf5e1c972c515a67370
+
+    21600-0030-Setup.sps                -       -         -       2016-05-25  b1cb4f876dd0d0c5a001d210c1cfa612
+
+    21600-0030-Supplemental_syntax.do   -       -         -       2016-05-25  1a6c02766d975e2e04388e2006e0f380
+
+    21600-0030-Supplemental_syntax.sas  -       -         -       2016-05-25  30c02270af99212479f4bd6419114125
+
+    21600-0030-User_guide-MULTI.pdf     -       -         -       2016-05-25  8399b67e17a9a538f3cb1027a50203f6
+
+
+DS0031 Wave IV: Public Use Weights
+
+    Filename                            Record  Record    Var.    Date        MD5
+                                        Length  Count     Count   Updated     Checksum
+
+    21600-0031-Codebook_Questionnaire.pdf -       -         -       2016-05-25  5705eafc2215b62d81332a4418995a2e
+
+    21600-0031-Data.dta                 -       5,114     5       2016-05-25  6e98c58880cc196679722aef1bc74ea8
+
+    21600-0031-Data.rda                 -       5,114     5       2016-05-25  16c4d16bc62c398df50c888cc257f71b
+
+    21600-0031-Data.sav                 -       5,114     5       2016-05-25  863f5e2b2a0d0bcca4b79b54e39b4b25
+
+    21600-0031-Data.stc                 -       5,114     5       2016-05-25  8e963ec9abdfa3f88ac52476ceb9998c
+
+    21600-0031-Data.tsv                 -       5,114     5       2016-05-25  9e0c9bf2553e150d25315fd4fc692d8f
+
+    21600-0031-Data.txt                 56      5,114     5       2016-05-25  aa5d314249035e93f2f59de72ae7f35a
+
+    21600-0031-Frequencies.pdf          -       -         -       2016-05-25  ca9cfaa810ca1ce8ac1b423fb7cd6f6f
+
+    21600-0031-Setup.dct                -       -         -       2016-05-25  35c973fb5af3b0f2be085f5b2617c9ac
+
+    21600-0031-Setup.do                 -       -         -       2016-05-25  24392c066ed3ac0c291af8c3953bef86
+
+    21600-0031-Setup.sas                -       -         -       2016-05-25  177a34de3842a18d3f7d57c274ef31ba
+
+    21600-0031-Setup.sps                -       -         -       2016-05-25  7f53a679244a8d8f0c1eb9e34534dabd
+
+    21600-0031-User_guide-MULTI.pdf     -       -         -       2016-05-25  8399b67e17a9a538f3cb1027a50203f6
+
+    21600-0031-User_guide.pdf           -       -         -       2016-05-25  e4dc3266d548a1605ebbfd8527d84db9
+
+
+Version History
+
+2016-05-25 The collection has been updated with fully curated versions of
+the most recently supplied data and documentation files.  2015-11-09 All
+data and documentation files were resupplied by the Principal
+Investigators, and the collection has been updated to include the most
+recently deposited files. Dataset names and numbers have been revised to
+better reflect the organization of the collection by study wave. All
+previous version history notes no longer apply to the current organization
+of the datasets.  2014-05-14 AID Variable was truncated for one observation
+in Part 29. Datasets updated to correct error.  2013-11-07 Addition of part
+32: Wave IV, Public Use Biomarker data, Lipids Data.  2013-03-08 Part 31
+was updated following a resupply of the data by the Principal
+Investigators. Specifically, additional variables added to the data file,
+and CRP and EBV values have been recalculated, resulting in minimal changes
+to the data. The associated documentation and codebook files were also
+updated. Finally, a user guide describing measures of inflammation and
+immune function for Part 31 was also added.  2012-11-02 Documentation files
+that contain information on how to correct for design effects associated
+parts 2, 21, 22, and 29 were added.  2012-11-01 Part 30 was updated,
+including the associated codebook and a documentation file supplied by the
+principal investigators that details how glucose homeostasis was measured.
+Further, documentation files containing information on how to correct for
+design effects in the public-use datasets have been added for parts 2, 21,
+22, and 29. Finally, the documentation file titled "21600-0029-Report-
+MULTI.pdf" has been removed from parts 2 and 22, since this documentation
+only applies to part 29.  2012-09-12 Two documentation files, namely the
+Wave III In-Home Questionnaire Codebook, along with the Wave III In-Home
+Questionnaire, Data Collection Instrument and User Guide (which is a single
+composite file), have been updated for part 12.  2012-05-08 CRP and EBV
+Test restul data has been added to the study as Part 31. New updated data
+has replaced the existing Part 23 data. The documentation for Part 23 has
+been updated.  2012-02-23 Glucose data was added.  2012-02-06 An error was
+discovered in a few variables for part 23, so the data and documentation
+was updated.  2012-01-23 An additional documentation file about W4 weights
+was added to pt29  2011-12-14 An error was discovered in one variable for
+part 23, so the data and documentation was updated.  A page of additional
+documentation was also added to the existing doc file for part 29.  2011-
+11-28 Updated weight dataset and added/updated weight documentation.  2011-
+03-18 Part 13 was removed because it contains weights that have been
+superseded by Parts 21 and 22.  Wave 4 data was added as Parts 23 through
+29.  2010-05-04 Documentation files have been added/revised for Parts 2,
+21, and 22.  2010-04-09 The Grand Sample Weight files were revised so that
+there is now a separate weight file for each wave.  2009-03-11 The title to
+Part 2 was changed. In addition, value labels were corrected to Parts 3, 7,
+8, 9, and 10. The corrections addressed an issue caused by brackets in the
+values labels.  2009-02-23 An incorrect variable label in the Wave II
+public use data was corrected. New documentation and data files were
+generated with the corrected variable label.  2008-10-31 Three new public-
+use datasets have been added (datasets 18, 19, and 20).  2008-08-19
+Descriptive content has been added to the metadata record.
