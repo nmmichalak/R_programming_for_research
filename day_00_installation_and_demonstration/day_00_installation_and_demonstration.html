@@ -407,8 +407,7 @@ install_needed_pkgs(needed_packages = needed_packages)</code></pre>
 <h1>running R code: a complex but important example</h1>
 <div id="numbers-drawn-randomly-from-numbers-1-10" class="section level2">
 <h2>5 numbers drawn randomly from numbers 1-10</h2>
-<pre class="r"><code># 5 numbers drawn randomly from numbers 1-10
-my_numbers &lt;- c(10, 6, 2, 8, 3)</code></pre>
+<pre class="r"><code>my_numbers &lt;- c(10, 6, 2, 8, 3)</code></pre>
 </div>
 <div id="use-a-before-the-name-of-an-r-function-to-view-detailed-information-about-that-function" class="section level2">
 <h2>use a “?” before the name of an R function to view detailed information about that function</h2>
@@ -430,7 +429,7 @@ my_numbers &lt;- c(10, 6, 2, 8, 3)</code></pre>
 <pre><code>## [1] 5.8</code></pre>
 </div>
 <div id="we-can-also-use-the-mean-function" class="section level2">
-<h2>we can also use the mean function</h2>
+<h2>we can also use the <code>mean()</code> function</h2>
 <pre class="r"><code>mean(my_numbers)</code></pre>
 <pre><code>## [1] 5.8</code></pre>
 </div>
@@ -442,8 +441,8 @@ my_numbers &lt;- c(10, 6, 2, 8, 3)</code></pre>
   
 }</code></pre>
 </div>
-<div id="now-lets-use-our-function" class="section level2">
-<h2>now let’s use our function</h2>
+<div id="now-lets-use-our-compute_mean-function" class="section level2">
+<h2>now let’s use our <code>compute_mean()</code> function</h2>
 <pre class="r"><code>compute_mean(values = my_numbers)</code></pre>
 <pre><code>## [1] 5.8</code></pre>
 </div>
@@ -454,8 +453,8 @@ my_numbers &lt;- c(10, 6, 2, 8, 3)</code></pre>
 </blockquote>
 <pre class="r"><code>my_numbers &lt;- c(10, 6, 2, 8, 3, NA)</code></pre>
 </div>
-<div id="now-use-our-function-on-this-new-vector" class="section level2">
-<h2>now use our function on this new vector</h2>
+<div id="now-use-our-compute_mean-on-this-new-vector" class="section level2">
+<h2>now use our <code>compute_mean()</code> on this new vector</h2>
 <pre class="r"><code>compute_mean(values = my_numbers)</code></pre>
 <pre><code>## [1] NA</code></pre>
 </div>
@@ -480,7 +479,7 @@ my_numbers &lt;- c(10, 6, 2, 8, 3)</code></pre>
 <h2>remember this example every time you give data to a function</h2>
 <pre class="r"><code>compute_mean(values = my_numbers, remove_missing = TRUE)</code></pre>
 <pre><code>## [1] 5.8</code></pre>
-<pre class="r"><code># by the way, the mean function also has this argument; so does sum and many other trusty functions
+<pre class="r"><code># by the way, the mean() function also has this argument; so does sum() and many other trusty functions
 mean(my_numbers, na.rm = TRUE)</code></pre>
 <pre><code>## [1] 5.8</code></pre>
 </div>

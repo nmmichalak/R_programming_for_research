@@ -265,7 +265,6 @@ install_needed_pkgs(needed_packages = needed_packages)
 
 
 ```r
-# 5 numbers drawn randomly from numbers 1-10
 my_numbers <- c(10, 6, 2, 8, 3)
 ```
 
@@ -309,7 +308,7 @@ sum(my_numbers) / length(my_numbers)
 ## [1] 5.8
 ```
 
-## we can also use the mean function
+## we can also use the `mean()` function
 
 
 ```r
@@ -331,7 +330,7 @@ compute_mean <- function(values) {
 }
 ```
 
-## now let's use our function
+## now let's use our `compute_mean()` function
 
 
 ```r
@@ -350,7 +349,7 @@ compute_mean(values = my_numbers)
 my_numbers <- c(10, 6, 2, 8, 3, NA)
 ```
 
-## now use our function on this new vector
+## now use our `compute_mean()` on this new vector
 
 
 ```r
@@ -391,7 +390,7 @@ compute_mean(values = my_numbers, remove_missing = TRUE)
 ```
 
 ```r
-# by the way, the mean function also has this argument; so does sum and many other trusty functions
+# by the way, the mean() function also has this argument; so does sum() and many other trusty functions
 mean(my_numbers, na.rm = TRUE)
 ```
 
