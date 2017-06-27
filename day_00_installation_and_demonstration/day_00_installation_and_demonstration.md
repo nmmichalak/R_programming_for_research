@@ -259,6 +259,146 @@ install_needed_pkgs(needed_packages = needed_packages)
 ## [21] "utils"        "datasets"     "methods"      "base"
 ```
 
+# running R code: a complex but important example
+
+## 5 numbers drawn randomly from numbers 1-10
+
+
+```r
+# 5 numbers drawn randomly from numbers 1-10
+my_numbers <- c(10, 6, 2, 8, 3)
+```
+
+## use a "?" before the name of an R function to view detailed information about that function
+
+
+```r
+?c
+```
+
+## how long is this vector of numbers? / how many numbers are there?
+
+
+```r
+length(my_numbers)
+```
+
+```
+## [1] 5
+```
+
+## what's the sum of these numbers?
+
+
+```r
+sum(my_numbers)
+```
+
+```
+## [1] 29
+```
+
+## what's the mean / average of these numbers
+
+
+```r
+sum(my_numbers) / length(my_numbers)
+```
+
+```
+## [1] 5.8
+```
+
+## we can also use the mean function
+
+
+```r
+mean(my_numbers)
+```
+
+```
+## [1] 5.8
+```
+
+## how do functions work? 
+
+
+```r
+compute_mean <- function(values) {
+  
+  sum(values) / length(values)
+  
+}
+```
+
+## now let's use our function
+
+
+```r
+compute_mean(values = my_numbers)
+```
+
+```
+## [1] 5.8
+```
+
+## functions are "stupid"; R is "stupid"
+> they only do exactly what you tell them to do and assume what they are programmed to assume. what if we add a missing value (a.k.a., NA, "Not available")
+
+
+```r
+my_numbers <- c(10, 6, 2, 8, 3, NA)
+```
+
+## now use our function on this new vector
+
+
+```r
+compute_mean(values = my_numbers)
+```
+
+```
+## [1] NA
+```
+
+## when you use functions throughout this course and into your own research ...
+> think about what the functions "assume" or "know"; ask, "What do I want the function to do? What do I expect it to do? Can the function do what I want with the information I gave it?"
+
+
+```r
+compute_mean <- function(values, remove_missing = TRUE) {
+  
+  if (remove_missing == TRUE) {
+    
+    values <- na.omit(values)
+    
+  }
+  
+  sum(values) / length(values)
+  
+}
+```
+
+## remember this example every time you give data to a function
+
+
+```r
+compute_mean(values = my_numbers, remove_missing = TRUE)
+```
+
+```
+## [1] 5.8
+```
+
+```r
+# by the way, the mean function also has this argument; so does sum and many other trusty functions
+mean(my_numbers, na.rm = TRUE)
+```
+
+```
+## [1] 5.8
+```
+
 # generate data for examples
 
 
@@ -310,7 +450,7 @@ my_data %>%
   pairs.panels(pch = ".")
 ```
 
-![](day_00_installation_and_demonstration_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
+![](day_00_installation_and_demonstration_files/figure-html/unnamed-chunk-16-1.png)<!-- -->
 
 # histograms
 
@@ -327,7 +467,7 @@ my_data %>%
 ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
-![](day_00_installation_and_demonstration_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
+![](day_00_installation_and_demonstration_files/figure-html/unnamed-chunk-17-1.png)<!-- -->
 
 # boxplots
 
@@ -339,7 +479,7 @@ my_data %>%
   geom_boxplot()
 ```
 
-![](day_00_installation_and_demonstration_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
+![](day_00_installation_and_demonstration_files/figure-html/unnamed-chunk-18-1.png)<!-- -->
 
 # scatterplots
 
@@ -351,7 +491,7 @@ my_data %>%
   geom_smooth(method = "lm")
 ```
 
-![](day_00_installation_and_demonstration_files/figure-html/unnamed-chunk-7-1.png)<!-- -->
+![](day_00_installation_and_demonstration_files/figure-html/unnamed-chunk-19-1.png)<!-- -->
 
 ```r
 my_data %>%
@@ -360,7 +500,7 @@ my_data %>%
   geom_smooth(method = "lm")
 ```
 
-![](day_00_installation_and_demonstration_files/figure-html/unnamed-chunk-7-2.png)<!-- -->
+![](day_00_installation_and_demonstration_files/figure-html/unnamed-chunk-19-2.png)<!-- -->
 
 ```r
 my_data %>%
@@ -369,7 +509,7 @@ my_data %>%
   geom_smooth(method = "lm")
 ```
 
-![](day_00_installation_and_demonstration_files/figure-html/unnamed-chunk-7-3.png)<!-- -->
+![](day_00_installation_and_demonstration_files/figure-html/unnamed-chunk-19-3.png)<!-- -->
 
 # correlation tests
 

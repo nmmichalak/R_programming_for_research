@@ -1,4 +1,5 @@
-# R programming for research workshop hosted by the University of Michigan Psychology Department
+# R programming for research workshop
 ## Nicholas Michalak and Iris Wang
+## University of Michigan Psychology Department
 
 ### For now, this repository houses examples, notes, data, etc.

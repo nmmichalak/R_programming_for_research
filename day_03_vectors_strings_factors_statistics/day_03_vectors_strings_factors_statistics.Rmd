@@ -1,0 +1,31 @@
+---
+title: "Day 3. Vectors, strings, factors, and statistics"
+author: "Nicholas Michalak"
+date: "6/24/2017"
+output: 
+  html_document:
+    fig_height: 7.5
+    fig_width: 10.5
+    keep_md: yes
+    theme: readable
+    toc: true
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
+---
+
+# install prerequisite packages
+
+```{r}
+
+# character vector of packages you'll need for your whole analysis
+needed_packages <- c("tidyverse", "psych", "haven", "lavaan", "lme4", "lmerTest", "afex", "compute.es")
+
+# source custom function
+lapply(list.files(path = "custom_functions/", pattern = "*.R", full.names = TRUE), source)
+
+# install needed packages
+install_needed_pkgs(needed_packages = needed_packages)
+
+```
+
