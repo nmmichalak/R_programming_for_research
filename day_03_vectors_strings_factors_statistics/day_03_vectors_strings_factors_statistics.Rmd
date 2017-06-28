@@ -19,13 +19,326 @@ output:
 ```{r}
 
 # character vector of packages you'll need for your whole analysis
-needed_packages <- c("tidyverse", "psych", "haven", "lavaan", "lme4", "lmerTest", "afex", "compute.es")
+needed_packages <- c("tidyverse", "forcats", "psych", "haven", "lavaan", "lme4", "lmerTest", "afex", "compute.es")
 
 # source custom function
 lapply(list.files(path = "custom_functions/", pattern = "*.R", full.names = TRUE), source)
 
 # install needed packages
 install_needed_pkgs(needed_packages = needed_packages)
+
+```
+
+# integer
+> subject ID
+
+```{r}
+
+(subj_id <- 1:20)
+
+```
+
+# logical
+> did this subject fail the pre-screen?
+
+```{r}
+
+(failed_prescreen <- c(TRUE, FALSE, FALSE, FALSE, TRUE, TRUE, FALSE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE))
+
+```
+
+# character / factor
+> experimental group
+
+```{r}
+
+# character vector
+(exp_group <- c("Treatment", "Control", "Control", "Treatment", "Treatment", "Control", "Treatment", "Control", "Treatment", "Treatment", "Treatment", "Control", "Control", "Treatment", "Control", "Control", "Treatment", "Control", "Treatment", "Control"))
+
+# convert to factor vector
+(exp_group_fac <- parse_factor(exp_group,
+                               levels = c("Treatment", "Control")))
+
+```
+
+## modify factor order
+
+```{r}
+
+(exp_group_fac <- parse_factor(exp_group,
+                               levels = c("Control", "Treatment")))
+
+```
+
+## modify factor levels
+
+```{r}
+
+(exp_group_fac <- recode_factor(exp_group_fac, Control = "Neutral", Treatment = "Manipulation"))
+
+```
+
+# numeric
+> dependent variable
+
+```{r}
+
+(dep_var <- c(4, 2, 7, 3, 5, 6, 6, 1, 7, 3, 4, 1, 3, 6, 1, 7, 4, 7, 5, 1))
+
+```
+
+# combine them into a "tibble"
+
+```{r}
+
+(my_data <- tibble(subj_id, exp_group, exp_group_fac, dep_var, failed_prescreen))
+
+```
+
+# review
+
+## `summarise()`
+
+```{r}
+
+my_data %>%
+  group_by(failed_prescreen) %>%
+  summarise(n = n())
+
+```
+
+## `count()`
+
+```{r}
+
+my_data %>%
+  count(failed_prescreen)
+
+```
+
+## `filter()`
+
+```{r}
+
+my_data %>%
+  filter(failed_prescreen == FALSE)
+
+```
+
+## `geom_histogram()` and aesetics
+
+```{r}
+
+my_data %>%
+  ggplot(mapping = aes(x = dep_var, fill = failed_prescreen)) +
+  geom_histogram(binwidth = 1, color = "white")
+
+```
+
+### `facet_wrap()`
+
+```{r}
+
+my_data %>%
+  ggplot(mapping = aes(x = dep_var)) +
+  geom_histogram(binwidth = 1, color = "white") +
+  facet_wrap(~ failed_prescreen)
+
+```
+
+## `geom_boxplot()`
+
+```{r}
+
+my_data %>%
+  ggplot(mapping = aes(x = exp_group_fac, y = dep_var, fill = exp_group_fac)) +
+  geom_boxplot()
+
+```
+
+## `geom_violin()`
+
+```{r}
+
+my_data %>%
+  ggplot(mapping = aes(x = exp_group_fac, y = dep_var, fill = exp_group_fac)) +
+  geom_violin()
+
+```
+
+## `stat_summary()`
+
+```{r}
+
+my_data %>%
+  ggplot(mapping = aes(x = exp_group_fac, y = dep_var, fill = exp_group_fac)) +
+  stat_summary(fun.data = "mean_cl_normal", geom = "bar", position = position_dodge(0.9)) +
+  stat_summary(fun.data = "mean_cl_normal", geom = "errorbar", width = 0.1, position = position_dodge(0.9))
+
+```
+
+## grouped descriptives
+
+```{r}
+
+with(data = my_data, describeBy(dep_var, group = exp_group_fac, mat = TRUE))
+
+```
+
+## `t.test()`
+* I make all arguments explcit
+
+```{r, error = TRUE}
+
+t.test(formula = dep_var ~ exp_group_fac,
+       data = my_data,
+       alternative = "two.sided",
+       mu = 0,
+       paired = FALSE,
+       var.equal = FALSE,
+       conf.level = .95)
+
+```
+
+### less explicit
+* if you don't name arguments explictly, make sure you give argument input in order
+
+```{r}
+
+t.test(dep_var ~ exp_group_fac, my_data)
+
+```
+
+# Big Five data from [personality-testing.info](http://personality-testing.info/_rawdata/)
+
+```{r}
+
+(big_five <- "example_tidy_data/big_five_may_2014/big_five_may_2014.csv" %>%
+  read_tsv() %>%
+  mutate(race_fac = recode(race, `1`  =  "Mixed Race", `2`  =  "Arctic (Siberian, Eskimo)", `3`  =  "Caucasian (European)", `4` = "Caucasian (Indian)", `5` = "Caucasian (Middle East)", `6` = "Caucasian (North African, Other)", `7` = "Indigenous Australian", `8` = "Native American", `9` = "North East Asian (Mongol, Tibetan, Korean Japanese, etc)", `10` = "Pacific (Polynesian, Micronesian, etc)", `11` = "South East Asian (Chinese, Thai, Malay, Filipino, etc)", `12` = "West African, Bushmen, Ethiopian", `13` = "Other (0 = missed)"),
+         eng_nat_fac = recode(engnat, `1` = "yes", `2` = "no", `0` = "missed"),
+         gender_fac = recode(gender, `1` = "Male", `2` = "Female", `3` = "Other", `0` = "missed"),
+         hand_fac = recode(hand, `1` = "Right", `2` = "Left", `3` = "Both", `0` = "missed"),
+         source_fac = recode(source, `1` = "from another page on the test website", `2` = "from google", `3` = "from facebook", `4` = 'from any url with ".edu" in its domain name (e.g. xxx.edu, xxx.edu.au)', `5` = "other source, or HTTP Referer not provided")) %>%
+  select(age, country, race, race_fac, engnat, eng_nat_fac, gender, gender_fac, hand, hand_fac, source, source_fac, everything(.)))
+
+```
+
+# more descriptives examples
+
+* see psych package ([an overview of the psych package](http://personality-project.org/r/overview.pdf)) for many trusty tools
+
+## extraversion
+
+```{r}
+
+big_five %>%
+  select(num_range(prefix = "E", range = 1:10)) %>%
+  psych::describe(.)
+  
+```
+
+# some correlation matrix examples
+
+## `pairs.panels()`
+
+```{r}
+
+big_five %>%
+  select(num_range(prefix = "E", range = 1:10)) %>%
+  pairs.panels(pch = ".")
+
+```
+
+## `cor.plot()`
+
+```{r}
+
+big_five %>%
+  select(num_range(prefix = "E", range = 1:10)) %>%
+  cor.plot(numbers = TRUE)
+
+```
+
+## `cor.test()`
+* explicit argument names again
+
+```{r}
+
+big_five %>%
+  cor.test(formula = ~ E1 + E2, data = .,
+           alternative = "two.sided",
+           method = "pearson",
+           exact = NULL,
+           conf.level = .95)
+
+```
+
+## `corr.test()`
+* from psych package
+* takes matrix or dataframe input
+* explicit argument names again
+
+```{r}
+
+big_five %>%
+  select(num_range(prefix = "E", range = 1:10)) %>%
+  corr.test(use = "complete",
+            method = "pearson",
+            adjust = "none",
+            alpha = .05,
+            ci = TRUE) %>%
+  print(short = FALSE)
+
+```
+
+## `lm()`
+* to be honest, I don't understand *all* of the arguments in `lm()`
+
+```{r}
+
+big_five %>%
+  lm(formula = E1 ~ E2 + E3, data = .)
+  
+
+```
+
+## `summary()`
+
+```{r}
+
+big_five %>%
+  lm(formula = E1 ~ E2 + E3, data = .) %>%
+  summary(.)
+
+```
+
+### interactions
+* ":" creates an interaction term between variables
+* "*" creates all main effect and interaction terms
+
+```{r}
+
+big_five %>%
+  lm(formula = E1 ~ E2 + E3 + E2:E3, data = .) %>%
+  summary(.)
+
+# same model
+big_five %>%
+  lm(formula = E1 ~ E2 * E3, data = .) %>%
+  summary(.)
+
+```
+
+## `glm()`
+
+```{r}
+
+big_five %>%
+  filter(hand != 3 & hand != 0) %>%
+  mutate(right_handed = recode(hand, `1` = 1, `2` = 0)) %>%
+  glm(formula = right_handed ~ E2 * E3, data = ., family = binomial) %>%
+  summary(.)
 
 ```
 

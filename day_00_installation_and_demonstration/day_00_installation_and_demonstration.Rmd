@@ -108,13 +108,15 @@ my_numbers <- c(10, 6, 2, 8, 3, NA)
 
 ```
 
-## now use our `compute_mean()` on this new vector
+## now use our `compute_mean()` function on this new vector
 
 ```{r}
 
 compute_mean(values = my_numbers)
 
 ```
+
+> is this what you expected? Turns out, this isn't a quirky feature of R. R was designed by statisticians and mathematicians. NA represents a value that is unknown. Ask yourself, what is the sum of an unknown value and 17? If you don't know the value, then you don't know the value of adding it to 17 either. Our `compute_mean()` function gives NA for this reason: the mean of 5 values and an unknwon value is NA; it's unknown; it's not available or missing.
 
 ## when you use functions throughout this course and into your own research ...
 > think about what the functions "assume" or "know"; ask, "What do I want the function to do? What do I expect it to do? Can the function do what I want with the information I gave it?"
