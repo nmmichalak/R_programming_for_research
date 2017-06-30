@@ -236,12 +236,33 @@ needed_packages &lt;- c(&quot;tidyverse&quot;, &quot;forcats&quot;, &quot;psych&
 lapply(list.files(path = &quot;custom_functions/&quot;, pattern = &quot;*.R&quot;, full.names = TRUE), source)</code></pre>
 <pre><code>## [[1]]
 ## [[1]]$value
-## function (needed_packages) 
+## function (alpha, m, sd, n, c) 
 ## {
-##     have_packages &lt;- needed_packages %in% rownames(installed.packages())
-##     if (any(have_packages == FALSE) == TRUE) 
-##         install.packages(needed_packages[have_packages == FALSE])
-##     lapply(needed_packages, library, character.only = TRUE)
+##     est &lt;- t(c) %*% m
+##     k &lt;- length(m)
+##     df1 &lt;- sum(n) - k
+##     v1 &lt;- sum((n - 1) * sd^2)/df1
+##     se1 &lt;- sqrt(v1 * t(c) %*% solve(diag(n)) %*% c)
+##     t1 &lt;- est/se1
+##     p1 &lt;- 2 * (1 - pt(abs(t1), df1))
+##     tcrit1 &lt;- qt(1 - alpha/2, df1)
+##     ll1 &lt;- est - tcrit1 * se1
+##     ul1 &lt;- est + tcrit1 * se1
+##     v2 &lt;- diag(sd^2) %*% (solve(diag(n)))
+##     se2 &lt;- sqrt(t(c) %*% v2 %*% c)
+##     t2 &lt;- est/se2
+##     df2 = (se2^4)/sum(((c^4) * (sd^4)/(n^2 * (n - 1))))
+##     p2 &lt;- 2 * (1 - pt(abs(t2), df2))
+##     tcrit2 &lt;- qt(1 - alpha/2, df2)
+##     ll2 &lt;- est - tcrit2 * se2
+##     ul2 &lt;- est + tcrit2 * se2
+##     out1 &lt;- t(c(est, se1, t1, df1, p1, ll1, ul1))
+##     out2 &lt;- t(c(est, se2, t2, df2, p2, ll2, ul2))
+##     out &lt;- rbind(out1, out2)
+##     colnames(out) &lt;- c(&quot;Estimate&quot;, &quot;SE&quot;, &quot;t&quot;, &quot;df&quot;, &quot;p-value&quot;, 
+##         &quot;LL&quot;, &quot;UL&quot;)
+##     rownames(out) &lt;- c(&quot;Equal Variances Assumed:&quot;, &quot;Equal Variances Not Assumed:&quot;)
+##     return(out)
 ## }
 ## 
 ## [[1]]$visible
@@ -250,6 +271,56 @@ lapply(list.files(path = &quot;custom_functions/&quot;, pattern = &quot;*.R&quot
 ## 
 ## [[2]]
 ## [[2]]$value
+## function (alpha, m, sd, n, c) 
+## {
+##     z &lt;- qnorm(1 - alpha/2)
+##     v &lt;- sd^2
+##     a &lt;- length(m)
+##     s &lt;- sqrt(sum(v)/a)
+##     df &lt;- sum(n) - a
+##     sp &lt;- sqrt(sum((n - 1) * v)/df)
+##     est1 &lt;- (t(c) %*% m)/s
+##     est2 &lt;- (t(c) %*% m)/sp
+##     a1 &lt;- est1^2/(a^2 * s^4)
+##     a2 &lt;- a1 * sum((v^2/(2 * (n - 1))))
+##     a3 &lt;- sum((c^2 * v/(n - 1)))/s^2
+##     se1 &lt;- sqrt(a2 + a3)
+##     ll1 &lt;- est1 - z * se1
+##     ul1 &lt;- est1 + z * se1
+##     a1 &lt;- est2^2/a^2
+##     a2 &lt;- a1 * sum(1/(2 * (n - 1)))
+##     a3 &lt;- sum(c^2/n)
+##     se2 &lt;- sqrt(a2 + a3)
+##     ll2 &lt;- est2 - z * se2
+##     ul2 &lt;- est2 + z * se2
+##     out1 &lt;- t(c(est1, se1, ll1, ul1))
+##     out2 &lt;- t(c(est2, se2, ll2, ul2))
+##     out &lt;- rbind(out1, out2)
+##     colnames(out) &lt;- c(&quot;Estimate&quot;, &quot;SE&quot;, &quot;LL&quot;, &quot;UL&quot;)
+##     rownames(out) &lt;- c(&quot;Equal Variances Not Assumed&quot;, &quot;Equal Variances Assumed:&quot;)
+##     return(out)
+## }
+## 
+## [[2]]$visible
+## [1] FALSE
+## 
+## 
+## [[3]]
+## [[3]]$value
+## function (needed_packages) 
+## {
+##     have_packages &lt;- needed_packages %in% rownames(installed.packages())
+##     if (any(have_packages == FALSE) == TRUE) 
+##         install.packages(needed_packages[have_packages == FALSE])
+##     lapply(needed_packages, library, character.only = TRUE)
+## }
+## 
+## [[3]]$visible
+## [1] FALSE
+## 
+## 
+## [[4]]
+## [[4]]$value
 ## function (y, x, z, sd_values = seq(-3, 3, 0.5), mean_center = TRUE, 
 ##     alpha = 0.05) 
 ## {
@@ -293,7 +364,7 @@ lapply(list.files(path = &quot;custom_functions/&quot;, pattern = &quot;*.R&quot
 ##     return(result)
 ## }
 ## 
-## [[2]]$visible
+## [[4]]$visible
 ## [1] FALSE</code></pre>
 <pre class="r"><code># install needed packages
 install_needed_pkgs(needed_packages = needed_packages)</code></pre>
@@ -847,6 +918,9 @@ install_needed_pkgs(needed_packages = needed_packages)</code></pre>
 ## E8-E10  0.37  0.38  0.39 0
 ## E9-E10 -0.38 -0.37 -0.36 0</code></pre>
 </div>
+</div>
+<div id="regression" class="section level1">
+<h1>regression</h1>
 <div id="lm" class="section level2">
 <h2><code>lm()</code></h2>
 <ul>
@@ -972,6 +1046,79 @@ big_five %&gt;%
 ## AIC: 11591
 ## 
 ## Number of Fisher Scoring iterations: 5</code></pre>
+</div>
+</div>
+<div id="factorial-anova" class="section level1">
+<h1>Factorial ANOVA</h1>
+<div id="afex-package" class="section level2">
+<h2>afex package</h2>
+<div id="between-subjects-anova" class="section level3">
+<h3>between-subjects ANOVA</h3>
+<pre class="r"><code>my_data %&gt;%
+  aov_car(formula = dep_var ~ exp_group_fac + Error(subj_id), data = .) %&gt;%
+  summary(.)</code></pre>
+<pre><code>## Contrasts set to contr.sum for the following variables: exp_group_fac</code></pre>
+<pre><code>## Anova Table (Type 3 tests)
+## 
+## Response: dep_var
+##               num Df den Df    MSE     F     ges Pr(&gt;F)
+## exp_group_fac      1     18 4.8056 1.259 0.06537 0.2766</code></pre>
+</div>
+<div id="specific-contrasts" class="section level3">
+<h3>specific contrasts</h3>
+<pre class="r"><code># t-value and p-value
+my_data %&gt;%
+  aov_car(formula = dep_var ~ exp_group_fac + Error(subj_id), data = .) %&gt;%
+  lsmeans::lsmeans(specs = &quot;exp_group_fac&quot;) %&gt;%
+  contrast(list(ntrl_mnpl = c(-1, 1)))</code></pre>
+<pre><code>## Contrasts set to contr.sum for the following variables: exp_group_fac</code></pre>
+<pre><code>##  contrast  estimate        SE df t.ratio p.value
+##  ntrl_mnpl      1.1 0.9803627 18   1.122  0.2766</code></pre>
+<pre class="r"><code># confidence intervals
+my_data %&gt;%
+  aov_car(formula = dep_var ~ exp_group_fac + Error(subj_id), data = .) %&gt;%
+  lsmeans::lsmeans(specs = &quot;exp_group_fac&quot;) %&gt;%
+  contrast(list(ntrl_mnpl = c(-1, 1))) %&gt;%
+  confint(.)</code></pre>
+<pre><code>## Contrasts set to contr.sum for the following variables: exp_group_fac</code></pre>
+<pre><code>##  contrast  estimate        SE df   lower.CL upper.CL
+##  ntrl_mnpl      1.1 0.9803627 18 -0.9596657 3.159666
+## 
+## Confidence level used: 0.95</code></pre>
+</div>
+</div>
+<div id="straight-to-contrasts" class="section level2">
+<h2>straight to contrasts</h2>
+<div id="function-23-confidence-interval-for-a-linear-contrast-of-means-between-subjects-design-download-more-functions-from-douglas-bonnets-course-webpage" class="section level3">
+<h3>Function 23: Confidence interval for a linear contrast of means (between-subjects design) [<a href="https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=1&amp;ved=0ahUKEwjg7bG3u-bUAhVi2IMKHWfSAWwQFggqMAA&amp;url=https%3A%2F%2Fpeople.ucsc.edu%2F~dgbonett%2Fdocs%2Fpsyc204%2F204RFunctions.docx&amp;usg=AFQjCNGRCAg-lE7TwzMSps_A1pmDOEEb8w">Download more functions from Douglas Bonnet’s course webpage</a>]</h3>
+<pre class="r"><code>my_data %&gt;%
+  group_by(exp_group_fac) %&gt;%
+  summarise(n = n(),
+            m = mean(dep_var),
+            sd = sd(dep_var)) %&gt;%
+  with(data = ., CImeanBS(alpha = .05, m = m, sd = sd, n = n, c = c(-1, 1)))</code></pre>
+<pre><code>##                              Estimate        SE        t       df
+## Equal Variances Assumed:          1.1 0.9803627 1.122034 18.00000
+## Equal Variances Not Assumed:      1.1 0.9803627 1.122034 12.91188
+##                                p-value         LL       UL
+## Equal Variances Assumed:     0.2765933 -0.9596657 3.159666
+## Equal Variances Not Assumed: 0.2822809 -1.0194152 3.219415</code></pre>
+</div>
+</div>
+<div id="effect-size" class="section level2">
+<h2>effect size</h2>
+<div id="function-24-confidence-interval-for-a-standardized-linear-contrast-of-means-between-subjects-design-download-more-functions-from-douglas-bonnets-course-webpage" class="section level3">
+<h3>Function 24: Confidence interval for a standardized linear contrast of means (between-subjects design) [<a href="https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=1&amp;ved=0ahUKEwjg7bG3u-bUAhVi2IMKHWfSAWwQFggqMAA&amp;url=https%3A%2F%2Fpeople.ucsc.edu%2F~dgbonett%2Fdocs%2Fpsyc204%2F204RFunctions.docx&amp;usg=AFQjCNGRCAg-lE7TwzMSps_A1pmDOEEb8w">Download more functions from Douglas Bonnet’s course webpage</a>]</h3>
+<pre class="r"><code>my_data %&gt;%
+  group_by(exp_group_fac) %&gt;%
+  summarise(n = n(),
+            m = mean(dep_var),
+            sd = sd(dep_var)) %&gt;%
+  with(data = ., CIstdmeanBS(alpha = .05, m = m, sd = sd, n = n, c = c(-1, 1)))</code></pre>
+<pre><code>##                              Estimate        SE         LL       UL
+## Equal Variances Not Assumed 0.5017887 0.4816354 -0.4421992 1.445777
+## Equal Variances Assumed:    0.5017887 0.4549662 -0.3899286 1.393506</code></pre>
+</div>
 </div>
 </div>
 

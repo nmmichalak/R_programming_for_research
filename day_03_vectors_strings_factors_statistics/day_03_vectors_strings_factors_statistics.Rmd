@@ -292,6 +292,8 @@ big_five %>%
 
 ```
 
+# regression
+
 ## `lm()`
 * to be honest, I don't understand *all* of the arguments in `lm()`
 
@@ -339,6 +341,70 @@ big_five %>%
   mutate(right_handed = recode(hand, `1` = 1, `2` = 0)) %>%
   glm(formula = right_handed ~ E2 * E3, data = ., family = binomial) %>%
   summary(.)
+
+```
+
+# Factorial ANOVA
+
+## afex package
+
+### between-subjects ANOVA
+
+```{r}
+
+my_data %>%
+  aov_car(formula = dep_var ~ exp_group_fac + Error(subj_id), data = .) %>%
+  summary(.)
+
+```
+
+### specific contrasts
+
+```{r}
+
+# t-value and p-value
+my_data %>%
+  aov_car(formula = dep_var ~ exp_group_fac + Error(subj_id), data = .) %>%
+  lsmeans::lsmeans(specs = "exp_group_fac") %>%
+  contrast(list(ntrl_mnpl = c(-1, 1)))
+
+# confidence intervals
+my_data %>%
+  aov_car(formula = dep_var ~ exp_group_fac + Error(subj_id), data = .) %>%
+  lsmeans::lsmeans(specs = "exp_group_fac") %>%
+  contrast(list(ntrl_mnpl = c(-1, 1))) %>%
+  confint(.)
+
+```
+
+## straight to contrasts
+
+### Function 23: Confidence interval for a linear contrast of means (between-subjects design) [[Download more functions from Douglas Bonnet's course webpage](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&ved=0ahUKEwjg7bG3u-bUAhVi2IMKHWfSAWwQFggqMAA&url=https%3A%2F%2Fpeople.ucsc.edu%2F~dgbonett%2Fdocs%2Fpsyc204%2F204RFunctions.docx&usg=AFQjCNGRCAg-lE7TwzMSps_A1pmDOEEb8w)]
+
+```{r}
+
+my_data %>%
+  group_by(exp_group_fac) %>%
+  summarise(n = n(),
+            m = mean(dep_var),
+            sd = sd(dep_var)) %>%
+  with(data = ., CImeanBS(alpha = .05, m = m, sd = sd, n = n, c = c(-1, 1)))
+
+```
+
+## effect size
+
+### Function 24: Confidence interval for a standardized linear contrast of means (between-subjects design) [[Download more functions from Douglas Bonnet's course webpage](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&ved=0ahUKEwjg7bG3u-bUAhVi2IMKHWfSAWwQFggqMAA&url=https%3A%2F%2Fpeople.ucsc.edu%2F~dgbonett%2Fdocs%2Fpsyc204%2F204RFunctions.docx&usg=AFQjCNGRCAg-lE7TwzMSps_A1pmDOEEb8w)]
+
+```{r}
+
+my_data %>%
+  group_by(exp_group_fac) %>%
+  summarise(n = n(),
+            m = mean(dep_var),
+            sd = sd(dep_var)) %>%
+  with(data = ., CIstdmeanBS(alpha = .05, m = m, sd = sd, n = n, c = c(-1, 1)))
+
 
 ```
 

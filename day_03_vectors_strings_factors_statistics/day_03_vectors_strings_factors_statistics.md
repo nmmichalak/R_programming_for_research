@@ -16,12 +16,33 @@ lapply(list.files(path = "custom_functions/", pattern = "*.R", full.names = TRUE
 ```
 ## [[1]]
 ## [[1]]$value
-## function (needed_packages) 
+## function (alpha, m, sd, n, c) 
 ## {
-##     have_packages <- needed_packages %in% rownames(installed.packages())
-##     if (any(have_packages == FALSE) == TRUE) 
-##         install.packages(needed_packages[have_packages == FALSE])
-##     lapply(needed_packages, library, character.only = TRUE)
+##     est <- t(c) %*% m
+##     k <- length(m)
+##     df1 <- sum(n) - k
+##     v1 <- sum((n - 1) * sd^2)/df1
+##     se1 <- sqrt(v1 * t(c) %*% solve(diag(n)) %*% c)
+##     t1 <- est/se1
+##     p1 <- 2 * (1 - pt(abs(t1), df1))
+##     tcrit1 <- qt(1 - alpha/2, df1)
+##     ll1 <- est - tcrit1 * se1
+##     ul1 <- est + tcrit1 * se1
+##     v2 <- diag(sd^2) %*% (solve(diag(n)))
+##     se2 <- sqrt(t(c) %*% v2 %*% c)
+##     t2 <- est/se2
+##     df2 = (se2^4)/sum(((c^4) * (sd^4)/(n^2 * (n - 1))))
+##     p2 <- 2 * (1 - pt(abs(t2), df2))
+##     tcrit2 <- qt(1 - alpha/2, df2)
+##     ll2 <- est - tcrit2 * se2
+##     ul2 <- est + tcrit2 * se2
+##     out1 <- t(c(est, se1, t1, df1, p1, ll1, ul1))
+##     out2 <- t(c(est, se2, t2, df2, p2, ll2, ul2))
+##     out <- rbind(out1, out2)
+##     colnames(out) <- c("Estimate", "SE", "t", "df", "p-value", 
+##         "LL", "UL")
+##     rownames(out) <- c("Equal Variances Assumed:", "Equal Variances Not Assumed:")
+##     return(out)
 ## }
 ## 
 ## [[1]]$visible
@@ -30,6 +51,56 @@ lapply(list.files(path = "custom_functions/", pattern = "*.R", full.names = TRUE
 ## 
 ## [[2]]
 ## [[2]]$value
+## function (alpha, m, sd, n, c) 
+## {
+##     z <- qnorm(1 - alpha/2)
+##     v <- sd^2
+##     a <- length(m)
+##     s <- sqrt(sum(v)/a)
+##     df <- sum(n) - a
+##     sp <- sqrt(sum((n - 1) * v)/df)
+##     est1 <- (t(c) %*% m)/s
+##     est2 <- (t(c) %*% m)/sp
+##     a1 <- est1^2/(a^2 * s^4)
+##     a2 <- a1 * sum((v^2/(2 * (n - 1))))
+##     a3 <- sum((c^2 * v/(n - 1)))/s^2
+##     se1 <- sqrt(a2 + a3)
+##     ll1 <- est1 - z * se1
+##     ul1 <- est1 + z * se1
+##     a1 <- est2^2/a^2
+##     a2 <- a1 * sum(1/(2 * (n - 1)))
+##     a3 <- sum(c^2/n)
+##     se2 <- sqrt(a2 + a3)
+##     ll2 <- est2 - z * se2
+##     ul2 <- est2 + z * se2
+##     out1 <- t(c(est1, se1, ll1, ul1))
+##     out2 <- t(c(est2, se2, ll2, ul2))
+##     out <- rbind(out1, out2)
+##     colnames(out) <- c("Estimate", "SE", "LL", "UL")
+##     rownames(out) <- c("Equal Variances Not Assumed", "Equal Variances Assumed:")
+##     return(out)
+## }
+## 
+## [[2]]$visible
+## [1] FALSE
+## 
+## 
+## [[3]]
+## [[3]]$value
+## function (needed_packages) 
+## {
+##     have_packages <- needed_packages %in% rownames(installed.packages())
+##     if (any(have_packages == FALSE) == TRUE) 
+##         install.packages(needed_packages[have_packages == FALSE])
+##     lapply(needed_packages, library, character.only = TRUE)
+## }
+## 
+## [[3]]$visible
+## [1] FALSE
+## 
+## 
+## [[4]]
+## [[4]]$value
 ## function (y, x, z, sd_values = seq(-3, 3, 0.5), mean_center = TRUE, 
 ##     alpha = 0.05) 
 ## {
@@ -73,7 +144,7 @@ lapply(list.files(path = "custom_functions/", pattern = "*.R", full.names = TRUE
 ##     return(result)
 ## }
 ## 
-## [[2]]$visible
+## [[4]]$visible
 ## [1] FALSE
 ```
 
@@ -835,6 +906,8 @@ big_five %>%
 ## E9-E10 -0.38 -0.37 -0.36 0
 ```
 
+# regression
+
 ## `lm()`
 * to be honest, I don't understand *all* of the arguments in `lm()`
 
@@ -985,5 +1058,113 @@ big_five %>%
 ## AIC: 11591
 ## 
 ## Number of Fisher Scoring iterations: 5
+```
+
+# Factorial ANOVA
+
+## afex package
+
+### between-subjects ANOVA
+
+
+```r
+my_data %>%
+  aov_car(formula = dep_var ~ exp_group_fac + Error(subj_id), data = .) %>%
+  summary(.)
+```
+
+```
+## Contrasts set to contr.sum for the following variables: exp_group_fac
+```
+
+```
+## Anova Table (Type 3 tests)
+## 
+## Response: dep_var
+##               num Df den Df    MSE     F     ges Pr(>F)
+## exp_group_fac      1     18 4.8056 1.259 0.06537 0.2766
+```
+
+### specific contrasts
+
+
+```r
+# t-value and p-value
+my_data %>%
+  aov_car(formula = dep_var ~ exp_group_fac + Error(subj_id), data = .) %>%
+  lsmeans::lsmeans(specs = "exp_group_fac") %>%
+  contrast(list(ntrl_mnpl = c(-1, 1)))
+```
+
+```
+## Contrasts set to contr.sum for the following variables: exp_group_fac
+```
+
+```
+##  contrast  estimate        SE df t.ratio p.value
+##  ntrl_mnpl      1.1 0.9803627 18   1.122  0.2766
+```
+
+```r
+# confidence intervals
+my_data %>%
+  aov_car(formula = dep_var ~ exp_group_fac + Error(subj_id), data = .) %>%
+  lsmeans::lsmeans(specs = "exp_group_fac") %>%
+  contrast(list(ntrl_mnpl = c(-1, 1))) %>%
+  confint(.)
+```
+
+```
+## Contrasts set to contr.sum for the following variables: exp_group_fac
+```
+
+```
+##  contrast  estimate        SE df   lower.CL upper.CL
+##  ntrl_mnpl      1.1 0.9803627 18 -0.9596657 3.159666
+## 
+## Confidence level used: 0.95
+```
+
+## straight to contrasts
+
+### Function 23: Confidence interval for a linear contrast of means (between-subjects design) [[Download more functions from Douglas Bonnet's course webpage](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&ved=0ahUKEwjg7bG3u-bUAhVi2IMKHWfSAWwQFggqMAA&url=https%3A%2F%2Fpeople.ucsc.edu%2F~dgbonett%2Fdocs%2Fpsyc204%2F204RFunctions.docx&usg=AFQjCNGRCAg-lE7TwzMSps_A1pmDOEEb8w)]
+
+
+```r
+my_data %>%
+  group_by(exp_group_fac) %>%
+  summarise(n = n(),
+            m = mean(dep_var),
+            sd = sd(dep_var)) %>%
+  with(data = ., CImeanBS(alpha = .05, m = m, sd = sd, n = n, c = c(-1, 1)))
+```
+
+```
+##                              Estimate        SE        t       df
+## Equal Variances Assumed:          1.1 0.9803627 1.122034 18.00000
+## Equal Variances Not Assumed:      1.1 0.9803627 1.122034 12.91188
+##                                p-value         LL       UL
+## Equal Variances Assumed:     0.2765933 -0.9596657 3.159666
+## Equal Variances Not Assumed: 0.2822809 -1.0194152 3.219415
+```
+
+## effect size
+
+### Function 24: Confidence interval for a standardized linear contrast of means (between-subjects design) [[Download more functions from Douglas Bonnet's course webpage](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&ved=0ahUKEwjg7bG3u-bUAhVi2IMKHWfSAWwQFggqMAA&url=https%3A%2F%2Fpeople.ucsc.edu%2F~dgbonett%2Fdocs%2Fpsyc204%2F204RFunctions.docx&usg=AFQjCNGRCAg-lE7TwzMSps_A1pmDOEEb8w)]
+
+
+```r
+my_data %>%
+  group_by(exp_group_fac) %>%
+  summarise(n = n(),
+            m = mean(dep_var),
+            sd = sd(dep_var)) %>%
+  with(data = ., CIstdmeanBS(alpha = .05, m = m, sd = sd, n = n, c = c(-1, 1)))
+```
+
+```
+##                              Estimate        SE         LL       UL
+## Equal Variances Not Assumed 0.5017887 0.4816354 -0.4421992 1.445777
+## Equal Variances Assumed:    0.5017887 0.4549662 -0.3899286 1.393506
 ```
 
