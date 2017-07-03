@@ -175,6 +175,7 @@ my_data <- data.frame(id, y, x, z)
 ```{r}
 
 my_data %>%
+  select(x, y, z) %>%
   psych::describe(.)
 
 ```
@@ -184,7 +185,7 @@ my_data %>%
 ```{r}
 
 my_data %>%
-  select(-id) %>%
+  select(x, y, z) %>%
   pairs.panels(pch = ".")
 
 ```
@@ -194,7 +195,7 @@ my_data %>%
 ```{r}
 
 my_data %>%
-  gather(variable, value, -id) %>%
+  gather(variable, value, x, y, z) %>%
   ggplot() +
   geom_histogram(aes(x = value)) +
   facet_wrap(~ variable, nrow = 3)
@@ -206,7 +207,7 @@ my_data %>%
 ```{r}
 
 my_data %>%
-  gather(variable, value, -id) %>%
+  gather(variable, value, x, y, z) %>%
   ggplot(aes(x = variable, y = value)) +
   geom_boxplot()
 
@@ -238,7 +239,7 @@ my_data %>%
 ```{r}
 
 my_data %>%
-  select(-id) %>%
+  select(x, y, z) %>%
   corr.test() %>%
   print(short = FALSE)
 
@@ -248,7 +249,7 @@ my_data %>%
 
 ```{r}
 my_data %>%
-  select(-id) %>%
+  select(x, y, z) %>%
   principal()
 ```
 
@@ -257,7 +258,7 @@ my_data %>%
 ```{r}
 
 my_data %>%
-  select(-id) %>%
+  select(x, y, z) %>%
   fa()
 
 ```
@@ -276,7 +277,7 @@ t.test(z, y)
 ```{r}
 
 my_data %>%
-  gather(variable, value, -id) %>%
+  gather(variable, value, x, y, z) %>%
   mutate(id = 1:300) %>%
   aov_car(formula = value ~ variable + Error(id), data = .) %>%
   summary(.)
@@ -288,7 +289,7 @@ my_data %>%
 ```{r}
 
 my_data %>%
-  gather(variable, value, -id) %>%
+  gather(variable, value, x, y, z) %>%
   mutate(id = 1:300) %>%
   aov_car(formula = value ~ variable + Error(id), data = .) %>%
   lsmeans::lsmeans(specs = "variable") %>%
@@ -319,7 +320,7 @@ mes(m.1 = mean(x),
 ```{r}
 
 my_data %>%
-  gather(variable, value, -id) %>%
+  gather(variable, value, x, y, z) %>%
   aov_car(formula = value ~ variable + Error(id/variable), data = .) %>%
   summary(.)
 
@@ -330,7 +331,7 @@ my_data %>%
 ```{r}
 
 my_data %>%
-  gather(variable, value, -id) %>%
+  gather(variable, value, x, y, z) %>%
   aov_car(formula = value ~ variable + Error(id/variable), data = .) %>%
   lsmeans::lsmeans(specs = "variable") %>%
   contrast(list(xy = c(-1, 1, 0),
@@ -342,9 +343,11 @@ my_data %>%
 
 # mediation
 
+## write model
+
 ```{r}
 
-# path label combes before variable
+# path label comes before variable
 # e.g. z ~ a * x = label = regress z on x, label it a
 my_mediaition <- "# a path
                     z ~ a * x
@@ -359,12 +362,23 @@ my_mediaition <- "# a path
                     ab := a * b
                     total := c + (a * b)"
 
-# fit model
+```
+
+
+## fit model
+
+```{r}
+
 my_mediaition %>%
   sem(data = my_data) %>%
   summary(.)
 
-# parameter estimates with boostraped CIs
+```
+
+## parameter estimates with boostraped CIs
+
+```{r}
+
 my_mediaition %>%
   sem(data = my_data,
       se = "bootstrap",
@@ -402,8 +416,68 @@ test_slopes(y = y,
 
 # model summary
 my_data %>%
-  gather(variable, value, -id) %>%
-  lmer(formula = value ~ variable + (1 | id), data = .) %>%
+  gather(variable, value, x, y, z) %>%
+  lmer(formula = value ~ variable + (1 | id) + (1 | variable), data = .) %>%
   summary(.)
 
 ```
+
+## print random intercepts
+
+```{r}
+
+my_data %>%
+  gather(variable, value, x, y, z) %>%
+  lmer(formula = value ~ variable + (1 | id) + (1 | variable), data = .) %>%
+  coefficients(.)
+
+```
+
+# latent growth curve
+
+## write model
+
+```{r}
+
+my_growth <- "# latent intercept
+                i =~ 1 * x + 1 * y + 1 * z
+
+              # latent slope
+                s =~ 0 * x + 1 * y + 2 * z"
+
+```
+
+
+## fit model
+
+```{r}
+
+my_growth %>%
+  growth(data = my_data) %>%
+  summary(.)
+
+```
+
+
+## parameter estimates with boostraped CIs
+
+```{r}
+
+my_growth %>%
+  growth(data = my_data,
+         se = "bootstrap",
+         bootstrap = 1000) %>%
+  parameterEstimates(boot.ci.type = "bca.simple")
+
+```
+
+## print intercepts and slopes
+
+```{r}
+
+my_growth %>%
+  growth(data = my_data) %>%
+  predict(.)
+
+```
+
