@@ -1,19 +1,19 @@
 # **R Programming for Research Workshop**
 ## Nick Michalak and Iris Wang
 
-**Required texts**
+## **Required texts**
 
 - Wickham, H., &amp; Grolemund, G. (2017). [_R for Data Science: Import, Tidy, Transform, Visualize, and Model Data_](http://r4ds.had.co.nz/). Sebastopol, CA: O&#39;Reilly Media, Inc.
 - [The tidyverse style guide](http://style.tidyverse.org/) by Hadley Wickham
 
-**Philosophy**
+## **Philosophy**
 
 - (2016, October 19). _Hadley Wickham &quot;Data Science with R&quot;_. Retrieved from [https://youtu.be/K-ss\_ag2k9E?list=PLNtpLD4WiWbw9Cgcg6IU75u-44TrrN3A4](https://youtu.be/K-ss_ag2k9E?list=PLNtpLD4WiWbw9Cgcg6IU75u-44TrrN3A4)
 - Wickham, H. (2014). [Tidy data](http://vita.had.co.nz/papers/tidy-data.html). _Journal of Statistical Software, 59(10)_, 1-23.
 
-**Day 0. Installation and demonstration**
+## **Day 0. Installation and demonstration**
 
-Before workshop
+### Before workshop
 
 - Skim [Introduction](http://r4ds.had.co.nz/introduction.html) (Wickham &amp; Grolemund)
 - Browse [tidyverse.org](http://tidyverse.org/)
@@ -23,7 +23,7 @@ Before workshop
   2. Make a new folder. Give it a good name. Repeat with subfolders. (Hint: skim some data management best practices from the [Stanford Library](https://library.stanford.edu/research/data-management-services/data-best-practices) or the [Michigan Library](http://guides.lib.umich.edu/c.php?g=538509&amp;p=3686046) guide)
   3. Put your raw data in there, somewhere
 
-During workshop
+### During workshop
 
 - Introduction / Philosophy
 - Installing (and uninstalling) R and R Studio
@@ -41,12 +41,12 @@ During workshop
 
 ## **Day 1. Data import and visualization**
 
-Before workshop
+### Before workshop
 
 - Skim [Data visualization](http://r4ds.had.co.nz/data-visualisation.html) and [Data import](http://r4ds.had.co.nz/data-import.html) (Wickham &amp; Grolemund)
 - Skim [magrittr](http://magrittr.tidyverse.org/) and [ggplot2](http://ggplot2.tidyverse.org/)
 
-During workshop
+### During workshop
 
 - Introduction and demonstration
   - [Anscombe&#39;s quartet](https://en.wikipedia.org/wiki/Anscombe%27s_quartet)
@@ -66,12 +66,12 @@ During workshop
 
 ## **Day 2. Workflow and data transformation**
 
-Before workshop
+### Before workshop
 
 - Skim [Workflow: basics](http://r4ds.had.co.nz/workflow-basics.html), [Data transformation](http://r4ds.had.co.nz/transform.html), and [Relational data](http://r4ds.had.co.nz/relational-data.html) (Wickham &amp; Grolemund)
 - Skim [Files](http://style.tidyverse.org/files.html) and [Syntax](http://style.tidyverse.org/syntax.html) from the tidyverse style guide (Wickham)
 
-During Workshop
+### During Workshop
 
 - Coding basics
 - Naming
@@ -92,12 +92,12 @@ During Workshop
 
 ## **Day 3. Vectors, strings, factors, and statistics**
 
-Before workshop
+### Before workshop
 
 - Skim [Vectors](http://r4ds.had.co.nz/vectors.html), [Strings](http://r4ds.had.co.nz/strings.html), and [Factors](http://r4ds.had.co.nz/factors.html) (Wickham &amp; Grolemund)
 - Skim [R Library Contrast Coding Systems for Categorical Variables](https://stats.idre.ucla.edu/r/library/r-library-contrast-coding-systems-for-categorical-variables/) (UCLA: Statistical Consulting Group)
 
-During workshop
+### During workshop
 
 - Vector basics
 - Important types of atomic vectors
@@ -123,7 +123,7 @@ During workshop
 
 ## **Day 4. Miscellaneous topics**
 
-During the workshop
+### During the workshop
 
 - Tidy data
 - R Projects
@@ -134,7 +134,7 @@ During the workshop
 
 ## **R Resources**
 
-**Websites**
+### **Websites**
 
 - [Quick-R](http://www.statmethods.net/) a roadmap to the language and the code necessary to get started quickly (i.e. tutorials)
 
@@ -150,7 +150,7 @@ During the workshop
 - [A language, not a letter: Learning statistics in R](http://ademos.people.uic.edu/index.html)_&quot;This online collection of tutorials was created by graduate students in psychology as a resource for other experimental psychologists interested in using R for statistical analyses and graphics. Each chapter was created to provide an overview of how to code a particular topic in the R language.&quot;_
 - [STAT 545 @ UBC: Data wrangling, exploration, and analysis with R](http://stat545.com/index.html)_&quot;Learn how to explore, groom, visualize, and analyze data and make all of that reproducible, reusable, and shareable using R&quot;_
 
-**Texts**
+### **Texts**
 
 - Beaujean, A. A. (2014). [_Latent variable modeling using R: A step-by-step guide_](https://blogs.baylor.edu/rlatentvariable/). New York, NY: Routledge.
 - Field, A., Miles., J., &amp; Field, Z. (2012). [_Discovering statistics using R_](https://us.sagepub.com/en-us/nam/discovering-statistics-using-r/book236067%20#resources). London: SAGE Publications.
@@ -160,7 +160,7 @@ During the workshop
 - Wickham, H. (2016). [_ggplot2: Elegant graphics for data analysis_](http://ggplot2.org/book/). New York, NY: Springer.
 - Zuur, A. F., Ieno, E. N., Walker, N. J., Saveliev, A. A., &amp; Smith, G. M. (2009). [_Mixed effects models and extensions in ecology with R_](https://www.amazon.com/Effects-Extensions-Ecology-Statistics-Biology/dp/0387874577). New York, NY: Springer.
 
-**Packages (Google these)**
+### **Packages (Google these)**
 
 - psych
 - lavaan
