@@ -84,8 +84,8 @@
 - `summarise()`
 - `gather()`
 - `spread()`
-- `full_join()`, `left_join()`, `right_join()`, `inner_join`
-- ifelse()
+- `full_join()`, `left_join()`, `right_join()`, `inner_join()`
+- `ifelse()`
 - Exercises and [wrangling](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf) your own data
 - Cheat sheets
   - [Data transformation cheat sheet](https://github.com/rstudio/cheatsheets/raw/master/source/pdfs/data-transformation-cheatsheet.pdf)
