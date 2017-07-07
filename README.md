@@ -1,5 +1,6 @@
 # **R Programming for Research Workshop**
 ## Nick Michalak and Iris Wang
+## University of Michigan LSA Department of Psychology
 
 ## **Required texts**
 
