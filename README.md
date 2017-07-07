@@ -20,9 +20,9 @@ Before workshop
 - Browse [org](http://tidyverse.org/)
 - Skim [Hadley Wickham &quot;Data Science with R&quot;](https://youtu.be/K-ss_ag2k9E?list=PLNtpLD4WiWbw9Cgcg6IU75u-44TrrN3A4) (ReedCollegePDX, 2016)
 - Find one or two datasets you know well and are OK with others seeing.
-  1. a)Preferably, find the raw (hasn&#39;t been &quot;cleaned&quot;) data
-  2. b)Make a new folder. Give it a good name. Repeat with subfolders. (Hint: skim some data management best practices from the [Stanford Library](https://library.stanford.edu/research/data-management-services/data-best-practices) or the [Michigan Library](http://guides.lib.umich.edu/c.php?g=538509&amp;p=3686046) guide)
-  3. c)Put your raw data in there, somewhere
+  1. Preferably, find the raw (hasn&#39;t been &quot;cleaned&quot;) data
+  2. Make a new folder. Give it a good name. Repeat with subfolders. (Hint: skim some data management best practices from the [Stanford Library](https://library.stanford.edu/research/data-management-services/data-best-practices) or the [Michigan Library](http://guides.lib.umich.edu/c.php?g=538509&amp;p=3686046) guide)
+  3. Put your raw data in there, somewhere
 
 During workshop
 
@@ -82,7 +82,7 @@ During Workshop
 - summarise()
 - gather()
 - spread()
-- full\_join(), left\_join(), right\_join(), inner\_join
+- full\_join(), left\_join(), right\_join(), inner\_join()
 - ifelse()
 - Exercises and [wrangling](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf) your own data
 - Cheat sheets
