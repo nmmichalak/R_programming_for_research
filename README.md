@@ -8,7 +8,7 @@
 
 ## **Philosophy**
 
-- (2016, October 19). _Hadley Wickham &quot;Data Science with R&quot;_. Retrieved from [https://youtu.be/K-ss\_ag2k9E?list=PLNtpLD4WiWbw9Cgcg6IU75u-44TrrN3A4](https://youtu.be/K-ss_ag2k9E?list=PLNtpLD4WiWbw9Cgcg6IU75u-44TrrN3A4)
+- ReadCollegePDX (2016, October 19). _Hadley Wickham &quot;Data Science with R&quot;_. Retrieved from [https://youtu.be/K-ss\_ag2k9E?list=PLNtpLD4WiWbw9Cgcg6IU75u-44TrrN3A4](https://youtu.be/K-ss_ag2k9E?list=PLNtpLD4WiWbw9Cgcg6IU75u-44TrrN3A4)
 - Wickham, H. (2014). [Tidy data](http://vita.had.co.nz/papers/tidy-data.html). _Journal of Statistical Software, 59(10)_, 1-23.
 
 ## **Day 0. Installation and demonstration**
@@ -191,4 +191,4 @@
 
 Iris and I couldn't have done this alone. We thank all of these thoughtful and helpful people:
 
-Josh Wondra (he started this workshop in the Psychology Department last summer and helped us take it over this summer), Brian Wallace and everyone at Psychology Student Academic Affairs (they approved us!), Rich Gonzalez (especially his Psychology 613 / 614 course), Adrienne Beltz and Pam Davis-Kean and everyone who's a part of the Psychology Methods Hour, and, of course, the R community, especially Hadley Wickham and Garrett Grolemund (they wrote the book!).
+Josh Wondra (he started this workshop in the Psychology Department last summer and helped us take it over this summer); Brian Wallace and everyone at Psychology Student Academic Affairs (they approved us!); Rich Gonzalez (especially his Psychology 613 / 614 course); Adrienne Beltz and Pam Davis-Kean and everyone who's a part of the Psychology Methods Hour; and, of course, the R community, especially Hadley Wickham and Garrett Grolemund (they wrote the book!).
