@@ -9,8 +9,8 @@ Nick Michalak and Iris Wang
 
 **Philosophy**
 
-- Wickham, H. (2014). [Tidy data](http://vita.had.co.nz/papers/tidy-data.html). _Journal of Statistical Software, 59(10)_, 1-23.
 - (2016, October 19). _Hadley Wickham &quot;Data Science with R&quot;_. Retrieved from [https://youtu.be/K-ss\_ag2k9E?list=PLNtpLD4WiWbw9Cgcg6IU75u-44TrrN3A4](https://youtu.be/K-ss_ag2k9E?list=PLNtpLD4WiWbw9Cgcg6IU75u-44TrrN3A4)
+- Wickham, H. (2014). [Tidy data](http://vita.had.co.nz/papers/tidy-data.html). _Journal of Statistical Software, 59(10)_, 1-23.
 
 **Day 0. Installation and demonstration**
 
@@ -50,13 +50,16 @@ Before workshop
 During workshop
 
 - Introduction and demonstration
+  - [Anscombe&#39;s quartet](https://en.wikipedia.org/wiki/Anscombe%27s_quartet)
+  - Matejka, J., &amp; Fitzmaurice, G. (2017, May). [Same stats, different graphs: Generating datasets with varied appearance and identical statistics through simulated annealing](https://www.autodeskresearch.com/publications/samestats). In _Proceedings of the 2017 CHI Conference on Human Factors in Computing Systems_ (pp. 1290-1294). ACM.
+  - Weissgerber, T. L., Milic, N. M., Winham, S. J., &amp; Garovic, V. D. (2015). [Beyond bar and line graphs: time for a new data presentation paradigm](http://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1002128). _PLoS biology, 13(4)_, e1002128.
 - ggplot2
 
 - Aesthetics
 - Facets
 - Geometric objects
 - Position adjustments
-- Import data with read\_csv(), read\_sav(), read\_sas(), or read\_stata()
+- Import data with `read\_csv()`, `read\_sav()`, `read\_sas()`, or `read\_stata()`
 - Exercises and plotting your own data
 - Cheat sheets
   - [Data visualization cheat sheet](https://www.rstudio.com/wp-content/uploads/2016/11/ggplot2-cheatsheet-2.1.pdf)
@@ -74,15 +77,15 @@ During Workshop
 - Coding basics
 - Naming
 - Calling functions
-- rep()
-- filter()
-- arrange()
-- select()
-- mutate()
-- summarise()
-- gather()
-- spread()
-- full\_join(), left\_join(), right\_join(), inner\_join()
+- `rep()`
+- `filter()`
+- `arrange()`
+- `select()`
+- `mutate()`
+- `summarise()`
+- `gather()`
+- `spread()`
+- `full\_join()`, `left\_join()`, `right\_join()`, `inner\_join`
 - ifelse()
 - Exercises and [wrangling](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf) your own data
 - Cheat sheets
@@ -105,13 +108,13 @@ During workshop
 - Modifying factor levels
 - Contrasts coding systems in R
 - Statistics
-  - test()
-  - test()
-  - lm()
-  - glm()
-  - aov\_car() / aov\_ez()
-  - lmer()
-  - sem() / cfa() / growth()
+  - `t.test()`
+  - `cor.test()`
+  - `lm()`
+  - `glm()`
+  - `aov\_car()` / `aov\_ez()`
+  - `lmer()`
+  - `sem()` / `cfa()` / `growth()`
   - contrasts (and more) [[Douglas Bonett&#39;s R functions](https://people.ucsc.edu/~dgbonett/psyc204.html)]
   - afex package [[introduction](http://singmann.org/anova-in-r-afex-may-be-the-solution-you-are-looking-for/)]
   - psych package [[verview](http://personality-project.org/r/overview.pdf)]
