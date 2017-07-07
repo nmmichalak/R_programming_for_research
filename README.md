@@ -186,3 +186,9 @@
 - Hmisc
 - afex
 - table
+
+## Acknowledgements
+
+Iris and I couldn't have done this alone. We thank all of these thoughtful and helpful people:
+
+Josh Wondra (he started this workshop in the Psychology Department last summer and helped us take it over this summer), Brian Wallace and everyone at Psychology Student Academic Affairs (they approved us!), Rich Gonzalez (especially his Psychology 613 / 614 course), Adrienne Beltz and Pam Davis-Kean and everyone who's a part of the Psychology Methods Hour, and, of course, the R community, especially Hadley Wickham and Garrett Grolemund (they wrote the book!).
