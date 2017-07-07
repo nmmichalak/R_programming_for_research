@@ -330,12 +330,17 @@ source(&quot;custom_functions/install_needed_pkgs.R&quot;)
 needed_packages &lt;- c(&quot;tidyverse&quot;)
 
 install_needed_pkgs(needed_packages)</code></pre>
+<pre><code>## Warning: package 'tidyverse' was built under R version 3.3.3</code></pre>
 <pre><code>## Loading tidyverse: ggplot2
 ## Loading tidyverse: tibble
 ## Loading tidyverse: tidyr
 ## Loading tidyverse: readr
 ## Loading tidyverse: purrr
 ## Loading tidyverse: dplyr</code></pre>
+<pre><code>## Warning: package 'ggplot2' was built under R version 3.3.2</code></pre>
+<pre><code>## Warning: package 'tibble' was built under R version 3.3.2</code></pre>
+<pre><code>## Warning: package 'readr' was built under R version 3.3.3</code></pre>
+<pre><code>## Warning: package 'purrr' was built under R version 3.3.3</code></pre>
 <pre><code>## Conflicts with tidy packages ----------------------------------------------</code></pre>
 <pre><code>## filter(): dplyr, stats
 ## lag():    dplyr, stats</code></pre>
@@ -343,6 +348,10 @@ install_needed_pkgs(needed_packages)</code></pre>
 ##  [1] &quot;dplyr&quot;     &quot;purrr&quot;     &quot;readr&quot;     &quot;tidyr&quot;     &quot;tibble&quot;   
 ##  [6] &quot;ggplot2&quot;   &quot;tidyverse&quot; &quot;stats&quot;     &quot;graphics&quot;  &quot;grDevices&quot;
 ## [11] &quot;utils&quot;     &quot;datasets&quot;  &quot;methods&quot;   &quot;base&quot;</code></pre>
+<pre class="r"><code>library(tidyverse)
+#sets the functions as being part of the packages you actually want to pull from
+filter &lt;- dplyr::filter
+tibble &lt;- tibble::tibble</code></pre>
 <ul>
 <li>?function will bring up a help screen for that function
 <ul>
@@ -355,32 +364,37 @@ install_needed_pkgs(needed_packages)</code></pre>
 </ul></li>
 </ul>
 <pre class="r"><code># create four variables: N, id, cond x, z, and y
-# 100 observations per variable
-N &lt;- 100
-
-# create a subject id 
-id &lt;- 1:100
+# 10 observations per variable
+N &lt;- 10
 
 # create a condition variable
-cond &lt;- rep(c(&quot;Treatment&quot;, &quot;Control&quot;), each = 50)
+cond &lt;- rep(c(&quot;Treatment&quot;, &quot;Control&quot;), each = 5)
 
 # set randomizer seed so results can be reproduced
 set.seed(1234)
 
 # drawn from random normal distribution
 gratitude_t1 &lt;- rnorm(n = N, mean = 4.5, sd = 0.95)
-gratitude_t2 &lt;- rnorm(n = N, mean = 5.5, sd = 0.95)
-interdep &lt;- 0.8 * x + rnorm(n = N, mean = 0, sd = 0.5)
+gratitude_t2 &lt;- rnorm(n = N-1, mean = 5.5, sd = 0.95)
+gratitude_t2 &lt;- c(gratitude_t2, NA)
+interdep &lt;- 0.8 * gratitude_t1 + rnorm(n = N, mean = 0, sd = 0.5)
 
 # store in a dataframe
-time1_survey &lt;- tibble(id, cond, gratitude_t1)
-time2_survey &lt;- tibble(id, gratitude_t2, interdep)
-
-# join time 1 and time 2 by subject id
+time1_survey &lt;- tibble(id = 1:10, cond, gratitude_t1, interdep)
+time2_survey &lt;- tibble(id = c(1:9, NA), gratitude_t2)</code></pre>
+<pre><code>+ Demo: join(x, y, by)</code></pre>
+<pre class="r"><code># join time 1 and time 2 by subject id
 # ?left_join (Join matching rows from y to x)
 # right_join
 # ?full_join
-joined_survey &lt;- left_join(x = time1_survey, y = time2_survey, by = &quot;id&quot;)</code></pre>
+
+full.joined_survey &lt;- full_join(x = time1_survey, y = time2_survey, by = &quot;id&quot;)
+
+joined_survey &lt;- inner_join(x = time1_survey, y = time2_survey, by = &quot;id&quot;)
+
+left.joined_survey &lt;- left_join(x = time1_survey, y = time2_survey, by = &quot;id&quot;)
+
+right.joined_survey &lt;- right_join(x = time1_survey, y = time2_survey, by = &quot;id&quot;)</code></pre>
 <pre><code>  + Demo: scale(variable, scale=FALSE)
     + scale will center your variable if the argument scale is FALSE
     + it will z-score your variable if the argument scale is TRUE
@@ -394,64 +408,53 @@ joined_survey &lt;- joined_survey %&gt;%
 <ul>
 <li>filter()</li>
 </ul>
-<pre class="r"><code># filter only id &quot;exactly equal to&quot; 90
-dplyr::filter(joined_survey, id == 90)</code></pre>
-<pre><code>## # A tibble: 1 x 6
-##      id    cond gratitude_t1 gratitude_t2 interdep  interdep_c
-##   &lt;int&gt;   &lt;chr&gt;        &lt;dbl&gt;        &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt;
-## 1    90 Control     3.365199     5.311505 9.664217 -0.01308482</code></pre>
-<pre class="r"><code># filter only id &quot;less than&quot; 90
-dplyr::filter(joined_survey, id &lt; 90)</code></pre>
-<pre><code>## # A tibble: 89 x 6
-##       id      cond gratitude_t1 gratitude_t2  interdep  interdep_c
-##    &lt;int&gt;     &lt;chr&gt;        &lt;dbl&gt;        &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;
-##  1     1 Treatment     3.353288     5.893797  9.842613  0.16531157
-##  2     2 Treatment     4.763558     5.049017  9.948384  0.27108255
-##  3     3 Treatment     5.530219     5.562694  9.692757  0.01545512
-##  4     4 Treatment     2.271587     5.022646  9.950367  0.27306492
-##  5     5 Treatment     4.907668     4.715301  9.755841  0.07853868
-##  6     6 Treatment     4.980753     5.658640  9.980231  0.30292934
-##  7     7 Treatment     3.953997     4.648549 10.521232  0.84392998
-##  8     8 Treatment     3.980700     5.659776 10.156181  0.47887958
-##  9     9 Treatment     3.963771     5.837220  9.616332 -0.06096986
-## 10    10 Treatment     3.654464     5.450500  9.042776 -0.63452632
-## # ... with 79 more rows</code></pre>
-<pre class="r"><code># filter only id &quot;less than&quot; 9 &quot;or&quot; id &quot;exactly equal to&quot; 14
-dplyr::filter(joined_survey, id &lt; 9 | id == 14)</code></pre>
-<pre><code>## # A tibble: 9 x 6
-##      id      cond gratitude_t1 gratitude_t2  interdep  interdep_c
-##   &lt;int&gt;     &lt;chr&gt;        &lt;dbl&gt;        &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;
-## 1     1 Treatment     3.353288     5.893797  9.842613  0.16531157
-## 2     2 Treatment     4.763558     5.049017  9.948384  0.27108255
-## 3     3 Treatment     5.530219     5.562694  9.692757  0.01545512
-## 4     4 Treatment     2.271587     5.022646  9.950367  0.27306492
-## 5     5 Treatment     4.907668     4.715301  9.755841  0.07853868
-## 6     6 Treatment     4.980753     5.658640  9.980231  0.30292934
-## 7     7 Treatment     3.953997     4.648549 10.521232  0.84392998
-## 8     8 Treatment     3.980700     5.659776 10.156181  0.47887958
-## 9    14 Treatment     4.561236     6.306810  8.796460 -0.88084231</code></pre>
-<pre class="r"><code># filter only id &quot;less than&quot; 9 &quot;and&quot; gratitude_t1 &quot;greater than&quot; 5
-dplyr::filter(joined_survey, id &lt; 9 &amp; gratitude_t1 &gt; 5)</code></pre>
-<pre><code>## # A tibble: 1 x 6
-##      id      cond gratitude_t1 gratitude_t2 interdep interdep_c
-##   &lt;int&gt;     &lt;chr&gt;        &lt;dbl&gt;        &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;
-## 1     3 Treatment     5.530219     5.562694 9.692757 0.01545512</code></pre>
+<pre class="r"><code># filter only id &quot;exactly equal to&quot; 9
+filter(joined_survey, id == 9)</code></pre>
+<pre><code>## # A tibble: 1 × 6
+##      id    cond gratitude_t1 interdep gratitude_t2 interdep_c
+##   &lt;int&gt;   &lt;chr&gt;        &lt;dbl&gt;    &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;
+## 1     9 Control     3.963771 2.659189     4.704687 -0.6639402</code></pre>
+<pre class="r"><code># filter only id &quot;less than&quot; 7
+filter(joined_survey, id &lt; 7)</code></pre>
+<pre><code>## # A tibble: 6 × 6
+##      id      cond gratitude_t1 interdep gratitude_t2 interdep_c
+##   &lt;int&gt;     &lt;chr&gt;        &lt;dbl&gt;    &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;
+## 1     1 Treatment     3.353288 3.890548     5.046667  0.5674188
+## 2     2 Treatment     4.763558 3.877890     4.551533  0.5547615
+## 3     3 Treatment     5.530219 4.178832     4.762559  0.8557035
+## 4     4 Treatment     2.271587 1.596996     5.561236 -1.7261330
+## 5     5 Treatment     4.907668 4.155929     6.411519  0.8328007
+## 6     6   Control     4.980753 3.637742     5.395229  0.3146135</code></pre>
+<pre class="r"><code># filter only id &quot;less than&quot; 7 &quot;or&quot; id &quot;exactly equal to&quot; 9
+filter(joined_survey, id &lt; 7 | id == 9)</code></pre>
+<pre><code>## # A tibble: 7 × 6
+##      id      cond gratitude_t1 interdep gratitude_t2 interdep_c
+##   &lt;int&gt;     &lt;chr&gt;        &lt;dbl&gt;    &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;
+## 1     1 Treatment     3.353288 3.890548     5.046667  0.5674188
+## 2     2 Treatment     4.763558 3.877890     4.551533  0.5547615
+## 3     3 Treatment     5.530219 4.178832     4.762559  0.8557035
+## 4     4 Treatment     2.271587 1.596996     5.561236 -1.7261330
+## 5     5 Treatment     4.907668 4.155929     6.411519  0.8328007
+## 6     6   Control     4.980753 3.637742     5.395229  0.3146135
+## 7     9   Control     3.963771 2.659189     4.704687 -0.6639402</code></pre>
+<pre class="r"><code># filter only id &quot;less than&quot; 9 &quot;and&quot; gratitude_t1 &quot;greater than&quot; 4
+filter(joined_survey, id &lt; 7 &amp; gratitude_t1 &gt; 4)</code></pre>
+<pre><code>## # A tibble: 4 × 6
+##      id      cond gratitude_t1 interdep gratitude_t2 interdep_c
+##   &lt;int&gt;     &lt;chr&gt;        &lt;dbl&gt;    &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;
+## 1     2 Treatment     4.763558 3.877890     4.551533  0.5547615
+## 2     3 Treatment     5.530219 4.178832     4.762559  0.8557035
+## 3     5 Treatment     4.907668 4.155929     6.411519  0.8328007
+## 4     6   Control     4.980753 3.637742     5.395229  0.3146135</code></pre>
 <pre class="r"><code># filter only condition &quot;not equal to&quot; Treatment
-dplyr::filter(joined_survey, cond != &quot;Treatment&quot;)</code></pre>
-<pre><code>## # A tibble: 50 x 6
-##       id    cond gratitude_t1 gratitude_t2  interdep  interdep_c
-##    &lt;int&gt;   &lt;chr&gt;        &lt;dbl&gt;        &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;
-##  1    51 Control     2.784270     5.141624  9.818465  0.14116345
-##  2    52 Control     3.947028     5.592738 10.130062  0.45276012
-##  3    53 Control     3.446555     7.056807  9.826095  0.14879336
-##  4    54 Control     3.535786     4.668187  9.931599  0.25429747
-##  5    55 Control     4.345806     5.615672  9.031813 -0.64548861
-##  6    56 Control     5.034903     6.794024  9.414751 -0.26255059
-##  7    57 Control     6.065427     5.277110 10.338485  0.66118296
-##  8    58 Control     3.765314     4.499286  8.988048 -0.68925371
-##  9    59 Control     6.025614     4.673706  9.729034  0.05173236
-## 10    60 Control     3.400082     5.129379  9.802501  0.12519957
-## # ... with 40 more rows</code></pre>
+filter(joined_survey, cond != &quot;Treatment&quot;)</code></pre>
+<pre><code>## # A tibble: 4 × 6
+##      id    cond gratitude_t1 interdep gratitude_t2 interdep_c
+##   &lt;int&gt;   &lt;chr&gt;        &lt;dbl&gt;    &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;
+## 1     6 Control     4.980753 3.637742     5.395229  0.3146135
+## 2     7 Control     3.953997 2.439095     5.014541 -0.8840336
+## 3     8 Control     3.980700 3.471938     4.634364  0.1488088
+## 4     9 Control     3.963771 2.659189     4.704687 -0.6639402</code></pre>
 <ul>
 <li>arrange()
 <ul>
@@ -460,36 +463,32 @@ dplyr::filter(joined_survey, cond != &quot;Treatment&quot;)</code></pre>
 </ul>
 <pre class="r"><code># arrange joined_survey by cond
 arrange(joined_survey, cond)</code></pre>
-<pre><code>## # A tibble: 100 x 6
-##       id    cond gratitude_t1 gratitude_t2  interdep  interdep_c
-##    &lt;int&gt;   &lt;chr&gt;        &lt;dbl&gt;        &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;
-##  1    51 Control     2.784270     5.141624  9.818465  0.14116345
-##  2    52 Control     3.947028     5.592738 10.130062  0.45276012
-##  3    53 Control     3.446555     7.056807  9.826095  0.14879336
-##  4    54 Control     3.535786     4.668187  9.931599  0.25429747
-##  5    55 Control     4.345806     5.615672  9.031813 -0.64548861
-##  6    56 Control     5.034903     6.794024  9.414751 -0.26255059
-##  7    57 Control     6.065427     5.277110 10.338485  0.66118296
-##  8    58 Control     3.765314     4.499286  8.988048 -0.68925371
-##  9    59 Control     6.025614     4.673706  9.729034  0.05173236
-## 10    60 Control     3.400082     5.129379  9.802501  0.12519957
-## # ... with 90 more rows</code></pre>
+<pre><code>## # A tibble: 9 × 6
+##      id      cond gratitude_t1 interdep gratitude_t2 interdep_c
+##   &lt;int&gt;     &lt;chr&gt;        &lt;dbl&gt;    &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;
+## 1     6   Control     4.980753 3.637742     5.395229  0.3146135
+## 2     7   Control     3.953997 2.439095     5.014541 -0.8840336
+## 3     8   Control     3.980700 3.471938     4.634364  0.1488088
+## 4     9   Control     3.963771 2.659189     4.704687 -0.6639402
+## 5     1 Treatment     3.353288 3.890548     5.046667  0.5674188
+## 6     2 Treatment     4.763558 3.877890     4.551533  0.5547615
+## 7     3 Treatment     5.530219 4.178832     4.762559  0.8557035
+## 8     4 Treatment     2.271587 1.596996     5.561236 -1.7261330
+## 9     5 Treatment     4.907668 4.155929     6.411519  0.8328007</code></pre>
 <pre class="r"><code># arrange joined_survey by id
 arrange(joined_survey, id)</code></pre>
-<pre><code>## # A tibble: 100 x 6
-##       id      cond gratitude_t1 gratitude_t2  interdep  interdep_c
-##    &lt;int&gt;     &lt;chr&gt;        &lt;dbl&gt;        &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;
-##  1     1 Treatment     3.353288     5.893797  9.842613  0.16531157
-##  2     2 Treatment     4.763558     5.049017  9.948384  0.27108255
-##  3     3 Treatment     5.530219     5.562694  9.692757  0.01545512
-##  4     4 Treatment     2.271587     5.022646  9.950367  0.27306492
-##  5     5 Treatment     4.907668     4.715301  9.755841  0.07853868
-##  6     6 Treatment     4.980753     5.658640  9.980231  0.30292934
-##  7     7 Treatment     3.953997     4.648549 10.521232  0.84392998
-##  8     8 Treatment     3.980700     5.659776 10.156181  0.47887958
-##  9     9 Treatment     3.963771     5.837220  9.616332 -0.06096986
-## 10    10 Treatment     3.654464     5.450500  9.042776 -0.63452632
-## # ... with 90 more rows</code></pre>
+<pre><code>## # A tibble: 9 × 6
+##      id      cond gratitude_t1 interdep gratitude_t2 interdep_c
+##   &lt;int&gt;     &lt;chr&gt;        &lt;dbl&gt;    &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;
+## 1     1 Treatment     3.353288 3.890548     5.046667  0.5674188
+## 2     2 Treatment     4.763558 3.877890     4.551533  0.5547615
+## 3     3 Treatment     5.530219 4.178832     4.762559  0.8557035
+## 4     4 Treatment     2.271587 1.596996     5.561236 -1.7261330
+## 5     5 Treatment     4.907668 4.155929     6.411519  0.8328007
+## 6     6   Control     4.980753 3.637742     5.395229  0.3146135
+## 7     7   Control     3.953997 2.439095     5.014541 -0.8840336
+## 8     8   Control     3.980700 3.471938     4.634364  0.1488088
+## 9     9   Control     3.963771 2.659189     4.704687 -0.6639402</code></pre>
 <ul>
 <li>select()
 <ul>
@@ -498,20 +497,18 @@ arrange(joined_survey, id)</code></pre>
 </ul>
 <pre class="r"><code># from joined_survey, select id, interdep_c, and gratitude_t1
 select(joined_survey, id, interdep_c, gratitude_t1)</code></pre>
-<pre><code>## # A tibble: 100 x 3
-##       id  interdep_c gratitude_t1
-##    &lt;int&gt;       &lt;dbl&gt;        &lt;dbl&gt;
-##  1     1  0.16531157     3.353288
-##  2     2  0.27108255     4.763558
-##  3     3  0.01545512     5.530219
-##  4     4  0.27306492     2.271587
-##  5     5  0.07853868     4.907668
-##  6     6  0.30292934     4.980753
-##  7     7  0.84392998     3.953997
-##  8     8  0.47887958     3.980700
-##  9     9 -0.06096986     3.963771
-## 10    10 -0.63452632     3.654464
-## # ... with 90 more rows</code></pre>
+<pre><code>## # A tibble: 9 × 3
+##      id interdep_c gratitude_t1
+##   &lt;int&gt;      &lt;dbl&gt;        &lt;dbl&gt;
+## 1     1  0.5674188     3.353288
+## 2     2  0.5547615     4.763558
+## 3     3  0.8557035     5.530219
+## 4     4 -1.7261330     2.271587
+## 5     5  0.8328007     4.907668
+## 6     6  0.3146135     4.980753
+## 7     7 -0.8840336     3.953997
+## 8     8  0.1488088     3.980700
+## 9     9 -0.6639402     3.963771</code></pre>
 <ul>
 <li>mutate()
 <ul>
@@ -524,22 +521,20 @@ select(joined_survey, id, interdep_c, gratitude_t1)</code></pre>
 mutate(joined_survey,
        gratitude_mean = (gratitude_t1 + gratitude_t2) / 2,
        gratitude_mean_alt = mean(c(gratitude_t1, gratitude_t2),
-                                 na.rm = TRUE)
-)</code></pre>
-<pre><code>## # A tibble: 100 x 8
-##       id      cond gratitude_t1 gratitude_t2  interdep  interdep_c
-##    &lt;int&gt;     &lt;chr&gt;        &lt;dbl&gt;        &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;
-##  1     1 Treatment     3.353288     5.893797  9.842613  0.16531157
-##  2     2 Treatment     4.763558     5.049017  9.948384  0.27108255
-##  3     3 Treatment     5.530219     5.562694  9.692757  0.01545512
-##  4     4 Treatment     2.271587     5.022646  9.950367  0.27306492
-##  5     5 Treatment     4.907668     4.715301  9.755841  0.07853868
-##  6     6 Treatment     4.980753     5.658640  9.980231  0.30292934
-##  7     7 Treatment     3.953997     4.648549 10.521232  0.84392998
-##  8     8 Treatment     3.980700     5.659776 10.156181  0.47887958
-##  9     9 Treatment     3.963771     5.837220  9.616332 -0.06096986
-## 10    10 Treatment     3.654464     5.450500  9.042776 -0.63452632
-## # ... with 90 more rows, and 2 more variables: gratitude_mean &lt;dbl&gt;,
+                                 na.rm = TRUE))</code></pre>
+<pre><code>## # A tibble: 9 × 8
+##      id      cond gratitude_t1 interdep gratitude_t2 interdep_c
+##   &lt;int&gt;     &lt;chr&gt;        &lt;dbl&gt;    &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;
+## 1     1 Treatment     3.353288 3.890548     5.046667  0.5674188
+## 2     2 Treatment     4.763558 3.877890     4.551533  0.5547615
+## 3     3 Treatment     5.530219 4.178832     4.762559  0.8557035
+## 4     4 Treatment     2.271587 1.596996     5.561236 -1.7261330
+## 5     5 Treatment     4.907668 4.155929     6.411519  0.8328007
+## 6     6   Control     4.980753 3.637742     5.395229  0.3146135
+## 7     7   Control     3.953997 2.439095     5.014541 -0.8840336
+## 8     8   Control     3.980700 3.471938     4.634364  0.1488088
+## 9     9   Control     3.963771 2.659189     4.704687 -0.6639402
+## # ... with 2 more variables: gratitude_mean &lt;dbl&gt;,
 ## #   gratitude_mean_alt &lt;dbl&gt;</code></pre>
 <pre class="r"><code># using pipes
 # have to use rowwise
@@ -547,26 +542,22 @@ joined_survey %&gt;%
   rowwise(.) %&gt;% 
   mutate(gratitude_mean = (gratitude_t1 + gratitude_t2)/2, 
          gratitude_mean_alt= mean(c(gratitude_t1, gratitude_t2),
-                                  na.rm = TRUE)
-  )</code></pre>
-<pre><code>## Source: local data frame [100 x 8]
+                                  na.rm = TRUE))</code></pre>
+<pre><code>## Source: local data frame [9 x 8]
 ## Groups: &lt;by row&gt;
 ## 
-## # A tibble: 100 x 8
-##       id      cond gratitude_t1 gratitude_t2  interdep  interdep_c
-##    &lt;int&gt;     &lt;chr&gt;        &lt;dbl&gt;        &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;
-##  1     1 Treatment     3.353288     5.893797  9.842613  0.16531157
-##  2     2 Treatment     4.763558     5.049017  9.948384  0.27108255
-##  3     3 Treatment     5.530219     5.562694  9.692757  0.01545512
-##  4     4 Treatment     2.271587     5.022646  9.950367  0.27306492
-##  5     5 Treatment     4.907668     4.715301  9.755841  0.07853868
-##  6     6 Treatment     4.980753     5.658640  9.980231  0.30292934
-##  7     7 Treatment     3.953997     4.648549 10.521232  0.84392998
-##  8     8 Treatment     3.980700     5.659776 10.156181  0.47887958
-##  9     9 Treatment     3.963771     5.837220  9.616332 -0.06096986
-## 10    10 Treatment     3.654464     5.450500  9.042776 -0.63452632
-## # ... with 90 more rows, and 2 more variables: gratitude_mean &lt;dbl&gt;,
-## #   gratitude_mean_alt &lt;dbl&gt;</code></pre>
+##      id      cond gratitude_t1 interdep gratitude_t2 interdep_c
+##   (int)     (chr)        (dbl)    (dbl)        (dbl)      (dbl)
+## 1     1 Treatment     3.353288 3.890548     5.046667  0.5674188
+## 2     2 Treatment     4.763558 3.877890     4.551533  0.5547615
+## 3     3 Treatment     5.530219 4.178832     4.762559  0.8557035
+## 4     4 Treatment     2.271587 1.596996     5.561236 -1.7261330
+## 5     5 Treatment     4.907668 4.155929     6.411519  0.8328007
+## 6     6   Control     4.980753 3.637742     5.395229  0.3146135
+## 7     7   Control     3.953997 2.439095     5.014541 -0.8840336
+## 8     8   Control     3.980700 3.471938     4.634364  0.1488088
+## 9     9   Control     3.963771 2.659189     4.704687 -0.6639402
+## Variables not shown: gratitude_mean (dbl), gratitude_mean_alt (dbl)</code></pre>
 <ul>
 <li>summarise()
 <ul>
@@ -574,10 +565,10 @@ joined_survey %&gt;%
 </ul></li>
 </ul>
 <pre class="r"><code>summarise(joined_survey, mean(x = c(gratitude_t1, gratitude_t2), na.rm = TRUE))</code></pre>
-<pre><code>## # A tibble: 1 x 1
-##   `mean(x = c(gratitude_t1, gratitude_t2), na.rm = TRUE)`
-##                                                     &lt;dbl&gt;
-## 1                                                4.945129</code></pre>
+<pre><code>## # A tibble: 1 × 1
+##   `mean(x = c(gratitude_t1, gratitude_t2...`
+##                                        &lt;dbl&gt;
+## 1                                   4.654882</code></pre>
 <ul>
 <li>gather()
 <ul>
@@ -595,6 +586,15 @@ joined_survey_long &lt;- gather(data = joined_survey, key = time, value = gratit
 </ul></li>
 </ul>
 <pre class="r"><code>joined_survey_wide &lt;- spread(data = joined_survey_long, key = time, value = gratitude)</code></pre>
+<ul>
+<li>ifelse()
+<ul>
+<li>the same as the if function in excel, basically says, “if statement is true, return this value, otherwise return this other value.”</li>
+</ul></li>
+</ul>
+<pre class="r"><code>joined_survey$cond2 &lt;- with(joined_survey, 
+  ifelse((cond == &quot;Treatment&quot; &amp; id &lt;= 3) | (cond == &quot;Control&quot; &amp; id &lt;= 7), &quot;Family&quot;,     ifelse((cond == &quot;Treatment&quot; &amp; id &lt;= 5) | (cond == &quot;Control&quot; &amp; id &gt;= 8),
+       &quot;Friends&quot;,  NA)))</code></pre>
 </div>
 </div>
 
@@ -623,7 +623,7 @@ $(document).ready(function () {
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>
