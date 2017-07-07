@@ -261,18 +261,33 @@ install_needed_pkgs(needed_packages = needed_packages)
 
 # running R code: a complex but important example
 
-## 5 numbers drawn randomly from numbers 1-10
+## 5 numbers drawn randomly from numbers 1-10 (random draw not shown here)
 
 
 ```r
 my_numbers <- c(10, 6, 2, 8, 3)
 ```
 
+> Note: If you want to print and save at the same time, surround everything with ()
+
+
+```r
+(my_numbers <- c(10, 6, 2, 8, 3))
+```
+
+```
+## [1] 10  6  2  8  3
+```
+
+
 ## use a "?" before the name of an R function to view detailed information about that function
 
 
 ```r
 ?c
+?sum
+?length
+?mean
 ```
 
 ## how long is this vector of numbers? / how many numbers are there?
@@ -323,11 +338,19 @@ mean(my_numbers)
 
 
 ```r
-compute_mean <- function(values) {
+(compute_mean <- function(values) {
   
   sum(values) / length(values)
   
-}
+})
+```
+
+```
+## function(values) {
+##   
+##   sum(values) / length(values)
+##   
+## }
 ```
 
 ## now let's use our `compute_mean()` function
@@ -346,7 +369,11 @@ compute_mean(values = my_numbers)
 
 
 ```r
-my_numbers <- c(10, 6, 2, 8, 3, NA)
+(my_numbers <- c(10, 6, 2, 8, 3, NA))
+```
+
+```
+## [1] 10  6  2  8  3 NA
 ```
 
 ## now use our `compute_mean()` function on this new vector
@@ -367,7 +394,7 @@ compute_mean(values = my_numbers)
 
 
 ```r
-compute_mean <- function(values, remove_missing = TRUE) {
+(compute_mean <- function(values, remove_missing = TRUE) {
   
   if (remove_missing == TRUE) {
     
@@ -377,7 +404,21 @@ compute_mean <- function(values, remove_missing = TRUE) {
   
   sum(values) / length(values)
   
-}
+})
+```
+
+```
+## function(values, remove_missing = TRUE) {
+##   
+##   if (remove_missing == TRUE) {
+##     
+##     values <- na.omit(values)
+##     
+##   }
+##   
+##   sum(values) / length(values)
+##   
+## }
 ```
 
 ## remember this example every time you give data to a function
@@ -418,7 +459,24 @@ z <- 0.7 * x + rnorm(n = N, mean = 0, sd = 5)
 y <- 0.4 * z + rnorm(n = N, mean = 0, sd = 5)
 
 # store in a dataframe
-my_data <- data.frame(id, y, x, z)
+(my_data <- tibble(id, y, x, z))
+```
+
+```
+## # A tibble: 100 x 4
+##       id        y        x        z
+##    <int>    <dbl>    <dbl>    <dbl>
+##  1     1 49.88933 166.5505 118.6580
+##  2     2 52.07817 176.9420 121.4858
+##  3     3 52.18506 182.5911 128.1437
+##  4     4 46.90114 158.5801 108.4937
+##  5     5 49.74749 178.0039 120.4727
+##  6     6 54.12816 178.5424 125.8146
+##  7     7 55.29330 170.9768 115.2025
+##  8     8 53.82679 171.1736 120.6624
+##  9     9 48.76693 171.0488 121.5090
+## 10    10 41.57907 168.7697 117.8783
+## # ... with 90 more rows
 ```
 
 # descriptives
@@ -441,6 +499,35 @@ my_data %>%
 ## z    -0.37 0.70
 ```
 
+> Note: cite your tools
+
+
+```r
+citation("psych")
+```
+
+```
+## 
+## To cite the psych package in publications use:
+## 
+##   Revelle, W. (2017) psych: Procedures for Personality and
+##   Psychological Research, Northwestern University, Evanston,
+##   Illinois, USA, https://CRAN.R-project.org/package=psych Version
+##   = 1.7.5.
+## 
+## A BibTeX entry for LaTeX users is
+## 
+##   @Manual{,
+##     title = {psych: Procedures for Psychological, Psychometric, and Personality Research},
+##     author = {William Revelle},
+##     organization = { Northwestern University},
+##     address = { Evanston, Illinois},
+##     year = {2017},
+##     note = {R package version 1.7.5},
+##     url = {https://CRAN.R-project.org/package=psych},
+##   }
+```
+
 # correlation matrix
 
 
@@ -450,7 +537,7 @@ my_data %>%
   pairs.panels(pch = ".")
 ```
 
-![](day_00_installation_and_demonstration_files/figure-html/unnamed-chunk-16-1.png)<!-- -->
+![](day_00_installation_and_demonstration_files/figure-html/unnamed-chunk-18-1.png)<!-- -->
 
 # histograms
 
@@ -467,7 +554,7 @@ my_data %>%
 ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
-![](day_00_installation_and_demonstration_files/figure-html/unnamed-chunk-17-1.png)<!-- -->
+![](day_00_installation_and_demonstration_files/figure-html/unnamed-chunk-19-1.png)<!-- -->
 
 # boxplots
 
@@ -479,7 +566,7 @@ my_data %>%
   geom_boxplot()
 ```
 
-![](day_00_installation_and_demonstration_files/figure-html/unnamed-chunk-18-1.png)<!-- -->
+![](day_00_installation_and_demonstration_files/figure-html/unnamed-chunk-20-1.png)<!-- -->
 
 # scatterplots
 
@@ -491,7 +578,7 @@ my_data %>%
   geom_smooth(method = "lm")
 ```
 
-![](day_00_installation_and_demonstration_files/figure-html/unnamed-chunk-19-1.png)<!-- -->
+![](day_00_installation_and_demonstration_files/figure-html/unnamed-chunk-21-1.png)<!-- -->
 
 ```r
 my_data %>%
@@ -500,7 +587,7 @@ my_data %>%
   geom_smooth(method = "lm")
 ```
 
-![](day_00_installation_and_demonstration_files/figure-html/unnamed-chunk-19-2.png)<!-- -->
+![](day_00_installation_and_demonstration_files/figure-html/unnamed-chunk-21-2.png)<!-- -->
 
 ```r
 my_data %>%
@@ -509,7 +596,7 @@ my_data %>%
   geom_smooth(method = "lm")
 ```
 
-![](day_00_installation_and_demonstration_files/figure-html/unnamed-chunk-19-3.png)<!-- -->
+![](day_00_installation_and_demonstration_files/figure-html/unnamed-chunk-21-3.png)<!-- -->
 
 # correlation tests
 
@@ -517,7 +604,7 @@ my_data %>%
 ```r
 my_data %>%
   select(x, y, z) %>%
-  corr.test() %>%
+  corr.test(.) %>%
   print(short = FALSE)
 ```
 
@@ -551,7 +638,7 @@ my_data %>%
 ```r
 my_data %>%
   select(x, y, z) %>%
-  principal()
+  principal(.)
 ```
 
 ```
@@ -582,7 +669,7 @@ my_data %>%
 ```r
 my_data %>%
   select(x, y, z) %>%
-  fa()
+  fa(.)
 ```
 
 ```
@@ -618,6 +705,18 @@ my_data %>%
 ## Multiple R square of scores with factors       1.00
 ## Minimum correlation of possible factor scores  0.99
 ```
+
+## add diagram
+
+
+```r
+my_data %>%
+  select(x, y, z) %>%
+  fa(.) %>%
+  fa.diagram(.)
+```
+
+![](day_00_installation_and_demonstration_files/figure-html/unnamed-chunk-25-1.png)<!-- -->
 
 # t-tests
 
@@ -705,7 +804,33 @@ my_data %>%
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
 
-# folow up contrasts (classic ANOVA)
+## Note: cite your tools
+
+
+```r
+citation("afex")
+```
+
+```
+## 
+## To cite package 'afex' in publications use:
+## 
+##   Henrik Singmann, Ben Bolker, Jake Westfall and Frederik Aust
+##   (2017). afex: Analysis of Factorial Experiments. R package
+##   version 0.18-0. https://CRAN.R-project.org/package=afex
+## 
+## A BibTeX entry for LaTeX users is
+## 
+##   @Manual{,
+##     title = {afex: Analysis of Factorial Experiments},
+##     author = {Henrik Singmann and Ben Bolker and Jake Westfall and Frederik Aust},
+##     year = {2017},
+##     note = {R package version 0.18-0},
+##     url = {https://CRAN.R-project.org/package=afex},
+##   }
+```
+
+# folow up contrasts and confidence intervals (classic ANOVA)
 
 
 ```r
@@ -831,7 +956,7 @@ my_data %>%
 ## variable 0.9325246 2.57485e-213
 ```
 
-# follow-up contrasts (classic RM ANOVA)
+# follow-up contrasts and confidence intervals (classic RM ANOVA)
 
 
 ```r
@@ -857,6 +982,7 @@ my_data %>%
 # mediation
 
 ## write model
+> Note: Writing a model in a character object like this is exceptional in R, so don't expect to see this all the time. That said, R is extremely flexible, so the author of this package Yves Rosseel dreamt it and made it possible in R.
 
 
 ```r
@@ -875,7 +1001,6 @@ my_mediaition <- "# a path
                     ab := a * b
                     total := c + (a * b)"
 ```
-
 
 ## fit model
 
@@ -940,6 +1065,35 @@ my_mediaition %>%
 ## 6     x ~~       x       48.938 0.000     NA     NA   48.938   48.938
 ## 7    ab :=     a*b    ab  0.333 0.070  4.741  0.000    0.212    0.483
 ## 8 total := c+(a*b) total  0.328 0.086  3.809  0.000    0.163    0.507
+```
+
+## Note: cite your tools
+
+
+```r
+citation("lavaan")
+```
+
+```
+## 
+## To cite lavaan in publications use:
+## 
+##   Yves Rosseel (2012). lavaan: An R Package for Structural
+##   Equation Modeling. Journal of Statistical Software, 48(2), 1-36.
+##   URL http://www.jstatsoft.org/v48/i02/.
+## 
+## A BibTeX entry for LaTeX users is
+## 
+##   @Article{,
+##     title = {{lavaan}: An {R} Package for Structural Equation Modeling},
+##     author = {Yves Rosseel},
+##     journal = {Journal of Statistical Software},
+##     year = {2012},
+##     volume = {48},
+##     number = {2},
+##     pages = {1--36},
+##     url = {http://www.jstatsoft.org/v48/i02/},
+##   }
 ```
 
 # moderated regression
@@ -1178,6 +1332,59 @@ my_data %>%
 ## 
 ## attr(,"class")
 ## [1] "coef.mer"
+```
+
+## Note: cite your tools
+
+
+```r
+citation("lme4")
+```
+
+```
+## 
+## To cite lme4 in publications use:
+## 
+##   Douglas Bates, Martin Maechler, Ben Bolker, Steve Walker (2015).
+##   Fitting Linear Mixed-Effects Models Using lme4. Journal of
+##   Statistical Software, 67(1), 1-48. doi:10.18637/jss.v067.i01.
+## 
+## A BibTeX entry for LaTeX users is
+## 
+##   @Article{,
+##     title = {Fitting Linear Mixed-Effects Models Using {lme4}},
+##     author = {Douglas Bates and Martin M{\"a}chler and Ben Bolker and Steve Walker},
+##     journal = {Journal of Statistical Software},
+##     year = {2015},
+##     volume = {67},
+##     number = {1},
+##     pages = {1--48},
+##     doi = {10.18637/jss.v067.i01},
+##   }
+```
+
+```r
+citation("lmerTest")
+```
+
+```
+## 
+## To cite package 'lmerTest' in publications use:
+## 
+##   Alexandra Kuznetsova, Per Bruun Brockhoff and Rune Haubo Bojesen
+##   Christensen (2016). lmerTest: Tests in Linear Mixed Effects
+##   Models. R package version 2.0-33.
+##   https://CRAN.R-project.org/package=lmerTest
+## 
+## A BibTeX entry for LaTeX users is
+## 
+##   @Manual{,
+##     title = {lmerTest: Tests in Linear Mixed Effects Models},
+##     author = {Alexandra Kuznetsova and Per {Bruun Brockhoff} and Rune {Haubo Bojesen Christensen}},
+##     year = {2016},
+##     note = {R package version 2.0-33},
+##     url = {https://CRAN.R-project.org/package=lmerTest},
+##   }
 ```
 
 # latent growth curve

@@ -31,7 +31,7 @@ install_needed_pkgs(needed_packages = needed_packages)
 
 # running R code: a complex but important example
 
-## 5 numbers drawn randomly from numbers 1-10
+## 5 numbers drawn randomly from numbers 1-10 (random draw not shown here)
 
 ```{r}
 
@@ -39,11 +39,23 @@ my_numbers <- c(10, 6, 2, 8, 3)
 
 ```
 
+> Note: If you want to print and save at the same time, surround everything with ()
+
+```{r}
+
+(my_numbers <- c(10, 6, 2, 8, 3))
+
+```
+
+
 ## use a "?" before the name of an R function to view detailed information about that function
 
 ```{r}
 
 ?c
+?sum
+?length
+?mean
 
 ```
 
@@ -83,11 +95,11 @@ mean(my_numbers)
 
 ```{r}
 
-compute_mean <- function(values) {
+(compute_mean <- function(values) {
   
   sum(values) / length(values)
   
-}
+})
 
 ```
 
@@ -104,7 +116,7 @@ compute_mean(values = my_numbers)
 
 ```{r}
 
-my_numbers <- c(10, 6, 2, 8, 3, NA)
+(my_numbers <- c(10, 6, 2, 8, 3, NA))
 
 ```
 
@@ -123,7 +135,7 @@ compute_mean(values = my_numbers)
 
 ```{r}
 
-compute_mean <- function(values, remove_missing = TRUE) {
+(compute_mean <- function(values, remove_missing = TRUE) {
   
   if (remove_missing == TRUE) {
     
@@ -133,7 +145,7 @@ compute_mean <- function(values, remove_missing = TRUE) {
   
   sum(values) / length(values)
   
-}
+})
 
 ```
 
@@ -166,7 +178,7 @@ z <- 0.7 * x + rnorm(n = N, mean = 0, sd = 5)
 y <- 0.4 * z + rnorm(n = N, mean = 0, sd = 5)
 
 # store in a dataframe
-my_data <- data.frame(id, y, x, z)
+(my_data <- tibble(id, y, x, z))
 
 ```
 
@@ -177,6 +189,14 @@ my_data <- data.frame(id, y, x, z)
 my_data %>%
   select(x, y, z) %>%
   psych::describe(.)
+
+```
+
+> Note: cite your tools
+
+```{r}
+
+citation("psych")
 
 ```
 
@@ -240,7 +260,7 @@ my_data %>%
 
 my_data %>%
   select(x, y, z) %>%
-  corr.test() %>%
+  corr.test(.) %>%
   print(short = FALSE)
 
 ```
@@ -248,9 +268,11 @@ my_data %>%
 # principal components analysis
 
 ```{r}
+
 my_data %>%
   select(x, y, z) %>%
-  principal()
+  principal(.)
+
 ```
 
 # exploratory factor analysis
@@ -259,13 +281,25 @@ my_data %>%
 
 my_data %>%
   select(x, y, z) %>%
-  fa()
+  fa(.)
+
+```
+
+## add diagram
+
+```{r}
+
+my_data %>%
+  select(x, y, z) %>%
+  fa(.) %>%
+  fa.diagram(.)
 
 ```
 
 # t-tests
 
 ```{r}
+
 t.test(x, y)
 t.test(x, z)
 t.test(z, y)
@@ -284,7 +318,15 @@ my_data %>%
 
 ```
 
-# folow up contrasts (classic ANOVA)
+## Note: cite your tools
+
+```{r}
+
+citation("afex")
+
+```
+
+# folow up contrasts and confidence intervals (classic ANOVA)
 
 ```{r}
 
@@ -326,7 +368,7 @@ my_data %>%
 
 ```
 
-# follow-up contrasts (classic RM ANOVA)
+# follow-up contrasts and confidence intervals (classic RM ANOVA)
 
 ```{r}
 
@@ -344,6 +386,7 @@ my_data %>%
 # mediation
 
 ## write model
+> Note: Writing a model in a character object like this is exceptional in R, so don't expect to see this all the time. That said, R is extremely flexible, so the author of this package Yves Rosseel dreamt it and made it possible in R.
 
 ```{r}
 
@@ -364,7 +407,6 @@ my_mediaition <- "# a path
 
 ```
 
-
 ## fit model
 
 ```{r}
@@ -384,6 +426,14 @@ my_mediaition %>%
       se = "bootstrap",
       bootstrap = 1000) %>%
   parameterEstimates(boot.ci.type = "bca.simple")
+
+```
+
+## Note: cite your tools
+
+```{r}
+
+citation("lavaan")
 
 ```
 
@@ -430,6 +480,15 @@ my_data %>%
   gather(variable, value, x, y, z) %>%
   lmer(formula = value ~ variable + (1 | id) + (1 | variable), data = .) %>%
   coefficients(.)
+
+```
+
+## Note: cite your tools
+
+```{r}
+
+citation("lme4")
+citation("lmerTest")
 
 ```
 
