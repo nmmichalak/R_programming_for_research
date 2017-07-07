@@ -1,6 +1,5 @@
-**R Programming for Research Workshop**
-
-Nick Michalak and Iris Wang
+# **R Programming for Research Workshop**
+## Nick Michalak and Iris Wang
 
 **Required texts**
 
@@ -17,7 +16,7 @@ Nick Michalak and Iris Wang
 Before workshop
 
 - Skim [Introduction](http://r4ds.had.co.nz/introduction.html) (Wickham &amp; Grolemund)
-- Browse [org](http://tidyverse.org/)
+- Browse [tidyverse.org](http://tidyverse.org/)
 - Skim [Hadley Wickham &quot;Data Science with R&quot;](https://youtu.be/K-ss_ag2k9E?list=PLNtpLD4WiWbw9Cgcg6IU75u-44TrrN3A4) (ReedCollegePDX, 2016)
 - Find one or two datasets you know well and are OK with others seeing.
   1. Preferably, find the raw (hasn&#39;t been &quot;cleaned&quot;) data
@@ -40,7 +39,7 @@ During workshop
 - Cheat sheets
   - [Base R cheat sheet](http://github.com/rstudio/cheatsheets/raw/master/source/pdfs/base-r.pdf)
 
-**Day 1. Data import and visualization**
+## **Day 1. Data import and visualization**
 
 Before workshop
 
@@ -59,13 +58,13 @@ During workshop
 - Facets
 - Geometric objects
 - Position adjustments
-- Import data with `read\_csv()`, `read\_sav()`, `read\_sas()`, or `read\_stata()`
+- Import data with `read_csv()`, `read_sav()`, `read_sas()`, or `read_stata()`
 - Exercises and plotting your own data
 - Cheat sheets
   - [Data visualization cheat sheet](https://www.rstudio.com/wp-content/uploads/2016/11/ggplot2-cheatsheet-2.1.pdf)
   - [Data import cheat sheet](https://github.com/rstudio/cheatsheets/raw/master/source/pdfs/data-import-cheatsheet.pdf)
 
-**Day 2. Workflow and data transformation**
+## **Day 2. Workflow and data transformation**
 
 Before workshop
 
@@ -85,13 +84,13 @@ During Workshop
 - `summarise()`
 - `gather()`
 - `spread()`
-- `full\_join()`, `left\_join()`, `right\_join()`, `inner\_join`
+- `full_join()`, `left_join()`, `right_join()`, `inner_join`
 - ifelse()
 - Exercises and [wrangling](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf) your own data
 - Cheat sheets
   - [Data transformation cheat sheet](https://github.com/rstudio/cheatsheets/raw/master/source/pdfs/data-transformation-cheatsheet.pdf)
 
-**Day 3. Vectors, strings, factors, and statistics**
+## **Day 3. Vectors, strings, factors, and statistics**
 
 Before workshop
 
@@ -112,7 +111,7 @@ During workshop
   - `cor.test()`
   - `lm()`
   - `glm()`
-  - `aov\_car()` / `aov\_ez()`
+  - `aov_car()` / `aov_ez()`
   - `lmer()`
   - `sem()` / `cfa()` / `growth()`
   - contrasts (and more) [[Douglas Bonett&#39;s R functions](https://people.ucsc.edu/~dgbonett/psyc204.html)]
@@ -122,7 +121,7 @@ During workshop
   - lme4 package [[Experiments with more than one random factor](http://jakewestfall.org/publications/JWK_AnnRev.pdf)]
 - Exercises and spend more time [wrangling](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf) your own data
 
-**Day 4. Miscellaneous topics**
+## **Day 4. Miscellaneous topics**
 
 During the workshop
 
@@ -133,7 +132,7 @@ During the workshop
 - Writing functions
 - Student selected topics
 
-**R Resources**
+## **R Resources**
 
 **Websites**
 
