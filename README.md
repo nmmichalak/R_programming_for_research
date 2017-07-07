@@ -146,9 +146,9 @@
 - [lavaan: latent variable analysis](http://lavaan.ugent.be/) overview and tutorials for the best sem package (IMO) in R (disclaimer: no support for discrete latent variables, aka mixture modeling, latent class analysis)
 - [RExRepos: R code examples for a number of common data analysis tasks](http://www.uni-kiel.de/psychologie/rexrepos/index.html) just like it reads, how-to guide for common procedures
 - [R Base Graphics: An Idiot&#39;s Guide](http://rpubs.com/SusanEJohnston/7953) if you want to plot with Base graphics like an R hipster?a hipstR, if you will?here&#39;s a jumping off point
-- [{ swirl }: Learn R, in R](http://swirlstats.com/)_&quot;swirl teaches you R programming and data science interactively, at your own pace, and right in the R console!&quot;_
-- [A language, not a letter: Learning statistics in R](http://ademos.people.uic.edu/index.html)_&quot;This online collection of tutorials was created by graduate students in psychology as a resource for other experimental psychologists interested in using R for statistical analyses and graphics. Each chapter was created to provide an overview of how to code a particular topic in the R language.&quot;_
-- [STAT 545 @ UBC: Data wrangling, exploration, and analysis with R](http://stat545.com/index.html)_&quot;Learn how to explore, groom, visualize, and analyze data and make all of that reproducible, reusable, and shareable using R&quot;_
+- [{ swirl }: Learn R, in R](http://swirlstats.com/) _&quot;swirl teaches you R programming and data science interactively, at your own pace, and right in the R console!&quot;_
+- [A language, not a letter: Learning statistics in R](http://ademos.people.uic.edu/index.html) _&quot;This online collection of tutorials was created by graduate students in psychology as a resource for other experimental psychologists interested in using R for statistical analyses and graphics. Each chapter was created to provide an overview of how to code a particular topic in the R language.&quot;_
+- [STAT 545 @ UBC: Data wrangling, exploration, and analysis with R](http://stat545.com/index.html) _&quot;Learn how to explore, groom, visualize, and analyze data and make all of that reproducible, reusable, and shareable using R&quot;_
 
 ### **Texts**
 
