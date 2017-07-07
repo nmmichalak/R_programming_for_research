@@ -45,12 +45,13 @@ During workshop
 Before workshop
 
 - Skim [Data visualization](http://r4ds.had.co.nz/data-visualisation.html) and [Data import](http://r4ds.had.co.nz/data-import.html) (Wickham &amp; Grolemund)
+- Skim [magrittr](http://magrittr.tidyverse.org/) and [ggplot2](http://ggplot2.tidyverse.org/)
 
 During workshop
 
-- Demonstration
-
+- Introduction and demonstration
 - ggplot2
+
 - Aesthetics
 - Facets
 - Geometric objects
@@ -65,7 +66,7 @@ During workshop
 
 Before workshop
 
-- Skim [Workflow: basics](http://r4ds.had.co.nz/workflow-basics.html) and [Data transformation](http://r4ds.had.co.nz/transform.html) (Wickham &amp; Grolemund)
+- Skim [Workflow: basics](http://r4ds.had.co.nz/workflow-basics.html), [Data transformation](http://r4ds.had.co.nz/transform.html), and [Relational data](http://r4ds.had.co.nz/relational-data.html) (Wickham &amp; Grolemund)
 - Skim [Files](http://style.tidyverse.org/files.html) and [Syntax](http://style.tidyverse.org/syntax.html) from the tidyverse style guide (Wickham)
 
 During Workshop
@@ -87,23 +88,7 @@ During Workshop
 - Cheat sheets
   - [Data transformation cheat sheet](https://github.com/rstudio/cheatsheets/raw/master/source/pdfs/data-transformation-cheatsheet.pdf)
 
-**Day 3. Tidy data, relational data, and pipes**
-
-Before workshop
-
-- Skim [Tidy data](http://r4ds.had.co.nz/tidy-data.html), [Relational data](http://r4ds.had.co.nz/relational-data.html)  (Wickham &amp; Grolemund) and [magrittr](http://magrittr.tidyverse.org/)
-- Skim [Pipes](http://style.tidyverse.org/pipes.html) from the tidyverse style guide (Wickham)
-
-During workshop
-
-- Tidy data introduction / Philosophy
-- Pipes
-- Spreading and gathering
-- Separating and uniting
-- Mutating joins
-- Exercises and spend more time [wrangling](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf) your own data
-
-**Day 4. Vectors, strings, factors, and statistics**
+**Day 3. Vectors, strings, factors, and statistics**
 
 Before workshop
 
@@ -134,14 +119,16 @@ During workshop
   - lme4 package [[Experiments with more than one random factor](http://jakewestfall.org/publications/JWK_AnnRev.pdf)]
 - Exercises and spend more time [wrangling](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf) your own data
 
-**Day 5. Miscellaneous topics**
+**Day 4. Miscellaneous topics**
 
 During the workshop
 
+- Tidy data
 - R Projects
 - R Markdown
 - Missing data
 - Writing functions
+- Student selected topics
 
 **R Resources**
 
