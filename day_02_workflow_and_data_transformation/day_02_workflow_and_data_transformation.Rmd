@@ -113,6 +113,11 @@ needed_packages <- c("tidyverse")
 
 install_needed_pkgs(needed_packages)
 
+library(tidyverse)
+#sets the functions as being part of the packages you actually want to pull from
+filter <- dplyr::filter
+tibble <- tibble::tibble
+
 ```
 
   + ?function will bring up a help screen for that function
@@ -123,32 +128,44 @@ install_needed_pkgs(needed_packages)
       
 ```{r}
 # create four variables: N, id, cond x, z, and y
-# 100 observations per variable
-N <- 100
-
-# create a subject id 
-id <- 1:100
+# 10 observations per variable
+N <- 10
 
 # create a condition variable
-cond <- rep(c("Treatment", "Control"), each = 50)
+cond <- rep(c("Treatment", "Control"), each = 5)
 
 # set randomizer seed so results can be reproduced
 set.seed(1234)
 
 # drawn from random normal distribution
 gratitude_t1 <- rnorm(n = N, mean = 4.5, sd = 0.95)
-gratitude_t2 <- rnorm(n = N, mean = 5.5, sd = 0.95)
-interdep <- 0.8 * x + rnorm(n = N, mean = 0, sd = 0.5)
+gratitude_t2 <- rnorm(n = N-1, mean = 5.5, sd = 0.95)
+gratitude_t2 <- c(gratitude_t2, NA)
+interdep <- 0.8 * gratitude_t1 + rnorm(n = N, mean = 0, sd = 0.5)
 
 # store in a dataframe
-time1_survey <- tibble(id, cond, gratitude_t1)
-time2_survey <- tibble(id, gratitude_t2, interdep)
+time1_survey <- tibble(id = 1:10, cond, gratitude_t1, interdep)
+time2_survey <- tibble(id = c(1:9, NA), gratitude_t2)
+
+```
+    
+    + Demo: join(x, y, by)
+
+```{r}
 
 # join time 1 and time 2 by subject id
 # ?left_join (Join matching rows from y to x)
 # right_join
 # ?full_join
-joined_survey <- left_join(x = time1_survey, y = time2_survey, by = "id")
+
+full.joined_survey <- full_join(x = time1_survey, y = time2_survey, by = "id")
+
+joined_survey <- inner_join(x = time1_survey, y = time2_survey, by = "id")
+
+left.joined_survey <- left_join(x = time1_survey, y = time2_survey, by = "id")
+
+right.joined_survey <- right_join(x = time1_survey, y = time2_survey, by = "id")
+
 
 ```
       
@@ -169,20 +186,20 @@ joined_survey <- joined_survey %>%
   
 ```{r}
 
-# filter only id "exactly equal to" 90
-dplyr::filter(joined_survey, id == 90)
+# filter only id "exactly equal to" 9
+filter(joined_survey, id == 9)
 
-# filter only id "less than" 90
-dplyr::filter(joined_survey, id < 90)
+# filter only id "less than" 7
+filter(joined_survey, id < 7)
 
-# filter only id "less than" 9 "or" id "exactly equal to" 14
-dplyr::filter(joined_survey, id < 9 | id == 14)
+# filter only id "less than" 7 "or" id "exactly equal to" 9
+filter(joined_survey, id < 7 | id == 9)
 
-# filter only id "less than" 9 "and" gratitude_t1 "greater than" 5
-dplyr::filter(joined_survey, id < 9 & gratitude_t1 > 5)
+# filter only id "less than" 9 "and" gratitude_t1 "greater than" 4
+filter(joined_survey, id < 7 & gratitude_t1 > 4)
 
 # filter only condition "not equal to" Treatment
-dplyr::filter(joined_survey, cond != "Treatment")
+filter(joined_survey, cond != "Treatment")
 
 ```
   
@@ -220,8 +237,7 @@ select(joined_survey, id, interdep_c, gratitude_t1)
 mutate(joined_survey,
        gratitude_mean = (gratitude_t1 + gratitude_t2) / 2,
        gratitude_mean_alt = mean(c(gratitude_t1, gratitude_t2),
-                                 na.rm = TRUE)
-)
+                                 na.rm = TRUE))
 
 # using pipes
 # have to use rowwise
@@ -229,8 +245,7 @@ joined_survey %>%
   rowwise(.) %>% 
   mutate(gratitude_mean = (gratitude_t1 + gratitude_t2)/2, 
          gratitude_mean_alt= mean(c(gratitude_t1, gratitude_t2),
-                                  na.rm = TRUE)
-  )
+                                  na.rm = TRUE))
 ```
   
   + summarise()
@@ -260,5 +275,15 @@ joined_survey_long <- gather(data = joined_survey, key = time, value = gratitude
 ```{r}
 
 joined_survey_wide <- spread(data = joined_survey_long, key = time, value = gratitude)
+
+```
+  
+  + ifelse()
+    + the same as the if function in excel, basically says, "if statement is true, return this value, otherwise return this other value."
+    
+```{r}
+joined_survey$cond2 <- with(joined_survey, 
+  ifelse((cond == "Treatment" & id <= 3) | (cond == "Control" & id <= 7), "Family",     ifelse((cond == "Treatment" & id <= 5) | (cond == "Control" & id >= 8),
+       "Friends",  NA)))
 
 ```
