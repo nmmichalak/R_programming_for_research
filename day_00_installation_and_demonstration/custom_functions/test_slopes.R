@@ -13,18 +13,22 @@ test_slopes <- function(y, x, z, sd_values = seq(-3, 3, 0.5), mean_center = TRUE
   #   some data descriptives and table of values for each of three tests: sd values for z, estimates, standard errors, t-statistics, p-values, and lower and upper confidence intervals
   
   if(mean_center == TRUE) {
+    
     x <- x - mean(x, na.rm = TRUE)
     z <- z - mean(z, na.rm = TRUE)
+    
   }
   
   # matrix of descriptives
   descriptives <- sapply(list(y = y, x = x, z = z), function(v) {
+    
     round(c(N = sum(is.na(v) == FALSE),
             Mean = mean(v, na.rm = TRUE),
             SD = sd(v, na.rm = TRUE),
             Median = median(v, na.rm = TRUE),
             Min = min(v, na.rm = TRUE),
             Max = max(v, na.rm = TRUE)), digits = 3)
+    
   })
   
   # fit model
@@ -74,4 +78,5 @@ test_slopes <- function(y, x, z, sd_values = seq(-3, 3, 0.5), mean_center = TRUE
   print(paste0("Descriptives"))
   print(descriptives)
   return(result)
+  
 }
