@@ -186,7 +186,7 @@
 - car
 - Hmisc
 - afex
-- table
+- data.table
 
 ## Acknowledgements
 
