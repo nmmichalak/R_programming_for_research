@@ -7,7 +7,7 @@ Nicholas Michalak
 
 ```r
 # character vector of packages you'll need for your whole analysis
-needed_packages <- c("tidyverse", "forcats", "psych", "haven", "lavaan", "lme4", "lmerTest", "afex", "compute.es")
+needed_packages <- c("tidyverse", "forcats", "psych", "haven", "lavaan", "lme4", "lmerTest", "afex", "compute.es", "broom")
 
 # source custom function
 lapply(list.files(path = "custom_functions/", pattern = "*.R", full.names = TRUE), source)
@@ -346,7 +346,16 @@ install_needed_pkgs(needed_packages = needed_packages)
 ## [13] "purrr"        "readr"        "tidyr"        "tibble"      
 ## [17] "ggplot2"      "tidyverse"    "stats"        "graphics"    
 ## [21] "grDevices"    "utils"        "datasets"     "methods"     
-## [25] "base"
+## [25] "base"        
+## 
+## [[10]]
+##  [1] "broom"        "compute.es"   "afex"         "lsmeans"     
+##  [5] "estimability" "lmerTest"     "lme4"         "Matrix"      
+##  [9] "lavaan"       "haven"        "psych"        "forcats"     
+## [13] "dplyr"        "purrr"        "readr"        "tidyr"       
+## [17] "tibble"       "ggplot2"      "tidyverse"    "stats"       
+## [21] "graphics"     "grDevices"    "utils"        "datasets"    
+## [25] "methods"      "base"
 ```
 
 # integer
@@ -612,6 +621,35 @@ with(data = my_data, describeBy(dep_var, group = exp_group_fac, mat = TRUE))
 ## X12     4 0.2407395 -1.40203 0.4229526
 ```
 
+### cite your tools
+
+
+```r
+citation("psych")
+```
+
+```
+## 
+## To cite the psych package in publications use:
+## 
+##   Revelle, W. (2017) psych: Procedures for Personality and
+##   Psychological Research, Northwestern University, Evanston,
+##   Illinois, USA, https://CRAN.R-project.org/package=psych Version
+##   = 1.7.5.
+## 
+## A BibTeX entry for LaTeX users is
+## 
+##   @Manual{,
+##     title = {psych: Procedures for Psychological, Psychometric, and Personality Research},
+##     author = {William Revelle},
+##     organization = { Northwestern University},
+##     address = { Evanston, Illinois},
+##     year = {2017},
+##     note = {R package version 1.7.5},
+##     url = {https://CRAN.R-project.org/package=psych},
+##   }
+```
+
 ## `t.test()`
 * I make all arguments explcit
 
@@ -768,7 +806,7 @@ big_five %>%
   pairs.panels(pch = ".")
 ```
 
-![](day_03_vectors_strings_factors_statistics_files/figure-html/unnamed-chunk-22-1.png)<!-- -->
+![](day_03_vectors_strings_factors_statistics_files/figure-html/unnamed-chunk-23-1.png)<!-- -->
 
 ## `cor.plot()`
 
@@ -779,7 +817,7 @@ big_five %>%
   cor.plot(numbers = TRUE)
 ```
 
-![](day_03_vectors_strings_factors_statistics_files/figure-html/unnamed-chunk-23-1.png)<!-- -->
+![](day_03_vectors_strings_factors_statistics_files/figure-html/unnamed-chunk-24-1.png)<!-- -->
 
 ## `cor.test()`
 * explicit argument names again
@@ -1125,9 +1163,54 @@ my_data %>%
 ## Confidence level used: 0.95
 ```
 
+### cite your tools
+
+
+```r
+citation("afex")
+```
+
+```
+## 
+## To cite package 'afex' in publications use:
+## 
+##   Henrik Singmann, Ben Bolker, Jake Westfall and Frederik Aust
+##   (2017). afex: Analysis of Factorial Experiments. R package
+##   version 0.18-0. https://CRAN.R-project.org/package=afex
+## 
+## A BibTeX entry for LaTeX users is
+## 
+##   @Manual{,
+##     title = {afex: Analysis of Factorial Experiments},
+##     author = {Henrik Singmann and Ben Bolker and Jake Westfall and Frederik Aust},
+##     year = {2017},
+##     note = {R package version 0.18-0},
+##     url = {https://CRAN.R-project.org/package=afex},
+##   }
+```
+
 ## straight to contrasts
 
 ### Function 23: Confidence interval for a linear contrast of means (between-subjects design) [[Download more functions from Douglas Bonnet's course webpage](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&ved=0ahUKEwjg7bG3u-bUAhVi2IMKHWfSAWwQFggqMAA&url=https%3A%2F%2Fpeople.ucsc.edu%2F~dgbonett%2Fdocs%2Fpsyc204%2F204RFunctions.docx&usg=AFQjCNGRCAg-lE7TwzMSps_A1pmDOEEb8w)]
+
+#### D. Bonnet's example
+
+
+```r
+m <- c(33.5, 37.9, 38.0, 44.1)
+sd <- c(3.84, 3.84, 3.65, 4.98)
+n <- c(10, 10, 10, 10)
+c <- c(0.5, 0.5, -0.5, -0.5)
+CIstdmeanBS(alpha = .05, m = m, sd = sd, n = n, c = c)
+```
+
+```
+##                              Estimate        SE        LL         UL
+## Equal Variances Not Assumed -1.301263 0.3692800 -2.025039 -0.5774878
+## Equal Variances Assumed:    -1.301263 0.3514511 -1.990095 -0.6124317
+```
+
+#### example using `summarise()` and pipes
 
 
 ```r
@@ -1152,6 +1235,25 @@ my_data %>%
 
 ### Function 24: Confidence interval for a standardized linear contrast of means (between-subjects design) [[Download more functions from Douglas Bonnet's course webpage](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&ved=0ahUKEwjg7bG3u-bUAhVi2IMKHWfSAWwQFggqMAA&url=https%3A%2F%2Fpeople.ucsc.edu%2F~dgbonett%2Fdocs%2Fpsyc204%2F204RFunctions.docx&usg=AFQjCNGRCAg-lE7TwzMSps_A1pmDOEEb8w)]
 
+#### D. Bonnet's example: just enter arguments as vector objects
+
+
+```r
+m <- c(33.5, 37.9, 38.0, 44.1)
+sd <- c(3.84, 3.84, 3.65, 4.98)
+n <- c(10, 10, 10, 10)
+c <- c(0.5, 0.5, -0.5, -0.5)
+CIstdmeanBS(alpha = .05, m = m, sd = sd, n = n, c = c)
+```
+
+```
+##                              Estimate        SE        LL         UL
+## Equal Variances Not Assumed -1.301263 0.3692800 -2.025039 -0.5774878
+## Equal Variances Assumed:    -1.301263 0.3514511 -1.990095 -0.6124317
+```
+
+#### example using `summarise()` and pipes
+
 
 ```r
 my_data %>%
@@ -1166,5 +1268,735 @@ my_data %>%
 ##                              Estimate        SE         LL       UL
 ## Equal Variances Not Assumed 0.5017887 0.4816354 -0.4421992 1.445777
 ## Equal Variances Assumed:    0.5017887 0.4549662 -0.3899286 1.393506
+```
+
+# Linear Mixed Effects Models
+
+## lme4 package
+
+### sleepstudy data (comes with lme4)
+> The average reaction time per day for subjects in a sleep deprivation study. On day 0 the subjects had their normal amount of sleep. Starting that night they were restricted to 3 hours of sleep per night. The observations represent the average reaction time on a series of tests given each day to each subject.
+* Reaction: Average reaction time (ms)
+* Days: Number of days of sleep deprivation
+* Subject: Subject number on which the observation was made.
+> Note: I'm borrowing from a dizzyingly insightful blogpost by Tristan Mahr at UW-Madison [Plotting partial pooling in mixed-effects models](https://tjmahr.github.io/plotting-partial-pooling-in-mixed-effects-models/)
+
+
+```r
+?sleepstudy
+```
+
+### fit model and summarise
+
+
+```r
+sleepstudy %>%
+  lmer(Reaction ~ Days + (1 + Days | Subject), data = ., REML = TRUE) %>%
+  summary(.)
+```
+
+```
+## Linear mixed model fit by REML t-tests use Satterthwaite approximations
+##   to degrees of freedom [lmerMod]
+## Formula: Reaction ~ Days + (1 + Days | Subject)
+##    Data: .
+## 
+## REML criterion at convergence: 1743.6
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -3.9536 -0.4634  0.0231  0.4634  5.1793 
+## 
+## Random effects:
+##  Groups   Name        Variance Std.Dev. Corr
+##  Subject  (Intercept) 612.09   24.740       
+##           Days         35.07    5.922   0.07
+##  Residual             654.94   25.592       
+## Number of obs: 180, groups:  Subject, 18
+## 
+## Fixed effects:
+##             Estimate Std. Error      df t value Pr(>|t|)    
+## (Intercept)  251.405      6.825  17.000  36.838  < 2e-16 ***
+## Days          10.467      1.546  17.000   6.771 3.26e-06 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Correlation of Fixed Effects:
+##      (Intr)
+## Days -0.138
+```
+
+### scatterplot *Reaction* on *Days* for each *Subject*
+
+
+```r
+sleepstudy %>%
+  ggplot(aes(x = Days, y = Reaction)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  facet_wrap(~ Subject, nrow = 3)
+```
+
+![](day_03_vectors_strings_factors_statistics_files/figure-html/unnamed-chunk-40-1.png)<!-- -->
+
+### use `lmList()` to get those intercepts and slopes you see above (no pooling / estimates ignore other participants)
+
+
+```r
+(no_pooling <- 
+sleepstudy %>%
+  lmList(Reaction ~ Days | Subject, data = .) %>% 
+  coefficients(.) %>%
+  as_tibble(.) %>%
+  rownames_to_column(var = "Subject") %>%
+  rename(Intercept = `(Intercept)`,
+         Slope = Days) %>%
+  mutate(model = "No pooling"))
+```
+
+```
+## # A tibble: 18 x 4
+##    Subject Intercept     Slope      model
+##      <chr>     <dbl>     <dbl>      <chr>
+##  1     308  244.1927 21.764702 No pooling
+##  2     309  205.0549  2.261785 No pooling
+##  3     310  203.4842  6.114899 No pooling
+##  4     330  289.6851  3.008073 No pooling
+##  5     331  285.7390  5.266019 No pooling
+##  6     332  264.2516  9.566768 No pooling
+##  7     333  275.0191  9.142045 No pooling
+##  8     334  240.1629 12.253141 No pooling
+##  9     335  263.0347 -2.881034 No pooling
+## 10     337  290.1041 19.025974 No pooling
+## 11     349  215.1118 13.493933 No pooling
+## 12     350  225.8346 19.504017 No pooling
+## 13     351  261.1470  6.433498 No pooling
+## 14     352  276.3721 13.566549 No pooling
+## 15     369  254.9681 11.348109 No pooling
+## 16     370  210.4491 18.056151 No pooling
+## 17     371  253.6360  9.188445 No pooling
+## 18     372  267.0448 11.298073 No pooling
+```
+
+### use `lm()` to get slope and intercept (full pooling / each participant gets the same value)
+
+
+```r
+(complete_pooling <- 
+tibble(Subject = sleepstudy$Subject %>% unique(.) %>% parse_character(.),
+       Intercept = sleepstudy %>% lm(Reaction ~ Days, data = .) %>% coefficients(.) %>% .[["(Intercept)"]],
+       Slope = sleepstudy %>% lm(Reaction ~ Days, data = .) %>% coefficients(.) %>% .[["Days"]]) %>%
+  mutate(model = "Complete pooling"))
+```
+
+```
+## # A tibble: 18 x 4
+##    Subject Intercept    Slope            model
+##      <chr>     <dbl>    <dbl>            <chr>
+##  1     308  251.4051 10.46729 Complete pooling
+##  2     309  251.4051 10.46729 Complete pooling
+##  3     310  251.4051 10.46729 Complete pooling
+##  4     330  251.4051 10.46729 Complete pooling
+##  5     331  251.4051 10.46729 Complete pooling
+##  6     332  251.4051 10.46729 Complete pooling
+##  7     333  251.4051 10.46729 Complete pooling
+##  8     334  251.4051 10.46729 Complete pooling
+##  9     335  251.4051 10.46729 Complete pooling
+## 10     337  251.4051 10.46729 Complete pooling
+## 11     349  251.4051 10.46729 Complete pooling
+## 12     350  251.4051 10.46729 Complete pooling
+## 13     351  251.4051 10.46729 Complete pooling
+## 14     352  251.4051 10.46729 Complete pooling
+## 15     369  251.4051 10.46729 Complete pooling
+## 16     370  251.4051 10.46729 Complete pooling
+## 17     371  251.4051 10.46729 Complete pooling
+## 18     372  251.4051 10.46729 Complete pooling
+```
+
+### use `lmer()` to get slopes and intercepts for each participant (partial pooling / uses individual estimates adjusted by what's known about other participants)
+
+
+```r
+(partial_pooling <- 
+sleepstudy %>%
+  lmer(Reaction ~ Days + (1 + Days | Subject), data = ., REML = TRUE) %>%
+  coefficients(.) %>%
+  .[["Subject"]] %>%
+  rownames_to_column(var = "Subject") %>%
+  as_tibble(.) %>%
+  rename(Intercept = `(Intercept)`,
+         Slope = Days) %>%
+  mutate(model = "Partial pooling"))
+```
+
+```
+## # A tibble: 18 x 4
+##    Subject Intercept      Slope           model
+##      <chr>     <dbl>      <dbl>           <chr>
+##  1     308  253.6637 19.6662579 Partial pooling
+##  2     309  211.0065  1.8475828 Partial pooling
+##  3     310  212.4449  5.0184061 Partial pooling
+##  4     330  275.0956  5.6529547 Partial pooling
+##  5     331  273.6653  7.3973914 Partial pooling
+##  6     332  260.4446 10.1951153 Partial pooling
+##  7     333  268.2455 10.2436615 Partial pooling
+##  8     334  244.1725 11.5418620 Partial pooling
+##  9     335  251.0714 -0.2848731 Partial pooling
+## 10     337  286.2955 19.0955699 Partial pooling
+## 11     349  226.1950 11.6407002 Partial pooling
+## 12     350  238.3351 17.0814910 Partial pooling
+## 13     351  255.9829  7.4520288 Partial pooling
+## 14     352  272.2687 14.0032993 Partial pooling
+## 15     369  254.6806 11.3395026 Partial pooling
+## 16     370  225.7922 15.2897506 Partial pooling
+## 17     371  252.2121  9.4791309 Partial pooling
+## 18     372  263.7196 11.7513157 Partial pooling
+```
+
+### plot these estimates
+
+
+```r
+bind_rows(no_pooling, partial_pooling, complete_pooling) %>% 
+  left_join(sleepstudy, by = "Subject") %>%
+  ggplot(aes(x = Days, y = Reaction)) +
+  geom_point() +
+  geom_abline(aes(intercept = Intercept, slope = Slope, color = model)) +
+  scale_x_continuous(breaks = seq(0, 9, 1), limits = c(0, 9)) +
+  facet_wrap(~ Subject, nrow = 3) +
+  theme(legend.position = "top")
+```
+
+```
+## Warning: Column `Subject` joining character vector and factor, coercing
+## into character vector
+```
+
+![](day_03_vectors_strings_factors_statistics_files/figure-html/unnamed-chunk-44-1.png)<!-- -->
+
+### cite your tools
+
+
+```r
+citation("lme4")
+```
+
+```
+## 
+## To cite lme4 in publications use:
+## 
+##   Douglas Bates, Martin Maechler, Ben Bolker, Steve Walker (2015).
+##   Fitting Linear Mixed-Effects Models Using lme4. Journal of
+##   Statistical Software, 67(1), 1-48. doi:10.18637/jss.v067.i01.
+## 
+## A BibTeX entry for LaTeX users is
+## 
+##   @Article{,
+##     title = {Fitting Linear Mixed-Effects Models Using {lme4}},
+##     author = {Douglas Bates and Martin M{\"a}chler and Ben Bolker and Steve Walker},
+##     journal = {Journal of Statistical Software},
+##     year = {2015},
+##     volume = {67},
+##     number = {1},
+##     pages = {1--48},
+##     doi = {10.18637/jss.v067.i01},
+##   }
+```
+
+```r
+citation("lmerTest")
+```
+
+```
+## 
+## To cite package 'lmerTest' in publications use:
+## 
+##   Alexandra Kuznetsova, Per Bruun Brockhoff and Rune Haubo Bojesen
+##   Christensen (2016). lmerTest: Tests in Linear Mixed Effects
+##   Models. R package version 2.0-33.
+##   https://CRAN.R-project.org/package=lmerTest
+## 
+## A BibTeX entry for LaTeX users is
+## 
+##   @Manual{,
+##     title = {lmerTest: Tests in Linear Mixed Effects Models},
+##     author = {Alexandra Kuznetsova and Per {Bruun Brockhoff} and Rune {Haubo Bojesen Christensen}},
+##     year = {2016},
+##     note = {R package version 2.0-33},
+##     url = {https://CRAN.R-project.org/package=lmerTest},
+##   }
+```
+
+# structural equation models
+
+## lavaan package
+
+### mediation example
+> "The data for the 50 subjects in this hypothetical study of the effects of room temperature on water consumption are shown in Table 3.1, where X is the temperature in degrees Fahrenheit, M is a self-report measure of thirst at the end of a 2-hour period, and Y is the number of deciliters of water consumed during the last 2 hours of the study. The 50 subjects were in a room for 4 hours doing a variety of tasks including sorting objects, tracking objects on a computer screen, and communicating via an intercom system. The tasks were selected to represent activities of persons alone in contained environments such as a submarine, spacecraft, or space suit. Before the experiment, each participant was acclimated to a standard temperature of 70°F. Temperature, the independent variable, was then manipulated such that each participant was exposed to a specifi c temperature in the room for the 4 hours of the experiment. At the end of 2 hours, the subjects reported how thirsty they were on a 1 to 5 scale from 1 (not at all thirsty) to 5 (very thirsty). During the last 2 hours of the experiment, water was made available in the room, and the number of the deciliters of water the subjects drank was recorded. (MacKinnon, 2008, p. 55-56)" 
+
+
+```r
+subj_num <- 1:50
+
+x <- c(70, 71, 69, 70, 71, 70, 69, 70, 70, 72, 71, 71, 70, 71, 71, 70, 70, 69, 72, 71, 71, 72, 67, 71, 71, 70, 70, 69, 69, 70, 71, 70, 70, 70, 71, 68, 72, 69, 70, 68, 68, 70, 71, 69, 69, 71, 71, 71, 72, 70)
+
+m <- c(4, 4, 1, 1, 3, 4, 3, 5, 4, 5, 2, 3, 5, 4, 4, 2, 4, 3, 3, 3, 2, 3, 1, 4, 3, 3, 2, 3, 4, 3, 2, 1, 2, 2, 4, 2, 4, 3, 3, 3, 3, 4, 4, 2, 3, 3, 4, 3, 4, 2)
+
+y <- c(3, 3, 3, 3, 3, 2, 3, 5, 4, 4, 2, 4, 5, 5, 5, 2, 4, 5, 4, 3, 4, 5, 2, 4, 2, 4, 3, 4, 3, 3, 1, 3, 5, 1, 3, 1, 3, 2, 3, 2, 3, 3, 4, 2, 3, 4, 4, 2, 5, 2)
+
+table_3_1 <- tibble(subj_num, x, m, y)
+```
+
+#### write model
+
+
+```r
+mediation_model <- "# a path
+                      m ~ a * x
+
+                    # b path
+                      y ~ b * m
+
+                    # c path (direct effect)
+                      y ~ c * x
+
+                    # print total and indirect effects
+                      ab := a * b
+                      total := c + (a * b)"
+```
+
+#### fit model with `sem()`
+
+
+```r
+mediation_model %>%
+  sem(data = table_3_1)
+```
+
+```
+## lavaan (0.5-23.1097) converged normally after  11 iterations
+## 
+##   Number of observations                            50
+## 
+##   Estimator                                         ML
+##   Minimum Function Test Statistic                0.000
+##   Degrees of freedom                                 0
+##   Minimum Function Value               0.0000000000000
+```
+
+#### summarise model
+
+
+```r
+mediation_model %>%
+  sem(data = table_3_1) %>%
+  summary(.)
+```
+
+```
+## lavaan (0.5-23.1097) converged normally after  11 iterations
+## 
+##   Number of observations                            50
+## 
+##   Estimator                                         ML
+##   Minimum Function Test Statistic                0.000
+##   Degrees of freedom                                 0
+##   Minimum Function Value               0.0000000000000
+## 
+## Parameter Estimates:
+## 
+##   Information                                 Expected
+##   Standard Errors                             Standard
+## 
+## Regressions:
+##                    Estimate  Std.Err  z-value  P(>|z|)
+##   m ~                                                 
+##     x          (a)    0.339    0.120    2.824    0.005
+##   y ~                                                 
+##     m          (b)    0.451    0.142    3.187    0.001
+##     x          (c)    0.208    0.129    1.607    0.108
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(>|z|)
+##    .m                 0.911    0.182    5.000    0.000
+##    .y                 0.912    0.182    5.000    0.000
+## 
+## Defined Parameters:
+##                    Estimate  Std.Err  z-value  P(>|z|)
+##     ab                0.153    0.072    2.114    0.035
+##     total             0.360    0.132    2.738    0.006
+```
+
+#### parameter estimates
+
+
+```r
+mediation_model %>%
+  sem(data = table_3_1,
+      se = "bootstrap",
+      bootstrap = 1000) %>%
+  parameterestimates(boot.ci.type = "bca.simple")
+```
+
+```
+##     lhs op     rhs label   est    se     z pvalue ci.lower ci.upper
+## 1     m  ~       x     a 0.339 0.105 3.237  0.001    0.115    0.525
+## 2     y  ~       m     b 0.451 0.149 3.019  0.003    0.163    0.747
+## 3     y  ~       x     c 0.208 0.132 1.578  0.114   -0.074    0.444
+## 4     m ~~       m       0.911 0.156 5.834  0.000    0.653    1.262
+## 5     y ~~       y       0.912 0.160 5.698  0.000    0.671    1.318
+## 6     x ~~       x       1.268 0.000    NA     NA    1.268    1.268
+## 7    ab :=     a*b    ab 0.153 0.067 2.286  0.022    0.051    0.337
+## 8 total := c+(a*b) total 0.360 0.118 3.042  0.002    0.082    0.568
+```
+
+### confirmatory factor analysis example from lavaan website [A CFA example](http://lavaan.ugent.be/tutorial/cfa.html)
+> The classic Holzinger and Swineford (1939) dataset consists of mental ability test scores of seventh- and eighth-grade children from two different schools (Pasteur and Grant-White). In the original dataset (available in the MBESS package), there are scores for 26 tests. However, a smaller subset with 9 variables is more widely used in the literature (for example in Joreskog's 1969 paper, which also uses the 145 subjects from the Grant-White school only).
+
+
+```r
+?HolzingerSwineford1939
+```
+
+#### write model
+
+
+```r
+cfa_model <- "# latent variables
+                visual  =~ x1 + x2 + x3 
+                textual =~ x4 + x5 + x6
+                speed   =~ x7 + x8 + x9"
+```
+
+#### fit model with `cfa()`
+
+
+```r
+cfa_model %>%
+  cfa(data = HolzingerSwineford1939)
+```
+
+```
+## lavaan (0.5-23.1097) converged normally after  35 iterations
+## 
+##   Number of observations                           301
+## 
+##   Estimator                                         ML
+##   Minimum Function Test Statistic               85.306
+##   Degrees of freedom                                24
+##   P-value (Chi-square)                           0.000
+```
+
+#### summarise model
+
+
+```r
+cfa_model %>%
+  cfa(data = HolzingerSwineford1939) %>%
+  summary(.)
+```
+
+```
+## lavaan (0.5-23.1097) converged normally after  35 iterations
+## 
+##   Number of observations                           301
+## 
+##   Estimator                                         ML
+##   Minimum Function Test Statistic               85.306
+##   Degrees of freedom                                24
+##   P-value (Chi-square)                           0.000
+## 
+## Parameter Estimates:
+## 
+##   Information                                 Expected
+##   Standard Errors                             Standard
+## 
+## Latent Variables:
+##                    Estimate  Std.Err  z-value  P(>|z|)
+##   visual =~                                           
+##     x1                1.000                           
+##     x2                0.554    0.100    5.554    0.000
+##     x3                0.729    0.109    6.685    0.000
+##   textual =~                                          
+##     x4                1.000                           
+##     x5                1.113    0.065   17.014    0.000
+##     x6                0.926    0.055   16.703    0.000
+##   speed =~                                            
+##     x7                1.000                           
+##     x8                1.180    0.165    7.152    0.000
+##     x9                1.082    0.151    7.155    0.000
+## 
+## Covariances:
+##                    Estimate  Std.Err  z-value  P(>|z|)
+##   visual ~~                                           
+##     textual           0.408    0.074    5.552    0.000
+##     speed             0.262    0.056    4.660    0.000
+##   textual ~~                                          
+##     speed             0.173    0.049    3.518    0.000
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(>|z|)
+##    .x1                0.549    0.114    4.833    0.000
+##    .x2                1.134    0.102   11.146    0.000
+##    .x3                0.844    0.091    9.317    0.000
+##    .x4                0.371    0.048    7.779    0.000
+##    .x5                0.446    0.058    7.642    0.000
+##    .x6                0.356    0.043    8.277    0.000
+##    .x7                0.799    0.081    9.823    0.000
+##    .x8                0.488    0.074    6.573    0.000
+##    .x9                0.566    0.071    8.003    0.000
+##     visual            0.809    0.145    5.564    0.000
+##     textual           0.979    0.112    8.737    0.000
+##     speed             0.384    0.086    4.451    0.000
+```
+
+#### fit measures
+
+
+```r
+cfa_model %>%
+  cfa(data = HolzingerSwineford1939) %>%
+  fitmeasures(.) %>%
+  tidy(.) %>%
+  mutate(value = round(x, 4)) %>%
+  print(n = 42)
+```
+
+```
+## # A tibble: 42 x 3
+##                  names             x      value
+##                  <chr>         <dbl>      <dbl>
+##  1                npar  2.100000e+01    21.0000
+##  2                fmin  1.417035e-01     0.1417
+##  3               chisq  8.530552e+01    85.3055
+##  4                  df  2.400000e+01    24.0000
+##  5              pvalue  8.502553e-09     0.0000
+##  6      baseline.chisq  9.188516e+02   918.8516
+##  7         baseline.df  3.600000e+01    36.0000
+##  8     baseline.pvalue  0.000000e+00     0.0000
+##  9                 cfi  9.305597e-01     0.9306
+## 10                 tli  8.958395e-01     0.8958
+## 11                nnfi  8.958395e-01     0.8958
+## 12                 rfi  8.607411e-01     0.8607
+## 13                 nfi  9.071607e-01     0.9072
+## 14                pnfi  6.047738e-01     0.6048
+## 15                 ifi  9.314908e-01     0.9315
+## 16                 rni  9.305597e-01     0.9306
+## 17                logl -3.737745e+03 -3737.7449
+## 18   unrestricted.logl -3.695092e+03 -3695.0922
+## 19                 aic  7.517490e+03  7517.4899
+## 20                 bic  7.595339e+03  7595.3392
+## 21              ntotal  3.010000e+02   301.0000
+## 22                bic2  7.528739e+03  7528.7391
+## 23               rmsea  9.212148e-02     0.0921
+## 24      rmsea.ci.lower  7.141849e-02     0.0714
+## 25      rmsea.ci.upper  1.136780e-01     0.1137
+## 26        rmsea.pvalue  6.612368e-04     0.0007
+## 27                 rmr  8.218433e-02     0.0822
+## 28          rmr_nomean  8.218433e-02     0.0822
+## 29                srmr  6.520506e-02     0.0652
+## 30        srmr_bentler  6.520506e-02     0.0652
+## 31 srmr_bentler_nomean  6.520506e-02     0.0652
+## 32         srmr_bollen  6.520506e-02     0.0652
+## 33  srmr_bollen_nomean  6.520506e-02     0.0652
+## 34          srmr_mplus  6.520506e-02     0.0652
+## 35   srmr_mplus_nomean  6.520506e-02     0.0652
+## 36               cn_05  1.294902e+02   129.4902
+## 37               cn_01  1.526540e+02   152.6540
+## 38                 gfi  9.433321e-01     0.9433
+## 39                agfi  8.937476e-01     0.8937
+## 40                pgfi  5.031104e-01     0.5031
+## 41                 mfi  9.031773e-01     0.9032
+## 42                ecvi  4.229419e-01     0.4229
+```
+
+#### parameter estimates
+
+
+```r
+cfa_model %>%
+  cfa(data = HolzingerSwineford1939) %>%
+  parameterestimates(.)
+```
+
+```
+##        lhs op     rhs   est    se      z pvalue ci.lower ci.upper
+## 1   visual =~      x1 1.000 0.000     NA     NA    1.000    1.000
+## 2   visual =~      x2 0.554 0.100  5.554      0    0.358    0.749
+## 3   visual =~      x3 0.729 0.109  6.685      0    0.516    0.943
+## 4  textual =~      x4 1.000 0.000     NA     NA    1.000    1.000
+## 5  textual =~      x5 1.113 0.065 17.014      0    0.985    1.241
+## 6  textual =~      x6 0.926 0.055 16.703      0    0.817    1.035
+## 7    speed =~      x7 1.000 0.000     NA     NA    1.000    1.000
+## 8    speed =~      x8 1.180 0.165  7.152      0    0.857    1.503
+## 9    speed =~      x9 1.082 0.151  7.155      0    0.785    1.378
+## 10      x1 ~~      x1 0.549 0.114  4.833      0    0.326    0.772
+## 11      x2 ~~      x2 1.134 0.102 11.146      0    0.934    1.333
+## 12      x3 ~~      x3 0.844 0.091  9.317      0    0.667    1.022
+## 13      x4 ~~      x4 0.371 0.048  7.779      0    0.278    0.465
+## 14      x5 ~~      x5 0.446 0.058  7.642      0    0.332    0.561
+## 15      x6 ~~      x6 0.356 0.043  8.277      0    0.272    0.441
+## 16      x7 ~~      x7 0.799 0.081  9.823      0    0.640    0.959
+## 17      x8 ~~      x8 0.488 0.074  6.573      0    0.342    0.633
+## 18      x9 ~~      x9 0.566 0.071  8.003      0    0.427    0.705
+## 19  visual ~~  visual 0.809 0.145  5.564      0    0.524    1.094
+## 20 textual ~~ textual 0.979 0.112  8.737      0    0.760    1.199
+## 21   speed ~~   speed 0.384 0.086  4.451      0    0.215    0.553
+## 22  visual ~~ textual 0.408 0.074  5.552      0    0.264    0.552
+## 23  visual ~~   speed 0.262 0.056  4.660      0    0.152    0.373
+## 24 textual ~~   speed 0.173 0.049  3.518      0    0.077    0.270
+```
+
+#### modification indices
+
+
+```r
+cfa_model %>%
+  cfa(data = HolzingerSwineford1939) %>%
+  modificationindices(.)
+```
+
+```
+##        lhs op rhs     mi    epc sepc.lv sepc.all sepc.nox
+## 25  visual =~  x4  1.211  0.077   0.069    0.059    0.059
+## 26  visual =~  x5  7.441 -0.210  -0.189   -0.147   -0.147
+## 27  visual =~  x6  2.843  0.111   0.100    0.092    0.092
+## 28  visual =~  x7 18.631 -0.422  -0.380   -0.349   -0.349
+## 29  visual =~  x8  4.295 -0.210  -0.189   -0.187   -0.187
+## 30  visual =~  x9 36.411  0.577   0.519    0.515    0.515
+## 31 textual =~  x1  8.903  0.350   0.347    0.297    0.297
+## 32 textual =~  x2  0.017 -0.011  -0.011   -0.010   -0.010
+## 33 textual =~  x3  9.151 -0.272  -0.269   -0.238   -0.238
+## 34 textual =~  x7  0.098 -0.021  -0.021   -0.019   -0.019
+## 35 textual =~  x8  3.359 -0.121  -0.120   -0.118   -0.118
+## 36 textual =~  x9  4.796  0.138   0.137    0.136    0.136
+## 37   speed =~  x1  0.014  0.024   0.015    0.013    0.013
+## 38   speed =~  x2  1.580 -0.198  -0.123   -0.105   -0.105
+## 39   speed =~  x3  0.716  0.136   0.084    0.075    0.075
+## 40   speed =~  x4  0.003 -0.005  -0.003   -0.003   -0.003
+## 41   speed =~  x5  0.201 -0.044  -0.027   -0.021   -0.021
+## 42   speed =~  x6  0.273  0.044   0.027    0.025    0.025
+## 43      x1 ~~  x2  3.606 -0.184  -0.184   -0.134   -0.134
+## 44      x1 ~~  x3  0.935 -0.139  -0.139   -0.105   -0.105
+## 45      x1 ~~  x4  3.554  0.078   0.078    0.058    0.058
+## 46      x1 ~~  x5  0.522 -0.033  -0.033   -0.022   -0.022
+## 47      x1 ~~  x6  0.048  0.009   0.009    0.007    0.007
+## 48      x1 ~~  x7  5.420 -0.129  -0.129   -0.102   -0.102
+## 49      x1 ~~  x8  0.634 -0.041  -0.041   -0.035   -0.035
+## 50      x1 ~~  x9  7.335  0.138   0.138    0.117    0.117
+## 51      x2 ~~  x3  8.532  0.218   0.218    0.164    0.164
+## 52      x2 ~~  x4  0.534 -0.034  -0.034   -0.025   -0.025
+## 53      x2 ~~  x5  0.023 -0.008  -0.008   -0.005   -0.005
+## 54      x2 ~~  x6  0.785  0.039   0.039    0.031    0.031
+## 55      x2 ~~  x7  8.918 -0.183  -0.183   -0.143   -0.143
+## 56      x2 ~~  x8  0.054 -0.012  -0.012   -0.010   -0.010
+## 57      x2 ~~  x9  1.895  0.075   0.075    0.063    0.063
+## 58      x3 ~~  x4  0.142 -0.016  -0.016   -0.012   -0.012
+## 59      x3 ~~  x5  7.858 -0.130  -0.130   -0.089   -0.089
+## 60      x3 ~~  x6  1.855  0.055   0.055    0.044    0.044
+## 61      x3 ~~  x7  0.638 -0.044  -0.044   -0.036   -0.036
+## 62      x3 ~~  x8  0.059 -0.012  -0.012   -0.011   -0.011
+## 63      x3 ~~  x9  4.126  0.102   0.102    0.089    0.089
+## 64      x4 ~~  x5  2.534  0.186   0.186    0.124    0.124
+## 65      x4 ~~  x6  6.220 -0.235  -0.235   -0.185   -0.185
+## 66      x4 ~~  x7  5.920  0.098   0.098    0.078    0.078
+## 67      x4 ~~  x8  3.805 -0.069  -0.069   -0.059   -0.059
+## 68      x4 ~~  x9  0.196 -0.016  -0.016   -0.014   -0.014
+## 69      x5 ~~  x6  0.916  0.101   0.101    0.072    0.072
+## 70      x5 ~~  x7  1.233 -0.049  -0.049   -0.035   -0.035
+## 71      x5 ~~  x8  0.347  0.023   0.023    0.018    0.018
+## 72      x5 ~~  x9  0.999  0.040   0.040    0.031    0.031
+## 73      x6 ~~  x7  0.259 -0.020  -0.020   -0.017   -0.017
+## 74      x6 ~~  x8  0.275  0.018   0.018    0.016    0.016
+## 75      x6 ~~  x9  0.097 -0.011  -0.011   -0.010   -0.010
+## 76      x7 ~~  x8 34.145  0.536   0.536    0.488    0.488
+## 77      x7 ~~  x9  5.183 -0.187  -0.187   -0.170   -0.170
+## 78      x8 ~~  x9 14.946 -0.423  -0.423   -0.415   -0.415
+```
+
+#### implied covariance matrix
+
+
+```r
+cfa_model %>%
+  cfa(data = HolzingerSwineford1939) %>%
+  fitted(.)
+```
+
+```
+## $cov
+##    x1    x2    x3    x4    x5    x6    x7    x8    x9   
+## x1 1.358                                                
+## x2 0.448 1.382                                          
+## x3 0.590 0.327 1.275                                    
+## x4 0.408 0.226 0.298 1.351                              
+## x5 0.454 0.252 0.331 1.090 1.660                        
+## x6 0.378 0.209 0.276 0.907 1.010 1.196                  
+## x7 0.262 0.145 0.191 0.173 0.193 0.161 1.183            
+## x8 0.309 0.171 0.226 0.205 0.228 0.190 0.453 1.022      
+## x9 0.284 0.157 0.207 0.188 0.209 0.174 0.415 0.490 1.015
+## 
+## $mean
+## x1 x2 x3 x4 x5 x6 x7 x8 x9 
+##  0  0  0  0  0  0  0  0  0
+```
+
+#### residual matrix
+
+
+```r
+cfa_model %>%
+  cfa(data = HolzingerSwineford1939) %>%
+  residuals(.)
+```
+
+```
+## $type
+## [1] "raw"
+## 
+## $cov
+##    x1     x2     x3     x4     x5     x6     x7     x8     x9    
+## x1  0.000                                                        
+## x2 -0.041  0.000                                                 
+## x3 -0.010  0.124  0.000                                          
+## x4  0.097 -0.017 -0.090  0.000                                   
+## x5 -0.014 -0.040 -0.219  0.008  0.000                            
+## x6  0.077  0.038 -0.032 -0.012  0.005  0.000                     
+## x7 -0.177 -0.242 -0.103  0.046 -0.050 -0.017  0.000              
+## x8 -0.046 -0.062 -0.013 -0.079 -0.047 -0.024  0.082  0.000       
+## x9  0.175  0.087  0.167  0.056  0.086  0.062 -0.042 -0.032  0.000
+## 
+## $mean
+## x1 x2 x3 x4 x5 x6 x7 x8 x9 
+##  0  0  0  0  0  0  0  0  0
+```
+
+### cite your tools
+
+
+```r
+citation("lavaan")
+```
+
+```
+## 
+## To cite lavaan in publications use:
+## 
+##   Yves Rosseel (2012). lavaan: An R Package for Structural
+##   Equation Modeling. Journal of Statistical Software, 48(2), 1-36.
+##   URL http://www.jstatsoft.org/v48/i02/.
+## 
+## A BibTeX entry for LaTeX users is
+## 
+##   @Article{,
+##     title = {{lavaan}: An {R} Package for Structural Equation Modeling},
+##     author = {Yves Rosseel},
+##     journal = {Journal of Statistical Software},
+##     year = {2012},
+##     volume = {48},
+##     number = {2},
+##     pages = {1--36},
+##     url = {http://www.jstatsoft.org/v48/i02/},
+##   }
 ```
 

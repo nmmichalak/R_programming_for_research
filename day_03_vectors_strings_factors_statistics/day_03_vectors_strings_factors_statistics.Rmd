@@ -19,7 +19,7 @@ output:
 ```{r}
 
 # character vector of packages you'll need for your whole analysis
-needed_packages <- c("tidyverse", "forcats", "psych", "haven", "lavaan", "lme4", "lmerTest", "afex", "compute.es")
+needed_packages <- c("tidyverse", "forcats", "psych", "haven", "lavaan", "lme4", "lmerTest", "afex", "compute.es", "broom")
 
 # source custom function
 lapply(list.files(path = "custom_functions/", pattern = "*.R", full.names = TRUE), source)
@@ -182,6 +182,14 @@ my_data %>%
 ```{r}
 
 with(data = my_data, describeBy(dep_var, group = exp_group_fac, mat = TRUE))
+
+```
+
+### cite your tools
+
+```{r}
+
+citation("psych")
 
 ```
 
@@ -377,9 +385,31 @@ my_data %>%
 
 ```
 
+### cite your tools
+
+```{r}
+
+citation("afex")
+
+```
+
 ## straight to contrasts
 
 ### Function 23: Confidence interval for a linear contrast of means (between-subjects design) [[Download more functions from Douglas Bonnet's course webpage](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&ved=0ahUKEwjg7bG3u-bUAhVi2IMKHWfSAWwQFggqMAA&url=https%3A%2F%2Fpeople.ucsc.edu%2F~dgbonett%2Fdocs%2Fpsyc204%2F204RFunctions.docx&usg=AFQjCNGRCAg-lE7TwzMSps_A1pmDOEEb8w)]
+
+#### D. Bonnet's example
+
+```{r}
+
+m <- c(33.5, 37.9, 38.0, 44.1)
+sd <- c(3.84, 3.84, 3.65, 4.98)
+n <- c(10, 10, 10, 10)
+c <- c(0.5, 0.5, -0.5, -0.5)
+CIstdmeanBS(alpha = .05, m = m, sd = sd, n = n, c = c)
+
+```
+
+#### example using `summarise()` and pipes
 
 ```{r}
 
@@ -396,6 +426,20 @@ my_data %>%
 
 ### Function 24: Confidence interval for a standardized linear contrast of means (between-subjects design) [[Download more functions from Douglas Bonnet's course webpage](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&ved=0ahUKEwjg7bG3u-bUAhVi2IMKHWfSAWwQFggqMAA&url=https%3A%2F%2Fpeople.ucsc.edu%2F~dgbonett%2Fdocs%2Fpsyc204%2F204RFunctions.docx&usg=AFQjCNGRCAg-lE7TwzMSps_A1pmDOEEb8w)]
 
+#### D. Bonnet's example: just enter arguments as vector objects
+
+```{r}
+
+m <- c(33.5, 37.9, 38.0, 44.1)
+sd <- c(3.84, 3.84, 3.65, 4.98)
+n <- c(10, 10, 10, 10)
+c <- c(0.5, 0.5, -0.5, -0.5)
+CIstdmeanBS(alpha = .05, m = m, sd = sd, n = n, c = c)
+
+```
+
+#### example using `summarise()` and pipes
+
 ```{r}
 
 my_data %>%
@@ -405,6 +449,286 @@ my_data %>%
             sd = sd(dep_var)) %>%
   with(data = ., CIstdmeanBS(alpha = .05, m = m, sd = sd, n = n, c = c(-1, 1)))
 
+
+```
+
+# Linear Mixed Effects Models
+
+## lme4 package
+
+### sleepstudy data (comes with lme4)
+> The average reaction time per day for subjects in a sleep deprivation study. On day 0 the subjects had their normal amount of sleep. Starting that night they were restricted to 3 hours of sleep per night. The observations represent the average reaction time on a series of tests given each day to each subject.
+* Reaction: Average reaction time (ms)
+* Days: Number of days of sleep deprivation
+* Subject: Subject number on which the observation was made.
+> Note: I'm borrowing from a dizzyingly insightful blogpost by Tristan Mahr at UW-Madison [Plotting partial pooling in mixed-effects models](https://tjmahr.github.io/plotting-partial-pooling-in-mixed-effects-models/)
+
+```{r}
+
+?sleepstudy
+
+```
+
+### fit model and summarise
+
+```{r}
+
+sleepstudy %>%
+  lmer(Reaction ~ Days + (1 + Days | Subject), data = ., REML = TRUE) %>%
+  summary(.)
+
+```
+
+### scatterplot *Reaction* on *Days* for each *Subject*
+
+```{r}
+
+sleepstudy %>%
+  ggplot(aes(x = Days, y = Reaction)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  facet_wrap(~ Subject, nrow = 3)
+
+```
+
+### use `lmList()` to get those intercepts and slopes you see above (no pooling / estimates ignore other participants)
+
+```{r}
+
+(no_pooling <- 
+sleepstudy %>%
+  lmList(Reaction ~ Days | Subject, data = .) %>% 
+  coefficients(.) %>%
+  as_tibble(.) %>%
+  rownames_to_column(var = "Subject") %>%
+  rename(Intercept = `(Intercept)`,
+         Slope = Days) %>%
+  mutate(model = "No pooling"))
+
+```
+
+### use `lm()` to get slope and intercept (full pooling / each participant gets the same value)
+
+```{r}
+
+(complete_pooling <- 
+tibble(Subject = sleepstudy$Subject %>% unique(.) %>% parse_character(.),
+       Intercept = sleepstudy %>% lm(Reaction ~ Days, data = .) %>% coefficients(.) %>% .[["(Intercept)"]],
+       Slope = sleepstudy %>% lm(Reaction ~ Days, data = .) %>% coefficients(.) %>% .[["Days"]]) %>%
+  mutate(model = "Complete pooling"))
+
+```
+
+### use `lmer()` to get slopes and intercepts for each participant (partial pooling / uses individual estimates adjusted by what's known about other participants)
+
+```{r}
+
+(partial_pooling <- 
+sleepstudy %>%
+  lmer(Reaction ~ Days + (1 + Days | Subject), data = ., REML = TRUE) %>%
+  coefficients(.) %>%
+  .[["Subject"]] %>%
+  rownames_to_column(var = "Subject") %>%
+  as_tibble(.) %>%
+  rename(Intercept = `(Intercept)`,
+         Slope = Days) %>%
+  mutate(model = "Partial pooling"))
+
+```
+
+### plot these estimates
+
+```{r}
+
+bind_rows(no_pooling, partial_pooling, complete_pooling) %>% 
+  left_join(sleepstudy, by = "Subject") %>%
+  ggplot(aes(x = Days, y = Reaction)) +
+  geom_point() +
+  geom_abline(aes(intercept = Intercept, slope = Slope, color = model)) +
+  scale_x_continuous(breaks = seq(0, 9, 1), limits = c(0, 9)) +
+  facet_wrap(~ Subject, nrow = 3) +
+  theme(legend.position = "top")
+
+```
+
+### cite your tools
+
+```{r}
+
+citation("lme4")
+citation("lmerTest")
+
+```
+
+# structural equation models
+
+## lavaan package
+
+### mediation example
+> "The data for the 50 subjects in this hypothetical study of the effects of room temperature on water consumption are shown in Table 3.1, where X is the temperature in degrees Fahrenheit, M is a self-report measure of thirst at the end of a 2-hour period, and Y is the number of deciliters of water consumed during the last 2 hours of the study. The 50 subjects were in a room for 4 hours doing a variety of tasks including sorting objects, tracking objects on a computer screen, and communicating via an intercom system. The tasks were selected to represent activities of persons alone in contained environments such as a submarine, spacecraft, or space suit. Before the experiment, each participant was acclimated to a standard temperature of 70°F. Temperature, the independent variable, was then manipulated such that each participant was exposed to a specifi c temperature in the room for the 4 hours of the experiment. At the end of 2 hours, the subjects reported how thirsty they were on a 1 to 5 scale from 1 (not at all thirsty) to 5 (very thirsty). During the last 2 hours of the experiment, water was made available in the room, and the number of the deciliters of water the subjects drank was recorded. (MacKinnon, 2008, p. 55-56)" 
+
+```{r}
+
+subj_num <- 1:50
+
+x <- c(70, 71, 69, 70, 71, 70, 69, 70, 70, 72, 71, 71, 70, 71, 71, 70, 70, 69, 72, 71, 71, 72, 67, 71, 71, 70, 70, 69, 69, 70, 71, 70, 70, 70, 71, 68, 72, 69, 70, 68, 68, 70, 71, 69, 69, 71, 71, 71, 72, 70)
+
+m <- c(4, 4, 1, 1, 3, 4, 3, 5, 4, 5, 2, 3, 5, 4, 4, 2, 4, 3, 3, 3, 2, 3, 1, 4, 3, 3, 2, 3, 4, 3, 2, 1, 2, 2, 4, 2, 4, 3, 3, 3, 3, 4, 4, 2, 3, 3, 4, 3, 4, 2)
+
+y <- c(3, 3, 3, 3, 3, 2, 3, 5, 4, 4, 2, 4, 5, 5, 5, 2, 4, 5, 4, 3, 4, 5, 2, 4, 2, 4, 3, 4, 3, 3, 1, 3, 5, 1, 3, 1, 3, 2, 3, 2, 3, 3, 4, 2, 3, 4, 4, 2, 5, 2)
+
+table_3_1 <- tibble(subj_num, x, m, y)
+
+
+```
+
+#### write model
+
+```{r}
+
+mediation_model <- "# a path
+                      m ~ a * x
+
+                    # b path
+                      y ~ b * m
+
+                    # c path (direct effect)
+                      y ~ c * x
+
+                    # print total and indirect effects
+                      ab := a * b
+                      total := c + (a * b)"
+
+```
+
+#### fit model with `sem()`
+
+```{r}
+
+mediation_model %>%
+  sem(data = table_3_1)
+
+```
+
+#### summarise model
+
+```{r}
+
+mediation_model %>%
+  sem(data = table_3_1) %>%
+  summary(.)
+
+```
+
+#### parameter estimates
+
+```{r}
+
+mediation_model %>%
+  sem(data = table_3_1,
+      se = "bootstrap",
+      bootstrap = 1000) %>%
+  parameterestimates(boot.ci.type = "bca.simple")
+
+```
+
+### confirmatory factor analysis example from lavaan website [A CFA example](http://lavaan.ugent.be/tutorial/cfa.html)
+> The classic Holzinger and Swineford (1939) dataset consists of mental ability test scores of seventh- and eighth-grade children from two different schools (Pasteur and Grant-White). In the original dataset (available in the MBESS package), there are scores for 26 tests. However, a smaller subset with 9 variables is more widely used in the literature (for example in Joreskog's 1969 paper, which also uses the 145 subjects from the Grant-White school only).
+
+```{r}
+
+?HolzingerSwineford1939
+
+```
+
+#### write model
+
+```{r}
+
+cfa_model <- "# latent variables
+                visual  =~ x1 + x2 + x3 
+                textual =~ x4 + x5 + x6
+                speed   =~ x7 + x8 + x9"
+
+```
+
+#### fit model with `cfa()`
+
+```{r}
+
+cfa_model %>%
+  cfa(data = HolzingerSwineford1939)
+
+```
+
+#### summarise model
+
+```{r}
+
+cfa_model %>%
+  cfa(data = HolzingerSwineford1939) %>%
+  summary(.)
+
+```
+
+#### fit measures
+
+```{r}
+
+cfa_model %>%
+  cfa(data = HolzingerSwineford1939) %>%
+  fitmeasures(.) %>%
+  tidy(.) %>%
+  mutate(value = round(x, 4)) %>%
+  print(n = 42)
+
+```
+
+#### parameter estimates
+
+```{r}
+
+cfa_model %>%
+  cfa(data = HolzingerSwineford1939) %>%
+  parameterestimates(.)
+
+```
+
+#### modification indices
+
+```{r}
+
+cfa_model %>%
+  cfa(data = HolzingerSwineford1939) %>%
+  modificationindices(.)
+
+```
+
+#### implied covariance matrix
+
+```{r}
+
+cfa_model %>%
+  cfa(data = HolzingerSwineford1939) %>%
+  fitted(.)
+
+```
+
+#### residual matrix
+
+```{r}
+
+cfa_model %>%
+  cfa(data = HolzingerSwineford1939) %>%
+  residuals(.)
+
+```
+
+### cite your tools
+
+```{r}
+
+citation("lavaan")
 
 ```
 
