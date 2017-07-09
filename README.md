@@ -187,6 +187,7 @@
 - Hmisc
 - afex
 - data.table
+- officer
 
 ## Acknowledgements
 
