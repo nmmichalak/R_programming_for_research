@@ -70,7 +70,7 @@
 
 ### Before workshop
 
-- Skim [Workflow: basics](http://r4ds.had.co.nz/workflow-basics.html), [Data transformation](http://r4ds.had.co.nz/transform.html), and [Relational data](http://r4ds.had.co.nz/relational-data.html) (Wickham &amp; Grolemund)
+- Skim [Workflow: basics](http://r4ds.had.co.nz/workflow-basics.html), [Data transformation](http://r4ds.had.co.nz/transform.html), and [Tidy data](http://r4ds.had.co.nz/tidy-data.html) (Wickham &amp; Grolemund)
 - Skim [Files](http://style.tidyverse.org/files.html) and [Syntax](http://style.tidyverse.org/syntax.html) from the tidyverse style guide (Wickham)
 
 ### During Workshop
