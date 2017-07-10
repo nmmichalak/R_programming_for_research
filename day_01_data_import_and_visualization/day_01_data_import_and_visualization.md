@@ -7,7 +7,7 @@ Nicholas Michalak
 
 ```r
 # character vector of packages you'll need for your whole analysis
-needed_packages <- c("tidyverse", "haven", "readxl")
+needed_packages <- c("tidyverse", "stringr", "haven", "readxl")
 
 # source custom function
 source("custom_functions/install_needed_pkgs.R")
@@ -41,16 +41,457 @@ install_needed_pkgs(needed_packages = needed_packages)
 ## [11] "utils"     "datasets"  "methods"   "base"     
 ## 
 ## [[2]]
-##  [1] "haven"     "dplyr"     "purrr"     "readr"     "tidyr"    
+##  [1] "stringr"   "dplyr"     "purrr"     "readr"     "tidyr"    
 ##  [6] "tibble"    "ggplot2"   "tidyverse" "stats"     "graphics" 
 ## [11] "grDevices" "utils"     "datasets"  "methods"   "base"     
 ## 
 ## [[3]]
-##  [1] "readxl"    "haven"     "dplyr"     "purrr"     "readr"    
+##  [1] "haven"     "stringr"   "dplyr"     "purrr"     "readr"    
 ##  [6] "tidyr"     "tibble"    "ggplot2"   "tidyverse" "stats"    
 ## [11] "graphics"  "grDevices" "utils"     "datasets"  "methods"  
-## [16] "base"
+## [16] "base"     
+## 
+## [[4]]
+##  [1] "readxl"    "haven"     "stringr"   "dplyr"     "purrr"    
+##  [6] "readr"     "tidyr"     "tibble"    "ggplot2"   "tidyverse"
+## [11] "stats"     "graphics"  "grDevices" "utils"     "datasets" 
+## [16] "methods"   "base"
 ```
+
+#  Basic piping
+
+## `x %>% f` is equivalent to `f(x)`
+
+
+```r
+# 10 values drawn from normal distribution, mean = 0, sd = 1
+# set randomizer seed first so results can be reproduced
+set.seed(12)
+ten_rnorm_x <- rnorm(n = 10, mean = 0, sd = 1)
+
+# mean
+# with pipes
+ten_rnorm_x %>% mean(.)
+```
+
+```
+## [1] -0.4672139
+```
+
+```r
+# without pipes
+mean(ten_rnorm_x)
+```
+
+```
+## [1] -0.4672139
+```
+
+## `x %>% f(y)` is equivalent to `f(x, y)`
+
+
+```r
+# create new variable with r ~ 0.5 correlation with first variable
+# set randomizer seed first so results can be reproduced
+set.seed(123)
+ten_rnorm_y <- ten_rnorm_x * 0.5 + rnorm(n = 10, mean = 0, sd = 1)
+
+# correlation between five_rnorm_x and five_rnorm_y
+# with pipes
+ten_rnorm_x %>% cor(ten_rnorm_y)
+```
+
+```
+## [1] 0.3858978
+```
+
+```r
+# without pipes
+cor(ten_rnorm_x, ten_rnorm_y)
+```
+
+```
+## [1] 0.3858978
+```
+
+## `x %>% f %>% g %>% h` is equivalent to `h(g(f(x)))`
+
+
+```r
+# extract numbers from characters
+# mean center those numbers
+# convert list (the result of the scale function) to a number
+# with pipes
+c("s1z", "n2w", "o3q", "g4s", "d5a") %>%
+  parse_number() %>%
+  scale(center = TRUE, scale = FALSE) %>%
+  parse_number()
+```
+
+```
+## [1] -2 -1  0  1  2
+```
+
+```r
+# without pipes
+parse_number(
+  scale(
+    parse_number(
+      c("s1z", "n2w", "o3q", "g4s", "d5a")
+      )
+    )
+  )
+```
+
+```
+## [1] -1.2649111 -0.6324555  0.0000000  0.6324555  1.2649111
+```
+
+## a more practical example
+
+
+```r
+# using the mpg dataset (?mpg)
+# filter out cars that get more than 20 mph on the highway
+# and then select only manufacturer, class, city, and highway
+# and then, finally, plot hwy on cty, coloring the points by class and
+# faceting the plots by manufacturer
+mpg %>%
+  filter(displ < 6) %>%
+  select(manufacturer, class, cty, hwy) %>%
+  ggplot(aes(x = cty, y = hwy, color = class)) +
+  geom_point() +
+  facet_wrap(~ manufacturer)
+```
+
+![](day_01_data_import_and_visualization_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
+
+# classic example: Anscombe's Quartet
+
+## fit linear rgeression for first set
+
+
+```r
+model_1 <- lm(y1 ~ x1, data = anscombe)
+
+# summarize
+summary(model_1)
+```
+
+```
+## 
+## Call:
+## lm(formula = y1 ~ x1, data = anscombe)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1.92127 -0.45577 -0.04136  0.70941  1.83882 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)   
+## (Intercept)   3.0001     1.1247   2.667  0.02573 * 
+## x1            0.5001     0.1179   4.241  0.00217 **
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 1.237 on 9 degrees of freedom
+## Multiple R-squared:  0.6665,	Adjusted R-squared:  0.6295 
+## F-statistic: 17.99 on 1 and 9 DF,  p-value: 0.00217
+```
+
+## fit linear rgeression for second set
+
+
+```r
+model_2 <- lm(y2 ~ x2, data = anscombe)
+
+# summarize
+summary(model_2)
+```
+
+```
+## 
+## Call:
+## lm(formula = y2 ~ x2, data = anscombe)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -1.9009 -0.7609  0.1291  0.9491  1.2691 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)   
+## (Intercept)    3.001      1.125   2.667  0.02576 * 
+## x2             0.500      0.118   4.239  0.00218 **
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 1.237 on 9 degrees of freedom
+## Multiple R-squared:  0.6662,	Adjusted R-squared:  0.6292 
+## F-statistic: 17.97 on 1 and 9 DF,  p-value: 0.002179
+```
+
+## fit linear rgeression for third set
+
+
+```r
+model_3 <- lm(y3 ~ x3, data = anscombe)
+
+# summarize
+summary(model_3)
+```
+
+```
+## 
+## Call:
+## lm(formula = y3 ~ x3, data = anscombe)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -1.1586 -0.6146 -0.2303  0.1540  3.2411 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)   
+## (Intercept)   3.0025     1.1245   2.670  0.02562 * 
+## x3            0.4997     0.1179   4.239  0.00218 **
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 1.236 on 9 degrees of freedom
+## Multiple R-squared:  0.6663,	Adjusted R-squared:  0.6292 
+## F-statistic: 17.97 on 1 and 9 DF,  p-value: 0.002176
+```
+
+## fit linear rgeression for fourth set
+
+
+```r
+model_4 <- lm(y4 ~ x4, data = anscombe)
+
+# summarize
+summary(model_4)
+```
+
+```
+## 
+## Call:
+## lm(formula = y4 ~ x4, data = anscombe)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -1.751 -0.831  0.000  0.809  1.839 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)   
+## (Intercept)   3.0017     1.1239   2.671  0.02559 * 
+## x4            0.4999     0.1178   4.243  0.00216 **
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 1.236 on 9 degrees of freedom
+## Multiple R-squared:  0.6667,	Adjusted R-squared:  0.6297 
+## F-statistic:    18 on 1 and 9 DF,  p-value: 0.002165
+```
+
+## plot all four sets
+
+
+```r
+# start with anscombe dataset that comes with R
+# select variables x1 through x4b n 
+# gather columns into pairs: name the variable "set" and the value "x"
+# write over the "set" variable with a new variable that replaces "x" with ""
+# save result as "anscombe_x"
+(anscombe_x <- 
+anscombe %>%
+  select(x1:x4) %>%
+  gather(set, x) %>%
+  mutate(set = str_replace(string = set, pattern = "x", replacement = "")) %>%
+  as_tibble())
+```
+
+```
+## # A tibble: 44 x 2
+##      set     x
+##    <chr> <dbl>
+##  1     1    10
+##  2     1     8
+##  3     1    13
+##  4     1     9
+##  5     1    11
+##  6     1    14
+##  7     1     6
+##  8     1     4
+##  9     1    12
+## 10     1     7
+## # ... with 34 more rows
+```
+
+```r
+# start with anscombe dataset that comes with R
+# select variables y1 through y4
+# gather columns into pairs: name the variable "set" and the value "y"
+# write over the "set" variable with a new variable that replaces "y" with ""
+# save result as "anscombe_y"
+(anscombe_y <- 
+anscombe %>%
+  select(y1:y4) %>%
+  gather(set, y) %>%
+  mutate(set = str_replace(string = set, pattern = "x", replacement = "")) %>%
+  as_tibble())
+```
+
+```
+## # A tibble: 44 x 2
+##      set     y
+##    <chr> <dbl>
+##  1    y1  8.04
+##  2    y1  6.95
+##  3    y1  7.58
+##  4    y1  8.81
+##  5    y1  8.33
+##  6    y1  9.96
+##  7    y1  7.24
+##  8    y1  4.26
+##  9    y1 10.84
+## 10    y1  4.82
+## # ... with 34 more rows
+```
+
+```r
+# bind those datasets above by columns
+# however, remove the set variable from the anscombe_y dataset
+(anscombe_long <- bind_cols(anscombe_x, anscombe_y %>%
+                             select(-set)))
+```
+
+```
+## # A tibble: 44 x 3
+##      set     x     y
+##    <chr> <dbl> <dbl>
+##  1     1    10  8.04
+##  2     1     8  6.95
+##  3     1    13  7.58
+##  4     1     9  8.81
+##  5     1    11  8.33
+##  6     1    14  9.96
+##  7     1     6  7.24
+##  8     1     4  4.26
+##  9     1    12 10.84
+## 10     1     7  4.82
+## # ... with 34 more rows
+```
+
+```r
+anscombe_long %>%
+  ggplot(aes(x = x, y = y)) +
+  geom_point() +
+  stat_smooth(method = "lm", se = FALSE, fullrange = TRUE) +
+  scale_x_continuous(breaks = 3:20, limits = c(3, 20)) +
+  scale_y_continuous(breaks = 3:13, limits = c(3, 13)) +
+  coord_cartesian(xlim = c(4, 19), ylim = c(4, 13)) +
+  facet_wrap(~ set)
+```
+
+```
+## Warning: Removed 2 rows containing missing values (geom_smooth).
+```
+
+![](day_01_data_import_and_visualization_files/figure-html/unnamed-chunk-10-1.png)<!-- -->
+
+# modern example: Datasaurus
+> Matejka, J., & Fitzmaurice, G. (2017, May). [Same stats, different graphs: Generating datasets with varied appearance and identical statistics through simulated annealing](https://www.autodeskresearch.com/publications/samestats). In Proceedings of the 2017 CHI Conference on Human Factors in Computing Systems (pp. 1290-1294). ACM.
+
+## see it
+
+
+```r
+(datasaurus <- "example_tidy_data/datasaurus_dozen.tsv" %>%
+  read_tsv())
+```
+
+```
+## Parsed with column specification:
+## cols(
+##   dataset = col_character(),
+##   x = col_double(),
+##   y = col_double()
+## )
+```
+
+```
+## # A tibble: 1,846 x 3
+##    dataset       x       y
+##      <chr>   <dbl>   <dbl>
+##  1    dino 55.3846 97.1795
+##  2    dino 51.5385 96.0256
+##  3    dino 46.1538 94.4872
+##  4    dino 42.8205 91.4103
+##  5    dino 40.7692 88.3333
+##  6    dino 38.7179 84.8718
+##  7    dino 35.6410 79.8718
+##  8    dino 33.0769 77.5641
+##  9    dino 28.9744 74.4872
+## 10    dino 26.1538 71.4103
+## # ... with 1,836 more rows
+```
+
+## describe it
+
+
+```r
+datasaurus$dataset %>%
+  unique() %>%
+  map_df(function(set) {
+    
+    r <- datasaurus %>%
+      filter(dataset == set) %>%
+      with(., cor(x, y))
+    
+    datasaurus %>%
+      filter(dataset == set) %>%
+      summarise(n = n(),
+                mean_x = mean(x),
+                sd_x = sd(x),
+                mean_y = mean(y),
+                sd_y = sd(y),
+                se = ) %>%
+      mutate(r_xy = r,
+             dataset = set) %>%
+      select(dataset, n, everything(.))
+    
+  })
+```
+
+```
+## # A tibble: 13 x 7
+##       dataset     n   mean_x     sd_x   mean_y     sd_y        r_xy
+##         <chr> <int>    <dbl>    <dbl>    <dbl>    <dbl>       <dbl>
+##  1       dino   142 54.26327 16.76514 47.83225 26.93540 -0.06447185
+##  2       away   142 54.26610 16.76982 47.83472 26.93974 -0.06412835
+##  3    h_lines   142 54.26144 16.76590 47.83025 26.93988 -0.06171484
+##  4    v_lines   142 54.26993 16.76996 47.83699 26.93768 -0.06944557
+##  5    x_shape   142 54.26015 16.76996 47.83972 26.93000 -0.06558334
+##  6       star   142 54.26734 16.76896 47.83955 26.93027 -0.06296110
+##  7 high_lines   142 54.26881 16.76670 47.83545 26.94000 -0.06850422
+##  8       dots   142 54.26030 16.76774 47.83983 26.93019 -0.06034144
+##  9     circle   142 54.26732 16.76001 47.83772 26.93004 -0.06834336
+## 10   bullseye   142 54.26873 16.76924 47.83082 26.93573 -0.06858639
+## 11   slant_up   142 54.26588 16.76885 47.83150 26.93861 -0.06860921
+## 12 slant_down   142 54.26785 16.76676 47.83590 26.93610 -0.06897974
+## 13 wide_lines   142 54.26692 16.77000 47.83160 26.93790 -0.06657523
+```
+
+## plot it
+
+
+```r
+datasaurus %>%
+  ggplot(aes(x = x, y = y)) +
+  geom_point() +
+  facet_wrap(~ dataset)
+```
+
+![](day_01_data_import_and_visualization_files/figure-html/unnamed-chunk-13-1.png)<!-- -->
 
 # psychology example 1
 
@@ -88,7 +529,7 @@ ggplot(data = snk_thrpy_desc, aes(x = therapy, y = mean_phobia, fill = severity)
   geom_errorbar(mapping = aes(ymin = mean_phobia - moe_phobia, ymax = mean_phobia + moe_phobia), position = position_dodge(width = 0.9), width = 0.1)
 ```
 
-![](day_01_data_import_and_visualization_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
+![](day_01_data_import_and_visualization_files/figure-html/unnamed-chunk-15-1.png)<!-- -->
 
 ## plot means from raw data
 
@@ -99,7 +540,7 @@ ggplot(data = snakes_therapy, aes(x = therapy, y = phobia, fill = severity)) +
   stat_summary(fun.data = "mean_cl_normal", geom = "errorbar", position = position_dodge(width = 0.9), width = 0.1)
 ```
 
-![](day_01_data_import_and_visualization_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
+![](day_01_data_import_and_visualization_files/figure-html/unnamed-chunk-16-1.png)<!-- -->
 
 # psychology example 2
 
@@ -159,7 +600,7 @@ ggplot(data = tybur_et_al_fig1, aes(x = hist_path_rscld, y = traditionalism, lab
         axis.text.y = element_text(size = 14))
 ```
 
-![](day_01_data_import_and_visualization_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
+![](day_01_data_import_and_visualization_files/figure-html/unnamed-chunk-18-1.png)<!-- -->
 
 ## compare this to published figure
 
@@ -310,7 +751,7 @@ ggplot(data = tybur_et_al_fig1, aes(x = hist_path_rscld, y = traditionalism, lab
 ```r
 # note: can also use read_spss()
 (add_health_sav <- "example_tidy_data/ICPSR_21600/DS0001/21600-0001-Data.sav" %>%
-  read_sav(.))
+  read_sav())
 ```
 
 ```
@@ -366,7 +807,7 @@ ggplot(data = tybur_et_al_fig1, aes(x = hist_path_rscld, y = traditionalism, lab
 ```r
 # note: can also use read_stata()
 (add_health_dta <- "example_tidy_data/ICPSR_21600/DS0001/21600-0001-Data.dta" %>%
-  read_dta(.))
+  read_dta())
 ```
 
 ```
@@ -415,4 +856,3 @@ ggplot(data = tybur_et_al_fig1, aes(x = hist_path_rscld, y = traditionalism, lab
 ## #   H1GH27H <dbl+lbl>, H1GH27I <dbl+lbl>, H1GH27J <dbl+lbl>,
 ## #   H1GH28 <dbl+lbl>, H1GH29 <dbl+lbl>, H1GH30A <dbl+lbl>, ...
 ```
-

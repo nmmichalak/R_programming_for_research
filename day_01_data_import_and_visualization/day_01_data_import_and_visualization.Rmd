@@ -19,13 +19,234 @@ output:
 ```{r}
 
 # character vector of packages you'll need for your whole analysis
-needed_packages <- c("tidyverse", "haven", "readxl")
+needed_packages <- c("tidyverse", "stringr", "haven", "readxl")
 
 # source custom function
 source("custom_functions/install_needed_pkgs.R")
 
 # install needed packages
 install_needed_pkgs(needed_packages = needed_packages)
+
+```
+
+#  Basic piping
+
+## `x %>% f` is equivalent to `f(x)`
+
+```{r}
+
+# 10 values drawn from normal distribution, mean = 0, sd = 1
+# set randomizer seed first so results can be reproduced
+set.seed(12)
+ten_rnorm_x <- rnorm(n = 10, mean = 0, sd = 1)
+
+# mean
+# with pipes
+ten_rnorm_x %>% mean(.)
+
+# without pipes
+mean(ten_rnorm_x)
+
+```
+
+## `x %>% f(y)` is equivalent to `f(x, y)`
+
+```{r}
+
+# create new variable with r ~ 0.5 correlation with first variable
+# set randomizer seed first so results can be reproduced
+set.seed(123)
+ten_rnorm_y <- ten_rnorm_x * 0.5 + rnorm(n = 10, mean = 0, sd = 1)
+
+# correlation between five_rnorm_x and five_rnorm_y
+# with pipes
+ten_rnorm_x %>% cor(ten_rnorm_y)
+
+# without pipes
+cor(ten_rnorm_x, ten_rnorm_y)
+
+```
+
+## `x %>% f %>% g %>% h` is equivalent to `h(g(f(x)))`
+
+```{r}
+
+# extract numbers from characters
+# mean center those numbers
+# convert list (the result of the scale function) to a number
+# with pipes
+c("s1z", "n2w", "o3q", "g4s", "d5a") %>%
+  parse_number() %>%
+  scale(center = TRUE, scale = FALSE) %>%
+  parse_number()
+
+# without pipes
+parse_number(
+  scale(
+    parse_number(
+      c("s1z", "n2w", "o3q", "g4s", "d5a")
+      )
+    )
+  )
+
+```
+
+## a more practical example
+
+```{r}
+
+# using the mpg dataset (?mpg)
+# filter out cars that get more than 20 mph on the highway
+# and then select only manufacturer, class, city, and highway
+# and then, finally, plot hwy on cty, coloring the points by class and
+# faceting the plots by manufacturer
+mpg %>%
+  filter(displ < 6) %>%
+  select(manufacturer, class, cty, hwy) %>%
+  ggplot(aes(x = cty, y = hwy, color = class)) +
+  geom_point() +
+  facet_wrap(~ manufacturer)
+
+```
+
+# classic example: Anscombe's Quartet
+
+## fit linear rgeression for first set
+
+```{r}
+
+model_1 <- lm(y1 ~ x1, data = anscombe)
+
+# summarize
+summary(model_1)
+
+```
+
+## fit linear rgeression for second set
+
+```{r}
+
+model_2 <- lm(y2 ~ x2, data = anscombe)
+
+# summarize
+summary(model_2)
+
+```
+
+## fit linear rgeression for third set
+
+```{r}
+
+model_3 <- lm(y3 ~ x3, data = anscombe)
+
+# summarize
+summary(model_3)
+
+```
+
+## fit linear rgeression for fourth set
+
+```{r}
+
+model_4 <- lm(y4 ~ x4, data = anscombe)
+
+# summarize
+summary(model_4)
+
+```
+
+## plot all four sets
+
+```{r}
+
+# start with anscombe dataset that comes with R
+# select variables x1 through x4b n 
+# gather columns into pairs: name the variable "set" and the value "x"
+# write over the "set" variable with a new variable that replaces "x" with ""
+# save result as "anscombe_x"
+(anscombe_x <- 
+anscombe %>%
+  select(x1:x4) %>%
+  gather(set, x) %>%
+  mutate(set = str_replace(string = set, pattern = "x", replacement = "")) %>%
+  as_tibble())
+
+# start with anscombe dataset that comes with R
+# select variables y1 through y4
+# gather columns into pairs: name the variable "set" and the value "y"
+# write over the "set" variable with a new variable that replaces "y" with ""
+# save result as "anscombe_y"
+(anscombe_y <- 
+anscombe %>%
+  select(y1:y4) %>%
+  gather(set, y) %>%
+  mutate(set = str_replace(string = set, pattern = "x", replacement = "")) %>%
+  as_tibble())
+
+# bind those datasets above by columns
+# however, remove the set variable from the anscombe_y dataset
+(anscombe_long <- bind_cols(anscombe_x, anscombe_y %>%
+                             select(-set)))
+
+anscombe_long %>%
+  ggplot(aes(x = x, y = y)) +
+  geom_point() +
+  stat_smooth(method = "lm", se = FALSE, fullrange = TRUE) +
+  scale_x_continuous(breaks = 3:20, limits = c(3, 20)) +
+  scale_y_continuous(breaks = 3:13, limits = c(3, 13)) +
+  coord_cartesian(xlim = c(4, 19), ylim = c(4, 13)) +
+  facet_wrap(~ set)
+
+```
+
+# modern example: Datasaurus
+> Matejka, J., & Fitzmaurice, G. (2017, May). [Same stats, different graphs: Generating datasets with varied appearance and identical statistics through simulated annealing](https://www.autodeskresearch.com/publications/samestats). In Proceedings of the 2017 CHI Conference on Human Factors in Computing Systems (pp. 1290-1294). ACM.
+
+## see it
+
+```{r}
+
+(datasaurus <- "example_tidy_data/datasaurus_dozen.tsv" %>%
+  read_tsv())
+  
+```
+
+## describe it
+
+```{r}
+
+datasaurus$dataset %>%
+  unique() %>%
+  map_df(function(set) {
+    
+    r <- datasaurus %>%
+      filter(dataset == set) %>%
+      with(., cor(x, y))
+    
+    datasaurus %>%
+      filter(dataset == set) %>%
+      summarise(n = n(),
+                mean_x = mean(x),
+                sd_x = sd(x),
+                mean_y = mean(y),
+                sd_y = sd(y),
+                se = ) %>%
+      mutate(r_xy = r,
+             dataset = set) %>%
+      select(dataset, n, everything(.))
+    
+  })
+
+```
+
+## plot it
+
+```{r}
+
+datasaurus %>%
+  ggplot(aes(x = x, y = y)) +
+  geom_point() +
+  facet_wrap(~ dataset)
 
 ```
 
@@ -139,7 +360,7 @@ ggplot(data = tybur_et_al_fig1, aes(x = hist_path_rscld, y = traditionalism, lab
 
 # note: can also use read_spss()
 (add_health_sav <- "example_tidy_data/ICPSR_21600/DS0001/21600-0001-Data.sav" %>%
-  read_sav(.))
+  read_sav())
 
 ```
 
@@ -149,7 +370,6 @@ ggplot(data = tybur_et_al_fig1, aes(x = hist_path_rscld, y = traditionalism, lab
 
 # note: can also use read_stata()
 (add_health_dta <- "example_tidy_data/ICPSR_21600/DS0001/21600-0001-Data.dta" %>%
-  read_dta(.))
+  read_dta())
 
 ```
-
