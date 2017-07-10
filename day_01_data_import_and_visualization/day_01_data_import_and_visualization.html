@@ -316,15 +316,15 @@ parse_number(
   scale(
     parse_number(
       c(&quot;s1z&quot;, &quot;n2w&quot;, &quot;o3q&quot;, &quot;g4s&quot;, &quot;d5a&quot;)
-      )
+      ), center = TRUE, scale = FALSE
     )
   )</code></pre>
-<pre><code>## [1] -1.2649111 -0.6324555  0.0000000  0.6324555  1.2649111</code></pre>
+<pre><code>## [1] -2 -1  0  1  2</code></pre>
 </div>
 <div id="a-more-practical-example" class="section level2">
 <h2>a more practical example</h2>
 <pre class="r"><code># using the mpg dataset (?mpg)
-# filter out cars that get more than 20 mph on the highway
+# filter out cars that have less than 6 litre engine displacement
 # and then select only manufacturer, class, city, and highway
 # and then, finally, plot hwy on cty, coloring the points by class and
 # faceting the plots by manufacturer

@@ -138,13 +138,13 @@ parse_number(
   scale(
     parse_number(
       c("s1z", "n2w", "o3q", "g4s", "d5a")
-      )
+      ), center = TRUE, scale = FALSE
     )
   )
 ```
 
 ```
-## [1] -1.2649111 -0.6324555  0.0000000  0.6324555  1.2649111
+## [1] -2 -1  0  1  2
 ```
 
 ## a more practical example
@@ -152,7 +152,7 @@ parse_number(
 
 ```r
 # using the mpg dataset (?mpg)
-# filter out cars that get more than 20 mph on the highway
+# filter out cars that have less than 6 litre engine displacement
 # and then select only manufacturer, class, city, and highway
 # and then, finally, plot hwy on cty, coloring the points by class and
 # faceting the plots by manufacturer
