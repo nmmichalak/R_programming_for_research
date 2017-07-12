@@ -1,0 +1,88 @@
+---
+title: "Plotting bars with ggplot2"
+author: "Nick Michalak"
+date: "7/11/2017"
+output:
+  html_document: 
+    code_folding: show
+    fig_height: 7.5
+    fig_width: 10.5
+    keep_md: yes
+    theme: readable
+    toc: yes
+    toc_float:
+      collapsed: yes
+      smooth_scroll: yes
+---
+
+# install and load packages
+
+```{r}
+
+# vector of needed packages
+needed_packages <- c("tidyverse")
+
+# for every package in needed_packages, apply the library function
+# look for character strings
+lapply(needed_packages, library, character.only = TRUE)
+
+```
+
+# `geom_bar()`
+> default: stat = "count"
+
+```{r}
+
+diamonds %>%
+  ggplot(mapping = aes(x = cut, fill = cut)) +
+  geom_bar()
+
+```
+
+# `stat_summary()`
+## standard errors
+> default: mult = 1
+
+```{r}
+
+diamonds %>%
+  ggplot(mapping = aes(x = cut, y = price, fill = cut)) +
+  stat_summary(fun.data = "mean_se", geom = "bar", position = "dodge") +
+  stat_summary(fun.data = "mean_se", geom = "errorbar", position = "dodge", width = 0.1, fun.args = list(mult = 1))
+
+?ggplot2::mean_se
+
+```
+
+## confidence intervals
+> default: conf.int = 0.95
+
+```{r}
+
+diamonds %>%
+  ggplot(mapping = aes(x = cut, y = price, fill = cut)) +
+  stat_summary(fun.data = "mean_cl_normal", geom = "bar", position = "dodge") +
+  stat_summary(fun.data = "mean_cl_normal", geom = "errorbar", position = "dodge", width = 0.1, fun.args = list(conf.int = 0.95))
+
+?ggplot2::mean_cl_normal
+
+```
+
+# plots from descriptive statistics
+
+```{r}
+
+diamonds %>%
+  group_by(cut) %>%
+  summarise(n = n(),
+            mean = mean(price),
+            sd = sd(price),
+            se = sd / sqrt(n),
+            t_crit = qt(p = 1 - .05 / 2, df = n - 1),
+            moe = se * t_crit) %>%
+  ggplot(mapping = aes(x = cut, y = mean, fill = cut, ymin = mean - moe, ymax = mean + moe)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  geom_errorbar(position = "dodge", width = 0.1)
+
+```
+
