@@ -143,7 +143,7 @@ my_data %>%
 
 ```
 
-### `facet_wrap()`
+## `facet_wrap()`
 
 ```{r}
 
@@ -481,6 +481,84 @@ my_data %>%
 
 ```
 
+# review `left_join()`, `gather()`, and `spread()`
+
+## create data
+* 10 subjects
+* 2 experimental groups
+* 3 time points
+
+```{r}
+
+# set randomizer seed
+set.seed(123)
+
+# ID variable
+(id <- 1:10)
+
+# experimental group variable
+(exp_grp <- as_factor(rep(c("Group 1", "Group 2"), each = 5)))
+
+# dependent variable
+(dep_var <- rnorm(n = 10, mean = 0, sd = 1))
+
+# 3 time points
+(time_1 <- tibble(id, exp_grp, dep_var_1 = dep_var))
+(time_2 <- tibble(id, exp_grp, dep_var_2 = time_1$dep_var_1 * 0.5 + rnorm(10)))
+(time_3 <- tibble(id, exp_grp, dep_var_3 = time_2$dep_var_2 * 0.5 + rnorm(10)))
+
+```
+
+## join datasets from left to right
+
+```{r}
+
+(time_data <- time_1 %>%
+  left_join(time_2, by = c("id", "exp_grp")) %>%
+  left_join(time_3, by = c("id", "exp_grp")))
+
+```
+
+## `gather()` dep_var columns into one column
+
+### select columns to gather
+
+```{r}
+
+(time_data_long <- time_data %>%
+  gather(time, dep_var, dep_var_1, dep_var_2, dep_var_3))
+
+```
+
+### exclude columns not going to gather
+> `gather()` uses the `select()` function to select / deselect columns
+
+```{r}
+
+(time_data_long <- time_data %>%
+  gather(time, dep_var, -c(id, exp_grp)))
+
+```
+
+## `spread()` time column into three dep_var columns
+
+```{r}
+
+time_data_long %>%
+  spread(time, dep_var)
+
+```
+
+# another plotting example
+
+```{r}
+
+time_data_long %>%
+  ggplot(mapping = aes(x = time, y = dep_var, color = exp_grp)) +
+  geom_violin()
+
+```
+
 # Linear Mixed Effects Models
 
 ## lme4 package
@@ -760,4 +838,3 @@ cfa_model %>%
 citation("lavaan")
 
 ```
-

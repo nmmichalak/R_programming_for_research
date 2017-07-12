@@ -591,7 +591,7 @@ my_data %>%
 
 ![](day_03_vectors_strings_factors_statistics_files/figure-html/unnamed-chunk-13-1.png)<!-- -->
 
-### `facet_wrap()`
+## `facet_wrap()`
 
 
 ```r
@@ -1337,6 +1337,221 @@ my_data %>%
 ## Equal Variances Assumed:    0.5017887 0.4549662 -0.3899286 1.393506
 ```
 
+# review `left_join()`, `gather()`, and `spread()`
+
+## create data
+* 10 subjects
+* 2 experimental groups
+* 3 time points
+
+
+```r
+# set randomizer seed
+set.seed(123)
+
+# ID variable
+(id <- 1:10)
+```
+
+```
+##  [1]  1  2  3  4  5  6  7  8  9 10
+```
+
+```r
+# experimental group variable
+(exp_grp <- as_factor(rep(c("Group 1", "Group 2"), each = 5)))
+```
+
+```
+##  [1] Group 1 Group 1 Group 1 Group 1 Group 1 Group 2 Group 2 Group 2
+##  [9] Group 2 Group 2
+## Levels: Group 1 Group 2
+```
+
+```r
+# dependent variable
+(dep_var <- rnorm(n = 10, mean = 0, sd = 1))
+```
+
+```
+##  [1] -0.56047565 -0.23017749  1.55870831  0.07050839  0.12928774
+##  [6]  1.71506499  0.46091621 -1.26506123 -0.68685285 -0.44566197
+```
+
+```r
+# 3 time points
+(time_1 <- tibble(id, exp_grp, dep_var_1 = dep_var))
+```
+
+```
+## # A tibble: 10 x 3
+##       id exp_grp   dep_var_1
+##    <int>  <fctr>       <dbl>
+##  1     1 Group 1 -0.56047565
+##  2     2 Group 1 -0.23017749
+##  3     3 Group 1  1.55870831
+##  4     4 Group 1  0.07050839
+##  5     5 Group 1  0.12928774
+##  6     6 Group 2  1.71506499
+##  7     7 Group 2  0.46091621
+##  8     8 Group 2 -1.26506123
+##  9     9 Group 2 -0.68685285
+## 10    10 Group 2 -0.44566197
+```
+
+```r
+(time_2 <- tibble(id, exp_grp, dep_var_2 = time_1$dep_var_1 * 0.5 + rnorm(10)))
+```
+
+```
+## # A tibble: 10 x 3
+##       id exp_grp  dep_var_2
+##    <int>  <fctr>      <dbl>
+##  1     1 Group 1  0.9438440
+##  2     2 Group 1  0.2447251
+##  3     3 Group 1  1.1801256
+##  4     4 Group 1  0.1459369
+##  5     5 Group 1 -0.4911973
+##  6     6 Group 2  2.6444456
+##  7     7 Group 2  0.7283086
+##  8     8 Group 2 -2.5991478
+##  9     9 Group 2  0.3579295
+## 10    10 Group 2 -0.6956224
+```
+
+```r
+(time_3 <- tibble(id, exp_grp, dep_var_3 = time_2$dep_var_2 * 0.5 + rnorm(10)))
+```
+
+```
+## # A tibble: 10 x 3
+##       id exp_grp   dep_var_3
+##    <int>  <fctr>       <dbl>
+##  1     1 Group 1 -0.59590172
+##  2     2 Group 1 -0.09561237
+##  3     3 Group 1 -0.43594164
+##  4     4 Group 1 -0.65592277
+##  5     5 Group 1 -0.87063790
+##  6     6 Group 2 -0.36447050
+##  7     7 Group 2  1.20194134
+##  8     8 Group 2 -1.14620077
+##  9     9 Group 2 -0.95917220
+## 10    10 Group 2  0.90600372
+```
+
+## join datasets from left to right
+
+
+```r
+(time_data <- time_1 %>%
+  left_join(time_2, by = c("id", "exp_grp")) %>%
+  left_join(time_3, by = c("id", "exp_grp")))
+```
+
+```
+## # A tibble: 10 x 5
+##       id exp_grp   dep_var_1  dep_var_2   dep_var_3
+##    <int>  <fctr>       <dbl>      <dbl>       <dbl>
+##  1     1 Group 1 -0.56047565  0.9438440 -0.59590172
+##  2     2 Group 1 -0.23017749  0.2447251 -0.09561237
+##  3     3 Group 1  1.55870831  1.1801256 -0.43594164
+##  4     4 Group 1  0.07050839  0.1459369 -0.65592277
+##  5     5 Group 1  0.12928774 -0.4911973 -0.87063790
+##  6     6 Group 2  1.71506499  2.6444456 -0.36447050
+##  7     7 Group 2  0.46091621  0.7283086  1.20194134
+##  8     8 Group 2 -1.26506123 -2.5991478 -1.14620077
+##  9     9 Group 2 -0.68685285  0.3579295 -0.95917220
+## 10    10 Group 2 -0.44566197 -0.6956224  0.90600372
+```
+
+## `gather()` dep_var columns into one column
+
+### select columns to gather
+
+
+```r
+(time_data_long <- time_data %>%
+  gather(time, dep_var, dep_var_1, dep_var_2, dep_var_3))
+```
+
+```
+## # A tibble: 30 x 4
+##       id exp_grp      time     dep_var
+##    <int>  <fctr>     <chr>       <dbl>
+##  1     1 Group 1 dep_var_1 -0.56047565
+##  2     2 Group 1 dep_var_1 -0.23017749
+##  3     3 Group 1 dep_var_1  1.55870831
+##  4     4 Group 1 dep_var_1  0.07050839
+##  5     5 Group 1 dep_var_1  0.12928774
+##  6     6 Group 2 dep_var_1  1.71506499
+##  7     7 Group 2 dep_var_1  0.46091621
+##  8     8 Group 2 dep_var_1 -1.26506123
+##  9     9 Group 2 dep_var_1 -0.68685285
+## 10    10 Group 2 dep_var_1 -0.44566197
+## # ... with 20 more rows
+```
+
+### exclude columns not going to gather
+> `gather()` uses the `select()` function to select / deselect columns
+
+
+```r
+(time_data_long <- time_data %>%
+  gather(time, dep_var, -c(id, exp_grp)))
+```
+
+```
+## # A tibble: 30 x 4
+##       id exp_grp      time     dep_var
+##    <int>  <fctr>     <chr>       <dbl>
+##  1     1 Group 1 dep_var_1 -0.56047565
+##  2     2 Group 1 dep_var_1 -0.23017749
+##  3     3 Group 1 dep_var_1  1.55870831
+##  4     4 Group 1 dep_var_1  0.07050839
+##  5     5 Group 1 dep_var_1  0.12928774
+##  6     6 Group 2 dep_var_1  1.71506499
+##  7     7 Group 2 dep_var_1  0.46091621
+##  8     8 Group 2 dep_var_1 -1.26506123
+##  9     9 Group 2 dep_var_1 -0.68685285
+## 10    10 Group 2 dep_var_1 -0.44566197
+## # ... with 20 more rows
+```
+
+## `spread()` time column into three dep_var columns
+
+
+```r
+time_data_long %>%
+  spread(time, dep_var)
+```
+
+```
+## # A tibble: 10 x 5
+##       id exp_grp   dep_var_1  dep_var_2   dep_var_3
+##  * <int>  <fctr>       <dbl>      <dbl>       <dbl>
+##  1     1 Group 1 -0.56047565  0.9438440 -0.59590172
+##  2     2 Group 1 -0.23017749  0.2447251 -0.09561237
+##  3     3 Group 1  1.55870831  1.1801256 -0.43594164
+##  4     4 Group 1  0.07050839  0.1459369 -0.65592277
+##  5     5 Group 1  0.12928774 -0.4911973 -0.87063790
+##  6     6 Group 2  1.71506499  2.6444456 -0.36447050
+##  7     7 Group 2  0.46091621  0.7283086  1.20194134
+##  8     8 Group 2 -1.26506123 -2.5991478 -1.14620077
+##  9     9 Group 2 -0.68685285  0.3579295 -0.95917220
+## 10    10 Group 2 -0.44566197 -0.6956224  0.90600372
+```
+
+# another plotting example
+
+
+```r
+time_data_long %>%
+  ggplot(mapping = aes(x = time, y = dep_var, color = exp_grp)) +
+  geom_violin()
+```
+
+![](day_03_vectors_strings_factors_statistics_files/figure-html/unnamed-chunk-45-1.png)<!-- -->
+
 # Linear Mixed Effects Models
 
 ## lme4 package
@@ -1404,7 +1619,7 @@ sleepstudy %>%
   facet_wrap(~ Subject, nrow = 3)
 ```
 
-![](day_03_vectors_strings_factors_statistics_files/figure-html/unnamed-chunk-42-1.png)<!-- -->
+![](day_03_vectors_strings_factors_statistics_files/figure-html/unnamed-chunk-48-1.png)<!-- -->
 
 ### use `lmList()` to get those intercepts and slopes you see above (no pooling / estimates ignore other participants)
 
@@ -1539,7 +1754,7 @@ bind_rows(no_pooling, partial_pooling, complete_pooling) %>%
 ## into character vector
 ```
 
-![](day_03_vectors_strings_factors_statistics_files/figure-html/unnamed-chunk-46-1.png)<!-- -->
+![](day_03_vectors_strings_factors_statistics_files/figure-html/unnamed-chunk-52-1.png)<!-- -->
 
 ### cite your tools
 
@@ -1707,14 +1922,14 @@ mediation_model %>%
 
 ```
 ##     lhs op     rhs label   est    se     z pvalue ci.lower ci.upper
-## 1     m  ~       x     a 0.339 0.101 3.351  0.001    0.132    0.534
-## 2     y  ~       m     b 0.451 0.148 3.041  0.002    0.174    0.769
-## 3     y  ~       x     c 0.208 0.128 1.622  0.105   -0.067    0.437
-## 4     m ~~       m       0.911 0.155 5.865  0.000    0.651    1.283
-## 5     y ~~       y       0.912 0.149 6.122  0.000    0.707    1.374
+## 1     m  ~       x     a 0.339 0.100 3.384  0.001    0.129    0.521
+## 2     y  ~       m     b 0.451 0.151 2.982  0.003    0.175    0.780
+## 3     y  ~       x     c 0.208 0.132 1.572  0.116   -0.080    0.443
+## 4     m ~~       m       0.911 0.150 6.066  0.000    0.656    1.253
+## 5     y ~~       y       0.912 0.155 5.878  0.000    0.671    1.341
 ## 6     x ~~       x       1.268 0.000    NA     NA    1.268    1.268
-## 7    ab :=     a*b    ab 0.153 0.065 2.358  0.018    0.050    0.317
-## 8 total := c+(a*b) total 0.360 0.113 3.195  0.001    0.124    0.562
+## 7    ab :=     a*b    ab 0.153 0.064 2.399  0.016    0.051    0.312
+## 8 total := c+(a*b) total 0.360 0.119 3.034  0.002    0.085    0.568
 ```
 
 ### confirmatory factor analysis example from lavaan website [A CFA example](http://lavaan.ugent.be/tutorial/cfa.html)
