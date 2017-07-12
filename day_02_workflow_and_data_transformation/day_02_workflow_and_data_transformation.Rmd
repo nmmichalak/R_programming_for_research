@@ -73,7 +73,7 @@ pre { /* Code block - determines code spacing between lines */
 ```
 
 ## 3. Create new objects with `<-`
-  + Object name <- value
+  + `Object_name <- value`
   
 ```{r}
 
@@ -109,13 +109,11 @@ rm(x, y)
       
 ```{r}
 
-# function for only installing packages you don't have and loading libraries you need
-source("custom_functions/install_needed_pkgs.R")
+# install the package if you don't have it
+# install.packages("tidyverse")
 
-# character vector for needed packages
-needed_packages <- c("tidyverse")
-
-install_needed_pkgs(needed_packages)
+# load the library
+library(tidyverse)
 
 # sets the functions as being part of the packages you actually want to pull from
 filter <- dplyr::filter
@@ -127,7 +125,7 @@ tibble <- tibble::tibble
       + Can see what the arguments are that you need
       + Can see the defaults for the arguments
   + Calling a function requires you type the name + the arguments it requires 
-      + Demo: merge(df1, df2, by=”variable name”, all=TRUE)
+      + Demo: `left_join(df1, df2, by = ”variable name”, all = TRUE)`
       
 ```{r}
 
@@ -164,7 +162,7 @@ time1_survey <-
 
 ```
     
-    + Demo: join(x, y, by)
+    + Demo: `left_join(x, y, by)`
 
 ```{r}
 
@@ -185,8 +183,8 @@ right_joined_survey <- right_join(x = time1_survey, y = time2_survey, by = "id")
 
 ```
       
-      + Demo: scale(variable, scale=FALSE)
-        + scale will center your variable if the argument scale is FALSE
+      + Demo: `scale(variable, scale = FALSE)`
+        + `scale()` will center your variable if the argument scale is FALSE
         + it will z-score your variable if the argument scale is TRUE
         
 ```{r}
@@ -198,7 +196,7 @@ joined_survey <- joined_survey %>%
 ```
 
 ## 5. Useful functions for data management/transformation
-  + filter()
+  + `filter()`
     + Remember that to save these things, we need to assign it to a new object (usually I try not to update the original dataframe too much)
   
 ```{r}
@@ -234,8 +232,8 @@ time2_survey %>%
 
 ```
   
-  + arrange()
-    + arrange allows you to sort the data based on certain columns
+  + `arrange()`
+    + `arrange()` allows you to sort the data based on certain columns
     
 ```{r}
 
@@ -250,7 +248,7 @@ arrange(joined_survey, cond, interdep)
 
 ```
   
-  + select()
+  + `select()`
     + select allows you to select specific columns (for instance if you're working with a giant dataframe)
     
 ```{r}
@@ -264,8 +262,8 @@ joined_survey %>%
 
 ```
   
-  + mutate()
-    + mutate allows you to create new variables
+  + `mutate()`
+    + `mutate()` allows you to create new variables
     
 ```{r}
 
@@ -287,8 +285,8 @@ joined_survey %>%
 
 ```
   
-  + summarise()
-    + summarise() will also allow you to create variables at the total group level
+  + `summarise()`
+    + `summarise()` will also allow you to create variables at the total group level
     
 ```{r}
 
@@ -302,7 +300,7 @@ joined_survey %>%
 
 ```
    
-   + gather()
+   + `gather()`
     + puts data into long format
     
 ```{r}
@@ -314,7 +312,7 @@ joined_survey_long <- gather(data = joined_survey, key = time, value = gratitude
 
 ```
  
- + spread() 
+ + `spread()` 
     + puts data into wide format
     
 ```{r}
@@ -323,7 +321,7 @@ joined_survey_wide <- spread(data = joined_survey_long, key = time, value = grat
 
 ```
   
-  + ifelse()
+  + `ifelse()`
     + the same as the if function in excel, basically says, "if statement is true, return this value, otherwise return this other value."
     
 ```{r}

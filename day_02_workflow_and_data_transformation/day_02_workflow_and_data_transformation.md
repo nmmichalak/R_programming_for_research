@@ -82,7 +82,7 @@ pre { /* Code block - determines code spacing between lines */
 ```
 
 ## 3. Create new objects with `<-`
-  + Object name <- value
+  + `Object_name <- value`
   
 
 ```r
@@ -135,13 +135,11 @@ rm(x, y)
       
 
 ```r
-# function for only installing packages you don't have and loading libraries you need
-source("custom_functions/install_needed_pkgs.R")
+# install the package if you don't have it
+# install.packages("tidyverse")
 
-# character vector for needed packages
-needed_packages <- c("tidyverse")
-
-install_needed_pkgs(needed_packages)
+# load the library
+library(tidyverse)
 ```
 
 ```
@@ -162,13 +160,6 @@ install_needed_pkgs(needed_packages)
 ## lag():    dplyr, stats
 ```
 
-```
-## [[1]]
-##  [1] "dplyr"     "purrr"     "readr"     "tidyr"     "tibble"   
-##  [6] "ggplot2"   "tidyverse" "stats"     "graphics"  "grDevices"
-## [11] "utils"     "datasets"  "methods"   "base"
-```
-
 ```r
 # sets the functions as being part of the packages you actually want to pull from
 filter <- dplyr::filter
@@ -179,7 +170,7 @@ tibble <- tibble::tibble
       + Can see what the arguments are that you need
       + Can see the defaults for the arguments
   + Calling a function requires you type the name + the arguments it requires 
-      + Demo: merge(df1, df2, by=”variable name”, all=TRUE)
+      + Demo: `left_join(df1, df2, by = ”variable name”, all = TRUE)`
       
 
 ```r
@@ -221,7 +212,7 @@ time1_survey <-
   mutate(cond = factor(cond))
 ```
     
-    + Demo: join(x, y, by)
+    + Demo: `left_join(x, y, by)`
 
 
 ```r
@@ -241,8 +232,8 @@ right_joined_survey <- right_join(x = time1_survey, y = time2_survey, by = "id")
 # most of the time you want to use left_join, full_join, (sometimes inner_join)
 ```
       
-      + Demo: scale(variable, scale=FALSE)
-        + scale will center your variable if the argument scale is FALSE
+      + Demo: `scale(variable, scale = FALSE)`
+        + `scale()` will center your variable if the argument scale is FALSE
         + it will z-score your variable if the argument scale is TRUE
         
 
@@ -253,7 +244,7 @@ joined_survey <- joined_survey %>%
 ```
 
 ## 5. Useful functions for data management/transformation
-  + filter()
+  + `filter()`
     + Remember that to save these things, we need to assign it to a new object (usually I try not to update the original dataframe too much)
   
 
@@ -409,8 +400,8 @@ time2_survey %>%
 ## 9     9     4.704687
 ```
   
-  + arrange()
-    + arrange allows you to sort the data based on certain columns
+  + `arrange()`
+    + `arrange()` allows you to sort the data based on certain columns
     
 
 ```r
@@ -473,7 +464,7 @@ arrange(joined_survey, cond, interdep)
 ## 9     3 Treatment     5.530219 4.178832     4.762559  0.8557035
 ```
   
-  + select()
+  + `select()`
     + select allows you to select specific columns (for instance if you're working with a giant dataframe)
     
 
@@ -518,8 +509,8 @@ joined_survey %>%
 ## 9     9 -0.6639402     3.963771
 ```
   
-  + mutate()
-    + mutate allows you to create new variables
+  + `mutate()`
+    + `mutate()` allows you to create new variables
     
 
 ```r
@@ -576,8 +567,8 @@ joined_survey %>%
 ## #   gratitude_mean_alt <dbl>
 ```
   
-  + summarise()
-    + summarise() will also allow you to create variables at the total group level
+  + `summarise()`
+    + `summarise()` will also allow you to create variables at the total group level
     
 
 ```r
@@ -607,7 +598,7 @@ joined_survey %>%
 ## 2 Treatment  4.165264
 ```
    
-   + gather()
+   + `gather()`
     + puts data into long format
     
 
@@ -618,7 +609,7 @@ joined_survey_long <- gather(data = joined_survey, key = time, value = gratitude
   arrange(id)
 ```
  
- + spread() 
+ + `spread()` 
     + puts data into wide format
     
 
@@ -626,7 +617,7 @@ joined_survey_long <- gather(data = joined_survey, key = time, value = gratitude
 joined_survey_wide <- spread(data = joined_survey_long, key = time, value = gratitude_score)
 ```
   
-  + ifelse()
+  + `ifelse()`
     + the same as the if function in excel, basically says, "if statement is true, return this value, otherwise return this other value."
     
 

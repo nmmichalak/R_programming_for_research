@@ -291,7 +291,7 @@ pre { /* Code block - determines code spacing between lines */
 <div id="create-new-objects-with--" class="section level2">
 <h2>3. Create new objects with <code>&lt;-</code></h2>
 <ul>
-<li>Object name &lt;- value</li>
+<li><code>Object_name &lt;- value</code></li>
 </ul>
 <pre class="r"><code># save
 x &lt;- 3 * 4
@@ -326,13 +326,11 @@ rm(x, y)</code></pre>
 <li>Installing and Loading packages</li>
 </ul></li>
 </ul>
-<pre class="r"><code># function for only installing packages you don't have and loading libraries you need
-source(&quot;custom_functions/install_needed_pkgs.R&quot;)
+<pre class="r"><code># install the package if you don't have it
+# install.packages(&quot;tidyverse&quot;)
 
-# character vector for needed packages
-needed_packages &lt;- c(&quot;tidyverse&quot;)
-
-install_needed_pkgs(needed_packages)</code></pre>
+# load the library
+library(tidyverse)</code></pre>
 <pre><code>## Loading tidyverse: ggplot2
 ## Loading tidyverse: tibble
 ## Loading tidyverse: tidyr
@@ -342,10 +340,6 @@ install_needed_pkgs(needed_packages)</code></pre>
 <pre><code>## Conflicts with tidy packages ----------------------------------------------</code></pre>
 <pre><code>## filter(): dplyr, stats
 ## lag():    dplyr, stats</code></pre>
-<pre><code>## [[1]]
-##  [1] &quot;dplyr&quot;     &quot;purrr&quot;     &quot;readr&quot;     &quot;tidyr&quot;     &quot;tibble&quot;   
-##  [6] &quot;ggplot2&quot;   &quot;tidyverse&quot; &quot;stats&quot;     &quot;graphics&quot;  &quot;grDevices&quot;
-## [11] &quot;utils&quot;     &quot;datasets&quot;  &quot;methods&quot;   &quot;base&quot;</code></pre>
 <pre class="r"><code># sets the functions as being part of the packages you actually want to pull from
 filter &lt;- dplyr::filter
 tibble &lt;- tibble::tibble</code></pre>
@@ -357,7 +351,7 @@ tibble &lt;- tibble::tibble</code></pre>
 </ul></li>
 <li>Calling a function requires you type the name + the arguments it requires
 <ul>
-<li>Demo: merge(df1, df2, by=”variable name”, all=TRUE)</li>
+<li>Demo: <code>left_join(df1, df2, by = ”variable name”, all = TRUE)</code></li>
 </ul></li>
 </ul>
 <pre class="r"><code># create four variables: N, id, cond x, z, and y
@@ -390,7 +384,7 @@ time2_survey &lt;- tibble(id = c(1:9, NA), gratitude_t2)
 time1_survey &lt;-
   time1_survey %&gt;%
   mutate(cond = factor(cond))</code></pre>
-<pre><code>+ Demo: join(x, y, by)</code></pre>
+<pre><code>+ Demo: `left_join(x, y, by)`</code></pre>
 <pre class="r"><code># join time 1 and time 2 by subject id
 # ?left_join (Join matching rows from y to x)
 # right_join
@@ -405,8 +399,8 @@ left_joined_survey &lt;- left_join(x = time1_survey, y = time2_survey, by = &quo
 right_joined_survey &lt;- right_join(x = time1_survey, y = time2_survey, by = &quot;id&quot;)
 
 # most of the time you want to use left_join, full_join, (sometimes inner_join)</code></pre>
-<pre><code>  + Demo: scale(variable, scale=FALSE)
-    + scale will center your variable if the argument scale is FALSE
+<pre><code>  + Demo: `scale(variable, scale = FALSE)`
+    + `scale()` will center your variable if the argument scale is FALSE
     + it will z-score your variable if the argument scale is TRUE
     </code></pre>
 <pre class="r"><code># ?scale
@@ -416,7 +410,7 @@ joined_survey &lt;- joined_survey %&gt;%
 <div id="useful-functions-for-data-managementtransformation" class="section level2">
 <h2>5. Useful functions for data management/transformation</h2>
 <ul>
-<li>filter()
+<li><code>filter()</code>
 <ul>
 <li>Remember that to save these things, we need to assign it to a new object (usually I try not to update the original dataframe too much)</li>
 </ul></li>
@@ -520,9 +514,9 @@ time2_survey</code></pre>
 ## 8     8     4.634364
 ## 9     9     4.704687</code></pre>
 <ul>
-<li>arrange()
+<li><code>arrange()</code>
 <ul>
-<li>arrange allows you to sort the data based on certain columns</li>
+<li><code>arrange()</code> allows you to sort the data based on certain columns</li>
 </ul></li>
 </ul>
 <pre class="r"><code># arrange joined_survey by cond
@@ -568,7 +562,7 @@ arrange(joined_survey, cond, interdep)</code></pre>
 ## 8     5 Treatment     4.907668 4.155929     6.411519  0.8328007
 ## 9     3 Treatment     5.530219 4.178832     4.762559  0.8557035</code></pre>
 <ul>
-<li>select()
+<li><code>select()</code>
 <ul>
 <li>select allows you to select specific columns (for instance if you’re working with a giant dataframe)</li>
 </ul></li>
@@ -603,9 +597,9 @@ joined_survey %&gt;%
 ## 8     8  0.1488088     3.980700
 ## 9     9 -0.6639402     3.963771</code></pre>
 <ul>
-<li>mutate()
+<li><code>mutate()</code>
 <ul>
-<li>mutate allows you to create new variables</li>
+<li><code>mutate()</code> allows you to create new variables</li>
 </ul></li>
 </ul>
 <pre class="r"><code># mutate gratitude_mean
@@ -651,9 +645,9 @@ joined_survey %&gt;%
 ## # ... with 2 more variables: gratitude_mean &lt;dbl&gt;,
 ## #   gratitude_mean_alt &lt;dbl&gt;</code></pre>
 <ul>
-<li>summarise()
+<li><code>summarise()</code>
 <ul>
-<li>summarise() will also allow you to create variables at the total group level</li>
+<li><code>summarise()</code> will also allow you to create variables at the total group level</li>
 </ul></li>
 </ul>
 <pre class="r"><code>summarise(joined_survey, mean(x = c(gratitude_t1, gratitude_t2), na.rm = TRUE))</code></pre>
@@ -672,7 +666,7 @@ joined_survey %&gt;%
 ## 1   Control  4.219805
 ## 2 Treatment  4.165264</code></pre>
 <ul>
-<li>gather()
+<li><code>gather()</code>
 <ul>
 <li>puts data into long format</li>
 </ul></li>
@@ -682,14 +676,14 @@ joined_survey %&gt;%
 joined_survey_long &lt;- gather(data = joined_survey, key = time, value = gratitude_score, gratitude_t1, gratitude_t2) %&gt;%
   arrange(id)</code></pre>
 <ul>
-<li>spread()
+<li><code>spread()</code>
 <ul>
 <li>puts data into wide format</li>
 </ul></li>
 </ul>
 <pre class="r"><code>joined_survey_wide &lt;- spread(data = joined_survey_long, key = time, value = gratitude_score)</code></pre>
 <ul>
-<li>ifelse()
+<li><code>ifelse()</code>
 <ul>
 <li>the same as the if function in excel, basically says, “if statement is true, return this value, otherwise return this other value.”</li>
 </ul></li>
