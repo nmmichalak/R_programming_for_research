@@ -1,5 +1,5 @@
 ---
-title: "Plotting bars with ggplot2"
+title: "Plotting means with ggplot2"
 author: "Nick Michalak"
 date: "7/11/2017"
 output:

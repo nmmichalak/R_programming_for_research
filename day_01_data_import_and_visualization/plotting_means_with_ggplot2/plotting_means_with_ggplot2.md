@@ -1,4 +1,4 @@
-# Plotting bars with ggplot2
+# Plotting means with ggplot2
 Nick Michalak  
 7/11/2017  
 
