@@ -19,7 +19,7 @@ output:
 ```{r}
 
 # character vector of packages you'll need for your whole analysis
-needed_packages <- c("tidyverse", "forcats", "psych", "haven", "lavaan", "lme4", "lmerTest", "afex", "compute.es", "broom")
+needed_packages <- c("tidyverse", "magrittr", "forcats", "psych", "haven", "lavaan", "lme4", "lmerTest", "afex", "compute.es", "broom")
 
 # source custom function
 lapply(list.files(path = "custom_functions/", pattern = "*.R", full.names = TRUE), source)
@@ -178,10 +178,23 @@ my_data %>%
 ```
 
 ## grouped descriptives
+> Note: `%$%` is called the "exposition pipe operator." From the [magrittr documentation](https://cran.r-project.org/web/packages/magrittr/magrittr.pdf) description, "Some functions, e.g. lm and aggregate, have a data argument, which allows the direct use of names inside the data as part of the call. This operator exposes the contents of the left-hand side object to the expression on the right to give a similar benefit, see the examples."
+
+### quick `%$%` example (where `%>%` wouldn't work)
 
 ```{r}
 
-with(data = my_data, describeBy(dep_var, group = exp_group_fac, mat = TRUE))
+iris %$%
+  cor(Sepal.Length, Sepal.Width)
+
+```
+
+### now to grouped descriptives
+
+```{r}
+
+my_data %$%
+  describeBy(x = dep_var, group = exp_group_fac, mat = TRUE)
 
 ```
 
@@ -228,7 +241,7 @@ t.test(dep_var ~ exp_group_fac, my_data)
          gender_fac = recode(gender, `1` = "Male", `2` = "Female", `3` = "Other", `0` = "missed"),
          hand_fac = recode(hand, `1` = "Right", `2` = "Left", `3` = "Both", `0` = "missed"),
          source_fac = recode(source, `1` = "from another page on the test website", `2` = "from google", `3` = "from facebook", `4` = 'from any url with ".edu" in its domain name (e.g. xxx.edu, xxx.edu.au)', `5` = "other source, or HTTP Referer not provided")) %>%
-  select(age, country, race, race_fac, engnat, eng_nat_fac, gender, gender_fac, hand, hand_fac, source, source_fac, everything(.)))
+  select(age, country, race, race_fac, engnat, eng_nat_fac, gender, gender_fac, hand, hand_fac, source, source_fac, everything()))
 
 ```
 
@@ -242,7 +255,7 @@ t.test(dep_var ~ exp_group_fac, my_data)
 
 big_five %>%
   select(num_range(prefix = "E", range = 1:10)) %>%
-  psych::describe(.)
+  psych::describe()
   
 ```
 
@@ -273,8 +286,8 @@ big_five %>%
 
 ```{r}
 
-big_five %>%
-  cor.test(formula = ~ E1 + E2, data = .,
+big_five %$%
+  cor.test(E1, E2,
            alternative = "two.sided",
            method = "pearson",
            exact = NULL,
@@ -309,7 +322,6 @@ big_five %>%
 
 big_five %>%
   lm(formula = E1 ~ E2 + E3, data = .)
-  
 
 ```
 
@@ -319,7 +331,7 @@ big_five %>%
 
 big_five %>%
   lm(formula = E1 ~ E2 + E3, data = .) %>%
-  summary(.)
+  summary()
 
 ```
 
@@ -331,12 +343,12 @@ big_five %>%
 
 big_five %>%
   lm(formula = E1 ~ E2 + E3 + E2:E3, data = .) %>%
-  summary(.)
+  summary()
 
 # same model
 big_five %>%
   lm(formula = E1 ~ E2 * E3, data = .) %>%
-  summary(.)
+  summary()
 
 ```
 
@@ -348,7 +360,7 @@ big_five %>%
   filter(hand != 3 & hand != 0) %>%
   mutate(right_handed = recode(hand, `1` = 1, `2` = 0)) %>%
   glm(formula = right_handed ~ E2 * E3, data = ., family = binomial) %>%
-  summary(.)
+  summary()
 
 ```
 
@@ -362,7 +374,7 @@ big_five %>%
 
 my_data %>%
   aov_car(formula = dep_var ~ exp_group_fac + Error(subj_id), data = .) %>%
-  summary(.)
+  summary()
 
 ```
 
@@ -381,7 +393,7 @@ my_data %>%
   aov_car(formula = dep_var ~ exp_group_fac + Error(subj_id), data = .) %>%
   lsmeans::lsmeans(specs = "exp_group_fac") %>%
   contrast(list(ntrl_mnpl = c(-1, 1))) %>%
-  confint(.)
+  confint()
 
 ```
 
@@ -417,8 +429,8 @@ my_data %>%
   group_by(exp_group_fac) %>%
   summarise(n = n(),
             m = mean(dep_var),
-            sd = sd(dep_var)) %>%
-  with(data = ., CImeanBS(alpha = .05, m = m, sd = sd, n = n, c = c(-1, 1)))
+            sd = sd(dep_var)) %$%
+  CImeanBS(alpha = .05, m = m, sd = sd, n = n, c = c(-1, 1))
 
 ```
 
@@ -446,8 +458,8 @@ my_data %>%
   group_by(exp_group_fac) %>%
   summarise(n = n(),
             m = mean(dep_var),
-            sd = sd(dep_var)) %>%
-  with(data = ., CIstdmeanBS(alpha = .05, m = m, sd = sd, n = n, c = c(-1, 1)))
+            sd = sd(dep_var)) %$%
+  CIstdmeanBS(alpha = .05, m = m, sd = sd, n = n, c = c(-1, 1))
 
 
 ```
@@ -475,7 +487,7 @@ my_data %>%
 
 sleepstudy %>%
   lmer(Reaction ~ Days + (1 + Days | Subject), data = ., REML = TRUE) %>%
-  summary(.)
+  summary()
 
 ```
 
@@ -498,8 +510,8 @@ sleepstudy %>%
 (no_pooling <- 
 sleepstudy %>%
   lmList(Reaction ~ Days | Subject, data = .) %>% 
-  coefficients(.) %>%
-  as_tibble(.) %>%
+  coefficients() %>%
+  as_tibble() %>%
   rownames_to_column(var = "Subject") %>%
   rename(Intercept = `(Intercept)`,
          Slope = Days) %>%
@@ -512,9 +524,9 @@ sleepstudy %>%
 ```{r}
 
 (complete_pooling <- 
-tibble(Subject = sleepstudy$Subject %>% unique(.) %>% parse_character(.),
-       Intercept = sleepstudy %>% lm(Reaction ~ Days, data = .) %>% coefficients(.) %>% .[["(Intercept)"]],
-       Slope = sleepstudy %>% lm(Reaction ~ Days, data = .) %>% coefficients(.) %>% .[["Days"]]) %>%
+tibble(Subject = sleepstudy$Subject %>% unique() %>% parse_character(),
+       Intercept = sleepstudy %>% lm(Reaction ~ Days, data = .) %>% coefficients() %>% .[["(Intercept)"]],
+       Slope = sleepstudy %>% lm(Reaction ~ Days, data = .) %>% coefficients() %>% .[["Days"]]) %>%
   mutate(model = "Complete pooling"))
 
 ```
@@ -526,10 +538,10 @@ tibble(Subject = sleepstudy$Subject %>% unique(.) %>% parse_character(.),
 (partial_pooling <- 
 sleepstudy %>%
   lmer(Reaction ~ Days + (1 + Days | Subject), data = ., REML = TRUE) %>%
-  coefficients(.) %>%
+  coefficients() %>%
   .[["Subject"]] %>%
   rownames_to_column(var = "Subject") %>%
-  as_tibble(.) %>%
+  as_tibble() %>%
   rename(Intercept = `(Intercept)`,
          Slope = Days) %>%
   mutate(model = "Partial pooling"))
@@ -616,7 +628,7 @@ mediation_model %>%
 
 mediation_model %>%
   sem(data = table_3_1) %>%
-  summary(.)
+  summary()
 
 ```
 
@@ -667,7 +679,7 @@ cfa_model %>%
 
 cfa_model %>%
   cfa(data = HolzingerSwineford1939) %>%
-  summary(.)
+  summary()
 
 ```
 
@@ -677,8 +689,8 @@ cfa_model %>%
 
 cfa_model %>%
   cfa(data = HolzingerSwineford1939) %>%
-  fitmeasures(.) %>%
-  tidy(.) %>%
+  fitmeasures() %>%
+  tidy() %>%
   mutate(value = round(x, 4)) %>%
   print(n = 42)
 
@@ -690,7 +702,7 @@ cfa_model %>%
 
 cfa_model %>%
   cfa(data = HolzingerSwineford1939) %>%
-  parameterestimates(.)
+  parameterestimates()
 
 ```
 
@@ -700,7 +712,7 @@ cfa_model %>%
 
 cfa_model %>%
   cfa(data = HolzingerSwineford1939) %>%
-  modificationindices(.)
+  modificationindices()
 
 ```
 
@@ -710,7 +722,7 @@ cfa_model %>%
 
 cfa_model %>%
   cfa(data = HolzingerSwineford1939) %>%
-  fitted(.)
+  fitted()
 
 ```
 
@@ -720,7 +732,7 @@ cfa_model %>%
 
 cfa_model %>%
   cfa(data = HolzingerSwineford1939) %>%
-  residuals(.)
+  residuals()
 
 ```
 

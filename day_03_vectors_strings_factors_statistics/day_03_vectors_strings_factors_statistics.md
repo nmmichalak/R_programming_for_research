@@ -7,7 +7,7 @@ Nicholas Michalak
 
 ```r
 # character vector of packages you'll need for your whole analysis
-needed_packages <- c("tidyverse", "forcats", "psych", "haven", "lavaan", "lme4", "lmerTest", "afex", "compute.es", "broom")
+needed_packages <- c("tidyverse", "magrittr", "forcats", "psych", "haven", "lavaan", "lme4", "lmerTest", "afex", "compute.es", "broom")
 
 # source custom function
 lapply(list.files(path = "custom_functions/", pattern = "*.R", full.names = TRUE), source)
@@ -173,6 +173,23 @@ install_needed_pkgs(needed_packages = needed_packages)
 
 ```
 ## 
+## Attaching package: 'magrittr'
+```
+
+```
+## The following object is masked from 'package:purrr':
+## 
+##     set_names
+```
+
+```
+## The following object is masked from 'package:tidyr':
+## 
+##     extract
+```
+
+```
+## 
 ## Attaching package: 'psych'
 ```
 
@@ -296,66 +313,74 @@ install_needed_pkgs(needed_packages = needed_packages)
 ## [11] "utils"     "datasets"  "methods"   "base"     
 ## 
 ## [[2]]
-##  [1] "forcats"   "dplyr"     "purrr"     "readr"     "tidyr"    
+##  [1] "magrittr"  "dplyr"     "purrr"     "readr"     "tidyr"    
 ##  [6] "tibble"    "ggplot2"   "tidyverse" "stats"     "graphics" 
 ## [11] "grDevices" "utils"     "datasets"  "methods"   "base"     
 ## 
 ## [[3]]
-##  [1] "psych"     "forcats"   "dplyr"     "purrr"     "readr"    
+##  [1] "forcats"   "magrittr"  "dplyr"     "purrr"     "readr"    
 ##  [6] "tidyr"     "tibble"    "ggplot2"   "tidyverse" "stats"    
 ## [11] "graphics"  "grDevices" "utils"     "datasets"  "methods"  
 ## [16] "base"     
 ## 
 ## [[4]]
-##  [1] "haven"     "psych"     "forcats"   "dplyr"     "purrr"    
+##  [1] "psych"     "forcats"   "magrittr"  "dplyr"     "purrr"    
 ##  [6] "readr"     "tidyr"     "tibble"    "ggplot2"   "tidyverse"
 ## [11] "stats"     "graphics"  "grDevices" "utils"     "datasets" 
 ## [16] "methods"   "base"     
 ## 
 ## [[5]]
-##  [1] "lavaan"    "haven"     "psych"     "forcats"   "dplyr"    
+##  [1] "haven"     "psych"     "forcats"   "magrittr"  "dplyr"    
 ##  [6] "purrr"     "readr"     "tidyr"     "tibble"    "ggplot2"  
 ## [11] "tidyverse" "stats"     "graphics"  "grDevices" "utils"    
 ## [16] "datasets"  "methods"   "base"     
 ## 
 ## [[6]]
-##  [1] "lme4"      "Matrix"    "lavaan"    "haven"     "psych"    
-##  [6] "forcats"   "dplyr"     "purrr"     "readr"     "tidyr"    
-## [11] "tibble"    "ggplot2"   "tidyverse" "stats"     "graphics" 
-## [16] "grDevices" "utils"     "datasets"  "methods"   "base"     
+##  [1] "lavaan"    "haven"     "psych"     "forcats"   "magrittr" 
+##  [6] "dplyr"     "purrr"     "readr"     "tidyr"     "tibble"   
+## [11] "ggplot2"   "tidyverse" "stats"     "graphics"  "grDevices"
+## [16] "utils"     "datasets"  "methods"   "base"     
 ## 
 ## [[7]]
-##  [1] "lmerTest"  "lme4"      "Matrix"    "lavaan"    "haven"    
-##  [6] "psych"     "forcats"   "dplyr"     "purrr"     "readr"    
+##  [1] "lme4"      "Matrix"    "lavaan"    "haven"     "psych"    
+##  [6] "forcats"   "magrittr"  "dplyr"     "purrr"     "readr"    
 ## [11] "tidyr"     "tibble"    "ggplot2"   "tidyverse" "stats"    
 ## [16] "graphics"  "grDevices" "utils"     "datasets"  "methods"  
 ## [21] "base"     
 ## 
 ## [[8]]
-##  [1] "afex"         "lsmeans"      "estimability" "lmerTest"    
-##  [5] "lme4"         "Matrix"       "lavaan"       "haven"       
-##  [9] "psych"        "forcats"      "dplyr"        "purrr"       
-## [13] "readr"        "tidyr"        "tibble"       "ggplot2"     
-## [17] "tidyverse"    "stats"        "graphics"     "grDevices"   
-## [21] "utils"        "datasets"     "methods"      "base"        
+##  [1] "lmerTest"  "lme4"      "Matrix"    "lavaan"    "haven"    
+##  [6] "psych"     "forcats"   "magrittr"  "dplyr"     "purrr"    
+## [11] "readr"     "tidyr"     "tibble"    "ggplot2"   "tidyverse"
+## [16] "stats"     "graphics"  "grDevices" "utils"     "datasets" 
+## [21] "methods"   "base"     
 ## 
 ## [[9]]
-##  [1] "compute.es"   "afex"         "lsmeans"      "estimability"
-##  [5] "lmerTest"     "lme4"         "Matrix"       "lavaan"      
-##  [9] "haven"        "psych"        "forcats"      "dplyr"       
+##  [1] "afex"         "lsmeans"      "estimability" "lmerTest"    
+##  [5] "lme4"         "Matrix"       "lavaan"       "haven"       
+##  [9] "psych"        "forcats"      "magrittr"     "dplyr"       
 ## [13] "purrr"        "readr"        "tidyr"        "tibble"      
 ## [17] "ggplot2"      "tidyverse"    "stats"        "graphics"    
 ## [21] "grDevices"    "utils"        "datasets"     "methods"     
 ## [25] "base"        
 ## 
 ## [[10]]
-##  [1] "broom"        "compute.es"   "afex"         "lsmeans"     
-##  [5] "estimability" "lmerTest"     "lme4"         "Matrix"      
-##  [9] "lavaan"       "haven"        "psych"        "forcats"     
+##  [1] "compute.es"   "afex"         "lsmeans"      "estimability"
+##  [5] "lmerTest"     "lme4"         "Matrix"       "lavaan"      
+##  [9] "haven"        "psych"        "forcats"      "magrittr"    
 ## [13] "dplyr"        "purrr"        "readr"        "tidyr"       
 ## [17] "tibble"       "ggplot2"      "tidyverse"    "stats"       
 ## [21] "graphics"     "grDevices"    "utils"        "datasets"    
-## [25] "methods"      "base"
+## [25] "methods"      "base"        
+## 
+## [[11]]
+##  [1] "broom"        "compute.es"   "afex"         "lsmeans"     
+##  [5] "estimability" "lmerTest"     "lme4"         "Matrix"      
+##  [9] "lavaan"       "haven"        "psych"        "forcats"     
+## [13] "magrittr"     "dplyr"        "purrr"        "readr"       
+## [17] "tidyr"        "tibble"       "ggplot2"      "tidyverse"   
+## [21] "stats"        "graphics"     "grDevices"    "utils"       
+## [25] "datasets"     "methods"      "base"
 ```
 
 # integer
@@ -606,10 +631,26 @@ my_data %>%
 ![](day_03_vectors_strings_factors_statistics_files/figure-html/unnamed-chunk-16-1.png)<!-- -->
 
 ## grouped descriptives
+> Note: `%$%` is called the "exposition pipe operator." From the [magrittr documentation](https://cran.r-project.org/web/packages/magrittr/magrittr.pdf) description, "Some functions, e.g. lm and aggregate, have a data argument, which allows the direct use of names inside the data as part of the call. This operator exposes the contents of the left-hand side object to the expression on the right to give a similar benefit, see the examples."
+
+### quick `%$%` example (where `%>%` wouldn't work)
 
 
 ```r
-with(data = my_data, describeBy(dep_var, group = exp_group_fac, mat = TRUE))
+iris %$%
+  cor(Sepal.Length, Sepal.Width)
+```
+
+```
+## [1] -0.1175698
+```
+
+### now to grouped descriptives
+
+
+```r
+my_data %$%
+  describeBy(x = dep_var, group = exp_group_fac, mat = TRUE)
 ```
 
 ```
@@ -711,7 +752,7 @@ t.test(dep_var ~ exp_group_fac, my_data)
          gender_fac = recode(gender, `1` = "Male", `2` = "Female", `3` = "Other", `0` = "missed"),
          hand_fac = recode(hand, `1` = "Right", `2` = "Left", `3` = "Both", `0` = "missed"),
          source_fac = recode(source, `1` = "from another page on the test website", `2` = "from google", `3` = "from facebook", `4` = 'from any url with ".edu" in its domain name (e.g. xxx.edu, xxx.edu.au)', `5` = "other source, or HTTP Referer not provided")) %>%
-  select(age, country, race, race_fac, engnat, eng_nat_fac, gender, gender_fac, hand, hand_fac, source, source_fac, everything(.)))
+  select(age, country, race, race_fac, engnat, eng_nat_fac, gender, gender_fac, hand, hand_fac, source, source_fac, everything()))
 ```
 
 ```
@@ -767,7 +808,7 @@ t.test(dep_var ~ exp_group_fac, my_data)
 ```r
 big_five %>%
   select(num_range(prefix = "E", range = 1:10)) %>%
-  psych::describe(.)
+  psych::describe()
 ```
 
 ```
@@ -806,7 +847,7 @@ big_five %>%
   pairs.panels(pch = ".")
 ```
 
-![](day_03_vectors_strings_factors_statistics_files/figure-html/unnamed-chunk-23-1.png)<!-- -->
+![](day_03_vectors_strings_factors_statistics_files/figure-html/unnamed-chunk-24-1.png)<!-- -->
 
 ## `cor.plot()`
 
@@ -817,15 +858,15 @@ big_five %>%
   cor.plot(numbers = TRUE)
 ```
 
-![](day_03_vectors_strings_factors_statistics_files/figure-html/unnamed-chunk-24-1.png)<!-- -->
+![](day_03_vectors_strings_factors_statistics_files/figure-html/unnamed-chunk-25-1.png)<!-- -->
 
 ## `cor.test()`
 * explicit argument names again
 
 
 ```r
-big_five %>%
-  cor.test(formula = ~ E1 + E2, data = .,
+big_five %$%
+  cor.test(E1, E2,
            alternative = "two.sided",
            method = "pearson",
            exact = NULL,
@@ -971,7 +1012,7 @@ big_five %>%
 ```r
 big_five %>%
   lm(formula = E1 ~ E2 + E3, data = .) %>%
-  summary(.)
+  summary()
 ```
 
 ```
@@ -1004,7 +1045,7 @@ big_five %>%
 ```r
 big_five %>%
   lm(formula = E1 ~ E2 + E3 + E2:E3, data = .) %>%
-  summary(.)
+  summary()
 ```
 
 ```
@@ -1034,7 +1075,7 @@ big_five %>%
 # same model
 big_five %>%
   lm(formula = E1 ~ E2 * E3, data = .) %>%
-  summary(.)
+  summary()
 ```
 
 ```
@@ -1068,7 +1109,7 @@ big_five %>%
   filter(hand != 3 & hand != 0) %>%
   mutate(right_handed = recode(hand, `1` = 1, `2` = 0)) %>%
   glm(formula = right_handed ~ E2 * E3, data = ., family = binomial) %>%
-  summary(.)
+  summary()
 ```
 
 ```
@@ -1108,7 +1149,7 @@ big_five %>%
 ```r
 my_data %>%
   aov_car(formula = dep_var ~ exp_group_fac + Error(subj_id), data = .) %>%
-  summary(.)
+  summary()
 ```
 
 ```
@@ -1149,7 +1190,7 @@ my_data %>%
   aov_car(formula = dep_var ~ exp_group_fac + Error(subj_id), data = .) %>%
   lsmeans::lsmeans(specs = "exp_group_fac") %>%
   contrast(list(ntrl_mnpl = c(-1, 1))) %>%
-  confint(.)
+  confint()
 ```
 
 ```
@@ -1218,8 +1259,8 @@ my_data %>%
   group_by(exp_group_fac) %>%
   summarise(n = n(),
             m = mean(dep_var),
-            sd = sd(dep_var)) %>%
-  with(data = ., CImeanBS(alpha = .05, m = m, sd = sd, n = n, c = c(-1, 1)))
+            sd = sd(dep_var)) %$%
+  CImeanBS(alpha = .05, m = m, sd = sd, n = n, c = c(-1, 1))
 ```
 
 ```
@@ -1260,8 +1301,8 @@ my_data %>%
   group_by(exp_group_fac) %>%
   summarise(n = n(),
             m = mean(dep_var),
-            sd = sd(dep_var)) %>%
-  with(data = ., CIstdmeanBS(alpha = .05, m = m, sd = sd, n = n, c = c(-1, 1)))
+            sd = sd(dep_var)) %$%
+  CIstdmeanBS(alpha = .05, m = m, sd = sd, n = n, c = c(-1, 1))
 ```
 
 ```
@@ -1292,7 +1333,7 @@ my_data %>%
 ```r
 sleepstudy %>%
   lmer(Reaction ~ Days + (1 + Days | Subject), data = ., REML = TRUE) %>%
-  summary(.)
+  summary()
 ```
 
 ```
@@ -1337,7 +1378,7 @@ sleepstudy %>%
   facet_wrap(~ Subject, nrow = 3)
 ```
 
-![](day_03_vectors_strings_factors_statistics_files/figure-html/unnamed-chunk-40-1.png)<!-- -->
+![](day_03_vectors_strings_factors_statistics_files/figure-html/unnamed-chunk-41-1.png)<!-- -->
 
 ### use `lmList()` to get those intercepts and slopes you see above (no pooling / estimates ignore other participants)
 
@@ -1346,8 +1387,8 @@ sleepstudy %>%
 (no_pooling <- 
 sleepstudy %>%
   lmList(Reaction ~ Days | Subject, data = .) %>% 
-  coefficients(.) %>%
-  as_tibble(.) %>%
+  coefficients() %>%
+  as_tibble() %>%
   rownames_to_column(var = "Subject") %>%
   rename(Intercept = `(Intercept)`,
          Slope = Days) %>%
@@ -1383,9 +1424,9 @@ sleepstudy %>%
 
 ```r
 (complete_pooling <- 
-tibble(Subject = sleepstudy$Subject %>% unique(.) %>% parse_character(.),
-       Intercept = sleepstudy %>% lm(Reaction ~ Days, data = .) %>% coefficients(.) %>% .[["(Intercept)"]],
-       Slope = sleepstudy %>% lm(Reaction ~ Days, data = .) %>% coefficients(.) %>% .[["Days"]]) %>%
+tibble(Subject = sleepstudy$Subject %>% unique() %>% parse_character(),
+       Intercept = sleepstudy %>% lm(Reaction ~ Days, data = .) %>% coefficients() %>% .[["(Intercept)"]],
+       Slope = sleepstudy %>% lm(Reaction ~ Days, data = .) %>% coefficients() %>% .[["Days"]]) %>%
   mutate(model = "Complete pooling"))
 ```
 
@@ -1420,10 +1461,10 @@ tibble(Subject = sleepstudy$Subject %>% unique(.) %>% parse_character(.),
 (partial_pooling <- 
 sleepstudy %>%
   lmer(Reaction ~ Days + (1 + Days | Subject), data = ., REML = TRUE) %>%
-  coefficients(.) %>%
+  coefficients() %>%
   .[["Subject"]] %>%
   rownames_to_column(var = "Subject") %>%
-  as_tibble(.) %>%
+  as_tibble() %>%
   rename(Intercept = `(Intercept)`,
          Slope = Days) %>%
   mutate(model = "Partial pooling"))
@@ -1472,7 +1513,7 @@ bind_rows(no_pooling, partial_pooling, complete_pooling) %>%
 ## into character vector
 ```
 
-![](day_03_vectors_strings_factors_statistics_files/figure-html/unnamed-chunk-44-1.png)<!-- -->
+![](day_03_vectors_strings_factors_statistics_files/figure-html/unnamed-chunk-45-1.png)<!-- -->
 
 ### cite your tools
 
@@ -1590,7 +1631,7 @@ mediation_model %>%
 ```r
 mediation_model %>%
   sem(data = table_3_1) %>%
-  summary(.)
+  summary()
 ```
 
 ```
@@ -1640,14 +1681,14 @@ mediation_model %>%
 
 ```
 ##     lhs op     rhs label   est    se     z pvalue ci.lower ci.upper
-## 1     m  ~       x     a 0.339 0.105 3.237  0.001    0.115    0.525
-## 2     y  ~       m     b 0.451 0.149 3.019  0.003    0.163    0.747
-## 3     y  ~       x     c 0.208 0.132 1.578  0.114   -0.074    0.444
-## 4     m ~~       m       0.911 0.156 5.834  0.000    0.653    1.262
-## 5     y ~~       y       0.912 0.160 5.698  0.000    0.671    1.318
+## 1     m  ~       x     a 0.339 0.104 3.269  0.001    0.139    0.541
+## 2     y  ~       m     b 0.451 0.149 3.024  0.002    0.162    0.755
+## 3     y  ~       x     c 0.208 0.134 1.549  0.121   -0.089    0.456
+## 4     m ~~       m       0.911 0.151 6.034  0.000    0.648    1.267
+## 5     y ~~       y       0.912 0.158 5.760  0.000    0.682    1.342
 ## 6     x ~~       x       1.268 0.000    NA     NA    1.268    1.268
-## 7    ab :=     a*b    ab 0.153 0.067 2.286  0.022    0.051    0.337
-## 8 total := c+(a*b) total 0.360 0.118 3.042  0.002    0.082    0.568
+## 7    ab :=     a*b    ab 0.153 0.064 2.396  0.017    0.056    0.329
+## 8 total := c+(a*b) total 0.360 0.118 3.061  0.002    0.105    0.584
 ```
 
 ### confirmatory factor analysis example from lavaan website [A CFA example](http://lavaan.ugent.be/tutorial/cfa.html)
@@ -1693,7 +1734,7 @@ cfa_model %>%
 ```r
 cfa_model %>%
   cfa(data = HolzingerSwineford1939) %>%
-  summary(.)
+  summary()
 ```
 
 ```
@@ -1756,8 +1797,8 @@ cfa_model %>%
 ```r
 cfa_model %>%
   cfa(data = HolzingerSwineford1939) %>%
-  fitmeasures(.) %>%
-  tidy(.) %>%
+  fitmeasures() %>%
+  tidy() %>%
   mutate(value = round(x, 4)) %>%
   print(n = 42)
 ```
@@ -1816,7 +1857,7 @@ cfa_model %>%
 ```r
 cfa_model %>%
   cfa(data = HolzingerSwineford1939) %>%
-  parameterestimates(.)
+  parameterestimates()
 ```
 
 ```
@@ -1853,7 +1894,7 @@ cfa_model %>%
 ```r
 cfa_model %>%
   cfa(data = HolzingerSwineford1939) %>%
-  modificationindices(.)
+  modificationindices()
 ```
 
 ```
@@ -1920,7 +1961,7 @@ cfa_model %>%
 ```r
 cfa_model %>%
   cfa(data = HolzingerSwineford1939) %>%
-  fitted(.)
+  fitted()
 ```
 
 ```
@@ -1947,7 +1988,7 @@ cfa_model %>%
 ```r
 cfa_model %>%
   cfa(data = HolzingerSwineford1939) %>%
-  residuals(.)
+  residuals()
 ```
 
 ```

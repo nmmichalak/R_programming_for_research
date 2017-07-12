@@ -230,7 +230,7 @@ div.tocify {
 <div id="install-prerequisite-packages" class="section level1">
 <h1>install prerequisite packages</h1>
 <pre class="r"><code># character vector of packages you'll need for your whole analysis
-needed_packages &lt;- c(&quot;tidyverse&quot;, &quot;forcats&quot;, &quot;psych&quot;, &quot;haven&quot;, &quot;lavaan&quot;, &quot;lme4&quot;, &quot;lmerTest&quot;, &quot;afex&quot;, &quot;compute.es&quot;, &quot;broom&quot;)
+needed_packages &lt;- c(&quot;tidyverse&quot;, &quot;magrittr&quot;, &quot;forcats&quot;, &quot;psych&quot;, &quot;haven&quot;, &quot;lavaan&quot;, &quot;lme4&quot;, &quot;lmerTest&quot;, &quot;afex&quot;, &quot;compute.es&quot;, &quot;broom&quot;)
 
 # source custom function
 lapply(list.files(path = &quot;custom_functions/&quot;, pattern = &quot;*.R&quot;, full.names = TRUE), source)</code></pre>
@@ -378,6 +378,14 @@ install_needed_pkgs(needed_packages = needed_packages)</code></pre>
 <pre><code>## filter(): dplyr, stats
 ## lag():    dplyr, stats</code></pre>
 <pre><code>## 
+## Attaching package: 'magrittr'</code></pre>
+<pre><code>## The following object is masked from 'package:purrr':
+## 
+##     set_names</code></pre>
+<pre><code>## The following object is masked from 'package:tidyr':
+## 
+##     extract</code></pre>
+<pre><code>## 
 ## Attaching package: 'psych'</code></pre>
 <pre><code>## The following objects are masked from 'package:ggplot2':
 ## 
@@ -435,66 +443,74 @@ install_needed_pkgs(needed_packages = needed_packages)</code></pre>
 ## [11] &quot;utils&quot;     &quot;datasets&quot;  &quot;methods&quot;   &quot;base&quot;     
 ## 
 ## [[2]]
-##  [1] &quot;forcats&quot;   &quot;dplyr&quot;     &quot;purrr&quot;     &quot;readr&quot;     &quot;tidyr&quot;    
+##  [1] &quot;magrittr&quot;  &quot;dplyr&quot;     &quot;purrr&quot;     &quot;readr&quot;     &quot;tidyr&quot;    
 ##  [6] &quot;tibble&quot;    &quot;ggplot2&quot;   &quot;tidyverse&quot; &quot;stats&quot;     &quot;graphics&quot; 
 ## [11] &quot;grDevices&quot; &quot;utils&quot;     &quot;datasets&quot;  &quot;methods&quot;   &quot;base&quot;     
 ## 
 ## [[3]]
-##  [1] &quot;psych&quot;     &quot;forcats&quot;   &quot;dplyr&quot;     &quot;purrr&quot;     &quot;readr&quot;    
+##  [1] &quot;forcats&quot;   &quot;magrittr&quot;  &quot;dplyr&quot;     &quot;purrr&quot;     &quot;readr&quot;    
 ##  [6] &quot;tidyr&quot;     &quot;tibble&quot;    &quot;ggplot2&quot;   &quot;tidyverse&quot; &quot;stats&quot;    
 ## [11] &quot;graphics&quot;  &quot;grDevices&quot; &quot;utils&quot;     &quot;datasets&quot;  &quot;methods&quot;  
 ## [16] &quot;base&quot;     
 ## 
 ## [[4]]
-##  [1] &quot;haven&quot;     &quot;psych&quot;     &quot;forcats&quot;   &quot;dplyr&quot;     &quot;purrr&quot;    
+##  [1] &quot;psych&quot;     &quot;forcats&quot;   &quot;magrittr&quot;  &quot;dplyr&quot;     &quot;purrr&quot;    
 ##  [6] &quot;readr&quot;     &quot;tidyr&quot;     &quot;tibble&quot;    &quot;ggplot2&quot;   &quot;tidyverse&quot;
 ## [11] &quot;stats&quot;     &quot;graphics&quot;  &quot;grDevices&quot; &quot;utils&quot;     &quot;datasets&quot; 
 ## [16] &quot;methods&quot;   &quot;base&quot;     
 ## 
 ## [[5]]
-##  [1] &quot;lavaan&quot;    &quot;haven&quot;     &quot;psych&quot;     &quot;forcats&quot;   &quot;dplyr&quot;    
+##  [1] &quot;haven&quot;     &quot;psych&quot;     &quot;forcats&quot;   &quot;magrittr&quot;  &quot;dplyr&quot;    
 ##  [6] &quot;purrr&quot;     &quot;readr&quot;     &quot;tidyr&quot;     &quot;tibble&quot;    &quot;ggplot2&quot;  
 ## [11] &quot;tidyverse&quot; &quot;stats&quot;     &quot;graphics&quot;  &quot;grDevices&quot; &quot;utils&quot;    
 ## [16] &quot;datasets&quot;  &quot;methods&quot;   &quot;base&quot;     
 ## 
 ## [[6]]
-##  [1] &quot;lme4&quot;      &quot;Matrix&quot;    &quot;lavaan&quot;    &quot;haven&quot;     &quot;psych&quot;    
-##  [6] &quot;forcats&quot;   &quot;dplyr&quot;     &quot;purrr&quot;     &quot;readr&quot;     &quot;tidyr&quot;    
-## [11] &quot;tibble&quot;    &quot;ggplot2&quot;   &quot;tidyverse&quot; &quot;stats&quot;     &quot;graphics&quot; 
-## [16] &quot;grDevices&quot; &quot;utils&quot;     &quot;datasets&quot;  &quot;methods&quot;   &quot;base&quot;     
+##  [1] &quot;lavaan&quot;    &quot;haven&quot;     &quot;psych&quot;     &quot;forcats&quot;   &quot;magrittr&quot; 
+##  [6] &quot;dplyr&quot;     &quot;purrr&quot;     &quot;readr&quot;     &quot;tidyr&quot;     &quot;tibble&quot;   
+## [11] &quot;ggplot2&quot;   &quot;tidyverse&quot; &quot;stats&quot;     &quot;graphics&quot;  &quot;grDevices&quot;
+## [16] &quot;utils&quot;     &quot;datasets&quot;  &quot;methods&quot;   &quot;base&quot;     
 ## 
 ## [[7]]
-##  [1] &quot;lmerTest&quot;  &quot;lme4&quot;      &quot;Matrix&quot;    &quot;lavaan&quot;    &quot;haven&quot;    
-##  [6] &quot;psych&quot;     &quot;forcats&quot;   &quot;dplyr&quot;     &quot;purrr&quot;     &quot;readr&quot;    
+##  [1] &quot;lme4&quot;      &quot;Matrix&quot;    &quot;lavaan&quot;    &quot;haven&quot;     &quot;psych&quot;    
+##  [6] &quot;forcats&quot;   &quot;magrittr&quot;  &quot;dplyr&quot;     &quot;purrr&quot;     &quot;readr&quot;    
 ## [11] &quot;tidyr&quot;     &quot;tibble&quot;    &quot;ggplot2&quot;   &quot;tidyverse&quot; &quot;stats&quot;    
 ## [16] &quot;graphics&quot;  &quot;grDevices&quot; &quot;utils&quot;     &quot;datasets&quot;  &quot;methods&quot;  
 ## [21] &quot;base&quot;     
 ## 
 ## [[8]]
-##  [1] &quot;afex&quot;         &quot;lsmeans&quot;      &quot;estimability&quot; &quot;lmerTest&quot;    
-##  [5] &quot;lme4&quot;         &quot;Matrix&quot;       &quot;lavaan&quot;       &quot;haven&quot;       
-##  [9] &quot;psych&quot;        &quot;forcats&quot;      &quot;dplyr&quot;        &quot;purrr&quot;       
-## [13] &quot;readr&quot;        &quot;tidyr&quot;        &quot;tibble&quot;       &quot;ggplot2&quot;     
-## [17] &quot;tidyverse&quot;    &quot;stats&quot;        &quot;graphics&quot;     &quot;grDevices&quot;   
-## [21] &quot;utils&quot;        &quot;datasets&quot;     &quot;methods&quot;      &quot;base&quot;        
+##  [1] &quot;lmerTest&quot;  &quot;lme4&quot;      &quot;Matrix&quot;    &quot;lavaan&quot;    &quot;haven&quot;    
+##  [6] &quot;psych&quot;     &quot;forcats&quot;   &quot;magrittr&quot;  &quot;dplyr&quot;     &quot;purrr&quot;    
+## [11] &quot;readr&quot;     &quot;tidyr&quot;     &quot;tibble&quot;    &quot;ggplot2&quot;   &quot;tidyverse&quot;
+## [16] &quot;stats&quot;     &quot;graphics&quot;  &quot;grDevices&quot; &quot;utils&quot;     &quot;datasets&quot; 
+## [21] &quot;methods&quot;   &quot;base&quot;     
 ## 
 ## [[9]]
-##  [1] &quot;compute.es&quot;   &quot;afex&quot;         &quot;lsmeans&quot;      &quot;estimability&quot;
-##  [5] &quot;lmerTest&quot;     &quot;lme4&quot;         &quot;Matrix&quot;       &quot;lavaan&quot;      
-##  [9] &quot;haven&quot;        &quot;psych&quot;        &quot;forcats&quot;      &quot;dplyr&quot;       
+##  [1] &quot;afex&quot;         &quot;lsmeans&quot;      &quot;estimability&quot; &quot;lmerTest&quot;    
+##  [5] &quot;lme4&quot;         &quot;Matrix&quot;       &quot;lavaan&quot;       &quot;haven&quot;       
+##  [9] &quot;psych&quot;        &quot;forcats&quot;      &quot;magrittr&quot;     &quot;dplyr&quot;       
 ## [13] &quot;purrr&quot;        &quot;readr&quot;        &quot;tidyr&quot;        &quot;tibble&quot;      
 ## [17] &quot;ggplot2&quot;      &quot;tidyverse&quot;    &quot;stats&quot;        &quot;graphics&quot;    
 ## [21] &quot;grDevices&quot;    &quot;utils&quot;        &quot;datasets&quot;     &quot;methods&quot;     
 ## [25] &quot;base&quot;        
 ## 
 ## [[10]]
-##  [1] &quot;broom&quot;        &quot;compute.es&quot;   &quot;afex&quot;         &quot;lsmeans&quot;     
-##  [5] &quot;estimability&quot; &quot;lmerTest&quot;     &quot;lme4&quot;         &quot;Matrix&quot;      
-##  [9] &quot;lavaan&quot;       &quot;haven&quot;        &quot;psych&quot;        &quot;forcats&quot;     
+##  [1] &quot;compute.es&quot;   &quot;afex&quot;         &quot;lsmeans&quot;      &quot;estimability&quot;
+##  [5] &quot;lmerTest&quot;     &quot;lme4&quot;         &quot;Matrix&quot;       &quot;lavaan&quot;      
+##  [9] &quot;haven&quot;        &quot;psych&quot;        &quot;forcats&quot;      &quot;magrittr&quot;    
 ## [13] &quot;dplyr&quot;        &quot;purrr&quot;        &quot;readr&quot;        &quot;tidyr&quot;       
 ## [17] &quot;tibble&quot;       &quot;ggplot2&quot;      &quot;tidyverse&quot;    &quot;stats&quot;       
 ## [21] &quot;graphics&quot;     &quot;grDevices&quot;    &quot;utils&quot;        &quot;datasets&quot;    
-## [25] &quot;methods&quot;      &quot;base&quot;</code></pre>
+## [25] &quot;methods&quot;      &quot;base&quot;        
+## 
+## [[11]]
+##  [1] &quot;broom&quot;        &quot;compute.es&quot;   &quot;afex&quot;         &quot;lsmeans&quot;     
+##  [5] &quot;estimability&quot; &quot;lmerTest&quot;     &quot;lme4&quot;         &quot;Matrix&quot;      
+##  [9] &quot;lavaan&quot;       &quot;haven&quot;        &quot;psych&quot;        &quot;forcats&quot;     
+## [13] &quot;magrittr&quot;     &quot;dplyr&quot;        &quot;purrr&quot;        &quot;readr&quot;       
+## [17] &quot;tidyr&quot;        &quot;tibble&quot;       &quot;ggplot2&quot;      &quot;tidyverse&quot;   
+## [21] &quot;stats&quot;        &quot;graphics&quot;     &quot;grDevices&quot;    &quot;utils&quot;       
+## [25] &quot;datasets&quot;     &quot;methods&quot;      &quot;base&quot;</code></pre>
 </div>
 <div id="integer" class="section level1">
 <h1>integer</h1>
@@ -667,13 +683,26 @@ install_needed_pkgs(needed_packages = needed_packages)</code></pre>
 </div>
 <div id="grouped-descriptives" class="section level2">
 <h2>grouped descriptives</h2>
-<pre class="r"><code>with(data = my_data, describeBy(dep_var, group = exp_group_fac, mat = TRUE))</code></pre>
+<blockquote>
+<p>Note: <code>%$%</code> is called the “exposition pipe operator.” From the <a href="https://cran.r-project.org/web/packages/magrittr/magrittr.pdf">magrittr documentation</a> description, “Some functions, e.g. lm and aggregate, have a data argument, which allows the direct use of names inside the data as part of the call. This operator exposes the contents of the left-hand side object to the expression on the right to give a similar benefit, see the examples.”</p>
+</blockquote>
+<div id="quick-example-where-wouldnt-work" class="section level3">
+<h3>quick <code>%$%</code> example (where <code>%&gt;%</code> wouldn’t work)</h3>
+<pre class="r"><code>iris %$%
+  cor(Sepal.Length, Sepal.Width)</code></pre>
+<pre><code>## [1] -0.1175698</code></pre>
+</div>
+<div id="now-to-grouped-descriptives" class="section level3">
+<h3>now to grouped descriptives</h3>
+<pre class="r"><code>my_data %$%
+  describeBy(x = dep_var, group = exp_group_fac, mat = TRUE)</code></pre>
 <pre><code>##     item       group1 vars  n mean       sd median trimmed    mad min max
 ## X11    1      Neutral    1 10  3.6 2.796824    2.5   3.500 2.2239   1   7
 ## X12    2 Manipulation    1 10  4.7 1.337494    4.5   4.625 1.4826   3   7
 ##     range      skew kurtosis        se
 ## X11     6 0.2610916 -1.98091 0.8844333
 ## X12     4 0.2407395 -1.40203 0.4229526</code></pre>
+</div>
 <div id="cite-your-tools" class="section level3">
 <h3>cite your tools</h3>
 <pre class="r"><code>citation(&quot;psych&quot;)</code></pre>
@@ -750,7 +779,7 @@ install_needed_pkgs(needed_packages = needed_packages)</code></pre>
          gender_fac = recode(gender, `1` = &quot;Male&quot;, `2` = &quot;Female&quot;, `3` = &quot;Other&quot;, `0` = &quot;missed&quot;),
          hand_fac = recode(hand, `1` = &quot;Right&quot;, `2` = &quot;Left&quot;, `3` = &quot;Both&quot;, `0` = &quot;missed&quot;),
          source_fac = recode(source, `1` = &quot;from another page on the test website&quot;, `2` = &quot;from google&quot;, `3` = &quot;from facebook&quot;, `4` = 'from any url with &quot;.edu&quot; in its domain name (e.g. xxx.edu, xxx.edu.au)', `5` = &quot;other source, or HTTP Referer not provided&quot;)) %&gt;%
-  select(age, country, race, race_fac, engnat, eng_nat_fac, gender, gender_fac, hand, hand_fac, source, source_fac, everything(.)))</code></pre>
+  select(age, country, race, race_fac, engnat, eng_nat_fac, gender, gender_fac, hand, hand_fac, source, source_fac, everything()))</code></pre>
 <pre><code>## Parsed with column specification:
 ## cols(
 ##   .default = col_integer(),
@@ -792,7 +821,7 @@ install_needed_pkgs(needed_packages = needed_packages)</code></pre>
 <h2>extraversion</h2>
 <pre class="r"><code>big_five %&gt;%
   select(num_range(prefix = &quot;E&quot;, range = 1:10)) %&gt;%
-  psych::describe(.)</code></pre>
+  psych::describe()</code></pre>
 <pre><code>##     vars     n mean   sd median trimmed  mad min max range  skew kurtosis
 ## E1     1 19719 2.63 1.23      3    2.57 1.48   0   5     5  0.21    -0.96
 ## E2     2 19719 2.76 1.31      3    2.70 1.48   0   5     5  0.21    -1.08
@@ -838,8 +867,8 @@ install_needed_pkgs(needed_packages = needed_packages)</code></pre>
 <ul>
 <li>explicit argument names again</li>
 </ul>
-<pre class="r"><code>big_five %&gt;%
-  cor.test(formula = ~ E1 + E2, data = .,
+<pre class="r"><code>big_five %$%
+  cor.test(E1, E2,
            alternative = &quot;two.sided&quot;,
            method = &quot;pearson&quot;,
            exact = NULL,
@@ -972,7 +1001,7 @@ install_needed_pkgs(needed_packages = needed_packages)</code></pre>
 <h2><code>summary()</code></h2>
 <pre class="r"><code>big_five %&gt;%
   lm(formula = E1 ~ E2 + E3, data = .) %&gt;%
-  summary(.)</code></pre>
+  summary()</code></pre>
 <pre><code>## 
 ## Call:
 ## lm(formula = E1 ~ E2 + E3, data = .)
@@ -1000,7 +1029,7 @@ install_needed_pkgs(needed_packages = needed_packages)</code></pre>
 </ul>
 <pre class="r"><code>big_five %&gt;%
   lm(formula = E1 ~ E2 + E3 + E2:E3, data = .) %&gt;%
-  summary(.)</code></pre>
+  summary()</code></pre>
 <pre><code>## 
 ## Call:
 ## lm(formula = E1 ~ E2 + E3 + E2:E3, data = .)
@@ -1024,7 +1053,7 @@ install_needed_pkgs(needed_packages = needed_packages)</code></pre>
 <pre class="r"><code># same model
 big_five %&gt;%
   lm(formula = E1 ~ E2 * E3, data = .) %&gt;%
-  summary(.)</code></pre>
+  summary()</code></pre>
 <pre><code>## 
 ## Call:
 ## lm(formula = E1 ~ E2 * E3, data = .)
@@ -1053,7 +1082,7 @@ big_five %&gt;%
   filter(hand != 3 &amp; hand != 0) %&gt;%
   mutate(right_handed = recode(hand, `1` = 1, `2` = 0)) %&gt;%
   glm(formula = right_handed ~ E2 * E3, data = ., family = binomial) %&gt;%
-  summary(.)</code></pre>
+  summary()</code></pre>
 <pre><code>## 
 ## Call:
 ## glm(formula = right_handed ~ E2 * E3, family = binomial, data = .)
@@ -1088,7 +1117,7 @@ big_five %&gt;%
 <h3>between-subjects ANOVA</h3>
 <pre class="r"><code>my_data %&gt;%
   aov_car(formula = dep_var ~ exp_group_fac + Error(subj_id), data = .) %&gt;%
-  summary(.)</code></pre>
+  summary()</code></pre>
 <pre><code>## Contrasts set to contr.sum for the following variables: exp_group_fac</code></pre>
 <pre><code>## Anova Table (Type 3 tests)
 ## 
@@ -1111,7 +1140,7 @@ my_data %&gt;%
   aov_car(formula = dep_var ~ exp_group_fac + Error(subj_id), data = .) %&gt;%
   lsmeans::lsmeans(specs = &quot;exp_group_fac&quot;) %&gt;%
   contrast(list(ntrl_mnpl = c(-1, 1))) %&gt;%
-  confint(.)</code></pre>
+  confint()</code></pre>
 <pre><code>## Contrasts set to contr.sum for the following variables: exp_group_fac</code></pre>
 <pre><code>##  contrast  estimate        SE df   lower.CL upper.CL
 ##  ntrl_mnpl      1.1 0.9803627 18 -0.9596657 3.159666
@@ -1160,8 +1189,8 @@ CIstdmeanBS(alpha = .05, m = m, sd = sd, n = n, c = c)</code></pre>
   group_by(exp_group_fac) %&gt;%
   summarise(n = n(),
             m = mean(dep_var),
-            sd = sd(dep_var)) %&gt;%
-  with(data = ., CImeanBS(alpha = .05, m = m, sd = sd, n = n, c = c(-1, 1)))</code></pre>
+            sd = sd(dep_var)) %$%
+  CImeanBS(alpha = .05, m = m, sd = sd, n = n, c = c(-1, 1))</code></pre>
 <pre><code>##                              Estimate        SE        t       df
 ## Equal Variances Assumed:          1.1 0.9803627 1.122034 18.00000
 ## Equal Variances Not Assumed:      1.1 0.9803627 1.122034 12.91188
@@ -1192,8 +1221,8 @@ CIstdmeanBS(alpha = .05, m = m, sd = sd, n = n, c = c)</code></pre>
   group_by(exp_group_fac) %&gt;%
   summarise(n = n(),
             m = mean(dep_var),
-            sd = sd(dep_var)) %&gt;%
-  with(data = ., CIstdmeanBS(alpha = .05, m = m, sd = sd, n = n, c = c(-1, 1)))</code></pre>
+            sd = sd(dep_var)) %$%
+  CIstdmeanBS(alpha = .05, m = m, sd = sd, n = n, c = c(-1, 1))</code></pre>
 <pre><code>##                              Estimate        SE         LL       UL
 ## Equal Variances Not Assumed 0.5017887 0.4816354 -0.4421992 1.445777
 ## Equal Variances Assumed:    0.5017887 0.4549662 -0.3899286 1.393506</code></pre>
@@ -1216,7 +1245,7 @@ CIstdmeanBS(alpha = .05, m = m, sd = sd, n = n, c = c)</code></pre>
 <h3>fit model and summarise</h3>
 <pre class="r"><code>sleepstudy %&gt;%
   lmer(Reaction ~ Days + (1 + Days | Subject), data = ., REML = TRUE) %&gt;%
-  summary(.)</code></pre>
+  summary()</code></pre>
 <pre><code>## Linear mixed model fit by REML t-tests use Satterthwaite approximations
 ##   to degrees of freedom [lmerMod]
 ## Formula: Reaction ~ Days + (1 + Days | Subject)
@@ -1260,8 +1289,8 @@ CIstdmeanBS(alpha = .05, m = m, sd = sd, n = n, c = c)</code></pre>
 <pre class="r"><code>(no_pooling &lt;- 
 sleepstudy %&gt;%
   lmList(Reaction ~ Days | Subject, data = .) %&gt;% 
-  coefficients(.) %&gt;%
-  as_tibble(.) %&gt;%
+  coefficients() %&gt;%
+  as_tibble() %&gt;%
   rownames_to_column(var = &quot;Subject&quot;) %&gt;%
   rename(Intercept = `(Intercept)`,
          Slope = Days) %&gt;%
@@ -1291,9 +1320,9 @@ sleepstudy %&gt;%
 <div id="use-lm-to-get-slope-and-intercept-full-pooling-each-participant-gets-the-same-value" class="section level3">
 <h3>use <code>lm()</code> to get slope and intercept (full pooling / each participant gets the same value)</h3>
 <pre class="r"><code>(complete_pooling &lt;- 
-tibble(Subject = sleepstudy$Subject %&gt;% unique(.) %&gt;% parse_character(.),
-       Intercept = sleepstudy %&gt;% lm(Reaction ~ Days, data = .) %&gt;% coefficients(.) %&gt;% .[[&quot;(Intercept)&quot;]],
-       Slope = sleepstudy %&gt;% lm(Reaction ~ Days, data = .) %&gt;% coefficients(.) %&gt;% .[[&quot;Days&quot;]]) %&gt;%
+tibble(Subject = sleepstudy$Subject %&gt;% unique() %&gt;% parse_character(),
+       Intercept = sleepstudy %&gt;% lm(Reaction ~ Days, data = .) %&gt;% coefficients() %&gt;% .[[&quot;(Intercept)&quot;]],
+       Slope = sleepstudy %&gt;% lm(Reaction ~ Days, data = .) %&gt;% coefficients() %&gt;% .[[&quot;Days&quot;]]) %&gt;%
   mutate(model = &quot;Complete pooling&quot;))</code></pre>
 <pre><code>## # A tibble: 18 x 4
 ##    Subject Intercept    Slope            model
@@ -1322,10 +1351,10 @@ tibble(Subject = sleepstudy$Subject %&gt;% unique(.) %&gt;% parse_character(.),
 <pre class="r"><code>(partial_pooling &lt;- 
 sleepstudy %&gt;%
   lmer(Reaction ~ Days + (1 + Days | Subject), data = ., REML = TRUE) %&gt;%
-  coefficients(.) %&gt;%
+  coefficients() %&gt;%
   .[[&quot;Subject&quot;]] %&gt;%
   rownames_to_column(var = &quot;Subject&quot;) %&gt;%
-  as_tibble(.) %&gt;%
+  as_tibble() %&gt;%
   rename(Intercept = `(Intercept)`,
          Slope = Days) %&gt;%
   mutate(model = &quot;Partial pooling&quot;))</code></pre>
@@ -1458,7 +1487,7 @@ table_3_1 &lt;- tibble(subj_num, x, m, y)</code></pre>
 <h4>summarise model</h4>
 <pre class="r"><code>mediation_model %&gt;%
   sem(data = table_3_1) %&gt;%
-  summary(.)</code></pre>
+  summary()</code></pre>
 <pre><code>## lavaan (0.5-23.1097) converged normally after  11 iterations
 ## 
 ##   Number of observations                            50
@@ -1499,14 +1528,14 @@ table_3_1 &lt;- tibble(subj_num, x, m, y)</code></pre>
       bootstrap = 1000) %&gt;%
   parameterestimates(boot.ci.type = &quot;bca.simple&quot;)</code></pre>
 <pre><code>##     lhs op     rhs label   est    se     z pvalue ci.lower ci.upper
-## 1     m  ~       x     a 0.339 0.105 3.237  0.001    0.115    0.525
-## 2     y  ~       m     b 0.451 0.149 3.019  0.003    0.163    0.747
-## 3     y  ~       x     c 0.208 0.132 1.578  0.114   -0.074    0.444
-## 4     m ~~       m       0.911 0.156 5.834  0.000    0.653    1.262
-## 5     y ~~       y       0.912 0.160 5.698  0.000    0.671    1.318
+## 1     m  ~       x     a 0.339 0.104 3.269  0.001    0.139    0.541
+## 2     y  ~       m     b 0.451 0.149 3.024  0.002    0.162    0.755
+## 3     y  ~       x     c 0.208 0.134 1.549  0.121   -0.089    0.456
+## 4     m ~~       m       0.911 0.151 6.034  0.000    0.648    1.267
+## 5     y ~~       y       0.912 0.158 5.760  0.000    0.682    1.342
 ## 6     x ~~       x       1.268 0.000    NA     NA    1.268    1.268
-## 7    ab :=     a*b    ab 0.153 0.067 2.286  0.022    0.051    0.337
-## 8 total := c+(a*b) total 0.360 0.118 3.042  0.002    0.082    0.568</code></pre>
+## 7    ab :=     a*b    ab 0.153 0.064 2.396  0.017    0.056    0.329
+## 8 total := c+(a*b) total 0.360 0.118 3.061  0.002    0.105    0.584</code></pre>
 </div>
 </div>
 <div id="confirmatory-factor-analysis-example-from-lavaan-website-a-cfa-example" class="section level3">
@@ -1539,7 +1568,7 @@ table_3_1 &lt;- tibble(subj_num, x, m, y)</code></pre>
 <h4>summarise model</h4>
 <pre class="r"><code>cfa_model %&gt;%
   cfa(data = HolzingerSwineford1939) %&gt;%
-  summary(.)</code></pre>
+  summary()</code></pre>
 <pre><code>## lavaan (0.5-23.1097) converged normally after  35 iterations
 ## 
 ##   Number of observations                           301
@@ -1596,8 +1625,8 @@ table_3_1 &lt;- tibble(subj_num, x, m, y)</code></pre>
 <h4>fit measures</h4>
 <pre class="r"><code>cfa_model %&gt;%
   cfa(data = HolzingerSwineford1939) %&gt;%
-  fitmeasures(.) %&gt;%
-  tidy(.) %&gt;%
+  fitmeasures() %&gt;%
+  tidy() %&gt;%
   mutate(value = round(x, 4)) %&gt;%
   print(n = 42)</code></pre>
 <pre><code>## # A tibble: 42 x 3
@@ -1650,7 +1679,7 @@ table_3_1 &lt;- tibble(subj_num, x, m, y)</code></pre>
 <h4>parameter estimates</h4>
 <pre class="r"><code>cfa_model %&gt;%
   cfa(data = HolzingerSwineford1939) %&gt;%
-  parameterestimates(.)</code></pre>
+  parameterestimates()</code></pre>
 <pre><code>##        lhs op     rhs   est    se      z pvalue ci.lower ci.upper
 ## 1   visual =~      x1 1.000 0.000     NA     NA    1.000    1.000
 ## 2   visual =~      x2 0.554 0.100  5.554      0    0.358    0.749
@@ -1681,7 +1710,7 @@ table_3_1 &lt;- tibble(subj_num, x, m, y)</code></pre>
 <h4>modification indices</h4>
 <pre class="r"><code>cfa_model %&gt;%
   cfa(data = HolzingerSwineford1939) %&gt;%
-  modificationindices(.)</code></pre>
+  modificationindices()</code></pre>
 <pre><code>##        lhs op rhs     mi    epc sepc.lv sepc.all sepc.nox
 ## 25  visual =~  x4  1.211  0.077   0.069    0.059    0.059
 ## 26  visual =~  x5  7.441 -0.210  -0.189   -0.147   -0.147
@@ -1742,7 +1771,7 @@ table_3_1 &lt;- tibble(subj_num, x, m, y)</code></pre>
 <h4>implied covariance matrix</h4>
 <pre class="r"><code>cfa_model %&gt;%
   cfa(data = HolzingerSwineford1939) %&gt;%
-  fitted(.)</code></pre>
+  fitted()</code></pre>
 <pre><code>## $cov
 ##    x1    x2    x3    x4    x5    x6    x7    x8    x9   
 ## x1 1.358                                                
@@ -1763,7 +1792,7 @@ table_3_1 &lt;- tibble(subj_num, x, m, y)</code></pre>
 <h4>residual matrix</h4>
 <pre class="r"><code>cfa_model %&gt;%
   cfa(data = HolzingerSwineford1939) %&gt;%
-  residuals(.)</code></pre>
+  residuals()</code></pre>
 <pre><code>## $type
 ## [1] &quot;raw&quot;
 ## 
