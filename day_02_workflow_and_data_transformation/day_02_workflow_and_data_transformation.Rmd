@@ -55,6 +55,7 @@ pre { /* Code block - determines code spacing between lines */
   + Ctrl Shift M will draw a pipe operator
   + R is case sensitive so it matters if you caps or not, have a space in there or not
   + When writing code, use # in front of a comment. Frequently comment your code so you know what's happening 5 years later.
+  + broom thing will always clear environment stuff
   
 ## 2. R is like a calculator
   + Operators are the same (+, -, *, /)
@@ -93,6 +94,9 @@ z <- x * y
 
 # print
 z
+
+#rm() removes objects from your memory
+rm(x, y)
 
 ```
 
@@ -134,6 +138,9 @@ N <- 10
 # create a condition variable
 cond <- rep(c("Treatment", "Control"), each = 5)
 
+#let's just try out rep function this other way
+rep(c("Treatment", "Control"), 2)
+
 # set randomizer seed so results can be reproduced
 set.seed(1234)
 
@@ -147,6 +154,13 @@ interdep <- 0.8 * gratitude_t1 + rnorm(n = N, mean = 0, sd = 0.5)
 time1_survey <- tibble(id = 1:10, cond, gratitude_t1, interdep)
 time2_survey <- tibble(id = c(1:9, NA), gratitude_t2)
 
+
+#coerce condition to be a factor
+#I will talk about mutate again later
+
+time1_survey <-
+time1_survey %>%
+     mutate(cond = factor(cond))
 ```
     
     + Demo: join(x, y, by)
@@ -166,6 +180,7 @@ left.joined_survey <- left_join(x = time1_survey, y = time2_survey, by = "id")
 
 right.joined_survey <- right_join(x = time1_survey, y = time2_survey, by = "id")
 
+#most of the time you want to use left_join, full_join, (sometimes inner_join)
 
 ```
       
@@ -183,14 +198,22 @@ joined_survey <- joined_survey %>%
 
 ## 5. Useful functions for data management/transformation
   + filter()
+    + Remember that to save these things, we need to assign it to a new object (usually I try not to update the original dataframe too much)
   
 ```{r}
 
 # filter only id "exactly equal to" 9
+# need to use == b/c we're using logical (Boolean) language
 filter(joined_survey, id == 9)
 
 # filter only id "less than" 7
 filter(joined_survey, id < 7)
+
+# filter only id "less than or equal to" 7
+filter(joined_survey, id <= 7)
+
+# filter only ids 1 or 2 or 7
+filter(joined_survey, id %in% c(1, 2, 7))
 
 # filter only id "less than" 7 "or" id "exactly equal to" 9
 filter(joined_survey, id < 7 | id == 9)
@@ -198,8 +221,15 @@ filter(joined_survey, id < 7 | id == 9)
 # filter only id "less than" 9 "and" gratitude_t1 "greater than" 4
 filter(joined_survey, id < 7 & gratitude_t1 > 4)
 
-# filter only condition "not equal to" Treatment
-filter(joined_survey, cond != "Treatment")
+# filter only condition "not equal to" Treatment, in a "tidy way"
+joined_survey %>%
+  filter(., cond != "Treatment")
+
+#filter out NAs for specific variable (I chose id)
+time2_survey
+
+time2_survey %>%
+  filter(., !is.na(id))
 
 ```
   
@@ -214,6 +244,9 @@ arrange(joined_survey, cond)
 # arrange joined_survey by id
 arrange(joined_survey, id)
 
+# arrange joined_survey by cond, then interdependence
+arrange(joined_survey, cond, interdep)
+
 ```
   
   + select()
@@ -224,6 +257,9 @@ arrange(joined_survey, id)
 # from joined_survey, select id, interdep_c, and gratitude_t1
 select(joined_survey, id, interdep_c, gratitude_t1)
 
+#a more tidy way
+joined_survey %>%
+  select(., id, interdep_c, gratitude_t1)
 ```
   
   + mutate()
@@ -255,6 +291,11 @@ joined_survey %>%
 
 summarise(joined_survey, mean(x = c(gratitude_t1, gratitude_t2), na.rm = TRUE))
 
+#group by
+
+joined_survey %>%
+  group_by(cond)%>%
+  summarise(mean(x = gratitude_t1, na.rm = TRUE))
 ```
    
    + gather()
@@ -264,7 +305,7 @@ summarise(joined_survey, mean(x = c(gratitude_t1, gratitude_t2), na.rm = TRUE))
 
 # variable name (key) = time and response value (value) = gratitude
 # arrange by Subj ID
-joined_survey_long <- gather(data = joined_survey, key = time, value = gratitude, gratitude_t1, gratitude_t2) %>%
+joined_survey_long <- gather(data = joined_survey, key = time, value = gratitude_score, gratitude_t1, gratitude_t2) %>%
   arrange(id)
 
 ```
@@ -274,7 +315,7 @@ joined_survey_long <- gather(data = joined_survey, key = time, value = gratitude
     
 ```{r}
 
-joined_survey_wide <- spread(data = joined_survey_long, key = time, value = gratitude)
+joined_survey_wide <- spread(data = joined_survey_long, key = time, value = gratitude_score)
 
 ```
   
@@ -282,8 +323,10 @@ joined_survey_wide <- spread(data = joined_survey_long, key = time, value = grat
     + the same as the if function in excel, basically says, "if statement is true, return this value, otherwise return this other value."
     
 ```{r}
-joined_survey$cond2 <- with(joined_survey, 
-  ifelse((cond == "Treatment" & id <= 3) | (cond == "Control" & id <= 7), "Family",     ifelse((cond == "Treatment" & id <= 5) | (cond == "Control" & id >= 8),
-       "Friends",  NA)))
+#in a tidy-verse way
+joined_survey <- 
+  joined_survey %>%
+       mutate(cond2 = ifelse((cond == "Treatment" & id <= 3) | (cond == "Control" & id <= 7), "Family",
+                      ifelse((cond == "Treatment" & id <= 5) | (cond == "Control" & id >= 8),"Friends",  NA)))
 
 ```
