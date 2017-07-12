@@ -130,6 +130,7 @@ tibble <- tibble::tibble
       + Demo: merge(df1, df2, by=”variable name”, all=TRUE)
       
 ```{r}
+
 # create four variables: N, id, cond x, z, and y
 # 10 observations per variable
 N <- 10
@@ -260,6 +261,7 @@ select(joined_survey, id, interdep_c, gratitude_t1)
 #a more tidy way
 joined_survey %>%
   select(id, interdep_c, gratitude_t1)
+
 ```
   
   + mutate()
