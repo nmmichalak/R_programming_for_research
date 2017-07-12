@@ -107,6 +107,7 @@
 - Creating factors
 - Modifying factor order
 - Modifying factor levels
+- Review Day 00 through Day 02
 - Contrasts coding systems in R
 - Statistics
   - `t.test()`
