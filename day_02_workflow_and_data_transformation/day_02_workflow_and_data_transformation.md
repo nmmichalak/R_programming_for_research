@@ -81,7 +81,7 @@ pre { /* Code block - determines code spacing between lines */
 ## [1] 2
 ```
 
-## 3. Create new objects with <-
+## 3. Create new objects with `<-`
   + Object name <- value
   
 
@@ -170,8 +170,7 @@ install_needed_pkgs(needed_packages)
 ```
 
 ```r
-library(tidyverse)
-#sets the functions as being part of the packages you actually want to pull from
+# sets the functions as being part of the packages you actually want to pull from
 filter <- dplyr::filter
 tibble <- tibble::tibble
 ```
@@ -191,7 +190,7 @@ N <- 10
 # create a condition variable
 cond <- rep(c("Treatment", "Control"), each = 5)
 
-#let's just try out rep function this other way
+# let's just try out rep function this other way
 rep(c("Treatment", "Control"), 2)
 ```
 
@@ -214,12 +213,12 @@ time1_survey <- tibble(id = 1:10, cond, gratitude_t1, interdep)
 time2_survey <- tibble(id = c(1:9, NA), gratitude_t2)
 
 
-#coerce condition to be a factor
+# coerce condition to be a factor
 #I will talk about mutate again later
 
 time1_survey <-
-time1_survey %>%
-     mutate(cond = factor(cond))
+  time1_survey %>%
+  mutate(cond = factor(cond))
 ```
     
     + Demo: join(x, y, by)
@@ -231,13 +230,15 @@ time1_survey %>%
 # right_join
 # ?full_join
 
-full.joined_survey <- full_join(x = time1_survey, y = time2_survey, by = "id")
+full_joined_survey <- full_join(x = time1_survey, y = time2_survey, by = "id")
 
 joined_survey <- inner_join(x = time1_survey, y = time2_survey, by = "id")
 
-left.joined_survey <- left_join(x = time1_survey, y = time2_survey, by = "id")
+left_joined_survey <- left_join(x = time1_survey, y = time2_survey, by = "id")
 
-right.joined_survey <- right_join(x = time1_survey, y = time2_survey, by = "id")
+right_joined_survey <- right_join(x = time1_survey, y = time2_survey, by = "id")
+
+# most of the time you want to use left_join, full_join, (sometimes inner_join)
 ```
       
       + Demo: scale(variable, scale=FALSE)
@@ -248,7 +249,7 @@ right.joined_survey <- right_join(x = time1_survey, y = time2_survey, by = "id")
 ```r
 # ?scale
 joined_survey <- joined_survey %>%
-  mutate(interdep_c = as.numeric(scale(interdep, center = TRUE, scale = FALSE)))
+  mutate(interdep_c = parse_number(scale(interdep, center = TRUE, scale = FALSE)))
 ```
 
 ## 5. Useful functions for data management/transformation
@@ -354,7 +355,7 @@ filter(joined_survey, id < 7 & gratitude_t1 > 4)
 ```r
 # filter only condition "not equal to" Treatment, in a "tidy way"
 joined_survey %>%
-  filter(., cond != "Treatment")
+  filter(cond != "Treatment")
 ```
 
 ```
@@ -390,7 +391,7 @@ time2_survey
 
 ```r
 time2_survey %>%
-  filter(., !is.na(id))
+  filter(!is.na(id))
 ```
 
 ```
@@ -499,7 +500,7 @@ select(joined_survey, id, interdep_c, gratitude_t1)
 ```r
 #a more tidy way
 joined_survey %>%
-  select(., id, interdep_c, gratitude_t1)
+  select(id, interdep_c, gratitude_t1)
 ```
 
 ```
@@ -552,16 +553,13 @@ mutate(joined_survey,
 # using pipes
 # have to use rowwise
 joined_survey %>% 
-  rowwise(.) %>% 
-  mutate(gratitude_mean = (gratitude_t1 + gratitude_t2)/2, 
-         gratitude_mean_alt= mean(c(gratitude_t1, gratitude_t2),
-                                  na.rm = TRUE))
+  rowwise() %>% 
+  mutate(gratitude_mean = (gratitude_t1 + gratitude_t2) / 2, 
+         gratitude_mean_alt = mean(c(gratitude_t1, gratitude_t2), na.rm = TRUE)) %>%
+  ungroup()
 ```
 
 ```
-## Source: local data frame [9 x 8]
-## Groups: <by row>
-## 
 ## # A tibble: 9 x 8
 ##      id      cond gratitude_t1 interdep gratitude_t2 interdep_c
 ##   <int>    <fctr>        <dbl>    <dbl>        <dbl>      <dbl>
@@ -598,15 +596,15 @@ summarise(joined_survey, mean(x = c(gratitude_t1, gratitude_t2), na.rm = TRUE))
 
 joined_survey %>%
   group_by(cond)%>%
-  summarise(mean(x = gratitude_t1, na.rm = TRUE))
+  summarise(mean_grat = mean(gratitude_t1, na.rm = TRUE))
 ```
 
 ```
 ## # A tibble: 2 x 2
-##        cond `mean(x = gratitude_t1, na.rm = TRUE)`
-##      <fctr>                                  <dbl>
-## 1   Control                               4.219805
-## 2 Treatment                               4.165264
+##        cond mean_grat
+##      <fctr>     <dbl>
+## 1   Control  4.219805
+## 2 Treatment  4.165264
 ```
    
    + gather()
@@ -633,9 +631,9 @@ joined_survey_wide <- spread(data = joined_survey_long, key = time, value = grat
     
 
 ```r
-#in a tidy-verse way
+# in a tidyverse way
 joined_survey <- 
   joined_survey %>%
-       mutate(cond2 = ifelse((cond == "Treatment" & id <= 3) | (cond == "Control" & id <= 7), "Family",
-                      ifelse((cond == "Treatment" & id <= 5) | (cond == "Control" & id >= 8),"Friends",  NA)))
+  mutate(cond2 = ifelse((cond == "Treatment" & id <= 3) | (cond == "Control" & id <= 7), "Family",
+                 ifelse((cond == "Treatment" & id <= 5) | (cond == "Control" & id >= 8), "Friends",  NA)))
 ```

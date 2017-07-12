@@ -289,7 +289,7 @@ pre { /* Code block - determines code spacing between lines */
 <pre><code>## [1] 2</code></pre>
 </div>
 <div id="create-new-objects-with--" class="section level2">
-<h2>3. Create new objects with &lt;-</h2>
+<h2>3. Create new objects with <code>&lt;-</code></h2>
 <ul>
 <li>Object name &lt;- value</li>
 </ul>
@@ -346,8 +346,7 @@ install_needed_pkgs(needed_packages)</code></pre>
 ##  [1] &quot;dplyr&quot;     &quot;purrr&quot;     &quot;readr&quot;     &quot;tidyr&quot;     &quot;tibble&quot;   
 ##  [6] &quot;ggplot2&quot;   &quot;tidyverse&quot; &quot;stats&quot;     &quot;graphics&quot;  &quot;grDevices&quot;
 ## [11] &quot;utils&quot;     &quot;datasets&quot;  &quot;methods&quot;   &quot;base&quot;</code></pre>
-<pre class="r"><code>library(tidyverse)
-#sets the functions as being part of the packages you actually want to pull from
+<pre class="r"><code># sets the functions as being part of the packages you actually want to pull from
 filter &lt;- dplyr::filter
 tibble &lt;- tibble::tibble</code></pre>
 <ul>
@@ -368,7 +367,7 @@ N &lt;- 10
 # create a condition variable
 cond &lt;- rep(c(&quot;Treatment&quot;, &quot;Control&quot;), each = 5)
 
-#let's just try out rep function this other way
+# let's just try out rep function this other way
 rep(c(&quot;Treatment&quot;, &quot;Control&quot;), 2)</code></pre>
 <pre><code>## [1] &quot;Treatment&quot; &quot;Control&quot;   &quot;Treatment&quot; &quot;Control&quot;</code></pre>
 <pre class="r"><code># set randomizer seed so results can be reproduced
@@ -385,32 +384,34 @@ time1_survey &lt;- tibble(id = 1:10, cond, gratitude_t1, interdep)
 time2_survey &lt;- tibble(id = c(1:9, NA), gratitude_t2)
 
 
-#coerce condition to be a factor
+# coerce condition to be a factor
 #I will talk about mutate again later
 
 time1_survey &lt;-
-time1_survey %&gt;%
-     mutate(cond = factor(cond))</code></pre>
+  time1_survey %&gt;%
+  mutate(cond = factor(cond))</code></pre>
 <pre><code>+ Demo: join(x, y, by)</code></pre>
 <pre class="r"><code># join time 1 and time 2 by subject id
 # ?left_join (Join matching rows from y to x)
 # right_join
 # ?full_join
 
-full.joined_survey &lt;- full_join(x = time1_survey, y = time2_survey, by = &quot;id&quot;)
+full_joined_survey &lt;- full_join(x = time1_survey, y = time2_survey, by = &quot;id&quot;)
 
 joined_survey &lt;- inner_join(x = time1_survey, y = time2_survey, by = &quot;id&quot;)
 
-left.joined_survey &lt;- left_join(x = time1_survey, y = time2_survey, by = &quot;id&quot;)
+left_joined_survey &lt;- left_join(x = time1_survey, y = time2_survey, by = &quot;id&quot;)
 
-right.joined_survey &lt;- right_join(x = time1_survey, y = time2_survey, by = &quot;id&quot;)</code></pre>
+right_joined_survey &lt;- right_join(x = time1_survey, y = time2_survey, by = &quot;id&quot;)
+
+# most of the time you want to use left_join, full_join, (sometimes inner_join)</code></pre>
 <pre><code>  + Demo: scale(variable, scale=FALSE)
     + scale will center your variable if the argument scale is FALSE
     + it will z-score your variable if the argument scale is TRUE
     </code></pre>
 <pre class="r"><code># ?scale
 joined_survey &lt;- joined_survey %&gt;%
-  mutate(interdep_c = as.numeric(scale(interdep, center = TRUE, scale = FALSE)))</code></pre>
+  mutate(interdep_c = parse_number(scale(interdep, center = TRUE, scale = FALSE)))</code></pre>
 </div>
 <div id="useful-functions-for-data-managementtransformation" class="section level2">
 <h2>5. Useful functions for data management/transformation</h2>
@@ -481,7 +482,7 @@ filter(joined_survey, id &lt; 7 &amp; gratitude_t1 &gt; 4)</code></pre>
 ## 4     6   Control     4.980753 3.637742     5.395229  0.3146135</code></pre>
 <pre class="r"><code># filter only condition &quot;not equal to&quot; Treatment, in a &quot;tidy way&quot;
 joined_survey %&gt;%
-  filter(., cond != &quot;Treatment&quot;)</code></pre>
+  filter(cond != &quot;Treatment&quot;)</code></pre>
 <pre><code>## # A tibble: 4 x 6
 ##      id    cond gratitude_t1 interdep gratitude_t2 interdep_c
 ##   &lt;int&gt;  &lt;fctr&gt;        &lt;dbl&gt;    &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;
@@ -505,7 +506,7 @@ time2_survey</code></pre>
 ##  9     9     4.704687
 ## 10    NA           NA</code></pre>
 <pre class="r"><code>time2_survey %&gt;%
-  filter(., !is.na(id))</code></pre>
+  filter(!is.na(id))</code></pre>
 <pre><code>## # A tibble: 9 x 2
 ##      id gratitude_t2
 ##   &lt;int&gt;        &lt;dbl&gt;
@@ -588,7 +589,7 @@ select(joined_survey, id, interdep_c, gratitude_t1)</code></pre>
 ## 9     9 -0.6639402     3.963771</code></pre>
 <pre class="r"><code>#a more tidy way
 joined_survey %&gt;%
-  select(., id, interdep_c, gratitude_t1)</code></pre>
+  select(id, interdep_c, gratitude_t1)</code></pre>
 <pre><code>## # A tibble: 9 x 3
 ##      id interdep_c gratitude_t1
 ##   &lt;int&gt;      &lt;dbl&gt;        &lt;dbl&gt;
@@ -631,14 +632,11 @@ mutate(joined_survey,
 <pre class="r"><code># using pipes
 # have to use rowwise
 joined_survey %&gt;% 
-  rowwise(.) %&gt;% 
-  mutate(gratitude_mean = (gratitude_t1 + gratitude_t2)/2, 
-         gratitude_mean_alt= mean(c(gratitude_t1, gratitude_t2),
-                                  na.rm = TRUE))</code></pre>
-<pre><code>## Source: local data frame [9 x 8]
-## Groups: &lt;by row&gt;
-## 
-## # A tibble: 9 x 8
+  rowwise() %&gt;% 
+  mutate(gratitude_mean = (gratitude_t1 + gratitude_t2) / 2, 
+         gratitude_mean_alt = mean(c(gratitude_t1, gratitude_t2), na.rm = TRUE)) %&gt;%
+  ungroup()</code></pre>
+<pre><code>## # A tibble: 9 x 8
 ##      id      cond gratitude_t1 interdep gratitude_t2 interdep_c
 ##   &lt;int&gt;    &lt;fctr&gt;        &lt;dbl&gt;    &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;
 ## 1     1 Treatment     3.353288 3.890548     5.046667  0.5674188
@@ -667,12 +665,12 @@ joined_survey %&gt;%
 
 joined_survey %&gt;%
   group_by(cond)%&gt;%
-  summarise(mean(x = gratitude_t1, na.rm = TRUE))</code></pre>
+  summarise(mean_grat = mean(gratitude_t1, na.rm = TRUE))</code></pre>
 <pre><code>## # A tibble: 2 x 2
-##        cond `mean(x = gratitude_t1, na.rm = TRUE)`
-##      &lt;fctr&gt;                                  &lt;dbl&gt;
-## 1   Control                               4.219805
-## 2 Treatment                               4.165264</code></pre>
+##        cond mean_grat
+##      &lt;fctr&gt;     &lt;dbl&gt;
+## 1   Control  4.219805
+## 2 Treatment  4.165264</code></pre>
 <ul>
 <li>gather()
 <ul>
@@ -696,11 +694,11 @@ joined_survey_long &lt;- gather(data = joined_survey, key = time, value = gratit
 <li>the same as the if function in excel, basically says, “if statement is true, return this value, otherwise return this other value.”</li>
 </ul></li>
 </ul>
-<pre class="r"><code>#in a tidy-verse way
+<pre class="r"><code># in a tidyverse way
 joined_survey &lt;- 
   joined_survey %&gt;%
-       mutate(cond2 = ifelse((cond == &quot;Treatment&quot; &amp; id &lt;= 3) | (cond == &quot;Control&quot; &amp; id &lt;= 7), &quot;Family&quot;,
-                      ifelse((cond == &quot;Treatment&quot; &amp; id &lt;= 5) | (cond == &quot;Control&quot; &amp; id &gt;= 8),&quot;Friends&quot;,  NA)))</code></pre>
+  mutate(cond2 = ifelse((cond == &quot;Treatment&quot; &amp; id &lt;= 3) | (cond == &quot;Control&quot; &amp; id &lt;= 7), &quot;Family&quot;,
+                 ifelse((cond == &quot;Treatment&quot; &amp; id &lt;= 5) | (cond == &quot;Control&quot; &amp; id &gt;= 8), &quot;Friends&quot;,  NA)))</code></pre>
 </div>
 </div>
 
