@@ -78,6 +78,14 @@ install_needed_pkgs(needed_packages = needed_packages)
 
 ```
 
+> gender
+
+```{r}
+
+gender_fac <- as_factor(c("Female", "Female", "Male", "Female", "Other", "Male", "Female",  "Male", "Other", "Male", "Female", "Female", "Female", "Male", "Male", "Female", "Female", "Male", "Male", "Other"))
+
+```
+
 # numeric
 > dependent variable
 
@@ -91,7 +99,7 @@ install_needed_pkgs(needed_packages = needed_packages)
 
 ```{r}
 
-(my_data <- tibble(subj_id, exp_group, exp_group_fac, dep_var, failed_prescreen))
+(my_data <- tibble(subj_id, exp_group, exp_group_fac, dep_var, gender_fac, failed_prescreen))
 
 ```
 
@@ -131,7 +139,7 @@ my_data %>%
 
 my_data %>%
   ggplot(mapping = aes(x = dep_var, fill = failed_prescreen)) +
-  geom_histogram(binwidth = 1, color = "white")
+  geom_histogram(binwidth = 1, color = "white", position = "dodge")
 
 ```
 
@@ -140,7 +148,7 @@ my_data %>%
 ```{r}
 
 my_data %>%
-  ggplot(mapping = aes(x = dep_var)) +
+  ggplot(mapping = aes(x = dep_var, fill = failed_prescreen)) +
   geom_histogram(binwidth = 1, color = "white") +
   facet_wrap(~ failed_prescreen)
 
@@ -151,7 +159,7 @@ my_data %>%
 ```{r}
 
 my_data %>%
-  ggplot(mapping = aes(x = exp_group_fac, y = dep_var, fill = exp_group_fac)) +
+  ggplot(mapping = aes(x = exp_group_fac, y = dep_var, fill = gender_fac)) +
   geom_boxplot()
 
 ```
@@ -161,7 +169,7 @@ my_data %>%
 ```{r}
 
 my_data %>%
-  ggplot(mapping = aes(x = exp_group_fac, y = dep_var, fill = exp_group_fac)) +
+  ggplot(mapping = aes(x = exp_group_fac, y = dep_var, fill = gender_fac)) +
   geom_violin()
 
 ```
@@ -171,7 +179,7 @@ my_data %>%
 ```{r}
 
 my_data %>%
-  ggplot(mapping = aes(x = exp_group_fac, y = dep_var, fill = exp_group_fac)) +
+  ggplot(mapping = aes(x = exp_group_fac, y = dep_var, fill = gender_fac)) +
   stat_summary(fun.data = "mean_cl_normal", geom = "bar", position = position_dodge(0.9)) +
   stat_summary(fun.data = "mean_cl_normal", geom = "errorbar", width = 0.1, position = position_dodge(0.9))
 
@@ -373,7 +381,8 @@ big_five %>%
 ```{r}
 
 my_data %>%
-  aov_car(formula = dep_var ~ exp_group_fac + Error(subj_id), data = .) %>%
+  filter(gender_fac != "Other") %>%
+  aov_car(formula = dep_var ~ exp_group_fac * gender_fac + Error(subj_id), data = .) %>%
   summary()
 
 ```
@@ -384,15 +393,23 @@ my_data %>%
 
 # t-value and p-value
 my_data %>%
-  aov_car(formula = dep_var ~ exp_group_fac + Error(subj_id), data = .) %>%
-  lsmeans::lsmeans(specs = "exp_group_fac") %>%
-  contrast(list(ntrl_mnpl = c(-1, 1)))
+  mutate(group = interaction(exp_group_fac, gender_fac, sep = "_")) %>%
+  filter(gender_fac != "Other") %>%
+  aov_car(formula = dep_var ~ group + Error(subj_id), data = .) %>%
+  lsmeans::lsmeans(specs = "group") %>%
+  contrast(list(exp_group_fac = c(-1, 1, -1, 1),
+                gender_fac = c(-1, -1, 1, 1),
+                interact = c(1, -1, -1, 1)))
 
 # confidence intervals
 my_data %>%
-  aov_car(formula = dep_var ~ exp_group_fac + Error(subj_id), data = .) %>%
-  lsmeans::lsmeans(specs = "exp_group_fac") %>%
-  contrast(list(ntrl_mnpl = c(-1, 1))) %>%
+  mutate(group = interaction(exp_group_fac, gender_fac, sep = "_")) %>%
+  filter(gender_fac != "Other") %>%
+  aov_car(formula = dep_var ~ group + Error(subj_id), data = .) %>%
+  lsmeans::lsmeans(specs = "group") %>%
+  contrast(list(exp_group_fac = c(-1, 1, -1, 1),
+                gender_fac = c(-1, -1, 1, 1),
+                interact = c(1, -1, -1, 1))) %>%
   confint()
 
 ```

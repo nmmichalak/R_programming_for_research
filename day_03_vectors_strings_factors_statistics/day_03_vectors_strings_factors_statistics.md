@@ -467,6 +467,13 @@ install_needed_pkgs(needed_packages = needed_packages)
 ## Levels: Neutral Manipulation
 ```
 
+> gender
+
+
+```r
+gender_fac <- as_factor(c("Female", "Female", "Male", "Female", "Other", "Male", "Female",  "Male", "Other", "Male", "Female", "Female", "Female", "Male", "Male", "Female", "Female", "Male", "Male", "Other"))
+```
+
 # numeric
 > dependent variable
 
@@ -483,33 +490,33 @@ install_needed_pkgs(needed_packages = needed_packages)
 
 
 ```r
-(my_data <- tibble(subj_id, exp_group, exp_group_fac, dep_var, failed_prescreen))
+(my_data <- tibble(subj_id, exp_group, exp_group_fac, dep_var, gender_fac, failed_prescreen))
 ```
 
 ```
-## # A tibble: 20 x 5
-##    subj_id exp_group exp_group_fac dep_var failed_prescreen
-##      <int>     <chr>        <fctr>   <dbl>            <lgl>
-##  1       1 Treatment  Manipulation       4             TRUE
-##  2       2   Control       Neutral       2            FALSE
-##  3       3   Control       Neutral       7            FALSE
-##  4       4 Treatment  Manipulation       3            FALSE
-##  5       5 Treatment  Manipulation       5             TRUE
-##  6       6   Control       Neutral       6             TRUE
-##  7       7 Treatment  Manipulation       6            FALSE
-##  8       8   Control       Neutral       1             TRUE
-##  9       9 Treatment  Manipulation       7             TRUE
-## 10      10 Treatment  Manipulation       3             TRUE
-## 11      11 Treatment  Manipulation       4            FALSE
-## 12      12   Control       Neutral       1             TRUE
-## 13      13   Control       Neutral       3            FALSE
-## 14      14 Treatment  Manipulation       6            FALSE
-## 15      15   Control       Neutral       1            FALSE
-## 16      16   Control       Neutral       7             TRUE
-## 17      17 Treatment  Manipulation       4            FALSE
-## 18      18   Control       Neutral       7            FALSE
-## 19      19 Treatment  Manipulation       5            FALSE
-## 20      20   Control       Neutral       1            FALSE
+## # A tibble: 20 x 6
+##    subj_id exp_group exp_group_fac dep_var gender_fac failed_prescreen
+##      <int>     <chr>        <fctr>   <dbl>     <fctr>            <lgl>
+##  1       1 Treatment  Manipulation       4     Female             TRUE
+##  2       2   Control       Neutral       2     Female            FALSE
+##  3       3   Control       Neutral       7       Male            FALSE
+##  4       4 Treatment  Manipulation       3     Female            FALSE
+##  5       5 Treatment  Manipulation       5      Other             TRUE
+##  6       6   Control       Neutral       6       Male             TRUE
+##  7       7 Treatment  Manipulation       6     Female            FALSE
+##  8       8   Control       Neutral       1       Male             TRUE
+##  9       9 Treatment  Manipulation       7      Other             TRUE
+## 10      10 Treatment  Manipulation       3       Male             TRUE
+## 11      11 Treatment  Manipulation       4     Female            FALSE
+## 12      12   Control       Neutral       1     Female             TRUE
+## 13      13   Control       Neutral       3     Female            FALSE
+## 14      14 Treatment  Manipulation       6       Male            FALSE
+## 15      15   Control       Neutral       1       Male            FALSE
+## 16      16   Control       Neutral       7     Female             TRUE
+## 17      17 Treatment  Manipulation       4     Female            FALSE
+## 18      18   Control       Neutral       7       Male            FALSE
+## 19      19 Treatment  Manipulation       5       Male            FALSE
+## 20      20   Control       Neutral       1      Other            FALSE
 ```
 
 # review
@@ -556,21 +563,21 @@ my_data %>%
 ```
 
 ```
-## # A tibble: 12 x 5
-##    subj_id exp_group exp_group_fac dep_var failed_prescreen
-##      <int>     <chr>        <fctr>   <dbl>            <lgl>
-##  1       2   Control       Neutral       2            FALSE
-##  2       3   Control       Neutral       7            FALSE
-##  3       4 Treatment  Manipulation       3            FALSE
-##  4       7 Treatment  Manipulation       6            FALSE
-##  5      11 Treatment  Manipulation       4            FALSE
-##  6      13   Control       Neutral       3            FALSE
-##  7      14 Treatment  Manipulation       6            FALSE
-##  8      15   Control       Neutral       1            FALSE
-##  9      17 Treatment  Manipulation       4            FALSE
-## 10      18   Control       Neutral       7            FALSE
-## 11      19 Treatment  Manipulation       5            FALSE
-## 12      20   Control       Neutral       1            FALSE
+## # A tibble: 12 x 6
+##    subj_id exp_group exp_group_fac dep_var gender_fac failed_prescreen
+##      <int>     <chr>        <fctr>   <dbl>     <fctr>            <lgl>
+##  1       2   Control       Neutral       2     Female            FALSE
+##  2       3   Control       Neutral       7       Male            FALSE
+##  3       4 Treatment  Manipulation       3     Female            FALSE
+##  4       7 Treatment  Manipulation       6     Female            FALSE
+##  5      11 Treatment  Manipulation       4     Female            FALSE
+##  6      13   Control       Neutral       3     Female            FALSE
+##  7      14 Treatment  Manipulation       6       Male            FALSE
+##  8      15   Control       Neutral       1       Male            FALSE
+##  9      17 Treatment  Manipulation       4     Female            FALSE
+## 10      18   Control       Neutral       7       Male            FALSE
+## 11      19 Treatment  Manipulation       5       Male            FALSE
+## 12      20   Control       Neutral       1      Other            FALSE
 ```
 
 ## `geom_histogram()` and aesetics
@@ -579,56 +586,60 @@ my_data %>%
 ```r
 my_data %>%
   ggplot(mapping = aes(x = dep_var, fill = failed_prescreen)) +
-  geom_histogram(binwidth = 1, color = "white")
+  geom_histogram(binwidth = 1, color = "white", position = "dodge")
 ```
 
-![](day_03_vectors_strings_factors_statistics_files/figure-html/unnamed-chunk-12-1.png)<!-- -->
+![](day_03_vectors_strings_factors_statistics_files/figure-html/unnamed-chunk-13-1.png)<!-- -->
 
 ### `facet_wrap()`
 
 
 ```r
 my_data %>%
-  ggplot(mapping = aes(x = dep_var)) +
+  ggplot(mapping = aes(x = dep_var, fill = failed_prescreen)) +
   geom_histogram(binwidth = 1, color = "white") +
   facet_wrap(~ failed_prescreen)
 ```
 
-![](day_03_vectors_strings_factors_statistics_files/figure-html/unnamed-chunk-13-1.png)<!-- -->
+![](day_03_vectors_strings_factors_statistics_files/figure-html/unnamed-chunk-14-1.png)<!-- -->
 
 ## `geom_boxplot()`
 
 
 ```r
 my_data %>%
-  ggplot(mapping = aes(x = exp_group_fac, y = dep_var, fill = exp_group_fac)) +
+  ggplot(mapping = aes(x = exp_group_fac, y = dep_var, fill = gender_fac)) +
   geom_boxplot()
 ```
 
-![](day_03_vectors_strings_factors_statistics_files/figure-html/unnamed-chunk-14-1.png)<!-- -->
+![](day_03_vectors_strings_factors_statistics_files/figure-html/unnamed-chunk-15-1.png)<!-- -->
 
 ## `geom_violin()`
 
 
 ```r
 my_data %>%
-  ggplot(mapping = aes(x = exp_group_fac, y = dep_var, fill = exp_group_fac)) +
+  ggplot(mapping = aes(x = exp_group_fac, y = dep_var, fill = gender_fac)) +
   geom_violin()
 ```
 
-![](day_03_vectors_strings_factors_statistics_files/figure-html/unnamed-chunk-15-1.png)<!-- -->
+![](day_03_vectors_strings_factors_statistics_files/figure-html/unnamed-chunk-16-1.png)<!-- -->
 
 ## `stat_summary()`
 
 
 ```r
 my_data %>%
-  ggplot(mapping = aes(x = exp_group_fac, y = dep_var, fill = exp_group_fac)) +
+  ggplot(mapping = aes(x = exp_group_fac, y = dep_var, fill = gender_fac)) +
   stat_summary(fun.data = "mean_cl_normal", geom = "bar", position = position_dodge(0.9)) +
   stat_summary(fun.data = "mean_cl_normal", geom = "errorbar", width = 0.1, position = position_dodge(0.9))
 ```
 
-![](day_03_vectors_strings_factors_statistics_files/figure-html/unnamed-chunk-16-1.png)<!-- -->
+```
+## Warning: Removed 1 rows containing missing values (geom_errorbar).
+```
+
+![](day_03_vectors_strings_factors_statistics_files/figure-html/unnamed-chunk-17-1.png)<!-- -->
 
 ## grouped descriptives
 > Note: `%$%` is called the "exposition pipe operator." From the [magrittr documentation](https://cran.r-project.org/web/packages/magrittr/magrittr.pdf) description, "Some functions, e.g. lm and aggregate, have a data argument, which allows the direct use of names inside the data as part of the call. This operator exposes the contents of the left-hand side object to the expression on the right to give a similar benefit, see the examples."
@@ -847,7 +858,7 @@ big_five %>%
   pairs.panels(pch = ".")
 ```
 
-![](day_03_vectors_strings_factors_statistics_files/figure-html/unnamed-chunk-24-1.png)<!-- -->
+![](day_03_vectors_strings_factors_statistics_files/figure-html/unnamed-chunk-25-1.png)<!-- -->
 
 ## `cor.plot()`
 
@@ -858,7 +869,7 @@ big_five %>%
   cor.plot(numbers = TRUE)
 ```
 
-![](day_03_vectors_strings_factors_statistics_files/figure-html/unnamed-chunk-25-1.png)<!-- -->
+![](day_03_vectors_strings_factors_statistics_files/figure-html/unnamed-chunk-26-1.png)<!-- -->
 
 ## `cor.test()`
 * explicit argument names again
@@ -1148,20 +1159,23 @@ big_five %>%
 
 ```r
 my_data %>%
-  aov_car(formula = dep_var ~ exp_group_fac + Error(subj_id), data = .) %>%
+  filter(gender_fac != "Other") %>%
+  aov_car(formula = dep_var ~ exp_group_fac * gender_fac + Error(subj_id), data = .) %>%
   summary()
 ```
 
 ```
-## Contrasts set to contr.sum for the following variables: exp_group_fac
+## Contrasts set to contr.sum for the following variables: exp_group_fac, gender_fac
 ```
 
 ```
 ## Anova Table (Type 3 tests)
 ## 
 ## Response: dep_var
-##               num Df den Df    MSE     F     ges Pr(>F)
-## exp_group_fac      1     18 4.8056 1.259 0.06537 0.2766
+##                          num Df den Df    MSE      F      ges Pr(>F)
+## exp_group_fac                 1     13 5.3397 0.2819 0.021226 0.6044
+## gender_fac                    1     13 5.3397 0.4978 0.036877 0.4929
+## exp_group_fac:gender_fac      1     13 5.3397 0.0889 0.006794 0.7703
 ```
 
 ### specific contrasts
@@ -1170,36 +1184,48 @@ my_data %>%
 ```r
 # t-value and p-value
 my_data %>%
-  aov_car(formula = dep_var ~ exp_group_fac + Error(subj_id), data = .) %>%
-  lsmeans::lsmeans(specs = "exp_group_fac") %>%
-  contrast(list(ntrl_mnpl = c(-1, 1)))
+  mutate(group = interaction(exp_group_fac, gender_fac, sep = "_")) %>%
+  filter(gender_fac != "Other") %>%
+  aov_car(formula = dep_var ~ group + Error(subj_id), data = .) %>%
+  lsmeans::lsmeans(specs = "group") %>%
+  contrast(list(exp_group_fac = c(-1, 1, -1, 1),
+                gender_fac = c(-1, -1, 1, 1),
+                interact = c(1, -1, -1, 1)))
 ```
 
 ```
-## Contrasts set to contr.sum for the following variables: exp_group_fac
+## Contrasts set to contr.sum for the following variables: group
 ```
 
 ```
-##  contrast  estimate        SE df t.ratio p.value
-##  ntrl_mnpl      1.1 0.9803627 18   1.122  0.2766
+##  contrast        estimate       SE df t.ratio p.value
+##  exp_group_fac  1.2166667 2.291451 13   0.531  0.6044
+##  gender_fac     1.6166667 2.291451 13   0.706  0.4929
+##  interact      -0.6833333 2.291451 13  -0.298  0.7703
 ```
 
 ```r
 # confidence intervals
 my_data %>%
-  aov_car(formula = dep_var ~ exp_group_fac + Error(subj_id), data = .) %>%
-  lsmeans::lsmeans(specs = "exp_group_fac") %>%
-  contrast(list(ntrl_mnpl = c(-1, 1))) %>%
+  mutate(group = interaction(exp_group_fac, gender_fac, sep = "_")) %>%
+  filter(gender_fac != "Other") %>%
+  aov_car(formula = dep_var ~ group + Error(subj_id), data = .) %>%
+  lsmeans::lsmeans(specs = "group") %>%
+  contrast(list(exp_group_fac = c(-1, 1, -1, 1),
+                gender_fac = c(-1, -1, 1, 1),
+                interact = c(1, -1, -1, 1))) %>%
   confint()
 ```
 
 ```
-## Contrasts set to contr.sum for the following variables: exp_group_fac
+## Contrasts set to contr.sum for the following variables: group
 ```
 
 ```
-##  contrast  estimate        SE df   lower.CL upper.CL
-##  ntrl_mnpl      1.1 0.9803627 18 -0.9596657 3.159666
+##  contrast        estimate       SE df  lower.CL upper.CL
+##  exp_group_fac  1.2166667 2.291451 13 -3.733712 6.167046
+##  gender_fac     1.6166667 2.291451 13 -3.333712 6.567046
+##  interact      -0.6833333 2.291451 13 -5.633712 4.267046
 ## 
 ## Confidence level used: 0.95
 ```
@@ -1378,7 +1404,7 @@ sleepstudy %>%
   facet_wrap(~ Subject, nrow = 3)
 ```
 
-![](day_03_vectors_strings_factors_statistics_files/figure-html/unnamed-chunk-41-1.png)<!-- -->
+![](day_03_vectors_strings_factors_statistics_files/figure-html/unnamed-chunk-42-1.png)<!-- -->
 
 ### use `lmList()` to get those intercepts and slopes you see above (no pooling / estimates ignore other participants)
 
@@ -1513,7 +1539,7 @@ bind_rows(no_pooling, partial_pooling, complete_pooling) %>%
 ## into character vector
 ```
 
-![](day_03_vectors_strings_factors_statistics_files/figure-html/unnamed-chunk-45-1.png)<!-- -->
+![](day_03_vectors_strings_factors_statistics_files/figure-html/unnamed-chunk-46-1.png)<!-- -->
 
 ### cite your tools
 
@@ -1681,14 +1707,14 @@ mediation_model %>%
 
 ```
 ##     lhs op     rhs label   est    se     z pvalue ci.lower ci.upper
-## 1     m  ~       x     a 0.339 0.104 3.269  0.001    0.139    0.541
-## 2     y  ~       m     b 0.451 0.149 3.024  0.002    0.162    0.755
-## 3     y  ~       x     c 0.208 0.134 1.549  0.121   -0.089    0.456
-## 4     m ~~       m       0.911 0.151 6.034  0.000    0.648    1.267
-## 5     y ~~       y       0.912 0.158 5.760  0.000    0.682    1.342
+## 1     m  ~       x     a 0.339 0.101 3.351  0.001    0.132    0.534
+## 2     y  ~       m     b 0.451 0.148 3.041  0.002    0.174    0.769
+## 3     y  ~       x     c 0.208 0.128 1.622  0.105   -0.067    0.437
+## 4     m ~~       m       0.911 0.155 5.865  0.000    0.651    1.283
+## 5     y ~~       y       0.912 0.149 6.122  0.000    0.707    1.374
 ## 6     x ~~       x       1.268 0.000    NA     NA    1.268    1.268
-## 7    ab :=     a*b    ab 0.153 0.064 2.396  0.017    0.056    0.329
-## 8 total := c+(a*b) total 0.360 0.118 3.061  0.002    0.105    0.584
+## 7    ab :=     a*b    ab 0.153 0.065 2.358  0.018    0.050    0.317
+## 8 total := c+(a*b) total 0.360 0.113 3.195  0.001    0.124    0.562
 ```
 
 ### confirmatory factor analysis example from lavaan website [A CFA example](http://lavaan.ugent.be/tutorial/cfa.html)
