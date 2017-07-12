@@ -205,7 +205,7 @@ time2_survey <- tibble(id = c(1:9, NA), gratitude_t2)
 
 
 # coerce condition to be a factor
-#I will talk about mutate again later
+# I will talk about mutate again later
 
 time1_survey <-
   time1_survey %>%
@@ -489,7 +489,7 @@ select(joined_survey, id, interdep_c, gratitude_t1)
 ```
 
 ```r
-#a more tidy way
+# a more tidy way
 joined_survey %>%
   select(id, interdep_c, gratitude_t1)
 ```

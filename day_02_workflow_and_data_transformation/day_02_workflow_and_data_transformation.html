@@ -379,7 +379,7 @@ time2_survey &lt;- tibble(id = c(1:9, NA), gratitude_t2)
 
 
 # coerce condition to be a factor
-#I will talk about mutate again later
+# I will talk about mutate again later
 
 time1_survey &lt;-
   time1_survey %&gt;%
@@ -581,7 +581,7 @@ select(joined_survey, id, interdep_c, gratitude_t1)</code></pre>
 ## 7     7 -0.8840336     3.953997
 ## 8     8  0.1488088     3.980700
 ## 9     9 -0.6639402     3.963771</code></pre>
-<pre class="r"><code>#a more tidy way
+<pre class="r"><code># a more tidy way
 joined_survey %&gt;%
   select(id, interdep_c, gratitude_t1)</code></pre>
 <pre><code>## # A tibble: 9 x 3
