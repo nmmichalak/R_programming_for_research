@@ -131,7 +131,7 @@
 - Tidy data
 - R Projects
 - R Markdown
-- Missing data
+- Making MS Powerpoint slides with the officer package
 - Writing functions
 - Student selected topics
 
