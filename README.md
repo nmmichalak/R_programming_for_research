@@ -133,6 +133,7 @@
 - R Markdown
 - Making MS Powerpoint slides with the officer package
 - Writing functions
+- [Iteration](http://r4ds.had.co.nz/iteration.html) (e.g. for loops, map functions)
 - Student selected topics
 
 ## **R Resources**
