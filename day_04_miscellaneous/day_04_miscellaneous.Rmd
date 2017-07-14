@@ -141,7 +141,7 @@ add_health %>%
 
 # create slides with these plots
 
-## create rpptx object
+## create rpptx object with `read_pptx()`
 
 ```{r}
 
@@ -149,26 +149,31 @@ my_pptx <- read_pptx()
 
 ```
 
-## add slide
+## `add_slide()` and `last_plot()`
 
 ```{r}
 
+# add slide
+# add plot with vector graphics
+# ?last_plot()
+# print result to filepath
 my_pptx <-
 my_pptx %>%
   add_slide(layout = "Title and Content", master = "Office Theme") %>% 
   ph_with_vg(code = last_plot() %>% print(), type = "body") %>% 
   print(target = "my_histogram.pptx")
   
-
 ```
 
 # for loop example
 
 ```{r}
 
+# read: for every i in 1 to 10, print i
 for(i in 1:10) {
   
   print(i)
+  
 }
 
 ```
@@ -177,6 +182,8 @@ for(i in 1:10) {
 
 ```{r}
 
+# for every subject id, plot a scatterplot and fit OLS best fit line
+# facet / subplot by Subject
 sleepstudy$Subject %>%
   unique() %>%
   map(function(id) {
@@ -185,7 +192,8 @@ sleepstudy$Subject %>%
       filter(Subject == id) %>%
       ggplot(aes(x = Days, y = Reaction)) +
       geom_point() +
-      stat_smooth(method = "lm", se = FALSE, fullrange = TRUE)
+      stat_smooth(method = "lm", se = FALSE, fullrange = TRUE) +
+      facet_wrap(~ Subject)
   
 })
 
@@ -193,6 +201,14 @@ sleepstudy$Subject %>%
 
 # lmm examples
 > see Bates, D., Mächler, M., Bolker, B., & Walker, S. (2014). [Fitting linear mixed-effects models using lme4](https://arxiv.org/abs/1406.5823). arXiv preprint arXiv:1406.5823 and also Bates, D. M. (2010). [lme4: Mixed-effects modeling with R](http://lme4.0.r-forge.r-project.org/lMMwR/lrgprt.pdf).
+
+# notes on lmm / lme4 p-values 
+
+```{r}
+
+help("pvalues")
+
+```
 
 ## random intercept with fixed mean
 
@@ -308,4 +324,3 @@ lmm_5_alt <- lmer(Reaction ~ 1 + Days + (1 | Subject) + (0 + Days | Subject), da
 anova(lmm_5, lmm_5_alt)
 
 ```
-
