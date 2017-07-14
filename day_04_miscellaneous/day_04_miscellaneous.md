@@ -318,17 +318,21 @@ add_health %>%
 
 # create slides with these plots
 
-## create rpptx object
+## create rpptx object with `read_pptx()`
 
 
 ```r
 my_pptx <- read_pptx()
 ```
 
-## add slide
+## `add_slide()` and `last_plot()`
 
 
 ```r
+# add slide
+# add plot with vector graphics
+# ?last_plot()
+# print result to filepath
 my_pptx <-
 my_pptx %>%
   add_slide(layout = "Title and Content", master = "Office Theme") %>% 
@@ -344,9 +348,11 @@ my_pptx %>%
 
 
 ```r
+# read: for every i in 1 to 10, print i
 for(i in 1:10) {
   
   print(i)
+  
 }
 ```
 
@@ -367,6 +373,8 @@ for(i in 1:10) {
 
 
 ```r
+# for every subject id, plot a scatterplot and fit OLS best fit line
+# facet / subplot by Subject
 sleepstudy$Subject %>%
   unique() %>%
   map(function(id) {
@@ -375,7 +383,8 @@ sleepstudy$Subject %>%
       filter(Subject == id) %>%
       ggplot(aes(x = Days, y = Reaction)) +
       geom_point() +
-      stat_smooth(method = "lm", se = FALSE, fullrange = TRUE)
+      stat_smooth(method = "lm", se = FALSE, fullrange = TRUE) +
+      facet_wrap(~ Subject)
   
 })
 ```
@@ -508,6 +517,13 @@ sleepstudy$Subject %>%
 # lmm examples
 > see Bates, D., Mächler, M., Bolker, B., & Walker, S. (2014). [Fitting linear mixed-effects models using lme4](https://arxiv.org/abs/1406.5823). arXiv preprint arXiv:1406.5823 and also Bates, D. M. (2010). [lme4: Mixed-effects modeling with R](http://lme4.0.r-forge.r-project.org/lMMwR/lrgprt.pdf).
 
+# notes on lmm / lme4 p-values 
+
+
+```r
+help("pvalues")
+```
+
 ## random intercept with fixed mean
 
 
@@ -559,10 +575,10 @@ lmm_1 %>%
 
 ```
 ##                  2.5 %    97.5 %
-## .sig01       24.463494  51.43403
-## .sigma       27.778830  34.54516
-## (Intercept) 232.742174 269.24619
-## Days          8.940669  12.13579
+## .sig01       23.068617  49.41114
+## .sigma       27.674451  34.28831
+## (Intercept) 231.291143 270.51111
+## Days          8.789178  12.02627
 ```
 
 ```r
@@ -634,10 +650,10 @@ lmm_2 %>%
 
 ```
 ##                  2.5 %    97.5 %
-## .sig01       1.9188587  3.692065
-## .sig02       0.0000000  2.645813
-## .sigma       0.6315124  1.036253
-## (Intercept) 58.6402958 61.271733
+## .sig01       1.8957138  3.699118
+## .sig02       0.0000000  2.599861
+## .sigma       0.6239417  1.029506
+## (Intercept) 58.7682335 61.352554
 ```
 
 ```r
@@ -711,10 +727,10 @@ lmm_3 %>%
 
 ```
 ##                  2.5 %     97.5 %
-## .sig01       0.5659467  1.1146213
-## .sig02       0.8621149  3.1213001
-## .sigma       0.4778610  0.6292782
-## (Intercept) 21.1822389 24.6237549
+## .sig01       0.5561657  1.0886871
+## .sig02       0.8056499  3.0153786
+## .sigma       0.4805159  0.6249864
+## (Intercept) 21.2407665 24.6045805
 ```
 
 ```r
@@ -790,13 +806,13 @@ lmm_4 %>%
 ```
 
 ```
-##                  2.5 %      97.5 %
-## .sig01       10.416686  34.3713773
-## .sig02       -0.507862   0.9559143
-## .sig03        3.007763   8.2812253
-## .sigma       22.758026  28.5199763
-## (Intercept) 238.150453 265.2868636
-## Days          7.461822  13.8569006
+##                   2.5 %      97.5 %
+## .sig01       12.2328265  35.5523491
+## .sig02       -0.5448427   0.9442881
+## .sig03        3.4706950   8.2854461
+## .sigma       22.5755741  28.5413268
+## (Intercept) 238.3432985 265.0934430
+## Days          7.8308448  13.6338617
 ```
 
 ```r
@@ -873,11 +889,11 @@ lmm_5 %>%
 
 ```
 ##                  2.5 %     97.5 %
-## .sig01       13.282856  35.829735
-## .sig02        3.498033   8.201913
-## .sigma       22.411223  28.709700
-## (Intercept) 239.053016 265.771697
-## Days          7.507833  13.580686
+## .sig01       12.803523  36.030904
+## .sig02        3.626702   8.537534
+## .sigma       22.532207  28.672132
+## (Intercept) 237.939977 266.534613
+## Days          7.552651  13.564118
 ```
 
 ```r
@@ -901,4 +917,3 @@ anova(lmm_5, lmm_5_alt)
 ## lmm_5      5 1762 1778   -876     1752                        
 ## lmm_5_alt  5 1762 1778   -876     1752     0      0          1
 ```
-
