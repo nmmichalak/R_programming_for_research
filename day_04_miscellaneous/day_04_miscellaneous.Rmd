@@ -19,7 +19,7 @@ output:
 ```{r}
 
 # character vector of packages you'll need for your whole analysis
-needed_packages <- c("tidyverse", "stringr", "haven", "readxl", "psych", "officer", "rvg")
+needed_packages <- c("tidyverse", "stringr", "haven", "readxl", "psych", "officer", "rvg", "broom", "lme4", "lavaan")
 
 # source custom function
 source("custom_functions/install_needed_pkgs.R")
@@ -35,7 +35,7 @@ install_needed_pkgs(needed_packages = needed_packages)
 
 add_health <-
 "~/Desktop/R_programming_for_research/day_01_data_import_and_visualization/example_tidy_data/ICPSR_21600/DS0001/21600-0001-Data.sav" %>%
-  read_sav()
+  read_spss()
 
 ```
 
@@ -97,14 +97,26 @@ add_health %>%
 
 add_health %>%
   select(AID, num_range(prefix = "H1RP", range = 1:6)) %>%
-  gather(variable, value, -AID) %>%
-  ggplot(mapping = aes(x = value)) +
+  gather(key = question, value = response, -AID) %>%
+  ggplot(mapping = aes(x = response)) +
   geom_histogram(binwidth = 1, color = "white") +
-  facet_wrap(~ variable)
+  facet_wrap(~ question)
+
+```
+
+## scatterplot matrix
+
+```{r}
+
+add_health %>%
+  select(AID, num_range(prefix = "H1RP", range = 1:6)) %>%
+  pairs.panels(pch = ".")
 
 ```
 
 # Section 9: Self Efficacy
+
+## histograms
 
 ```{r}
 
@@ -114,6 +126,16 @@ add_health %>%
   ggplot(mapping = aes(x = value)) +
   geom_histogram(binwidth = 1, color = "white") +
   facet_wrap(~ variable)
+
+```
+
+## scatterplot matrix
+
+```{r}
+
+add_health %>%
+  select(AID, num_range(prefix = "H1SE", range = 1:4)) %>%
+  pairs.panels(pch = ".")
 
 ```
 
@@ -137,6 +159,153 @@ my_pptx %>%
   ph_with_vg(code = last_plot() %>% print(), type = "body") %>% 
   print(target = "my_histogram.pptx")
   
+
+```
+
+# for loop example
+
+```{r}
+
+for(i in 1:10) {
+  
+  print(i)
+}
+
+```
+
+# map functions examples
+
+```{r}
+
+sleepstudy$Subject %>%
+  unique() %>%
+  map(function(id) {
+  
+  sleepstudy %>%
+      filter(Subject == id) %>%
+      ggplot(aes(x = Days, y = Reaction)) +
+      geom_point() +
+      stat_smooth(method = "lm", se = FALSE, fullrange = TRUE)
+  
+})
+
+```
+
+# lmm examples
+> see Bates, D., Mächler, M., Bolker, B., & Walker, S. (2014). [Fitting linear mixed-effects models using lme4](https://arxiv.org/abs/1406.5823). arXiv preprint arXiv:1406.5823 and also Bates, D. M. (2010). [lme4: Mixed-effects modeling with R](http://lme4.0.r-forge.r-project.org/lMMwR/lrgprt.pdf).
+
+## random intercept with fixed mean
+
+```{r}
+
+# fit model
+lmm_1 <- lmer(Reaction ~ Days + (1 | Subject), data = sleepstudy, REML = TRUE)
+
+# fit summary
+lmm_1 %>%
+  summary()
+
+# bootstrapped confidence intervals
+lmm_1 %>%
+  confint(method = "boot")
+
+# alternative fit (i.e. same model, more typing)
+lmm_1_alt <- lmer(Reaction ~ 1 + Days + (1 | Subject), data = sleepstudy, REML = TRUE)
+
+# check to make sure
+anova(lmm_1, lmm_1_alt)
+
+```
+
+## intercept varying among group 1 and group 2 within group 1 (i.e. nesting)
+
+```{r}
+
+# fit model
+lmm_2 <- lmer(strength ~ 1 + (1 | batch / cask), data = Pastes, REML = TRUE)
+
+# fit summary
+lmm_2 %>%
+  summary()
+
+# bootstrapped confidence intervals
+lmm_2 %>%
+  confint(method = "boot")
+
+# alternative fit (i.e. same model, more typing)
+lmm_2_alt <- lmer(strength ~ 1 + (1 | batch) + (1 | batch:cask), data = Pastes, REML = TRUE)
+
+# check to make sure
+anova(lmm_2, lmm_2_alt)
+
+```
+
+## intercept varying among group 1 and group 2
+
+```{r}
+
+# fit model
+lmm_3 <- lmer(diameter ~ 1 + (1 | plate) + (1 | sample), data = Penicillin, REML = TRUE)
+
+# fit summary
+lmm_3 %>%
+  summary()
+
+# bootstrapped confidence intervals
+lmm_3 %>%
+  confint(method = "boot")
+
+# alternative fit (i.e. same model, less typing)
+lmm_3_alt <- lmer(diameter ~ (1 | plate) + (1 | sample), data = Penicillin, REML = TRUE)
+
+# check to make sure
+anova(lmm_3, lmm_3_alt)
+
+```
+
+## Correlated random intercept and slope.
+
+```{r}
+
+# fit model
+lmm_4 <- lmer(Reaction ~ Days + (Days | Subject), data = sleepstudy, REML = TRUE)
+
+# fit summary
+lmm_4 %>%
+  summary()
+
+# bootstrapped confidence intervals
+lmm_4 %>%
+  confint(method = "boot")
+
+# alternative fit (i.e. same model, more typing)
+lmm_4_alt <- lmer(Reaction ~ 1 + Days + (1 + Days | Subject), data = sleepstudy, REML = TRUE)
+
+# check to make sure
+anova(lmm_4, lmm_4_alt)
+
+```
+
+## Uncorrelated random intercept and slope.
+
+```{r}
+
+# fit model
+lmm_5 <- lmer(Reaction ~ Days + (Days || Subject), data = sleepstudy, REML = TRUE)
+
+# fit summary
+lmm_5 %>%
+  summary()
+
+# bootstrapped confidence intervals
+lmm_5 %>%
+  confint(method = "boot")
+
+# alternative fit (i.e. same model, more typing)
+lmm_5_alt <- lmer(Reaction ~ 1 + Days + (1 | Subject) + (0 + Days | Subject), data = sleepstudy, REML = TRUE)
+
+# check to make sure
+anova(lmm_5, lmm_5_alt)
 
 ```
 
