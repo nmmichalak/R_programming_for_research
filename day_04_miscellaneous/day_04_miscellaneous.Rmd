@@ -1,0 +1,142 @@
+---
+title: "Day 4. Miscellaneous"
+author: "Nicholas Michalak"
+date: "7/14/2017"
+output: 
+  html_document:
+    fig_height: 7.5
+    fig_width: 10.5
+    keep_md: yes
+    theme: readable
+    toc: true
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
+---
+
+# load packages
+
+```{r}
+
+# character vector of packages you'll need for your whole analysis
+needed_packages <- c("tidyverse", "stringr", "haven", "readxl", "psych", "officer", "rvg")
+
+# source custom function
+source("custom_functions/install_needed_pkgs.R")
+
+# install needed packages
+install_needed_pkgs(needed_packages = needed_packages)
+
+```
+
+# read data
+
+```{r}
+
+add_health <-
+"~/Desktop/R_programming_for_research/day_01_data_import_and_visualization/example_tidy_data/ICPSR_21600/DS0001/21600-0001-Data.sav" %>%
+  read_sav()
+
+```
+
+# some descriptives
+
+## age
+> HOW OLD ARE YOU?
+
+### counts
+
+```{r}
+
+add_health %>%
+  count(S1)
+
+```
+
+### convert to number and then describe
+
+```{r}
+
+add_health %>%
+  mutate(age = S1 %>% parse_number()) %>%
+  select(age) %>%
+  psych::describe()
+
+```
+
+### histogram
+
+```{r}
+
+add_health %>%
+  ggplot(aes(x = S1)) +
+  geom_histogram(binwidth = 1, bins = 10, color = "white") +
+  scale_x_continuous(breaks = seq(9, 20, 1)) +
+  coord_cartesian(xlim = c(10, 19))
+
+```
+
+## sex
+> WHAT SEX ARE YOU?
+
+### counts
+
+```{r}
+
+add_health %>%
+  mutate(sex = S2 %>%
+           parse_character() %>%
+           recode(`1` = "Male", `2` = "Female")) %>%
+  count(sex)
+
+```
+
+# Section 8: Pregnancy, AIDS, and STD Risk Perceptions
+
+```{r}
+
+add_health %>%
+  select(AID, num_range(prefix = "H1RP", range = 1:6)) %>%
+  gather(variable, value, -AID) %>%
+  ggplot(mapping = aes(x = value)) +
+  geom_histogram(binwidth = 1, color = "white") +
+  facet_wrap(~ variable)
+
+```
+
+# Section 9: Self Efficacy
+
+```{r}
+
+add_health %>%
+  select(AID, num_range(prefix = "H1SE", range = 1:4)) %>%
+  gather(variable, value, -AID) %>%
+  ggplot(mapping = aes(x = value)) +
+  geom_histogram(binwidth = 1, color = "white") +
+  facet_wrap(~ variable)
+
+```
+
+# create slides with these plots
+
+## create rpptx object
+
+```{r}
+
+my_pptx <- read_pptx()
+
+```
+
+## add slide
+
+```{r}
+
+my_pptx <-
+my_pptx %>%
+  add_slide(layout = "Title and Content", master = "Office Theme") %>% 
+  ph_with_vg(code = last_plot() %>% print(), type = "body") %>% 
+  print(target = "my_histogram.pptx")
+  
+
+```
+
