@@ -29,7 +29,7 @@ library(lme4)
 library(fivethirtyeight)
 ```
 
-# how do answer research questions with plots?
+# how do I answer research questions with plots?
 - **use ggplot2.**
 - **ggplot2 metaphor.** think of a ggplot2 plot like a "map of the world" that you build one layer at a time.
 - imagine a map of the world without land (i.e., water only).
@@ -37,7 +37,7 @@ library(fivethirtyeight)
 
 ![](https://pbs.twimg.com/media/CELudTlUgAAA7a-.png)
 
-# how do answer research questions with plots?
+# how do I answer research questions with plots?
 > 1. [**grammar of graphics**](http://vita.had.co.nz/papers/layered-grammar.html), a visualization philosophy
 > 2. start with `ggplot()`
 > 3. supply a dataset and aesthetic mapping, `aes()`
@@ -61,23 +61,23 @@ mpg %>% sample_n(size = 15)
 
 <div class="kable-table">
 
-manufacturer   model                  displ   year   cyl  trans        drv    cty   hwy  fl   class      
--------------  --------------------  ------  -----  ----  -----------  ----  ----  ----  ---  -----------
-volkswagen     jetta                    2.5   2008     5  auto(s6)     f       21    29  r    compact    
-audi           a4 quattro               3.1   2008     6  manual(m6)   4       15    25  p    compact    
-volkswagen     passat                   1.8   1999     4  manual(m5)   f       21    29  p    midsize    
-chevrolet      c1500 suburban 2wd       5.7   1999     8  auto(l4)     r       13    17  r    suv        
-toyota         toyota tacoma 4wd        4.0   2008     6  manual(m6)   4       15    18  r    pickup     
-audi           a4                       2.0   2008     4  manual(m6)   f       20    31  p    compact    
-hyundai        sonata                   2.4   2008     4  manual(m5)   f       21    31  r    midsize    
-hyundai        tiburon                  2.0   1999     4  manual(m5)   f       19    29  r    subcompact 
-subaru         forester awd             2.5   1999     4  auto(l4)     4       18    24  r    suv        
-dodge          durango 4wd              4.7   2008     8  auto(l5)     4       13    17  r    suv        
-chevrolet      c1500 suburban 2wd       5.3   2008     8  auto(l4)     r       11    15  e    suv        
-volkswagen     gti                      2.8   1999     6  manual(m5)   f       17    24  r    compact    
-audi           a4 quattro               1.8   1999     4  auto(l5)     4       16    25  p    compact    
-dodge          ram 1500 pickup 4wd      4.7   2008     8  manual(m6)   4        9    12  e    pickup     
-land rover     range rover              4.6   1999     8  auto(l4)     4       11    15  p    suv        
+manufacturer   model                  displ   year   cyl  trans        drv    cty   hwy  fl   class   
+-------------  --------------------  ------  -----  ----  -----------  ----  ----  ----  ---  --------
+nissan         maxima                   3.5   2008     6  auto(av)     f       19    25  p    midsize 
+chevrolet      corvette                 7.0   2008     8  manual(m6)   r       15    24  p    2seater 
+ford           f150 pickup 4wd          4.6   1999     8  manual(m5)   4       13    16  r    pickup  
+toyota         camry                    2.2   1999     4  manual(m5)   f       21    29  r    midsize 
+toyota         camry                    3.0   1999     6  manual(m5)   f       18    26  r    midsize 
+audi           a6 quattro               3.1   2008     6  auto(s6)     4       17    25  p    midsize 
+toyota         toyota tacoma 4wd        4.0   2008     6  auto(l5)     4       16    20  r    pickup  
+dodge          ram 1500 pickup 4wd      4.7   2008     8  manual(m6)   4       12    16  r    pickup  
+chevrolet      malibu                   3.6   2008     6  auto(s6)     f       17    26  r    midsize 
+toyota         camry solara             3.3   2008     6  auto(s5)     f       18    27  r    compact 
+toyota         camry solara             2.4   2008     4  auto(s5)     f       22    31  r    compact 
+audi           a4 quattro               2.8   1999     6  auto(l5)     4       15    25  p    compact 
+dodge          dakota pickup 4wd        4.7   2008     8  auto(l5)     4       14    19  r    pickup  
+chevrolet      c1500 suburban 2wd       5.3   2008     8  auto(l4)     r       14    20  r    suv     
+chevrolet      malibu                   3.1   1999     6  auto(l4)     f       18    26  r    midsize 
 
 </div>
 
@@ -203,21 +203,21 @@ sleepstudy %>% sample_n(size = 15)
 
        Reaction   Days  Subject 
 ----  ---------  -----  --------
-87     245.4523      6  335     
-86     254.6362      5  335     
-32     300.4002      1  330     
-88     235.3110      7  335     
-16     215.9618      5  309     
-15     207.7161      4  309     
-36     297.5855      5  330     
-58     346.8311      7  332     
-169    350.7807      8  371     
-67     332.0265      6  333     
-114    255.5271      3  350     
-131    221.6771      0  352     
-78     331.5229      7  334     
-98     416.6923      7  337     
-91     312.3666      0  337     
+171    269.4117      0  372     
+31     321.5426      0  330     
+108    308.1020      7  349     
+65     297.1710      4  333     
+24     232.8416      3  310     
+166    284.5120      5  371     
+66     338.1665      5  333     
+126    304.6336      5  351     
+135    348.7402      4  352     
+158    347.5855      7  370     
+61     283.8424      0  333     
+5      356.8519      4  308     
+82     273.9472      1  335     
+103    238.9256      2  349     
+75     279.0244      4  334     
 
 </div>
 
@@ -260,21 +260,21 @@ US_births_2000_2014 %>% sample_n(size = 15)
 
  year   month   date_of_month  date         day_of_week    births
 -----  ------  --------------  -----------  ------------  -------
- 2003       6              17  2003-06-17   Tues            13443
- 2014       6               8  2014-06-08   Sun              7359
- 2000       9              24  2000-09-24   Sun              8539
- 2001       2               4  2001-02-04   Sun              7716
- 2007       4               1  2007-04-01   Sun              7372
- 2009       2              13  2009-02-13   Fri             11832
- 2009      11              20  2009-11-20   Fri             13002
- 2006       2               1  2006-02-01   Wed             12960
- 2004       4              17  2004-04-17   Sat              8584
- 2008       9              23  2008-09-23   Tues            14464
- 2003      10              11  2003-10-11   Sat              8721
- 2000      12              19  2000-12-19   Tues            13829
- 2003       3               5  2003-03-05   Wed             12483
- 2009      11              21  2009-11-21   Sat              8335
- 2007       1              26  2007-01-26   Fri             13110
+ 2008       4               3  2008-04-03   Thurs           13340
+ 2005       1               5  2005-01-05   Wed             12671
+ 2005      10               9  2005-10-09   Sun              7508
+ 2006      11               1  2006-11-01   Wed             13969
+ 2009       8               9  2009-08-09   Sun              7683
+ 2006       3              31  2006-03-31   Fri             12406
+ 2013      11              15  2013-11-15   Fri             12339
+ 2003      10              30  2003-10-30   Thurs           12600
+ 2008       4              29  2008-04-29   Tues            13313
+ 2014       4              20  2014-04-20   Sun              6877
+ 2005       1              14  2005-01-14   Fri             12562
+ 2008       2               5  2008-02-05   Tues            13447
+ 2013       2              11  2013-02-11   Mon             11460
+ 2008       3              10  2008-03-10   Mon             12648
+ 2001       3              13  2001-03-13   Tues            12534
 
 </div>
 

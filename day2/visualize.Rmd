@@ -30,7 +30,7 @@ library(fivethirtyeight)
 
 ```
 
-# how do answer research questions with plots?
+# how do I answer research questions with plots?
 - **use ggplot2.**
 - **ggplot2 metaphor.** think of a ggplot2 plot like a "map of the world" that you build one layer at a time.
 - imagine a map of the world without land (i.e., water only).
@@ -38,7 +38,7 @@ library(fivethirtyeight)
 
 ![](https://pbs.twimg.com/media/CELudTlUgAAA7a-.png)
 
-# how do answer research questions with plots?
+# how do I answer research questions with plots?
 > 1. [**grammar of graphics**](http://vita.had.co.nz/papers/layered-grammar.html), a visualization philosophy
 > 2. start with `ggplot()`
 > 3. supply a dataset and aesthetic mapping, `aes()`
