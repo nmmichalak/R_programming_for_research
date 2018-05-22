@@ -1,37 +1,38 @@
 ---
-title: "Day 0. Installation and demonstration"
-author: "Nicholas Michalak"
-date: "6/24/2017"
-output: 
-  html_document:
-    fig_height: 7.5
-    fig_width: 10.5
-    keep_md: yes
-    theme: readable
-    toc: true
-    toc_float:
-      collapsed: false
-      smooth_scroll: false
+title: "day 1 installation and introduction"
+date: "05/22/2018"
 ---
 
-# install prerequisite packages
+# how do I install R and R Studio (you need both in that order)
+> * installing R ([**Macintosh**](https://stats.idre.ucla.edu/r/icu/installing-r-for-macintosh/) / [**Windows**](https://stats.idre.ucla.edu/r/icu/installing-r-for-windows/))
+> * uninstalling R ([**Macintosh**](https://cran.r-project.org/doc/manuals/r-release/R-admin.html#Uninstalling-under-macOS) / [**Windows**](https://cran.r-project.org/doc/manuals/r-release/R-admin.html#Uninstallation))
+> * installing R Studio [[**.html**](https://www.rstudio.com/products/rstudio/download/)]
+> * uninstalling R Studio [[**.html**](https://support.rstudio.com/hc/en-us/articles/200554736-How-To-Uninstall-RStudio-Desktop)]
 
-```{r}
+# what are all the panels in R Studio?
+![](images/r_studio_panels_tutorial.png)
 
-# character vector of packages you'll need for your whole analysis
-needed_packages <- c("tidyverse", "psych", "haven", "lavaan", "lme4", "lmerTest", "afex", "compute.es")
+# how do I install and load new R packages?
+> use `install.packages()` and `library()`  
+> "Packages are collections of R functions, data, and compiled code in a well-defined format. The directory where packages are stored is called the library. R comes with a standard set of packages. Others are available for download and installation. Once installed, they have to be loaded into the session to be used." [[.html](https://www.statmethods.net/interface/packages.html)]  
+> similies: App Store, iBooks, Google Play store   
 
-# source custom function
-lapply(list.files(path = "custom_functions/", pattern = "\\.R", full.names = TRUE), source)
+**sources.** `help("install.packages")` and `help("library")`
 
-# install needed packages
-install_needed_pkgs(needed_packages = needed_packages)
+```{r, warning = FALSE, message = FALSE}
+
+# install.packages("tidyverse")
+library(tidyverse)
 
 ```
 
-# running R code: a complex but important example
+# how do I run R code?
+> start with simple examples
 
-## 5 numbers drawn randomly from numbers 1-10 (random draw not shown here)
+# example: save five numbers to an R object called `my_numbers`
+> `c()`: "Combine Values into a Vector or List"
+> `<-`: "Assign a value to a name."  
+> **English:** combine 10, 6, 2, 8, and 3, sane save this "combination" (i.e., vector of these numbers) to an object called `my_numbers`.
 
 ```{r}
 
@@ -39,7 +40,7 @@ my_numbers <- c(10, 6, 2, 8, 3)
 
 ```
 
-> Note: If you want to print and save at the same time, surround everything with ()
+> **note:** if you want to print and save at the same time, surround everything with `()`
 
 ```{r}
 
@@ -47,19 +48,20 @@ my_numbers <- c(10, 6, 2, 8, 3)
 
 ```
 
-
-## use a "?" before the name of an R function to view detailed information about that function
+# how to I learn more about the details of an R function or package or dataset?
+> use a `?` before the name of an R function or package or dataset, or use `help("functionname")` or `help("packagename")` or `help("datasetname")` to see documentation about those things.
 
 ```{r}
 
-?c
-?sum
-?length
-?mean
+help("c")
+help("sum")
+help("length")
+help("mean")
 
 ```
 
-## how long is this vector of numbers? / how many numbers are there?
+# how long is `my_numbers` (i.e., how many numbers are in `my_numbers`)?
+> the first argument of the length() function asks for an R object. below, we use `my_numbers`, which is an R object.
 
 ```{r}
 
@@ -67,7 +69,7 @@ length(my_numbers)
 
 ```
 
-## what's the sum of these numbers?
+# what is the sum of `my_numbers`?
 
 ```{r}
 
@@ -75,7 +77,8 @@ sum(my_numbers)
 
 ```
 
-## what's the mean / average of these numbers
+# what is the mean of `my_numbers`?
+> the sum of `my_numbers` divided by the length of `my_numbers`
 
 ```{r}
 
@@ -83,7 +86,8 @@ sum(my_numbers) / length(my_numbers)
 
 ```
 
-## we can also use the `mean()` function
+# what is the mean of `my_numbers`?
+> we can also just use the `mean()` function
 
 ```{r}
 
@@ -91,7 +95,11 @@ mean(my_numbers)
 
 ```
 
-## how do functions work? 
+# but what are functions and how do they work?
+> "A function is a piece of code written to carry out a specified task; it can or can not accept arguments or parameters and it can or can not return one or more values."" **Functions do things for you.** [[.html](https://www.datacamp.com/community/tutorials/functions-in-r-a-tutorial#what)]
+
+# how would a simple mean function work?
+> out custom `compute_mean()` function has one argument: values, which are numbers. our function takes the sum of the input (i.e., values) and divides by the length of that input. the function outputs the result of that computation.
 
 ```{r}
 
@@ -103,7 +111,7 @@ mean(my_numbers)
 
 ```
 
-## now let's use our `compute_mean()` function
+# use the `compute_mean()` function to compute the mean of `my_numbers`.
 
 ```{r}
 
@@ -111,7 +119,7 @@ compute_mean(values = my_numbers)
 
 ```
 
-## functions are "stupid"; R is "stupid"
+# functions are "stupid"; R is "stupid"
 > they only do exactly what you tell them to do and assume what they are programmed to assume. what if we add a missing value (a.k.a., NA, "Not available")
 
 ```{r}
@@ -120,7 +128,7 @@ compute_mean(values = my_numbers)
 
 ```
 
-## now use our `compute_mean()` function on this new vector
+# use the `compute_mean()` function to compute the mean of of new `my_numbers` that includes a missing value.
 
 ```{r}
 
@@ -128,28 +136,26 @@ compute_mean(values = my_numbers)
 
 ```
 
-> is this what you expected? Turns out, this isn't a quirky feature of R. R was designed by statisticians and mathematicians. NA represents a value that is unknown. Ask yourself, what is the sum of an unknown value and 17? If you don't know the value, then you don't know the value of adding it to 17 either. Our `compute_mean()` function gives NA for this reason: the mean of 5 values and an unknwon value is NA; it's unknown; it's not available or missing.
+# is this what you expected?
+> turns out, this isn't a quirky feature of R. R was designed by statisticians and mathematicians. NA represents a value that is unknown. ask yourself, what is the sum of an unknown value and 17? if you don't know the value, then you don't know the value of adding it to 17 either. our `compute_mean()` function gives NA for this reason: the mean of 5 values and an unknwon value is NA; it's unknown; it's not available; it's missing.
 
-## when you use functions throughout this course and into your own research ...
+# when you use functions throughout this course and in your own research ...
 > think about what the functions "assume" or "know"; ask, "What do I want the function to do? What do I expect it to do? Can the function do what I want with the information I gave it?"
 
 ```{r}
 
 (compute_mean <- function(values, remove_missing = TRUE) {
   
-  if (remove_missing == TRUE) {
-    
+  if(remove_missing == TRUE) {
     values <- na.omit(values)
-    
   }
   
   sum(values) / length(values)
-  
-})
+  })
 
 ```
 
-## remember this example every time you give data to a function
+# remember this example every time you give data to a function
 
 ```{r}
 
@@ -160,383 +166,88 @@ mean(my_numbers, na.rm = TRUE)
 
 ```
 
-# generate data for examples
+# how do I use the pipe operator (`%>%`) from tidyverse?
+> the `%>%` operator allows you to "pipe"" a value forward into an expression or function; something along the lines of `x %>% f`, rather than `f(x)`.see the magrittr page [[.html](http://magrittr.tidyverse.org/articles/magrittr.html)] for more details, but check out these examples below.
+
+# example:
+
+![](images/rstudio_pipe_ilove.jpg)
+
+# how do I transform `my_numbers` into z-scores?
+> use the `scale()` function: "`scale()` is generic function whose default method centers and/or scales the columns of a numeric matrix."
+
+**source.** `help("scale")`
 
 ```{r}
 
-# create four variables: N, x, z, and y
-# 100 observations per variable
-N <- 100
-id <- 1:100
-
-# set randomizer seed so results can be reproduced
-set.seed(1234)
-
-# drawn from random normal distribution
-x <- rnorm(n = N, mean = 175, sd = 7)
-z <- 0.7 * x + rnorm(n = N, mean = 0, sd = 5)
-y <- 0.4 * z + rnorm(n = N, mean = 0, sd = 5)
-
-# store in a dataframe
-(my_data <- tibble(id, y, x, z))
+my_numbers %>% scale()
 
 ```
 
-# descriptives
+# how do convert z-scores outputted from the `scale()` function into only numbers?
+> use the `parse_number()` function: "This drops any non-numeric characters before or after the first number. The grouping mark specified by the locale is ignored inside the number."
+
+**source.** `help("parse_number")`
 
 ```{r}
 
-my_data %>%
-  select(x, y, z) %>%
-  psych::describe(.)
+my_numbers %>% scale() %>% parse_number()
 
 ```
 
-> Note: cite your tools
+# compute the mean of our new z-scores
+> should be zero
 
 ```{r}
 
-citation("psych")
+my_numbers %>% scale() %>% parse_number() %>% mean()
 
 ```
 
-# correlation matrix
+# oops!
+> we forgot to tell `mean()` to remove NA values before computing
 
 ```{r}
 
-my_data %>%
-  select(x, y, z) %>%
-  pairs.panels(pch = ".")
+my_numbers %>% scale() %>% parse_number() %>% mean(na.rm = TRUE)
 
 ```
 
-# histograms
+# the result rounds to zero
+> `round()`: "round rounds the values in its first argument to the specified number of decimal places (default 0)."
+
+**source.** `help("round")`
 
 ```{r}
 
-my_data %>%
-  gather(variable, value, x, y, z) %>%
-  ggplot() +
-  geom_histogram(aes(x = value)) +
-  facet_wrap(~ variable, nrow = 3)
+my_numbers %>% scale() %>% parse_number() %>% mean(na.rm = TRUE) %>% round(1)
 
 ```
 
-# boxplots
+# here are some other basic data types in R
+1. character type: categories, think words, letters, etc.
+2. factor type: think categories but with numeric values assigned to them so they can be used in statistical models
+3. data frame type: think of an Excel spreadsheet
+
+**sources.** help("factor") and vignette("tibble")
 
 ```{r}
 
-my_data %>%
-  gather(variable, value, x, y, z) %>%
-  ggplot(aes(x = variable, y = value)) +
-  geom_boxplot()
+(my_ids <- c(1, 2, 3, 4, 5, 6))
+(my_condtions <- c("control", "control", "control", "treatment", "treatment", "treatment"))
+(my_condtionsF <- factor(my_condtions))
+(my_dataframe <- tibble(my_ids, my_numbers, my_condtions, my_condtionsF))
 
 ```
 
-# scatterplots
-
-```{r}
-
-my_data %>%
-  ggplot(aes(x = x, y = z)) +
-  geom_point() +
-  geom_smooth(method = "lm")
-
-my_data %>%
-  ggplot(aes(x = x, y = y)) +
-  geom_point() +
-  geom_smooth(method = "lm")
-
-my_data %>%
-  ggplot(aes(x = z, y = y)) +
-  geom_point() +
-  geom_smooth(method = "lm")
-
-```
-
-# correlation tests
-
-```{r}
-
-my_data %>%
-  select(x, y, z) %>%
-  corr.test(.) %>%
-  print(short = FALSE)
-
-```
-
-# principal components analysis
-
-```{r}
-
-my_data %>%
-  select(x, y, z) %>%
-  principal(.)
-
-```
-
-# exploratory factor analysis
-
-```{r}
-
-my_data %>%
-  select(x, y, z) %>%
-  fa(.)
-
-```
-
-## add diagram
-
-```{r}
-
-my_data %>%
-  select(x, y, z) %>%
-  fa(.) %>%
-  fa.diagram(.)
-
-```
-
-# t-tests
-
-```{r}
-
-t.test(x, y)
-t.test(x, z)
-t.test(z, y)
-
-```
-
-# classic ANOVA
-
-```{r}
-
-my_data %>%
-  gather(variable, value, x, y, z) %>%
-  mutate(id = 1:300) %>%
-  aov_car(formula = value ~ variable + Error(id), data = .) %>%
-  summary(.)
-
-```
-
-## Note: cite your tools
-
-```{r}
-
-citation("afex")
-
-```
-
-# folow up contrasts and confidence intervals (classic ANOVA)
-
-```{r}
-
-my_data %>%
-  gather(variable, value, x, y, z) %>%
-  mutate(id = 1:300) %>%
-  aov_car(formula = value ~ variable + Error(id), data = .) %>%
-  lsmeans::lsmeans(specs = "variable") %>%
-  contrast(list(xy = c(-1, 1, 0),
-                xz = c(-1, 0, 1),
-                yz = c(0, -1, 1))) %>%
-  confint(.)
-
-```
-
-# effect sizes
-
-```{r}
-
-mes(m.1 = mean(x),
-    m.2 = mean(y),
-    sd.1 = sd(x),
-    sd.2 = sd(y),
-    n.1 = length(x),
-    n.2 = length(y),
-    level = .95,
-    verbose = TRUE)
-
-```
-
-# classic repeated measures ANOVA
-
-```{r}
-
-my_data %>%
-  gather(variable, value, x, y, z) %>%
-  aov_car(formula = value ~ variable + Error(id/variable), data = .) %>%
-  summary(.)
-
-```
-
-# follow-up contrasts and confidence intervals (classic RM ANOVA)
-
-```{r}
-
-my_data %>%
-  gather(variable, value, x, y, z) %>%
-  aov_car(formula = value ~ variable + Error(id/variable), data = .) %>%
-  lsmeans::lsmeans(specs = "variable") %>%
-  contrast(list(xy = c(-1, 1, 0),
-                xz = c(-1, 0, 1),
-                yz = c(0, -1, 1))) %>%
-  confint(.)
-  
-```
-
-# mediation
-
-## write model
-> Note: Writing a model in a character object like this is exceptional in R, so don't expect to see this all the time. That said, R is extremely flexible, so the author of this package Yves Rosseel dreamt it and made it possible in R.
-
-```{r}
-
-# path label comes before variable
-# e.g. z ~ a * x = label = regress z on x, label it a
-my_mediaition <- "# a path
-                    z ~ a * x
-
-                  # b path
-                    y ~ b * z
-
-                  # c path
-                    y ~ c * x
-
-                  # print total and indirect effects
-                    ab := a * b
-                    total := c + (a * b)"
-
-```
-
-## fit model
-
-```{r}
-
-my_mediaition %>%
-  sem(data = my_data) %>%
-  summary(.)
-
-```
-
-## parameter estimates with boostraped CIs
-
-```{r}
-
-my_mediaition %>%
-  sem(data = my_data,
-      se = "bootstrap",
-      bootstrap = 1000) %>%
-  parameterEstimates(boot.ci.type = "bca.simple")
-
-```
-
-## Note: cite your tools
-
-```{r}
-
-citation("lavaan")
-
-```
-
-# moderated regression
-
-```{r}
-
-my_data %>%
-  lm(y ~ x * z, data = .) %>%
-  summary(.)
-
-```
-
-## simple slopes
-
-```{r}
-
-test_slopes(y = y,
-            x = x,
-            z = z,
-            sd_values = seq(-3, 3, 0.5),
-            mean_center = TRUE,
-            alpha = .05)
-
-```
-
-# linear mixed effects model
-
-```{r}
-
-# model summary
-my_data %>%
-  gather(variable, value, x, y, z) %>%
-  lmer(formula = value ~ variable + (1 | id) + (1 | variable), data = .) %>%
-  summary(.)
-
-```
-
-## print random intercepts
-
-```{r}
-
-my_data %>%
-  gather(variable, value, x, y, z) %>%
-  lmer(formula = value ~ variable + (1 | id) + (1 | variable), data = .) %>%
-  coefficients(.)
-
-```
-
-## Note: cite your tools
-
-```{r}
-
-citation("lme4")
-citation("lmerTest")
-
-```
-
-# latent growth curve
-
-## write model
-
-```{r}
-
-my_growth <- "# latent intercept
-                i =~ 1 * x + 1 * y + 1 * z
-
-              # latent slope
-                s =~ 0 * x + 1 * y + 2 * z"
-
-```
-
-
-## fit model
-
-```{r}
-
-my_growth %>%
-  growth(data = my_data) %>%
-  summary(.)
-
-```
-
-
-## parameter estimates with boostraped CIs
-
-```{r}
-
-my_growth %>%
-  growth(data = my_data,
-         se = "bootstrap",
-         bootstrap = 1000) %>%
-  parameterEstimates(boot.ci.type = "bca.simple")
-
-```
-
-## print intercepts and slopes
-
-```{r}
-
-my_growth %>%
-  growth(data = my_data) %>%
-  predict(.)
-
-```
-
+# exercises
+1. install and load the `tidyverse` package.
+2. create your own numeric object with the `c()` function.
+3. create your own character object with the `c()` function.
+4. store your new objects in a tibble data frame with the `tibble()` function.
+5. **advanced:** create your own **simple** function with one argument.
+
+# resources
+* [**R for Data Science: Import, Tidy, Transform, Visualize, and Model Data.**](http://r4ds.had.co.nz/)
+* [**tidyverse.org**](http://tidyverse.org/)
+* [**the tidyverse style guide**](http://style.tidyverse.org/)
