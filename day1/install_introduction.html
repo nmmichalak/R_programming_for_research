@@ -145,9 +145,13 @@ $(document).ready(function () {
 <div id="how-do-i-install-and-load-new-r-packages" class="section level1">
 <h1>how do I install and load new R packages?</h1>
 <blockquote>
-<p>use <code>install.packages()</code> and <code>library()</code><br />
-“Packages are collections of R functions, data, and compiled code in a well-defined format. The directory where packages are stored is called the library. R comes with a standard set of packages. Others are available for download and installation. Once installed, they have to be loaded into the session to be used.” [<a href="https://www.statmethods.net/interface/packages.html">.html</a>]<br />
-similies: App Store, iBooks, Google Play store</p>
+<ul>
+<li>use <code>install.packages()</code> and <code>library()</code><br />
+</li>
+<li>“Packages are collections of R functions, data, and compiled code in a well-defined format. The directory where packages are stored is called the library. R comes with a standard set of packages. Others are available for download and installation. Once installed, they have to be loaded into the session to be used.” [<a href="https://www.statmethods.net/interface/packages.html">.html</a>]<br />
+</li>
+<li>similies: App Store, iBooks, Google Play store</li>
+</ul>
 </blockquote>
 <p><strong>sources.</strong> <code>help(&quot;install.packages&quot;)</code> and <code>help(&quot;library&quot;)</code></p>
 <pre class="r"><code># install.packages(&quot;tidyverse&quot;)
@@ -162,13 +166,19 @@ library(tidyverse)</code></pre>
 <div id="example-save-five-numbers-to-an-r-object-called-my_numbers" class="section level1">
 <h1>example: save five numbers to an R object called <code>my_numbers</code></h1>
 <blockquote>
-<p><code>c()</code>: “Combine Values into a Vector or List”<br />
-<code>&lt;-</code>: “Assign a value to a name.”<br />
-<strong>English:</strong> combine 10, 6, 2, 8, and 3, sane save this “combination” (i.e., vector of these numbers) to an object called <code>my_numbers</code>.</p>
+<ul>
+<li><code>c()</code>: “Combine Values into a Vector or List”<br />
+</li>
+<li><code>&lt;-</code>: “Assign a value to a name.”<br />
+</li>
+<li><strong>English:</strong> combine 10, 6, 2, 8, and 3, and save this “combination” (i.e., vector of these numbers) to an object called <code>my_numbers</code>.</li>
+</ul>
 </blockquote>
 <pre class="r"><code>my_numbers &lt;- c(10, 6, 2, 8, 3)</code></pre>
 <blockquote>
-<p><strong>note:</strong> if you want to print and save at the same time, surround everything with <code>()</code></p>
+<ul>
+<li><strong>note:</strong> if you want to print and save at the same time, surround everything with <code>()</code></li>
+</ul>
 </blockquote>
 <pre class="r"><code>(my_numbers &lt;- c(10, 6, 2, 8, 3))</code></pre>
 <pre><code>## [1] 10  6  2  8  3</code></pre>
@@ -176,7 +186,9 @@ library(tidyverse)</code></pre>
 <div id="how-to-i-learn-more-about-the-details-of-an-r-function-or-package-or-dataset" class="section level1">
 <h1>how to I learn more about the details of an R function or package or dataset?</h1>
 <blockquote>
-<p>use a <code>?</code> before the name of an R function or package or dataset, or use <code>help(&quot;functionname&quot;)</code> or <code>help(&quot;packagename&quot;)</code> or <code>help(&quot;datasetname&quot;)</code> to see documentation about those things.</p>
+<ul>
+<li>use a <code>?</code> before the name of an R function or package or dataset, or use <code>help(&quot;functionname&quot;)</code> or <code>help(&quot;packagename&quot;)</code> or <code>help(&quot;datasetname&quot;)</code> to see documentation about those things.</li>
+</ul>
 </blockquote>
 <pre class="r"><code>help(&quot;c&quot;)
 help(&quot;sum&quot;)
@@ -186,7 +198,9 @@ help(&quot;mean&quot;)</code></pre>
 <div id="how-long-is-my_numbers-i.e.-how-many-numbers-are-in-my_numbers" class="section level1">
 <h1>how long is <code>my_numbers</code> (i.e., how many numbers are in <code>my_numbers</code>)?</h1>
 <blockquote>
-<p>the first argument of the length() function asks for an R object. below, we use <code>my_numbers</code>, which is an R object.</p>
+<ul>
+<li>the first argument of the length() function asks for an R object. below, we use <code>my_numbers</code>, which is an R object.</li>
+</ul>
 </blockquote>
 <pre class="r"><code>length(my_numbers)</code></pre>
 <pre><code>## [1] 5</code></pre>
@@ -199,7 +213,9 @@ help(&quot;mean&quot;)</code></pre>
 <div id="what-is-the-mean-of-my_numbers" class="section level1">
 <h1>what is the mean of <code>my_numbers</code>?</h1>
 <blockquote>
-<p>the sum of <code>my_numbers</code> divided by the length of <code>my_numbers</code></p>
+<ul>
+<li>the sum of <code>my_numbers</code> divided by the length of <code>my_numbers</code></li>
+</ul>
 </blockquote>
 <pre class="r"><code>sum(my_numbers) / length(my_numbers)</code></pre>
 <pre><code>## [1] 5.8</code></pre>
@@ -207,7 +223,9 @@ help(&quot;mean&quot;)</code></pre>
 <div id="what-is-the-mean-of-my_numbers-1" class="section level1">
 <h1>what is the mean of <code>my_numbers</code>?</h1>
 <blockquote>
-<p>we can also just use the <code>mean()</code> function</p>
+<ul>
+<li>we can also just use the <code>mean()</code> function</li>
+</ul>
 </blockquote>
 <pre class="r"><code>mean(my_numbers)</code></pre>
 <pre><code>## [1] 5.8</code></pre>
@@ -215,13 +233,17 @@ help(&quot;mean&quot;)</code></pre>
 <div id="but-what-are-functions-and-how-do-they-work" class="section level1">
 <h1>but what are functions and how do they work?</h1>
 <blockquote>
-<p>“A function is a piece of code written to carry out a specified task; it can or can not accept arguments or parameters and it can or can not return one or more values.”&quot; <strong>Functions do things for you.</strong> [<a href="https://www.datacamp.com/community/tutorials/functions-in-r-a-tutorial#what">.html</a>]</p>
+<ul>
+<li>“A function is a piece of code written to carry out a specified task; it can or can not accept arguments or parameters and it can or can not return one or more values.”&quot; <strong>Functions do things for you.</strong> [<a href="https://www.datacamp.com/community/tutorials/functions-in-r-a-tutorial#what">.html</a>]</li>
+</ul>
 </blockquote>
 </div>
 <div id="how-would-a-simple-mean-function-work" class="section level1">
 <h1>how would a simple mean function work?</h1>
 <blockquote>
-<p>out custom <code>compute_mean()</code> function has one argument: values, which are numbers. our function takes the sum of the input (i.e., values) and divides by the length of that input. the function outputs the result of that computation.</p>
+<ul>
+<li>out custom <code>compute_mean()</code> function has one argument: values, which are numbers. our function takes the sum of the input (i.e., values) and divides by the length of that input. the function outputs the result of that computation.</li>
+</ul>
 </blockquote>
 <pre class="r"><code>(compute_mean &lt;- function(values) {
   
@@ -242,7 +264,9 @@ help(&quot;mean&quot;)</code></pre>
 <div id="functions-are-stupid-r-is-stupid" class="section level1">
 <h1>functions are “stupid”; R is “stupid”</h1>
 <blockquote>
-<p>they only do exactly what you tell them to do and assume what they are programmed to assume. what if we add a missing value (a.k.a., NA, “Not available”)</p>
+<ul>
+<li>they only do exactly what you tell them to do and assume what they are programmed to assume. what if we add a missing value (a.k.a., NA, “Not available”)</li>
+</ul>
 </blockquote>
 <pre class="r"><code>(my_numbers &lt;- c(10, 6, 2, 8, 3, NA))</code></pre>
 <pre><code>## [1] 10  6  2  8  3 NA</code></pre>
@@ -255,13 +279,17 @@ help(&quot;mean&quot;)</code></pre>
 <div id="is-this-what-you-expected" class="section level1">
 <h1>is this what you expected?</h1>
 <blockquote>
-<p>turns out, this isn’t a quirky feature of R. R was designed by statisticians and mathematicians. NA represents a value that is unknown. ask yourself, what is the sum of an unknown value and 17? if you don’t know the value, then you don’t know the value of adding it to 17 either. our <code>compute_mean()</code> function gives NA for this reason: the mean of 5 values and an unknwon value is NA; it’s unknown; it’s not available; it’s missing.</p>
+<ul>
+<li>turns out, this isn’t a quirky feature of R. R was designed by statisticians and mathematicians. NA represents a value that is unknown. ask yourself, what is the sum of an unknown value and 17? if you don’t know the value, then you don’t know the value of adding it to 17 either. our <code>compute_mean()</code> function gives NA for this reason: the mean of 5 values and an unknwon value is NA; it’s unknown; it’s not available; it’s missing.</li>
+</ul>
 </blockquote>
 </div>
 <div id="when-you-use-functions-throughout-this-course-and-in-your-own-research" class="section level1">
 <h1>when you use functions throughout this course and in your own research …</h1>
 <blockquote>
-<p>think about what the functions “assume” or “know”; ask, “What do I want the function to do? What do I expect it to do? Can the function do what I want with the information I gave it?”</p>
+<ul>
+<li>think about what the functions “assume” or “know”; ask, “What do I want the function to do? What do I expect it to do? Can the function do what I want with the information I gave it?”</li>
+</ul>
 </blockquote>
 <pre class="r"><code>(compute_mean &lt;- function(values, remove_missing = TRUE) {
   
@@ -291,7 +319,9 @@ mean(my_numbers, na.rm = TRUE)</code></pre>
 <div id="how-do-i-use-the-pipe-operator-from-tidyverse" class="section level1">
 <h1>how do I use the pipe operator (<code>%&gt;%</code>) from tidyverse?</h1>
 <blockquote>
-<p>the <code>%&gt;%</code> operator allows you to “pipe”&quot; a value forward into an expression or function; something along the lines of <code>x %&gt;% f</code>, rather than <code>f(x)</code>.see the magrittr page [<a href="http://magrittr.tidyverse.org/articles/magrittr.html">.html</a>] for more details, but check out these examples below.</p>
+<ul>
+<li>the <code>%&gt;%</code> operator allows you to “pipe”&quot; a value forward into an expression or function; something along the lines of <code>x %&gt;% f</code>, rather than <code>f(x)</code>.see the magrittr page [<a href="http://magrittr.tidyverse.org/articles/magrittr.html">.html</a>] for more details, but check out these examples below.</li>
+</ul>
 </blockquote>
 </div>
 <div id="example" class="section level1">
@@ -304,7 +334,9 @@ mean(my_numbers, na.rm = TRUE)</code></pre>
 <div id="how-do-i-transform-my_numbers-into-z-scores" class="section level1">
 <h1>how do I transform <code>my_numbers</code> into z-scores?</h1>
 <blockquote>
-<p>use the <code>scale()</code> function: “<code>scale()</code> is generic function whose default method centers and/or scales the columns of a numeric matrix.”</p>
+<ul>
+<li>use the <code>scale()</code> function: “<code>scale()</code> is generic function whose default method centers and/or scales the columns of a numeric matrix.”</li>
+</ul>
 </blockquote>
 <p><strong>source.</strong> <code>help(&quot;scale&quot;)</code></p>
 <pre class="r"><code>my_numbers %&gt;% scale()</code></pre>
@@ -323,7 +355,9 @@ mean(my_numbers, na.rm = TRUE)</code></pre>
 <div id="how-do-convert-z-scores-outputted-from-the-scale-function-into-only-numbers" class="section level1">
 <h1>how do convert z-scores outputted from the <code>scale()</code> function into only numbers?</h1>
 <blockquote>
-<p>use the <code>parse_number()</code> function: “This drops any non-numeric characters before or after the first number. The grouping mark specified by the locale is ignored inside the number.”</p>
+<ul>
+<li>use the <code>parse_number()</code> function: “This drops any non-numeric characters before or after the first number. The grouping mark specified by the locale is ignored inside the number.”</li>
+</ul>
 </blockquote>
 <p><strong>source.</strong> <code>help(&quot;parse_number&quot;)</code></p>
 <pre class="r"><code>my_numbers %&gt;% scale() %&gt;% parse_number()</code></pre>
@@ -332,7 +366,9 @@ mean(my_numbers, na.rm = TRUE)</code></pre>
 <div id="compute-the-mean-of-our-new-z-scores" class="section level1">
 <h1>compute the mean of our new z-scores</h1>
 <blockquote>
-<p>should be zero</p>
+<ul>
+<li>should be zero</li>
+</ul>
 </blockquote>
 <pre class="r"><code>my_numbers %&gt;% scale() %&gt;% parse_number() %&gt;% mean()</code></pre>
 <pre><code>## [1] NA</code></pre>
@@ -340,7 +376,9 @@ mean(my_numbers, na.rm = TRUE)</code></pre>
 <div id="oops" class="section level1">
 <h1>oops!</h1>
 <blockquote>
-<p>we forgot to tell <code>mean()</code> to remove NA values before computing</p>
+<ul>
+<li>we forgot to tell <code>mean()</code> to remove NA values before computing</li>
+</ul>
 </blockquote>
 <pre class="r"><code>my_numbers %&gt;% scale() %&gt;% parse_number() %&gt;% mean(na.rm = TRUE)</code></pre>
 <pre><code>## [1] 2.941874e-16</code></pre>
@@ -348,7 +386,9 @@ mean(my_numbers, na.rm = TRUE)</code></pre>
 <div id="the-result-rounds-to-zero" class="section level1">
 <h1>the result rounds to zero</h1>
 <blockquote>
-<p><code>round()</code>: “round rounds the values in its first argument to the specified number of decimal places (default 0).”</p>
+<ul>
+<li><code>round()</code>: “round rounds the values in its first argument to the specified number of decimal places (default 0).”</li>
+</ul>
 </blockquote>
 <p><strong>source.</strong> <code>help(&quot;round&quot;)</code></p>
 <pre class="r"><code>my_numbers %&gt;% scale() %&gt;% parse_number() %&gt;% mean(na.rm = TRUE) %&gt;% round(1)</code></pre>

@@ -7,18 +7,18 @@ output:
 ---
 
 # how do I install R and R Studio (you need both in that order)
-> * installing R ([**Macintosh**](https://stats.idre.ucla.edu/r/icu/installing-r-for-macintosh/) / [**Windows**](https://stats.idre.ucla.edu/r/icu/installing-r-for-windows/))
-> * uninstalling R ([**Macintosh**](https://cran.r-project.org/doc/manuals/r-release/R-admin.html#Uninstalling-under-macOS) / [**Windows**](https://cran.r-project.org/doc/manuals/r-release/R-admin.html#Uninstallation))
-> * installing R Studio [[**.html**](https://www.rstudio.com/products/rstudio/download/)]
-> * uninstalling R Studio [[**.html**](https://support.rstudio.com/hc/en-us/articles/200554736-How-To-Uninstall-RStudio-Desktop)]
+> - installing R ([**Macintosh**](https://stats.idre.ucla.edu/r/icu/installing-r-for-macintosh/) / [**Windows**](https://stats.idre.ucla.edu/r/icu/installing-r-for-windows/))
+> - uninstalling R ([**Macintosh**](https://cran.r-project.org/doc/manuals/r-release/R-admin.html#Uninstalling-under-macOS) / [**Windows**](https://cran.r-project.org/doc/manuals/r-release/R-admin.html#Uninstallation))
+> - installing R Studio [[**.html**](https://www.rstudio.com/products/rstudio/download/)]
+> - uninstalling R Studio [[**.html**](https://support.rstudio.com/hc/en-us/articles/200554736-How-To-Uninstall-RStudio-Desktop)]
 
 # what are all the panels in R Studio?
 ![](images/r_studio_panels_tutorial.png)
 
 # how do I install and load new R packages?
-> use `install.packages()` and `library()`  
-> "Packages are collections of R functions, data, and compiled code in a well-defined format. The directory where packages are stored is called the library. R comes with a standard set of packages. Others are available for download and installation. Once installed, they have to be loaded into the session to be used." [[.html](https://www.statmethods.net/interface/packages.html)]  
-> similies: App Store, iBooks, Google Play store   
+> - use `install.packages()` and `library()`  
+> - "Packages are collections of R functions, data, and compiled code in a well-defined format. The directory where packages are stored is called the library. R comes with a standard set of packages. Others are available for download and installation. Once installed, they have to be loaded into the session to be used." [[.html](https://www.statmethods.net/interface/packages.html)]  
+> - similies: App Store, iBooks, Google Play store   
 
 **sources.** `help("install.packages")` and `help("library")`
 
@@ -33,9 +33,9 @@ library(tidyverse)
 > start with simple examples
 
 # example: save five numbers to an R object called `my_numbers`
-> `c()`: "Combine Values into a Vector or List"  
-> `<-`: "Assign a value to a name."  
-> **English:** combine 10, 6, 2, 8, and 3, and save this "combination" (i.e., vector of these numbers) to an object called `my_numbers`.
+> - `c()`: "Combine Values into a Vector or List"  
+> - `<-`: "Assign a value to a name."  
+> - **English:** combine 10, 6, 2, 8, and 3, and save this "combination" (i.e., vector of these numbers) to an object called `my_numbers`.
 
 ```{r}
 
@@ -43,7 +43,7 @@ my_numbers <- c(10, 6, 2, 8, 3)
 
 ```
 
-> **note:** if you want to print and save at the same time, surround everything with `()`
+> - **note:** if you want to print and save at the same time, surround everything with `()`
 
 ```{r}
 
@@ -52,7 +52,7 @@ my_numbers <- c(10, 6, 2, 8, 3)
 ```
 
 # how to I learn more about the details of an R function or package or dataset?
-> use a `?` before the name of an R function or package or dataset, or use `help("functionname")` or `help("packagename")` or `help("datasetname")` to see documentation about those things.
+> - use a `?` before the name of an R function or package or dataset, or use `help("functionname")` or `help("packagename")` or `help("datasetname")` to see documentation about those things.
 
 ```{r}
 
@@ -64,7 +64,7 @@ help("mean")
 ```
 
 # how long is `my_numbers` (i.e., how many numbers are in `my_numbers`)?
-> the first argument of the length() function asks for an R object. below, we use `my_numbers`, which is an R object.
+> - the first argument of the length() function asks for an R object. below, we use `my_numbers`, which is an R object.
 
 ```{r}
 
@@ -81,7 +81,7 @@ sum(my_numbers)
 ```
 
 # what is the mean of `my_numbers`?
-> the sum of `my_numbers` divided by the length of `my_numbers`
+> - the sum of `my_numbers` divided by the length of `my_numbers`
 
 ```{r}
 
@@ -90,7 +90,7 @@ sum(my_numbers) / length(my_numbers)
 ```
 
 # what is the mean of `my_numbers`?
-> we can also just use the `mean()` function
+> - we can also just use the `mean()` function
 
 ```{r}
 
@@ -99,10 +99,10 @@ mean(my_numbers)
 ```
 
 # but what are functions and how do they work?
-> "A function is a piece of code written to carry out a specified task; it can or can not accept arguments or parameters and it can or can not return one or more values."" **Functions do things for you.** [[.html](https://www.datacamp.com/community/tutorials/functions-in-r-a-tutorial#what)]
+> - "A function is a piece of code written to carry out a specified task; it can or can not accept arguments or parameters and it can or can not return one or more values."" **Functions do things for you.** [[.html](https://www.datacamp.com/community/tutorials/functions-in-r-a-tutorial#what)]
 
 # how would a simple mean function work?
-> out custom `compute_mean()` function has one argument: values, which are numbers. our function takes the sum of the input (i.e., values) and divides by the length of that input. the function outputs the result of that computation.
+> - out custom `compute_mean()` function has one argument: values, which are numbers. our function takes the sum of the input (i.e., values) and divides by the length of that input. the function outputs the result of that computation.
 
 ```{r}
 
@@ -123,7 +123,7 @@ compute_mean(values = my_numbers)
 ```
 
 # functions are "stupid"; R is "stupid"
-> they only do exactly what you tell them to do and assume what they are programmed to assume. what if we add a missing value (a.k.a., NA, "Not available")
+> - they only do exactly what you tell them to do and assume what they are programmed to assume. what if we add a missing value (a.k.a., NA, "Not available")
 
 ```{r}
 
@@ -140,10 +140,10 @@ compute_mean(values = my_numbers)
 ```
 
 # is this what you expected?
-> turns out, this isn't a quirky feature of R. R was designed by statisticians and mathematicians. NA represents a value that is unknown. ask yourself, what is the sum of an unknown value and 17? if you don't know the value, then you don't know the value of adding it to 17 either. our `compute_mean()` function gives NA for this reason: the mean of 5 values and an unknwon value is NA; it's unknown; it's not available; it's missing.
+> - turns out, this isn't a quirky feature of R. R was designed by statisticians and mathematicians. NA represents a value that is unknown. ask yourself, what is the sum of an unknown value and 17? if you don't know the value, then you don't know the value of adding it to 17 either. our `compute_mean()` function gives NA for this reason: the mean of 5 values and an unknwon value is NA; it's unknown; it's not available; it's missing.
 
 # when you use functions throughout this course and in your own research ...
-> think about what the functions "assume" or "know"; ask, "What do I want the function to do? What do I expect it to do? Can the function do what I want with the information I gave it?"
+> - think about what the functions "assume" or "know"; ask, "What do I want the function to do? What do I expect it to do? Can the function do what I want with the information I gave it?"
 
 ```{r}
 
@@ -170,14 +170,14 @@ mean(my_numbers, na.rm = TRUE)
 ```
 
 # how do I use the pipe operator (`%>%`) from tidyverse?
-> the `%>%` operator allows you to "pipe"" a value forward into an expression or function; something along the lines of `x %>% f`, rather than `f(x)`.see the magrittr page [[.html](http://magrittr.tidyverse.org/articles/magrittr.html)] for more details, but check out these examples below.
+> - the `%>%` operator allows you to "pipe"" a value forward into an expression or function; something along the lines of `x %>% f`, rather than `f(x)`.see the magrittr page [[.html](http://magrittr.tidyverse.org/articles/magrittr.html)] for more details, but check out these examples below.
 
 # example:
 
 ![](images/rstudio_pipe_ilove.jpg)
 
 # how do I transform `my_numbers` into z-scores?
-> use the `scale()` function: "`scale()` is generic function whose default method centers and/or scales the columns of a numeric matrix."
+> - use the `scale()` function: "`scale()` is generic function whose default method centers and/or scales the columns of a numeric matrix."
 
 **source.** `help("scale")`
 
@@ -188,7 +188,7 @@ my_numbers %>% scale()
 ```
 
 # how do convert z-scores outputted from the `scale()` function into only numbers?
-> use the `parse_number()` function: "This drops any non-numeric characters before or after the first number. The grouping mark specified by the locale is ignored inside the number."
+> - use the `parse_number()` function: "This drops any non-numeric characters before or after the first number. The grouping mark specified by the locale is ignored inside the number."
 
 **source.** `help("parse_number")`
 
@@ -199,7 +199,7 @@ my_numbers %>% scale() %>% parse_number()
 ```
 
 # compute the mean of our new z-scores
-> should be zero
+> - should be zero
 
 ```{r}
 
@@ -208,7 +208,7 @@ my_numbers %>% scale() %>% parse_number() %>% mean()
 ```
 
 # oops!
-> we forgot to tell `mean()` to remove NA values before computing
+> - we forgot to tell `mean()` to remove NA values before computing
 
 ```{r}
 
@@ -217,7 +217,7 @@ my_numbers %>% scale() %>% parse_number() %>% mean(na.rm = TRUE)
 ```
 
 # the result rounds to zero
-> `round()`: "round rounds the values in its first argument to the specified number of decimal places (default 0)."
+> - `round()`: "round rounds the values in its first argument to the specified number of decimal places (default 0)."
 
 **source.** `help("round")`
 
