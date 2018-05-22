@@ -4,6 +4,7 @@ date: "05/22/2018"
 output: 
   html_document: 
     keep_md: yes
+    df_print: kable
 ---
 
 # how do I install R and R Studio (you need both in that order)
@@ -18,7 +19,8 @@ output:
 # how do I install and load new R packages?
 > - use `install.packages()` and `library()`  
 > - "Packages are collections of R functions, data, and compiled code in a well-defined format. The directory where packages are stored is called the library. R comes with a standard set of packages. Others are available for download and installation. Once installed, they have to be loaded into the session to be used." [[.html](https://www.statmethods.net/interface/packages.html)]  
-> - similies: App Store, iBooks, Google Play store   
+> - similies: App Store, iBooks, Google Play store  
+- **best practice note.** `install.packages()` downloads files from the internet, so it's "polite" to "comment out" (# = comment) this code before you share it with people so they don't download files they don't really want by accident.  
 
 **sources.** `help("install.packages")` and `help("library")`
 
@@ -340,17 +342,18 @@ my_numbers %>% scale() %>% parse_number() %>% mean(na.rm = TRUE) %>% round(1)
 (my_dataframe <- tibble(my_ids, my_numbers, my_condtions, my_condtionsF))
 ```
 
-```
-## # A tibble: 6 x 4
-##   my_ids my_numbers my_condtions my_condtionsF
-##    <dbl>      <dbl> <chr>        <fct>        
-## 1      1         10 control      control      
-## 2      2          6 control      control      
-## 3      3          2 control      control      
-## 4      4          8 treatment    treatment    
-## 5      5          3 treatment    treatment    
-## 6      6         NA treatment    treatment
-```
+<div class="kable-table">
+
+ my_ids   my_numbers  my_condtions   my_condtionsF 
+-------  -----------  -------------  --------------
+      1           10  control        control       
+      2            6  control        control       
+      3            2  control        control       
+      4            8  treatment      treatment     
+      5            3  treatment      treatment     
+      6           NA  treatment      treatment     
+
+</div>
 
 # exercises
 1. install and load the `tidyverse` package.

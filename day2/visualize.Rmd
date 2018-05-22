@@ -1,263 +1,378 @@
 ---
-title: "day 1 installation and introduction"
+title: "day 2 visualize"
 date: "05/22/2018"
 output: 
   html_document: 
     keep_md: yes
+    df_print: kable
 ---
 
-# how do I install R and R Studio (you need both in that order)
-> * installing R ([**Macintosh**](https://stats.idre.ucla.edu/r/icu/installing-r-for-macintosh/) / [**Windows**](https://stats.idre.ucla.edu/r/icu/installing-r-for-windows/))
-> * uninstalling R ([**Macintosh**](https://cran.r-project.org/doc/manuals/r-release/R-admin.html#Uninstalling-under-macOS) / [**Windows**](https://cran.r-project.org/doc/manuals/r-release/R-admin.html#Uninstallation))
-> * installing R Studio [[**.html**](https://www.rstudio.com/products/rstudio/download/)]
-> * uninstalling R Studio [[**.html**](https://support.rstudio.com/hc/en-us/articles/200554736-How-To-Uninstall-RStudio-Desktop)]
+# install and/or load packages for this session
+- `install.packages()`: "Download and install packages from CRAN-like repositories or from local files."  
+- `library()`: loads your package you installed  
+- **best practice note.** `install.packages()` downloads files from the internet, so it's "polite" to "comment out" (# = comment) this code before you share it with people so they don't download files they don't really want by accident.  
 
-# what are all the panels in R Studio?
-![](images/r_studio_panels_tutorial.png)
-
-# how do I install and load new R packages?
-> use `install.packages()` and `library()`  
-> "Packages are collections of R functions, data, and compiled code in a well-defined format. The directory where packages are stored is called the library. R comes with a standard set of packages. Others are available for download and installation. Once installed, they have to be loaded into the session to be used." [[.html](https://www.statmethods.net/interface/packages.html)]  
-> similies: App Store, iBooks, Google Play store   
-
-**sources.** `help("install.packages")` and `help("library")`
+# install and/or load packages for this session
 
 ```{r, warning = FALSE, message = FALSE}
 
 # install.packages("tidyverse")
+# install.packages("psych")
+# install.packages("knitr")
+# install.packages("lme4")
+# install.packages("fivethirtyeight")
+
 library(tidyverse)
+library(knitr)
+library(psych)
+library(lme4)
+library(fivethirtyeight)
 
 ```
 
-# how do I run R code?
-> start with simple examples
+# how do answer research questions with plots?
+- **use ggplot2.**
+- **ggplot2 metaphor.** think of a ggplot2 plot like a "map of the world" that you build one layer at a time.
+- imagine a map of the world without land (i.e., water only).
+- now imagine adding "layers" (e.g., continents, colors, mountains, legends). ggplot2's kinda like that.
 
-# example: save five numbers to an R object called `my_numbers`
-> `c()`: "Combine Values into a Vector or List"  
-> `<-`: "Assign a value to a name."  
-> **English:** combine 10, 6, 2, 8, and 3, and save this "combination" (i.e., vector of these numbers) to an object called `my_numbers`.
+![](https://pbs.twimg.com/media/CELudTlUgAAA7a-.png)
+
+# how do answer research questions with plots?
+1. [**grammar of graphics**](http://vita.had.co.nz/papers/layered-grammar.html), a visualization philosophy
+2. start with `ggplot()`
+3. supply a dataset and aesthetic mapping, `aes()`
+4. add on ...
+    + **layers**, like `geom_point()` or `geom_histogram()`
+    + **scales**, like `scale_colour_brewer()`
+    + **faceting specifications**, like `facet_wrap()`
+    + **coordinate systems**, like `coord_flip()`
+    
+**source.** [**ggplot2.tidyverse.org**](ggplot2.tidyverse.org)
+
+# example: do cars with big engines use more fuel than cars with small engines?
+- **mpg dataset.** "This dataset contains a subset of the fuel economy data that the EPA makes available on [**http://fueleconomy.gov**](http://fueleconomy.gov). It contains only models which had a new release every year between 1999 and 2008 - this was used as a proxy for the popularity of the car."
+
+**sources.** [**R for Data Science**](http://r4ds.had.co.nz/data-visualisation.html) and `help("mpg")`
+
+# example: do cars with big engines use more fuel than cars with small engines?
 
 ```{r}
 
-my_numbers <- c(10, 6, 2, 8, 3)
+mpg
 
 ```
 
-> **note:** if you want to print and save at the same time, surround everything with `()`
+# example: do cars with big engines use more fuel than cars with small engines?
+1. start with mapping and `aes()`
+    + **displ.** engine displacement, in litres (bigger numbers = greater engine size)
+    + **hwy.** highway miles per gallon (bigger numbers = using less fuel each mile)
+
+# example: do cars with big engines use more fuel than cars with small engines?
 
 ```{r}
 
-(my_numbers <- c(10, 6, 2, 8, 3))
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy))
 
 ```
 
-# how to I learn more about the details of an R function or package or dataset?
-> use a `?` before the name of an R function or package or dataset, or use `help("functionname")` or `help("packagename")` or `help("datasetname")` to see documentation about those things.
+# example: do cars with big engines use more fuel than cars with small engines?
+1. start with mapping and `aes()`
+    + you are mapping aesthetics onto data
+    + x-axis position maps onto displ
+    + y-axis position maps onto hwy
+    + x-position and y-position are aesthetics: things that we can perceive on the graphic
+
+# example: do cars with big engines use more fuel than cars with small engines?
 
 ```{r}
 
-help("c")
-help("sum")
-help("length")
-help("mean")
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy))
 
 ```
 
-# how long is `my_numbers` (i.e., how many numbers are in `my_numbers`)?
-> the first argument of the length() function asks for an R object. below, we use `my_numbers`, which is an R object.
+# example: do cars with big engines use more fuel than cars with small engines?
+1. start with mapping and `aes()`
+    + you are mapping aesthetics onto data
+    + x-axis position maps onto displ
+    + y-axis position maps onto hwy
+    + x-position and y-position are aesthetics: things that we can perceive on the graphic
+2. add a layer, like `geom_point()`
+      + layers determine physical representations of data
+
+**source.** [**A layered grammar of graphics**](http://vita.had.co.nz/papers/layered-grammar.pdf)
+
+# example: do cars with big engines use more fuel than cars with small engines?
 
 ```{r}
 
-length(my_numbers)
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy))
 
 ```
 
-# what is the sum of `my_numbers`?
+# example: do cars with big engines use more fuel than cars with small engines?
 
 ```{r}
 
-sum(my_numbers)
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+  geom_point()
 
 ```
 
-# what is the mean of `my_numbers`?
-> the sum of `my_numbers` divided by the length of `my_numbers`
+# example: what types have cars have big engines but decent highway mpg?
+1. start with mapping and `aes()`
+    + you are mapping aesthetics onto data
+    + x-axis position maps onto displ
+    + y-axis position maps onto hwy
+2. add a layer, like `geom_point()`
+    + layers determine physical representations of data
+3. add a new aesthetic mapping, like color
+      + **class.** "type" of car
+      + color maps onto class
+
+**source.** [A layered grammar of graphics](http://vita.had.co.nz/papers/layered-grammar.pdf)
+
+# example: what types have cars have big engines but decent highway mpg?
 
 ```{r}
 
-sum(my_numbers) / length(my_numbers)
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+  geom_point()
 
 ```
 
-# what is the mean of `my_numbers`?
-> we can also just use the `mean()` function
+# example: what types have cars have big engines but decent highway mpg?
 
 ```{r}
 
-mean(my_numbers)
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = class)) +
+  geom_point()
 
 ```
 
-# but what are functions and how do they work?
-> "A function is a piece of code written to carry out a specified task; it can or can not accept arguments or parameters and it can or can not return one or more values."" **Functions do things for you.** [[.html](https://www.datacamp.com/community/tutorials/functions-in-r-a-tutorial#what)]
+# which type of car has better mpg in the city?
+- **cty.** city miles per gallon
+    + now x-position maps onto class
+    + and y-position maps onto cty
 
-# how would a simple mean function work?
-> out custom `compute_mean()` function has one argument: values, which are numbers. our function takes the sum of the input (i.e., values) and divides by the length of that input. the function outputs the result of that computation.
+# which type of car has better mpg in the city?
 
 ```{r}
 
-(compute_mean <- function(values) {
-  
-  sum(values) / length(values)
-  
-})
+ggplot(data = mpg, mapping = aes(x = class, y = cty))
 
 ```
 
-# use the `compute_mean()` function to compute the mean of `my_numbers`.
+# which type of car has better mpg in the city?
+- **cty.** city miles per gallon
+- trusty boxplots
+    + boxplots are a complex layer
+    + e.g., they require statistics like fences, hinges, and outliers in addition to the shapes we see
+
+**source.** [A layered grammar of graphics](http://vita.had.co.nz/papers/layered-grammar.pdf)
+
+# which type of car has better mpg in the city?
 
 ```{r}
 
-compute_mean(values = my_numbers)
+ggplot(data = mpg, mapping = aes(x = class, y = cty))
 
 ```
 
-# functions are "stupid"; R is "stupid"
-> they only do exactly what you tell them to do and assume what they are programmed to assume. what if we add a missing value (a.k.a., NA, "Not available")
+# which type of car has better mpg in the city?
 
 ```{r}
 
-(my_numbers <- c(10, 6, 2, 8, 3, NA))
+ggplot(data = mpg, mapping = aes(x = class, y = cty)) +
+  geom_boxplot()
 
 ```
 
-# use the `compute_mean()` function to compute the mean of of new `my_numbers` that includes a missing value.
+# which type of car has better mpg in the city?
+- **cty.** city miles per gallon
+- standard bars representing means + 95% confidence intervals
+- `stat_summary()`: "Summarise y values at unique/binned x"
+- `mean_cl_normal()`: "... computes 3 summary variables: the sample mean and lower and upper Gaussian confidence limits based on the t-distribution."
+
+**sources.** `help("stat_summary")` and `help("mean_cl_normal")`
+
+# which type of car has better mpg in the city?
 
 ```{r}
 
-compute_mean(values = my_numbers)
+ggplot(data = mpg, mapping = aes(x = class, y = cty))
 
 ```
 
-# is this what you expected?
-> turns out, this isn't a quirky feature of R. R was designed by statisticians and mathematicians. NA represents a value that is unknown. ask yourself, what is the sum of an unknown value and 17? if you don't know the value, then you don't know the value of adding it to 17 either. our `compute_mean()` function gives NA for this reason: the mean of 5 values and an unknwon value is NA; it's unknown; it's not available; it's missing.
-
-# when you use functions throughout this course and in your own research ...
-> think about what the functions "assume" or "know"; ask, "What do I want the function to do? What do I expect it to do? Can the function do what I want with the information I gave it?"
+# which type of car has better mpg in the city?
 
 ```{r}
 
-(compute_mean <- function(values, remove_missing = TRUE) {
-  
-  if(remove_missing == TRUE) {
-    values <- na.omit(values)
-  }
-  
-  sum(values) / length(values)
-  })
+ggplot(data = mpg, mapping = aes(x = class, y = cty)) +
+  stat_summary(geom = "bar", fun.data = mean_cl_normal)
 
 ```
 
-# remember this example every time you give data to a function
+# which type of car has better mpg in the city?
+- **cty.** city miles per gallon
+- standard bars representing means + 95% confidence intervals
+- `stat_summary()`: "Summarise y values at unique/binned x"
+- `mean_cl_normal()`: "... computes 3 summary variables: the sample mean and lower and upper Gaussian confidence limits based on the t-distribution."
+
+**sources.** `help("stat_summary")` and `help("mean_cl_normal")`
+
+# which type of car has better mpg in the city?
 
 ```{r}
 
-compute_mean(values = my_numbers, remove_missing = TRUE)
-
-# by the way, the mean() function also has this argument; so does sum() and many other trusty functions
-mean(my_numbers, na.rm = TRUE)
+ggplot(data = mpg, mapping = aes(x = class, y = cty)) +
+  stat_summary(geom = "bar", fun.data = mean_cl_normal)
 
 ```
 
-# how do I use the pipe operator (`%>%`) from tidyverse?
-> the `%>%` operator allows you to "pipe"" a value forward into an expression or function; something along the lines of `x %>% f`, rather than `f(x)`.see the magrittr page [[.html](http://magrittr.tidyverse.org/articles/magrittr.html)] for more details, but check out these examples below.
-
-# example:
-
-![](images/rstudio_pipe_ilove.jpg)
-
-# how do I transform `my_numbers` into z-scores?
-> use the `scale()` function: "`scale()` is generic function whose default method centers and/or scales the columns of a numeric matrix."
-
-**source.** `help("scale")`
+# which type of car has better mpg in the city?
 
 ```{r}
 
-my_numbers %>% scale()
+ggplot(data = mpg, mapping = aes(x = class, y = cty)) +
+  stat_summary(geom = "bar", fun.data = mean_cl_normal) +
+  stat_summary(geom = "errorbar", fun.data = mean_cl_normal, width = 0)
 
 ```
 
-# how do convert z-scores outputted from the `scale()` function into only numbers?
-> use the `parse_number()` function: "This drops any non-numeric characters before or after the first number. The grouping mark specified by the locale is ignored inside the number."
+# which type of car has better mpg in the city?
+- **cty.** city miles per gallon
+- standard bars representing means + 95% confidence intervals
+- `stat_summary()`: "Summarise y values at unique/binned x"
+- `mean_cl_normal()`: "... computes 3 summary variables: the sample mean and lower and upper Gaussian confidence limits based on the t-distribution."
+- fill the bars with fill = white, and color their outline with color = "black"
 
-**source.** `help("parse_number")`
+**sources.** `help("stat_summary")` and `help("mean_cl_normal")`
+
+# which type of car has better mpg in the city?
 
 ```{r}
 
-my_numbers %>% scale() %>% parse_number()
+ggplot(data = mpg, mapping = aes(x = class, y = cty)) +
+  stat_summary(geom = "bar", fun.data = mean_cl_normal) +
+  stat_summary(geom = "errorbar", fun.data = mean_cl_normal, width = 0)
 
 ```
 
-# compute the mean of our new z-scores
-> should be zero
+# which type of car has better mpg in the city?
 
 ```{r}
 
-my_numbers %>% scale() %>% parse_number() %>% mean()
+ggplot(data = mpg, mapping = aes(x = class, y = cty)) +
+  stat_summary(geom = "bar", fun.data = mean_cl_normal, fill = "white", color = "black") +
+  stat_summary(geom = "errorbar", fun.data = mean_cl_normal, width = 0)
 
 ```
 
-# oops!
-> we forgot to tell `mean()` to remove NA values before computing
+# exercise: play with the sleepstudy dataset that comes with `lme4`
+- **sleepstudy.** "The average reaction time per day for subjects in a sleep deprivation study. On day 0 the subjects had their normal amount of sleep. Starting that night they were restricted to 3 hours of sleep per night. The observations represent the average reaction time on a series of tests given each day to each subject."
+
+**source.** `help(sleepstudy)`
+
+# exercise: play with the sleepstudy dataset that comes with `lme4`
 
 ```{r}
 
-my_numbers %>% scale() %>% parse_number() %>% mean(na.rm = TRUE)
+sleepstudy
 
 ```
 
-# the result rounds to zero
-> `round()`: "round rounds the values in its first argument to the specified number of decimal places (default 0)."
+# exercise: play with the sleepstudy dataset that comes with `lme4`
+- **sleepstudy.**
+    + does average reaction time change over time?
+    + does change over time depend on Subject?
+    + **hint.** `help(facet_wrap)`
 
-**source.** `help("round")`
+**source.** `help(sleepstudy)`
+
+# exercise: play with the sleepstudy dataset that comes with `lme4`
+- **sleepstudy.**
+    + does average reaction time change over time?
+
+# exercise: play with the sleepstudy dataset that comes with `lme4`
 
 ```{r}
 
-my_numbers %>% scale() %>% parse_number() %>% mean(na.rm = TRUE) %>% round(1)
+ggplot(data = sleepstudy, mapping = aes(x = Days, y = Reaction)) +
+  geom_point() +
+  scale_x_continuous(breaks = seq(from = 0, to = 9, by = 1))
 
 ```
 
-# here are some other basic data types in R
-1. character type: categories, think words, letters, etc.
-2. factor type: think categories but with numeric values assigned to them so they can be used in statistical models
-3. data frame type: think of an Excel spreadsheet
+# exercise: play with the sleepstudy dataset that comes with `lme4`
+- **sleepstudy.**
+    + does average reaction time change over time?
+    + does change over time depend on Subject?
+    + **hint.** `help(facet_wrap)`
 
-**sources.** help("factor") and vignette("tibble")
+# exercise: play with the sleepstudy dataset that comes with `lme4`
 
 ```{r}
 
-# numeric type
-(my_ids <- c(1, 2, 3, 4, 5, 6))
-
-# character type
-(my_condtions <- c("control", "control", "control", "treatment", "treatment", "treatment"))
-
-# factor type
-(my_condtionsF <- factor(my_condtions))
-
-# data.frame type but with more intutive assumptions and printing defaults
-(my_dataframe <- tibble(my_ids, my_numbers, my_condtions, my_condtionsF))
+ggplot(data = sleepstudy, mapping = aes(x = Days, y = Reaction)) +
+  geom_point() +
+  scale_x_continuous(breaks = seq(from = 0, to = 9, by = 1)) +
+  facet_wrap(facets = ~ Subject)
 
 ```
 
-# exercises
-1. install and load the `tidyverse` package.
-2. create your own numeric object with the `c()` function.
-3. create your own character object with the `c()` function.
-4. store your new objects in a tibble data frame with the `tibble()` function.
-5. **advanced:** create your own **simple** function with one argument.
+# exercise: play with the `US_births_2000_2014` dataset that comes with the `fivethirtyeight` package
+- "The raw data behind the story "Some People Are Too Superstitious To Have A Baby On Friday The 13th" [**Some people aare too superstitious to have a baby on friday the 13th**](https://fivethirtyeight.com/features/some-people-are-too-superstitious-to-have-a-baby-on-friday-the-13th/)."
+
+**source.** `help(US_births_2000_2014)`
+
+# exercise: play with the `US_births_2000_2014` dataset that comes with the `fivethirtyeight` package
+
+```{r}
+
+US_births_2000_2014
+
+```
+
+# exercise: play with the `US_births_2000_2014` dataset that comes with the `fivethirtyeight` package
+- do births change over the week?
+- does the weekly pattern of births change over the years?
+
+**source.** `help(US_births_2000_2014)`
+
+# exercise: play with the `US_births_2000_2014` dataset that comes with the `fivethirtyeight` package
+- do births change over the week?
+
+**source.** `help(US_births_2000_2014)`
+
+# exercise: play with the `US_births_2000_2014` dataset that comes with the `fivethirtyeight` package
+
+```{r}
+
+ggplot(data = US_births_2000_2014, mapping = aes(x = day_of_week, y = births)) +
+  geom_point()
+
+```
+
+# exercise: play with the `US_births_2000_2014` dataset that comes with the `fivethirtyeight` package
+- do births change over the week?
+- does the weekly pattern of births change over the years?
+
+**source.** `help(US_births_2000_2014)`
+
+# exercise: play with the `US_births_2000_2014` dataset that comes with the `fivethirtyeight` package
+
+```{r}
+
+ggplot(data = US_births_2000_2014, mapping = aes(x = day_of_week, y = births)) +
+  geom_point() +
+  facet_wrap(facets = ~ year)
+
+```
 
 # resources
-* [**R for Data Science: Import, Tidy, Transform, Visualize, and Model Data.**](http://r4ds.had.co.nz/)
-* [**tidyverse.org**](http://tidyverse.org/)
-* [**the tidyverse style guide**](http://style.tidyverse.org/)
+- [**R for Data Science: Import, Tidy, Transform, Visualize, and Model Data**](http://r4ds.had.co.nz/). This guide is extremely useful in general, but see [**Chapter 3**](http://r4ds.had.co.nz/data-visualisation.html) for an introduction to data visualization.
+- [**tidyverse: ggplot2.**](http://ggplot2.tidyverse.org/index.html) ggplot2 bible (also check out the rest of the tidyverse website)
+- [**R Base Graphics: An Idiot's Guide.**](http://rpubs.com/SusanEJohnston/7953) if you want to plot with Base graphics like an R hipster (a hipstR ...) here's a jumping off point
+
+
