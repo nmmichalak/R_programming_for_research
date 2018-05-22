@@ -42,10 +42,10 @@ library(fivethirtyeight)
 > 2. start with `ggplot()`
 > 3. supply a dataset and aesthetic mapping, `aes()`
 > 4. add on ...
-    + **layers**, like `geom_point()` or `geom_histogram()`
-    + **scales**, like `scale_colour_brewer()`
-    + **faceting specifications**, like `facet_wrap()`
-    + **coordinate systems**, like `coord_flip()`
+>     + **layers**, like `geom_point()` or `geom_histogram()`
+>     + **scales**, like `scale_colour_brewer()`
+>     + **faceting specifications**, like `facet_wrap()`
+>     + **coordinate systems**, like `coord_flip()`
     
 **source.** [**ggplot2.tidyverse.org**](ggplot2.tidyverse.org)
 
@@ -63,32 +63,32 @@ mpg %>% sample_n(size = 15)
 
 manufacturer   model                  displ   year   cyl  trans        drv    cty   hwy  fl   class      
 -------------  --------------------  ------  -----  ----  -----------  ----  ----  ----  ---  -----------
-toyota         toyota tacoma 4wd        2.7   1999     4  auto(l4)     4       16    20  r    pickup     
-audi           a6 quattro               2.8   1999     6  auto(l5)     4       15    24  p    midsize    
-subaru         impreza awd              2.5   2008     4  auto(s4)     4       20    27  r    compact    
-dodge          ram 1500 pickup 4wd      5.9   1999     8  auto(l4)     4       11    15  r    pickup     
-audi           a4 quattro               1.8   1999     4  manual(m5)   4       18    26  p    compact    
-ford           f150 pickup 4wd          4.6   1999     8  auto(l4)     4       13    16  r    pickup     
-chevrolet      corvette                 6.2   2008     8  auto(s6)     r       15    25  p    2seater    
-pontiac        grand prix               3.8   1999     6  auto(l4)     f       17    27  r    midsize    
-pontiac        grand prix               3.8   1999     6  auto(l4)     f       16    26  p    midsize    
-hyundai        tiburon                  2.7   2008     6  auto(l4)     f       17    24  r    subcompact 
-dodge          ram 1500 pickup 4wd      4.7   2008     8  auto(l5)     4       13    17  r    pickup     
-volkswagen     jetta                    2.5   2008     5  manual(m5)   f       21    29  r    compact    
-dodge          ram 1500 pickup 4wd      5.2   1999     8  manual(m5)   4       11    16  r    pickup     
-lincoln        navigator 2wd            5.4   1999     8  auto(l4)     r       11    16  p    suv        
-land rover     range rover              4.0   1999     8  auto(l4)     4       11    15  p    suv        
+volkswagen     jetta                    2.5   2008     5  auto(s6)     f       21    29  r    compact    
+audi           a4 quattro               3.1   2008     6  manual(m6)   4       15    25  p    compact    
+volkswagen     passat                   1.8   1999     4  manual(m5)   f       21    29  p    midsize    
+chevrolet      c1500 suburban 2wd       5.7   1999     8  auto(l4)     r       13    17  r    suv        
+toyota         toyota tacoma 4wd        4.0   2008     6  manual(m6)   4       15    18  r    pickup     
+audi           a4                       2.0   2008     4  manual(m6)   f       20    31  p    compact    
+hyundai        sonata                   2.4   2008     4  manual(m5)   f       21    31  r    midsize    
+hyundai        tiburon                  2.0   1999     4  manual(m5)   f       19    29  r    subcompact 
+subaru         forester awd             2.5   1999     4  auto(l4)     4       18    24  r    suv        
+dodge          durango 4wd              4.7   2008     8  auto(l5)     4       13    17  r    suv        
+chevrolet      c1500 suburban 2wd       5.3   2008     8  auto(l4)     r       11    15  e    suv        
+volkswagen     gti                      2.8   1999     6  manual(m5)   f       17    24  r    compact    
+audi           a4 quattro               1.8   1999     4  auto(l5)     4       16    25  p    compact    
+dodge          ram 1500 pickup 4wd      4.7   2008     8  manual(m6)   4        9    12  e    pickup     
+land rover     range rover              4.6   1999     8  auto(l4)     4       11    15  p    suv        
 
 </div>
 
 # example: do cars with big engines use more fuel than cars with small engines?
 > 1. start with mapping and `aes()`
-    + **displ.** engine displacement, in litres (bigger numbers = greater engine size)
-    + **hwy.** highway miles per gallon (bigger numbers = using less fuel each mile)
-    + you are mapping aesthetics onto data
-    + x-axis position maps onto displ
-    + y-axis position maps onto hwy
-    + x-position and y-position are aesthetics: things that we can perceive on the graphic
+>     + **displ.** engine displacement, in litres (bigger numbers = greater engine size)
+>     + **hwy.** highway miles per gallon (bigger numbers = using less fuel each mile)
+>     + you are mapping aesthetics onto data
+>     + x-axis position maps onto displ
+>     + y-axis position maps onto hwy
+>     + x-position and y-position are aesthetics: things that we can perceive on the graphic
 
 
 ```r
@@ -99,7 +99,7 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy))
 
 # example: do cars with big engines use more fuel than cars with small engines?
 > 2. add a layer, like `geom_point()`
-      + layers determine physical representations of data
+  >     + layers determine physical representations of data
 
 **source.** [**A layered grammar of graphics**](http://vita.had.co.nz/papers/layered-grammar.pdf)
 
@@ -113,8 +113,8 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
 
 # example: what types have cars have big engines but decent highway mpg?
 > 3. add a new aesthetic mapping, like color
-      + **class.** "type" of car
-      + color maps onto class
+  >     + **class.** "type" of car
+  >     + color maps onto class
 
 **source.** [A layered grammar of graphics](http://vita.had.co.nz/papers/layered-grammar.pdf)
 
@@ -128,9 +128,9 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = class)) +
 
 # which type of car has better mpg in the city?
 > - **cty.** city miles per gallon
-    + use new x- and y-axis aesthetics with `aes()`
-    + now x-position maps onto class
-    + and y-position maps onto cty
+>     + use new x- and y-axis aesthetics with `aes()`
+>     + now x-position maps onto class
+>     + and y-position maps onto cty
 
 
 ```r
@@ -141,8 +141,8 @@ ggplot(data = mpg, mapping = aes(x = class, y = cty))
 
 # which type of car has better mpg in the city?
 > - add a boxplot layer
-    + boxplots are a complex layer
-    + e.g., they require statistics like fences, hinges, and outliers in addition to the shapes we see
+>     + boxplots are a complex layer
+>     + e.g., they require statistics like fences, hinges, and outliers in addition to the shapes we see
 
 **source.** [A layered grammar of graphics](http://vita.had.co.nz/papers/layered-grammar.pdf)
 
@@ -156,9 +156,9 @@ ggplot(data = mpg, mapping = aes(x = class, y = cty)) +
 
 # which type of car has better mpg in the city?
 > - add a statistical summary layer
-    + normative bars representing means + 95% confidence intervals
-    + `stat_summary()`: "Summarise y values at unique/binned x"
-    + `mean_cl_normal()`: "... computes 3 summary variables: the sample mean and lower and upper Gaussian confidence limits based on the t-distribution."
+>     + normative bars representing means + 95% confidence intervals
+>     + `stat_summary()`: "Summarise y values at unique/binned x"
+>     + `mean_cl_normal()`: "... computes 3 summary variables: the sample mean and lower and upper Gaussian confidence limits based on the t-distribution."
 
 **sources.** `help("stat_summary")` and `help("mean_cl_normal")`
 
@@ -203,29 +203,29 @@ sleepstudy %>% sample_n(size = 15)
 
        Reaction   Days  Subject 
 ----  ---------  -----  --------
-167    259.2658      6  371     
-33     283.8565      2  330     
-79     335.7469      8  334     
-50     371.5811      9  331     
-6      414.6901      5  308     
-78     331.5229      7  334     
-23     234.3200      2  310     
-168    304.6306      7  371     
-90     237.2466      9  335     
-54     309.7688      3  332     
-173    297.5968      2  372     
-134    346.8555      3  352     
-1      249.5600      0  308     
+87     245.4523      6  335     
+86     254.6362      5  335     
+32     300.4002      1  330     
+88     235.3110      7  335     
 16     215.9618      5  309     
-135    348.7402      4  352     
+15     207.7161      4  309     
+36     297.5855      5  330     
+58     346.8311      7  332     
+169    350.7807      8  371     
+67     332.0265      6  333     
+114    255.5271      3  350     
+131    221.6771      0  352     
+78     331.5229      7  334     
+98     416.6923      7  337     
+91     312.3666      0  337     
 
 </div>
 
 # exercise: play with the sleepstudy dataset that comes with `lme4`
 > - **sleepstudy.**
-    + does average reaction time change over time?
-    + does change over time depend on Subject?
-    + **hint.** `help(facet_wrap)`
+>     + does average reaction time change over time?
+>     + does change over time depend on Subject?
+>     + **hint.** `help(facet_wrap)`
 
 **source.** `help(sleepstudy)`
 
@@ -260,21 +260,21 @@ US_births_2000_2014 %>% sample_n(size = 15)
 
  year   month   date_of_month  date         day_of_week    births
 -----  ------  --------------  -----------  ------------  -------
- 2010      10              11  2010-10-11   Mon             12134
- 2012       9               5  2012-09-05   Wed             13991
- 2014      12              12  2014-12-12   Fri             12001
- 2008       8              26  2008-08-26   Tues            14260
- 2009       9               4  2009-09-04   Fri             13622
- 2008      12               7  2008-12-07   Sun              7282
- 2011       9              24  2011-09-24   Sat              8496
- 2010      12              24  2010-12-24   Fri              7532
- 2008       1               6  2008-01-06   Sun              7610
- 2005      12              11  2005-12-11   Sun              7368
- 2008       6               3  2008-06-03   Tues            13459
- 2001       4              28  2001-04-28   Sat              8574
- 2004       4              10  2004-04-10   Sat              8148
- 2007       3               7  2007-03-07   Wed             13520
- 2007      12              17  2007-12-17   Mon             13455
+ 2003       6              17  2003-06-17   Tues            13443
+ 2014       6               8  2014-06-08   Sun              7359
+ 2000       9              24  2000-09-24   Sun              8539
+ 2001       2               4  2001-02-04   Sun              7716
+ 2007       4               1  2007-04-01   Sun              7372
+ 2009       2              13  2009-02-13   Fri             11832
+ 2009      11              20  2009-11-20   Fri             13002
+ 2006       2               1  2006-02-01   Wed             12960
+ 2004       4              17  2004-04-17   Sat              8584
+ 2008       9              23  2008-09-23   Tues            14464
+ 2003      10              11  2003-10-11   Sat              8721
+ 2000      12              19  2000-12-19   Tues            13829
+ 2003       3               5  2003-03-05   Wed             12483
+ 2009      11              21  2009-11-21   Sat              8335
+ 2007       1              26  2007-01-26   Fri             13110
 
 </div>
 

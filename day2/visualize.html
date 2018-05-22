@@ -168,14 +168,14 @@ library(fivethirtyeight)</code></pre>
 <li><a href="http://vita.had.co.nz/papers/layered-grammar.html"><strong>grammar of graphics</strong></a>, a visualization philosophy</li>
 <li>start with <code>ggplot()</code></li>
 <li>supply a dataset and aesthetic mapping, <code>aes()</code></li>
-<li>add on …</li>
-</ol>
+<li>add on …
 <ul>
 <li><strong>layers</strong>, like <code>geom_point()</code> or <code>geom_histogram()</code></li>
 <li><strong>scales</strong>, like <code>scale_colour_brewer()</code></li>
 <li><strong>faceting specifications</strong>, like <code>facet_wrap()</code></li>
 <li><strong>coordinate systems</strong>, like <code>coord_flip()</code></li>
-</ul>
+</ul></li>
+</ol>
 </blockquote>
 <p><strong>source.</strong> <a href="ggplot2.tidyverse.org"><strong>ggplot2.tidyverse.org</strong></a></p>
 </div>
@@ -207,138 +207,125 @@ library(fivethirtyeight)</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">toyota</td>
-<td align="left">toyota tacoma 4wd</td>
-<td align="right">2.7</td>
-<td align="right">1999</td>
-<td align="right">4</td>
-<td align="left">auto(l4)</td>
-<td align="left">4</td>
-<td align="right">16</td>
-<td align="right">20</td>
-<td align="left">r</td>
-<td align="left">pickup</td>
-</tr>
-<tr class="even">
-<td align="left">audi</td>
-<td align="left">a6 quattro</td>
-<td align="right">2.8</td>
-<td align="right">1999</td>
-<td align="right">6</td>
-<td align="left">auto(l5)</td>
-<td align="left">4</td>
-<td align="right">15</td>
-<td align="right">24</td>
-<td align="left">p</td>
-<td align="left">midsize</td>
-</tr>
-<tr class="odd">
-<td align="left">subaru</td>
-<td align="left">impreza awd</td>
+<td align="left">volkswagen</td>
+<td align="left">jetta</td>
 <td align="right">2.5</td>
 <td align="right">2008</td>
-<td align="right">4</td>
-<td align="left">auto(s4)</td>
-<td align="left">4</td>
-<td align="right">20</td>
-<td align="right">27</td>
+<td align="right">5</td>
+<td align="left">auto(s6)</td>
+<td align="left">f</td>
+<td align="right">21</td>
+<td align="right">29</td>
 <td align="left">r</td>
 <td align="left">compact</td>
 </tr>
 <tr class="even">
-<td align="left">dodge</td>
-<td align="left">ram 1500 pickup 4wd</td>
-<td align="right">5.9</td>
-<td align="right">1999</td>
-<td align="right">8</td>
-<td align="left">auto(l4)</td>
-<td align="left">4</td>
-<td align="right">11</td>
-<td align="right">15</td>
-<td align="left">r</td>
-<td align="left">pickup</td>
-</tr>
-<tr class="odd">
 <td align="left">audi</td>
 <td align="left">a4 quattro</td>
+<td align="right">3.1</td>
+<td align="right">2008</td>
+<td align="right">6</td>
+<td align="left">manual(m6)</td>
+<td align="left">4</td>
+<td align="right">15</td>
+<td align="right">25</td>
+<td align="left">p</td>
+<td align="left">compact</td>
+</tr>
+<tr class="odd">
+<td align="left">volkswagen</td>
+<td align="left">passat</td>
 <td align="right">1.8</td>
 <td align="right">1999</td>
 <td align="right">4</td>
 <td align="left">manual(m5)</td>
-<td align="left">4</td>
-<td align="right">18</td>
-<td align="right">26</td>
+<td align="left">f</td>
+<td align="right">21</td>
+<td align="right">29</td>
 <td align="left">p</td>
-<td align="left">compact</td>
+<td align="left">midsize</td>
 </tr>
 <tr class="even">
-<td align="left">ford</td>
-<td align="left">f150 pickup 4wd</td>
-<td align="right">4.6</td>
+<td align="left">chevrolet</td>
+<td align="left">c1500 suburban 2wd</td>
+<td align="right">5.7</td>
 <td align="right">1999</td>
 <td align="right">8</td>
 <td align="left">auto(l4)</td>
-<td align="left">4</td>
+<td align="left">r</td>
 <td align="right">13</td>
-<td align="right">16</td>
+<td align="right">17</td>
+<td align="left">r</td>
+<td align="left">suv</td>
+</tr>
+<tr class="odd">
+<td align="left">toyota</td>
+<td align="left">toyota tacoma 4wd</td>
+<td align="right">4.0</td>
+<td align="right">2008</td>
+<td align="right">6</td>
+<td align="left">manual(m6)</td>
+<td align="left">4</td>
+<td align="right">15</td>
+<td align="right">18</td>
 <td align="left">r</td>
 <td align="left">pickup</td>
 </tr>
-<tr class="odd">
-<td align="left">chevrolet</td>
-<td align="left">corvette</td>
-<td align="right">6.2</td>
-<td align="right">2008</td>
-<td align="right">8</td>
-<td align="left">auto(s6)</td>
-<td align="left">r</td>
-<td align="right">15</td>
-<td align="right">25</td>
-<td align="left">p</td>
-<td align="left">2seater</td>
-</tr>
 <tr class="even">
-<td align="left">pontiac</td>
-<td align="left">grand prix</td>
-<td align="right">3.8</td>
-<td align="right">1999</td>
-<td align="right">6</td>
-<td align="left">auto(l4)</td>
+<td align="left">audi</td>
+<td align="left">a4</td>
+<td align="right">2.0</td>
+<td align="right">2008</td>
+<td align="right">4</td>
+<td align="left">manual(m6)</td>
 <td align="left">f</td>
-<td align="right">17</td>
-<td align="right">27</td>
-<td align="left">r</td>
-<td align="left">midsize</td>
+<td align="right">20</td>
+<td align="right">31</td>
+<td align="left">p</td>
+<td align="left">compact</td>
 </tr>
 <tr class="odd">
-<td align="left">pontiac</td>
-<td align="left">grand prix</td>
-<td align="right">3.8</td>
-<td align="right">1999</td>
-<td align="right">6</td>
-<td align="left">auto(l4)</td>
+<td align="left">hyundai</td>
+<td align="left">sonata</td>
+<td align="right">2.4</td>
+<td align="right">2008</td>
+<td align="right">4</td>
+<td align="left">manual(m5)</td>
 <td align="left">f</td>
-<td align="right">16</td>
-<td align="right">26</td>
-<td align="left">p</td>
+<td align="right">21</td>
+<td align="right">31</td>
+<td align="left">r</td>
 <td align="left">midsize</td>
 </tr>
 <tr class="even">
 <td align="left">hyundai</td>
 <td align="left">tiburon</td>
-<td align="right">2.7</td>
-<td align="right">2008</td>
-<td align="right">6</td>
-<td align="left">auto(l4)</td>
+<td align="right">2.0</td>
+<td align="right">1999</td>
+<td align="right">4</td>
+<td align="left">manual(m5)</td>
 <td align="left">f</td>
-<td align="right">17</td>
-<td align="right">24</td>
+<td align="right">19</td>
+<td align="right">29</td>
 <td align="left">r</td>
 <td align="left">subcompact</td>
 </tr>
 <tr class="odd">
+<td align="left">subaru</td>
+<td align="left">forester awd</td>
+<td align="right">2.5</td>
+<td align="right">1999</td>
+<td align="right">4</td>
+<td align="left">auto(l4)</td>
+<td align="left">4</td>
+<td align="right">18</td>
+<td align="right">24</td>
+<td align="left">r</td>
+<td align="left">suv</td>
+</tr>
+<tr class="even">
 <td align="left">dodge</td>
-<td align="left">ram 1500 pickup 4wd</td>
+<td align="left">durango 4wd</td>
 <td align="right">4.7</td>
 <td align="right">2008</td>
 <td align="right">8</td>
@@ -347,51 +334,64 @@ library(fivethirtyeight)</code></pre>
 <td align="right">13</td>
 <td align="right">17</td>
 <td align="left">r</td>
-<td align="left">pickup</td>
-</tr>
-<tr class="even">
-<td align="left">volkswagen</td>
-<td align="left">jetta</td>
-<td align="right">2.5</td>
-<td align="right">2008</td>
-<td align="right">5</td>
-<td align="left">manual(m5)</td>
-<td align="left">f</td>
-<td align="right">21</td>
-<td align="right">29</td>
-<td align="left">r</td>
-<td align="left">compact</td>
+<td align="left">suv</td>
 </tr>
 <tr class="odd">
-<td align="left">dodge</td>
-<td align="left">ram 1500 pickup 4wd</td>
-<td align="right">5.2</td>
-<td align="right">1999</td>
-<td align="right">8</td>
-<td align="left">manual(m5)</td>
-<td align="left">4</td>
-<td align="right">11</td>
-<td align="right">16</td>
-<td align="left">r</td>
-<td align="left">pickup</td>
-</tr>
-<tr class="even">
-<td align="left">lincoln</td>
-<td align="left">navigator 2wd</td>
-<td align="right">5.4</td>
-<td align="right">1999</td>
+<td align="left">chevrolet</td>
+<td align="left">c1500 suburban 2wd</td>
+<td align="right">5.3</td>
+<td align="right">2008</td>
 <td align="right">8</td>
 <td align="left">auto(l4)</td>
 <td align="left">r</td>
 <td align="right">11</td>
-<td align="right">16</td>
-<td align="left">p</td>
+<td align="right">15</td>
+<td align="left">e</td>
 <td align="left">suv</td>
+</tr>
+<tr class="even">
+<td align="left">volkswagen</td>
+<td align="left">gti</td>
+<td align="right">2.8</td>
+<td align="right">1999</td>
+<td align="right">6</td>
+<td align="left">manual(m5)</td>
+<td align="left">f</td>
+<td align="right">17</td>
+<td align="right">24</td>
+<td align="left">r</td>
+<td align="left">compact</td>
+</tr>
+<tr class="odd">
+<td align="left">audi</td>
+<td align="left">a4 quattro</td>
+<td align="right">1.8</td>
+<td align="right">1999</td>
+<td align="right">4</td>
+<td align="left">auto(l5)</td>
+<td align="left">4</td>
+<td align="right">16</td>
+<td align="right">25</td>
+<td align="left">p</td>
+<td align="left">compact</td>
+</tr>
+<tr class="even">
+<td align="left">dodge</td>
+<td align="left">ram 1500 pickup 4wd</td>
+<td align="right">4.7</td>
+<td align="right">2008</td>
+<td align="right">8</td>
+<td align="left">manual(m6)</td>
+<td align="left">4</td>
+<td align="right">9</td>
+<td align="right">12</td>
+<td align="left">e</td>
+<td align="left">pickup</td>
 </tr>
 <tr class="odd">
 <td align="left">land rover</td>
 <td align="left">range rover</td>
-<td align="right">4.0</td>
+<td align="right">4.6</td>
 <td align="right">1999</td>
 <td align="right">8</td>
 <td align="left">auto(l4)</td>
@@ -409,8 +409,7 @@ library(fivethirtyeight)</code></pre>
 <h1>example: do cars with big engines use more fuel than cars with small engines?</h1>
 <blockquote>
 <ol style="list-style-type: decimal">
-<li>start with mapping and <code>aes()</code></li>
-</ol>
+<li>start with mapping and <code>aes()</code>
 <ul>
 <li><strong>displ.</strong> engine displacement, in litres (bigger numbers = greater engine size)</li>
 <li><strong>hwy.</strong> highway miles per gallon (bigger numbers = using less fuel each mile)</li>
@@ -418,7 +417,8 @@ library(fivethirtyeight)</code></pre>
 <li>x-axis position maps onto displ</li>
 <li>y-axis position maps onto hwy</li>
 <li>x-position and y-position are aesthetics: things that we can perceive on the graphic</li>
-</ul>
+</ul></li>
+</ol>
 </blockquote>
 <pre class="r"><code>ggplot(data = mpg, mapping = aes(x = displ, y = hwy))</code></pre>
 <p><img src="data:image/png;base64,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e1PbfYp3N729vcWe4h07drT7cIr+xwYg9nxXYYqNc09PT1q/fn3avXt3FYaUqrR8urq6im3OunXrKrFsYvs4ZsyYtG3btkqMJ9a12Lu2cePGSoxn7NixxetOfBpYhSle12Msr/2Usp3HFflj+/btldlWT5kyZVizQeSRgd6MDHsAjVD00EMPpXe+853Fru1f+IVfSDfeeGN65JFH0vTp09OKFStq6+srr7ySZs2aVbseFw477LDir7/x+eefH/LGNV50qrKSxQKPKTYCVXnRiY1AVcYSLzgxxfMg3mBVYarS8onAFlNV1rd4wxPbhKqMp39Pe1XGE8sm3ojG608VpnhzHTuRqrJ8Ynsdy+a1O8badTmNRDaIbDXQNPSDJweqXue2eDf+ta99LT344IPFrXHKpfiYfe7cuenYY49NK1euTGvWrClenJcsWZKOO+64OlU0ESBAgAABAgQItKvAsO8BjRT+B3/wB0UIvemmm1Ik5PhGfOz9jOn8889P5557bpo6dWoRSs8666x2tdVvAgQIECBAgACBOgLDHkCjD0cddVQRQDdt2pR++uD40047LZ188snFbu+fvq1O/zURIECAAAECBAi0mcCIBNB+o30FzPiYPv5MBAgQIECAAAEC1RMY9mNAq0doRAQIECBAgAABAoMREEAHo2VeAgQIECBAgACBIQsIoEMmVIAAAQIECBAgQGAwAgLoYLTMS4AAAQIECBAgMGQBAXTIhAoQIECAAAECBAgMRqDhABq/3W4iQIAAAQIECBAgMFSBhgPoW97ylnTmmWemu+++uxI/SzVUOPcnQIAAAQIECBDYP4GGA+i3vvWtNGnSpPShD30oHXzwwemSSy4pfr99/x7WvQgQIECAAAECBA5UgYYD6Iknnpi+/vWvp+eeey4tWrQoPfroo+noo48ufr/9xhtvTOvXrz9QDY2bAAECBAgQIEBgEAINB9D+muPGjUsf/OAH0xVXXFH8ZvvDDz+cPvWpT6XZs2enT37yk6mvr69/Vv8JECBAgAABAgQIlAQGFUB/8pOfpM9+9rPpzW9+czrhhBPSk08+mRYvXpzWrl2bvve976W//du/LW4vPYoGAgQIECBAgAABAv9PoOHfgn/ve9+b7rvvvnT44Yen8847L334wx9Os2bNqkHGx/Hvf//708qVK2ttLhAgQIAAAQIECBD4aYGGA2h8Aenee+9NEUT3NV100UVp/Pjx+7pZOwECBAgQIECAAIHU8EfwP/7xj9Opp56a3ve+96Wbbrqp+DLST/vNmTMnTZs27aebXSdAgAABAgQIECBQE2g4gK5atSr9y7/8Szr++OPTzTffXJyKKY4D/eIXv5gef/zxWkEXCBAgQIAAAQIECAwk0HAA7ejoKE67dOWVV6Z///d/T//6r/+aOjs706WXXpouu+yygR7DbQQIECBAgAABAgRqAg0fA/riiy8WX0JatmxZir/4Rvy8efPSxRdfnH7rt36rVtAFAgQIECBAgAABAgMJNBxA46c44/fgP/CBD6Srr766+DLSG97whoFqu40AAQIECBAgQIBASaDhAPrpT386LV26NC1ZsiQ99thj6T/+4z/SL/3SL6X3vOc9acKECaXCGggQIECAAAECBAjUE2j4GND4laM4D+jLL7+crrnmmrRr167i2M+pU6cWx4HWK66NAAECBAgQIECAwE8LNBxA+++4c+fOtH379rRly5biI/kxY8aknp6e/pv9J0CAAAECBAgQIDCgQMMfwX/+859Pd911V/q3f/u3FMd+nn766enGG28sjgXt7u4e8EHcSIAAAQIECBAgQKBfoOEAevfdd6eTTjopXXfddemYY45JcVomEwECBAgQIECAAIHBCjQcQB944IHB1jY/AQIECBAgQIAAgZJAwwG0/57PPPNMWr9+ff/V4n/8Tvzs2bP3anOFAAECBAgQIECAQD2BhgNonIJp4cKFpfAZRc8444x0++2316uvjQABAgQIECBAgMBeAg0H0I985CPp5JNPThdeeGHxO/CvreI8oK/VcJkAAQIECBAgQGAggYYCaPwC0tNPP52+/OUv+6h9IE23ESBAgAABAgQIvK5AQ+cBjWM83/jGN6bVq1e/bkEzECBAgAABAgQIEBhIYMA9oA8++GDavHlzcf84/jOO9Yyf5DzkkENSnIC+f4rzgh5xxBH9V/0nQIAAAQIECBAgsE+BAQPo7/3e76VHHnlkrzv//u///l7X44ovIZVINBAgQIAAAQIECOxDYMAA+sMf/jDt2bNnH3f9/82jR4/+/1dcIkCAAAECBAgQIDCAwIABtKura4C7uokAAQIECBAgQIDA4AUa+hLS4Mu6BwECBAgQIECAAIH6AgJofRetBAgQIECAAAECmQQE0EywyhIgQIAAAQIECNQXEEDru2glQIAAAQIECBDIJCCAZoJVlgABAgQIECBAoL6AAFrfRSsBAgQIECBAgEAmAQE0E6yyBAgQIECAAAEC9QUE0PouWgkQIECAAAECBDIJCKCZYJUlQIAAAQIECBCoLyCA1nfRSoAAAQIECBAgkElAAM0EqywBAgQIECBAgEB9AQG0votWAgQIECBAgACBTAICaCZYZQkQIECAAAECBOoLCKD1XbQSIECAAAECBAhkEhBAM8EqS4AAAQIECBAgUF9AAK3vopUAAQIECBAgQCCTgACaCVZZAgQIECBAgACB+gICaH0XrQQIECBAgAABApkEBNBMsMoSIECAAAECBAjUFxBA67toJUCAAAECBAgQyCQggGaCVZYAAQIECBAgQKC+QMeeV6f6N7VH65YtW9KoUUPL0Z2dnWnnzp3tMeAGetnd3Z127NiRdu/e3cDcrT/LmDFjUl9fX+t3tIEexro6duzYtH379tTmT73aaKu0fEaPHp1iexDLpwpTR0dHijFVZfsW61qMKbZvVZhi2cR2oCrb6ti2xViqsr5VMRvEa+muXbuG5ekT68HEiRP3+Vid+7ylTW7YuHHjkJ+8kydPTs2o0wpksXGeOXNmimC+devWVujSkPswZcqUtHbt2iHXaYUCsYGeNm1a2rBhQ2U20lVaPhMmTEg9PT2VWd/iBTTekG7atKkVVv8h96G3t7cI1FXZHowbN654/arKG57p06cXb95i+1aFadKkSWnz5s3DFthymvVngxjPcGWDrq6uAYc0tF2HA5Z2IwECBAgQIECAAIGygABaNtFCgAABAgQIECCQUUAAzYirNAECBAgQIECAQFlAAC2baCFAgAABAgQIEMgoIIBmxFWaAAECBAgQIECgLCCAlk20ECBAgAABAgQIZBQQQDPiKk2AAAECBAgQIFAWEEDLJloIECBAgAABAgQyCgigGXGVJkCAAAECBAgQKAsIoGUTLQQIECBAgAABAhkFBNCMuEoTIECAAAECBAiUBQTQsokWAgQIECBAgACBjAICaEZcpQkQIECAAAECBMoCAmjZRAsBAgQIECBAgEBGAQE0I67SBAgQIECAAAECZQEBtGyihQABAgQIECBAIKOAAJoRV2kCBAgQIECAAIGygABaNtFCgAABAgQIECCQUUAAzYirNAECBAgQIECAQFlAAC2baCFAgAABAgQIEMgoIIBmxFWaAAECBAgQIECgLCCAlk20ECBAgAABAgQIZBQQQDPiKk2AAAECBAgQIFAWEEDLJloIECBAgAABAgQyCgigGXGVJkCAAAECBAgQKAsIoGUTLQQIECBAgAABAhkFBNCMuEoTIECAAAECBAiUBQTQsokWAgQIECBAgACBjAICaEZcpQkQIECAAAECBMoCAmjZRAsBAgQIECBAgEBGAQE0I67SBAgQIECAAAECZQEBtGyihQABAgQIECBAIKOAAJoRV2kCBAgQIECAAIGygABaNtFCgAABAgQIECCQUUAAzYirNAECBAgQIECAQFlAAC2baCFAgAABAgQIEMgoIIBmxFWaAAECBAgQIECgLCCAlk20ECBAgAABAgQIZBQQQDPiKk2AAAECBAgQIFAWEEDLJloIECBAgAABAgQyCgigGXGVJkCAAAECBAgQKAsIoGUTLQQIECBAgAABAhkFBNCMuEoTIECAAAECBAiUBQTQsokWAgQIECBAgACBjAICaEZcpQkQIECAAAECBMoCAmjZRAsBAgQIECBAgEBGAQE0I67SBAgQIECAAAECZQEBtGyihQABAgQIECBAIKOAAJoRV2kCBAgQIECAAIGygABaNtFCgAABAgQIECCQUUAAzYirNAECBAgQIECAQFlAAC2baCFAgAABAgQIEMgoIIBmxFWaAAECBAgQIECgLCCAlk20ECBAgAABAgQIZBQQQDPiKk2AAAECBAgQIFAWGLEAunbt2vTd7343Pfvss6VerVq1Kt1zzz3ppZdeKt2mgQABAgQIECBAoL0FRiSA3nnnnemiiy5KTzzxRLrqqqvSddddV1NctGhRuvbaa9Py5cvTOeeck1avXl27zQUCBAgQIECAAIH2F+gc7iHs2rUrffOb3yxC5pve9Ka0cOHCdOaZZ6azzz47rV+/Pj3wwAPpjjvuSKNGjUqLFy9Ot912W7r88suHu5sejwABAgQIECBAIJPAsAfQ0aNHp1tvvTVNmDChGNK2bdvSpk2bUgTTxx9/PM2bN68In3Hj/Pnz09KlS/ca+ubNm9PWrVtrbXv27KnNX2vcjwsReKswdXR0FMOI/1UZUwyoKmOxfFr7Wda/fKq0vlVtW1C17UHVlo/xtP42rlW2b8MeQGPR9IfP3bt3p+uvvz6dcsop6aCDDiqOB508eXJt6U2aNCm9/PLLtetx4YYbbki33HJLrW3ZsmVp9uzZtev7e2H8+PH7e9eWvF84vtayJTs5iE51d3cPYu7WnzXW9ypNVVs+M2bMqNLiSRMnTqzUeKq2fKq0cDo7O1OVXk/780pVltFwZoMtW7YMyDYiATR6tH379nT11Ven2IP56U9/uuhk7B2NPaH9086dO9O4ceP6rxb/FyxYkI466qhaW9wnvtA0lCmeLLFXNfrS7lO8++zt7U2xp3jHjh3tPpyi/7EBiPFUYYqNc09PT3G4SbwBq8JUpeXT1dVVbHPWrVtXhUVTfHIwduzYFJ80VWGKdS323mzcuLEKw0mxbGI7EK91VZhip1FfX99en1K287gif0RWqcq2esqUKcOaDSKPDPRmZEQCaKTiSy+9tNhzeckll6QIkTFNnz49rVixora+vvLKK2nWrFm163HhsMMOK/76G59//vkhb1zjRacqK1ks8JhiI1CVF53YCFRlLPGCE1O8OajKi06Vlk//tqgq61u84YnAVpXx9O9pr8p4Ynsd4SZef6owxZvr2IlUleUT2+tYNq/dMdauy2kkskFkq4GmETnw8corr0xvfetb02WXXVYLn9HJY489Nq1cuTKtWbOmeHFesmRJOu644wbqv9sIECBAgAABAgTaTGDY94A++uij6Qc/+EHxd/vtt9e4vvKVrxRfQDr//PPTueeem6ZOnZrmzp2bzjrrrNo8LhAgQIAAAQIECLS/wLAH0MMPP7w41dK+6E477bR08sknF7u9q3bg/L7GrJ0AAQIECBAgcCAJDHsAbQR3zJgxKf5MBAgQIECAAAEC1RMYkWNAq8doRAQIECBAgAABAo0KCKCNSpmPAAECBAgQIECgKQICaFMYFSFAgAABAgQIEGhUQABtVMp8BAgQIECAAAECTREQQJvCqAgBAgQIECBAgECjAgJoo1LmI0CAAAECBAgQaIqAANoURkUIECBAgAABAgQaFRBAG5UyHwECBAgQIECAQFMEBNCmMCpCgAABAgQIECDQqIAA2qiU+QgQIECAAAECBJoiIIA2hVERAgQIECBAgACBRgUE0EalzEeAAAECBAgQINAUAQG0KYyKECBAgAABAgQINCoggDYqZT4CBAgQIECAAIGmCAigTWFUhAABAgQIECBAoFEBAbRRKfMRIECAAAECBAg0RUAAbQqjIgQIECBA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UF9AAK3vopUAAQIECBAgQCCTgACaCVZZAgQIECBAgACB+gICaH0XrQQIECBAgAABApkEBNBMsMoSIECgXyB+Ceuqq65KmzZtKpoWL16c7rrrrv6b9/t//PRu1F2zZs1+13BHAgQIjISAADoS6h6TAIEDSuC5555Ln/3sZ2sB9Pbbb0933333kA3inLJRVwAdMqUCBAgMs4Dfgh9mcA9HgACBb3/72xAIECBwQAvYA3pAL36DJ0Agh8COHTtS/Azub/zGb6SPfvSj6amnntrrYW688cYUP83aP916661pwYIF6X3ve1+6/PLL0yuvvFLc1NfXl84777z0n//5n+mCCy5Ip59+erruuutqe1L77+8/AQIE2k1AAG23Jaa/BAi0vMDHPvax9LnPfS6dcMIJKcLowoUL9+rzPffck/75n/+5aPvLv/zL9PGPf7z47ezf/u3fTsuWLUu//Mu/XNy2a9eu9PWvf7347fOtW7emX//1Xy+C7dlnn5327NmzV01XCBAg0E4Cne3UWX0lQIBAqwusWLEi/cVf/EVauXJletvb3lZ094gjjkgXX3xx3a5///vfT8ccc0z6xCc+UfyG9oknnpjuvPPOFF8w6p9OOeWUomZcP/roo4u/733ve+kd73hH/yz+EyBAoK0E7AFtq8WlswQItLrAww8/nGbMmFELn9HfCJD7mj74wQ+m+++/Px166KHpwgsvTI899ljxv6urq3aXU089tXY5Quf06dPTQw89VGtzgQABAu0mIIC22xLTXwIEWlpg3bp1affu3Xt9RN7Zue8Pm0466aQUoTWCaHwsH2H1+OOPT1Gnf5o7d27/xWIvaW9vr+NAayIuECDQjgICaDsuNX0mQKBlBebPn59eeOGFIlT2d/Lee+/tv1j6/w//8A/Fl46uueaatHz58mLPZnyMH+39UxwX2j+tXr262Esaj2MiQIBAuwoIoO265PSbAIGWFIjjOeOYz6uvvrr49nuEyZtuummfff3Rj36UPvzhDxehMr5YFOcM3blzZzrkkENq94kvKj344IMpTmj/mc98pvi4/j3veU/tdhcIECDQbgL7/lyo3UaivwQIEGgBge7u7uJXjuIb7XFcZ0zxBaT4mL3edNFFFxV7Pt/1rnelOLH8qFGj0vXXX198MSmux3TsscemX/zFXyw+2n/729+eli5dmiZNmpTWr19fr6Q2AgQItLxAx6vvuJ3Lo+UXkw4SINCOAi+++GLq6elJEUpfb4rjRp9++ul08MEHF8d5xvwRQMeNG1ecmund7353ETjjC0gmAgQItLuAPaDtvgT1nwCBlhUYTFiMPZ9z5szZ51jGjh1bfPt9nzO4gQABAm0k4BjQNlpYukqAwIEl0NHRUYTOCJ8mAgQIVEnAR/BVWprGQoAAAQIECBBoAwF7QNtgIekiAQIECBAgQKBKAgJolZamsRAgQIAAAQIE2kBAAG2DhaSLBAgQIECAAIEqCQigVVqaxkKAAAECBAgQaAMBAbQNFpIuEiBAgAABAgSqJCCAVmlpGgsBAgQIECBAoA0E/g8TYRESDOiRSQAAAABJRU5ErkJggg==" /><!-- --></p>
@@ -427,11 +427,11 @@ library(fivethirtyeight)</code></pre>
 <h1>example: do cars with big engines use more fuel than cars with small engines?</h1>
 <blockquote>
 <ol start="2" style="list-style-type: decimal">
-<li>add a layer, like <code>geom_point()</code></li>
-</ol>
+<li>add a layer, like <code>geom_point()</code>
 <ul>
 <li>layers determine physical representations of data</li>
-</ul>
+</ul></li>
+</ol>
 </blockquote>
 <p><strong>source.</strong> <a href="http://vita.had.co.nz/papers/layered-grammar.pdf"><strong>A layered grammar of graphics</strong></a></p>
 <pre class="r"><code>ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
@@ -442,12 +442,12 @@ library(fivethirtyeight)</code></pre>
 <h1>example: what types have cars have big engines but decent highway mpg?</h1>
 <blockquote>
 <ol start="3" style="list-style-type: decimal">
-<li>add a new aesthetic mapping, like color</li>
-</ol>
+<li>add a new aesthetic mapping, like color
 <ul>
 <li><strong>class.</strong> “type” of car</li>
 <li>color maps onto class</li>
-</ul>
+</ul></li>
+</ol>
 </blockquote>
 <p><strong>source.</strong> <a href="http://vita.had.co.nz/papers/layered-grammar.pdf">A layered grammar of graphics</a></p>
 <pre class="r"><code>ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = class)) +
@@ -458,10 +458,12 @@ library(fivethirtyeight)</code></pre>
 <h1>which type of car has better mpg in the city?</h1>
 <blockquote>
 <ul>
-<li><strong>cty.</strong> city miles per gallon</li>
+<li><strong>cty.</strong> city miles per gallon
+<ul>
 <li>use new x- and y-axis aesthetics with <code>aes()</code></li>
 <li>now x-position maps onto class</li>
 <li>and y-position maps onto cty</li>
+</ul></li>
 </ul>
 </blockquote>
 <pre class="r"><code>ggplot(data = mpg, mapping = aes(x = class, y = cty))</code></pre>
@@ -471,9 +473,11 @@ library(fivethirtyeight)</code></pre>
 <h1>which type of car has better mpg in the city?</h1>
 <blockquote>
 <ul>
-<li>add a boxplot layer</li>
+<li>add a boxplot layer
+<ul>
 <li>boxplots are a complex layer</li>
 <li>e.g., they require statistics like fences, hinges, and outliers in addition to the shapes we see</li>
+</ul></li>
 </ul>
 </blockquote>
 <p><strong>source.</strong> <a href="http://vita.had.co.nz/papers/layered-grammar.pdf">A layered grammar of graphics</a></p>
@@ -485,10 +489,12 @@ library(fivethirtyeight)</code></pre>
 <h1>which type of car has better mpg in the city?</h1>
 <blockquote>
 <ul>
-<li>add a statistical summary layer</li>
+<li>add a statistical summary layer
+<ul>
 <li>normative bars representing means + 95% confidence intervals</li>
 <li><code>stat_summary()</code>: “Summarise y values at unique/binned x”</li>
 <li><code>mean_cl_normal()</code>: “… computes 3 summary variables: the sample mean and lower and upper Gaussian confidence limits based on the t-distribution.”</li>
+</ul></li>
 </ul>
 </blockquote>
 <p><strong>sources.</strong> <code>help(&quot;stat_summary&quot;)</code> and <code>help(&quot;mean_cl_normal&quot;)</code></p>
@@ -539,94 +545,94 @@ library(fivethirtyeight)</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td>167</td>
-<td align="right">259.2658</td>
+<td>87</td>
+<td align="right">245.4523</td>
 <td align="right">6</td>
-<td align="left">371</td>
-</tr>
-<tr class="even">
-<td>33</td>
-<td align="right">283.8565</td>
-<td align="right">2</td>
-<td align="left">330</td>
-</tr>
-<tr class="odd">
-<td>79</td>
-<td align="right">335.7469</td>
-<td align="right">8</td>
-<td align="left">334</td>
-</tr>
-<tr class="even">
-<td>50</td>
-<td align="right">371.5811</td>
-<td align="right">9</td>
-<td align="left">331</td>
-</tr>
-<tr class="odd">
-<td>6</td>
-<td align="right">414.6901</td>
-<td align="right">5</td>
-<td align="left">308</td>
-</tr>
-<tr class="even">
-<td>78</td>
-<td align="right">331.5229</td>
-<td align="right">7</td>
-<td align="left">334</td>
-</tr>
-<tr class="odd">
-<td>23</td>
-<td align="right">234.3200</td>
-<td align="right">2</td>
-<td align="left">310</td>
-</tr>
-<tr class="even">
-<td>168</td>
-<td align="right">304.6306</td>
-<td align="right">7</td>
-<td align="left">371</td>
-</tr>
-<tr class="odd">
-<td>90</td>
-<td align="right">237.2466</td>
-<td align="right">9</td>
 <td align="left">335</td>
 </tr>
 <tr class="even">
-<td>54</td>
-<td align="right">309.7688</td>
-<td align="right">3</td>
-<td align="left">332</td>
+<td>86</td>
+<td align="right">254.6362</td>
+<td align="right">5</td>
+<td align="left">335</td>
 </tr>
 <tr class="odd">
-<td>173</td>
-<td align="right">297.5968</td>
-<td align="right">2</td>
-<td align="left">372</td>
+<td>32</td>
+<td align="right">300.4002</td>
+<td align="right">1</td>
+<td align="left">330</td>
 </tr>
 <tr class="even">
-<td>134</td>
-<td align="right">346.8555</td>
-<td align="right">3</td>
-<td align="left">352</td>
+<td>88</td>
+<td align="right">235.3110</td>
+<td align="right">7</td>
+<td align="left">335</td>
 </tr>
 <tr class="odd">
-<td>1</td>
-<td align="right">249.5600</td>
-<td align="right">0</td>
-<td align="left">308</td>
-</tr>
-<tr class="even">
 <td>16</td>
 <td align="right">215.9618</td>
 <td align="right">5</td>
 <td align="left">309</td>
 </tr>
-<tr class="odd">
-<td>135</td>
-<td align="right">348.7402</td>
+<tr class="even">
+<td>15</td>
+<td align="right">207.7161</td>
 <td align="right">4</td>
+<td align="left">309</td>
+</tr>
+<tr class="odd">
+<td>36</td>
+<td align="right">297.5855</td>
+<td align="right">5</td>
+<td align="left">330</td>
+</tr>
+<tr class="even">
+<td>58</td>
+<td align="right">346.8311</td>
+<td align="right">7</td>
+<td align="left">332</td>
+</tr>
+<tr class="odd">
+<td>169</td>
+<td align="right">350.7807</td>
+<td align="right">8</td>
+<td align="left">371</td>
+</tr>
+<tr class="even">
+<td>67</td>
+<td align="right">332.0265</td>
+<td align="right">6</td>
+<td align="left">333</td>
+</tr>
+<tr class="odd">
+<td>114</td>
+<td align="right">255.5271</td>
+<td align="right">3</td>
+<td align="left">350</td>
+</tr>
+<tr class="even">
+<td>131</td>
+<td align="right">221.6771</td>
+<td align="right">0</td>
 <td align="left">352</td>
+</tr>
+<tr class="odd">
+<td>78</td>
+<td align="right">331.5229</td>
+<td align="right">7</td>
+<td align="left">334</td>
+</tr>
+<tr class="even">
+<td>98</td>
+<td align="right">416.6923</td>
+<td align="right">7</td>
+<td align="left">337</td>
+</tr>
+<tr class="odd">
+<td>91</td>
+<td align="right">312.3666</td>
+<td align="right">0</td>
+<td align="left">337</td>
 </tr>
 </tbody>
 </table>
@@ -636,10 +642,12 @@ library(fivethirtyeight)</code></pre>
 <h1>exercise: play with the sleepstudy dataset that comes with <code>lme4</code></h1>
 <blockquote>
 <ul>
-<li><strong>sleepstudy.</strong></li>
+<li><strong>sleepstudy.</strong>
+<ul>
 <li>does average reaction time change over time?</li>
 <li>does change over time depend on Subject?</li>
 <li><strong>hint.</strong> <code>help(facet_wrap)</code></li>
+</ul></li>
 </ul>
 </blockquote>
 <p><strong>source.</strong> <code>help(sleepstudy)</code></p>
@@ -687,124 +695,124 @@ library(fivethirtyeight)</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="right">2010</td>
-<td align="right">10</td>
-<td align="right">11</td>
-<td align="left">2010-10-11</td>
-<td align="left">Mon</td>
-<td align="right">12134</td>
+<td align="right">2003</td>
+<td align="right">6</td>
+<td align="right">17</td>
+<td align="left">2003-06-17</td>
+<td align="left">Tues</td>
+<td align="right">13443</td>
 </tr>
 <tr class="even">
-<td align="right">2012</td>
-<td align="right">9</td>
-<td align="right">5</td>
-<td align="left">2012-09-05</td>
-<td align="left">Wed</td>
-<td align="right">13991</td>
-</tr>
-<tr class="odd">
 <td align="right">2014</td>
-<td align="right">12</td>
-<td align="right">12</td>
-<td align="left">2014-12-12</td>
-<td align="left">Fri</td>
-<td align="right">12001</td>
-</tr>
-<tr class="even">
-<td align="right">2008</td>
+<td align="right">6</td>
 <td align="right">8</td>
-<td align="right">26</td>
-<td align="left">2008-08-26</td>
-<td align="left">Tues</td>
-<td align="right">14260</td>
-</tr>
-<tr class="odd">
-<td align="right">2009</td>
-<td align="right">9</td>
-<td align="right">4</td>
-<td align="left">2009-09-04</td>
-<td align="left">Fri</td>
-<td align="right">13622</td>
-</tr>
-<tr class="even">
-<td align="right">2008</td>
-<td align="right">12</td>
-<td align="right">7</td>
-<td align="left">2008-12-07</td>
+<td align="left">2014-06-08</td>
 <td align="left">Sun</td>
-<td align="right">7282</td>
+<td align="right">7359</td>
 </tr>
 <tr class="odd">
-<td align="right">2011</td>
+<td align="right">2000</td>
 <td align="right">9</td>
 <td align="right">24</td>
-<td align="left">2011-09-24</td>
-<td align="left">Sat</td>
-<td align="right">8496</td>
-</tr>
-<tr class="even">
-<td align="right">2010</td>
-<td align="right">12</td>
-<td align="right">24</td>
-<td align="left">2010-12-24</td>
-<td align="left">Fri</td>
-<td align="right">7532</td>
-</tr>
-<tr class="odd">
-<td align="right">2008</td>
-<td align="right">1</td>
-<td align="right">6</td>
-<td align="left">2008-01-06</td>
+<td align="left">2000-09-24</td>
 <td align="left">Sun</td>
-<td align="right">7610</td>
-</tr>
-<tr class="even">
-<td align="right">2005</td>
-<td align="right">12</td>
-<td align="right">11</td>
-<td align="left">2005-12-11</td>
-<td align="left">Sun</td>
-<td align="right">7368</td>
-</tr>
-<tr class="odd">
-<td align="right">2008</td>
-<td align="right">6</td>
-<td align="right">3</td>
-<td align="left">2008-06-03</td>
-<td align="left">Tues</td>
-<td align="right">13459</td>
+<td align="right">8539</td>
 </tr>
 <tr class="even">
 <td align="right">2001</td>
+<td align="right">2</td>
 <td align="right">4</td>
-<td align="right">28</td>
-<td align="left">2001-04-28</td>
-<td align="left">Sat</td>
-<td align="right">8574</td>
+<td align="left">2001-02-04</td>
+<td align="left">Sun</td>
+<td align="right">7716</td>
+</tr>
+<tr class="odd">
+<td align="right">2007</td>
+<td align="right">4</td>
+<td align="right">1</td>
+<td align="left">2007-04-01</td>
+<td align="left">Sun</td>
+<td align="right">7372</td>
+</tr>
+<tr class="even">
+<td align="right">2009</td>
+<td align="right">2</td>
+<td align="right">13</td>
+<td align="left">2009-02-13</td>
+<td align="left">Fri</td>
+<td align="right">11832</td>
+</tr>
+<tr class="odd">
+<td align="right">2009</td>
+<td align="right">11</td>
+<td align="right">20</td>
+<td align="left">2009-11-20</td>
+<td align="left">Fri</td>
+<td align="right">13002</td>
+</tr>
+<tr class="even">
+<td align="right">2006</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="left">2006-02-01</td>
+<td align="left">Wed</td>
+<td align="right">12960</td>
 </tr>
 <tr class="odd">
 <td align="right">2004</td>
 <td align="right">4</td>
-<td align="right">10</td>
-<td align="left">2004-04-10</td>
+<td align="right">17</td>
+<td align="left">2004-04-17</td>
 <td align="left">Sat</td>
-<td align="right">8148</td>
+<td align="right">8584</td>
 </tr>
 <tr class="even">
-<td align="right">2007</td>
+<td align="right">2008</td>
+<td align="right">9</td>
+<td align="right">23</td>
+<td align="left">2008-09-23</td>
+<td align="left">Tues</td>
+<td align="right">14464</td>
+</tr>
+<tr class="odd">
+<td align="right">2003</td>
+<td align="right">10</td>
+<td align="right">11</td>
+<td align="left">2003-10-11</td>
+<td align="left">Sat</td>
+<td align="right">8721</td>
+</tr>
+<tr class="even">
+<td align="right">2000</td>
+<td align="right">12</td>
+<td align="right">19</td>
+<td align="left">2000-12-19</td>
+<td align="left">Tues</td>
+<td align="right">13829</td>
+</tr>
+<tr class="odd">
+<td align="right">2003</td>
 <td align="right">3</td>
-<td align="right">7</td>
-<td align="left">2007-03-07</td>
+<td align="right">5</td>
+<td align="left">2003-03-05</td>
 <td align="left">Wed</td>
-<td align="right">13520</td>
+<td align="right">12483</td>
+</tr>
+<tr class="even">
+<td align="right">2009</td>
+<td align="right">11</td>
+<td align="right">21</td>
+<td align="left">2009-11-21</td>
+<td align="left">Sat</td>
+<td align="right">8335</td>
 </tr>
 <tr class="odd">
 <td align="right">2007</td>
-<td align="right">12</td>
-<td align="right">17</td>
-<td align="left">2007-12-17</td>
-<td align="left">Mon</td>
-<td align="right">13455</td>
+<td align="right">1</td>
+<td align="right">26</td>
+<td align="left">2007-01-26</td>
+<td align="left">Fri</td>
+<td align="right">13110</td>
 </tr>
 </tbody>
 </table>

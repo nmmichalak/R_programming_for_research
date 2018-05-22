@@ -43,10 +43,10 @@ library(fivethirtyeight)
 > 2. start with `ggplot()`
 > 3. supply a dataset and aesthetic mapping, `aes()`
 > 4. add on ...
-    + **layers**, like `geom_point()` or `geom_histogram()`
-    + **scales**, like `scale_colour_brewer()`
-    + **faceting specifications**, like `facet_wrap()`
-    + **coordinate systems**, like `coord_flip()`
+>     + **layers**, like `geom_point()` or `geom_histogram()`
+>     + **scales**, like `scale_colour_brewer()`
+>     + **faceting specifications**, like `facet_wrap()`
+>     + **coordinate systems**, like `coord_flip()`
     
 **source.** [**ggplot2.tidyverse.org**](ggplot2.tidyverse.org)
 
@@ -63,12 +63,12 @@ mpg %>% sample_n(size = 15)
 
 # example: do cars with big engines use more fuel than cars with small engines?
 > 1. start with mapping and `aes()`
-    + **displ.** engine displacement, in litres (bigger numbers = greater engine size)
-    + **hwy.** highway miles per gallon (bigger numbers = using less fuel each mile)
-    + you are mapping aesthetics onto data
-    + x-axis position maps onto displ
-    + y-axis position maps onto hwy
-    + x-position and y-position are aesthetics: things that we can perceive on the graphic
+>     + **displ.** engine displacement, in litres (bigger numbers = greater engine size)
+>     + **hwy.** highway miles per gallon (bigger numbers = using less fuel each mile)
+>     + you are mapping aesthetics onto data
+>     + x-axis position maps onto displ
+>     + y-axis position maps onto hwy
+>     + x-position and y-position are aesthetics: things that we can perceive on the graphic
 
 ```{r}
 
@@ -78,7 +78,7 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy))
 
 # example: do cars with big engines use more fuel than cars with small engines?
 > 2. add a layer, like `geom_point()`
-      + layers determine physical representations of data
+  >     + layers determine physical representations of data
 
 **source.** [**A layered grammar of graphics**](http://vita.had.co.nz/papers/layered-grammar.pdf)
 
@@ -91,8 +91,8 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
 
 # example: what types have cars have big engines but decent highway mpg?
 > 3. add a new aesthetic mapping, like color
-      + **class.** "type" of car
-      + color maps onto class
+  >     + **class.** "type" of car
+  >     + color maps onto class
 
 **source.** [A layered grammar of graphics](http://vita.had.co.nz/papers/layered-grammar.pdf)
 
@@ -105,9 +105,9 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = class)) +
 
 # which type of car has better mpg in the city?
 > - **cty.** city miles per gallon
-    + use new x- and y-axis aesthetics with `aes()`
-    + now x-position maps onto class
-    + and y-position maps onto cty
+>     + use new x- and y-axis aesthetics with `aes()`
+>     + now x-position maps onto class
+>     + and y-position maps onto cty
 
 ```{r}
 
@@ -117,8 +117,8 @@ ggplot(data = mpg, mapping = aes(x = class, y = cty))
 
 # which type of car has better mpg in the city?
 > - add a boxplot layer
-    + boxplots are a complex layer
-    + e.g., they require statistics like fences, hinges, and outliers in addition to the shapes we see
+>     + boxplots are a complex layer
+>     + e.g., they require statistics like fences, hinges, and outliers in addition to the shapes we see
 
 **source.** [A layered grammar of graphics](http://vita.had.co.nz/papers/layered-grammar.pdf)
 
@@ -131,9 +131,9 @@ ggplot(data = mpg, mapping = aes(x = class, y = cty)) +
 
 # which type of car has better mpg in the city?
 > - add a statistical summary layer
-    + normative bars representing means + 95% confidence intervals
-    + `stat_summary()`: "Summarise y values at unique/binned x"
-    + `mean_cl_normal()`: "... computes 3 summary variables: the sample mean and lower and upper Gaussian confidence limits based on the t-distribution."
+>     + normative bars representing means + 95% confidence intervals
+>     + `stat_summary()`: "Summarise y values at unique/binned x"
+>     + `mean_cl_normal()`: "... computes 3 summary variables: the sample mean and lower and upper Gaussian confidence limits based on the t-distribution."
 
 **sources.** `help("stat_summary")` and `help("mean_cl_normal")`
 
@@ -175,9 +175,9 @@ sleepstudy %>% sample_n(size = 15)
 
 # exercise: play with the sleepstudy dataset that comes with `lme4`
 > - **sleepstudy.**
-    + does average reaction time change over time?
-    + does change over time depend on Subject?
-    + **hint.** `help(facet_wrap)`
+>     + does average reaction time change over time?
+>     + does change over time depend on Subject?
+>     + **hint.** `help(facet_wrap)`
 
 **source.** `help(sleepstudy)`
 
