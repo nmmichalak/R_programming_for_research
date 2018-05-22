@@ -35,7 +35,7 @@ library(tidyverse)
 # example: save five numbers to an R object called `my_numbers`
 > `c()`: "Combine Values into a Vector or List"  
 > `<-`: "Assign a value to a name."  
-> **English:** combine 10, 6, 2, 8, and 3, sane save this "combination" (i.e., vector of these numbers) to an object called `my_numbers`.
+> **English:** combine 10, 6, 2, 8, and 3, and save this "combination" (i.e., vector of these numbers) to an object called `my_numbers`.
 
 ```{r}
 
