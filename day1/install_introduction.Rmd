@@ -171,6 +171,11 @@ mean(my_numbers, na.rm = TRUE)
 
 ```
 
+# what is the tidyverse?
+> - "The tidyverse is an opinionated collection of [**R packages**](https://www.tidyverse.org/packages/) designed for data science. All packages share an underlying design philosophy, grammar, and data structures."
+
+![](https://lsru.github.io/tv_course/img/01_tidyverse_data_science.png)
+
 # how do I use the pipe operator (`%>%`) from tidyverse?
 > - the `%>%` operator allows you to "pipe"" a value forward into an expression or function; something along the lines of `x %>% f`, rather than `f(x)`.see the magrittr page [[.html](http://magrittr.tidyverse.org/articles/magrittr.html)] for more details, but check out these examples below.
 
@@ -230,9 +235,9 @@ my_numbers %>% scale() %>% parse_number() %>% mean(na.rm = TRUE) %>% round(1)
 ```
 
 # here are some other basic data types in R
-1. character type: categories, think words, letters, etc.
-2. factor type: think categories but with numeric values assigned to them so they can be used in statistical models
-3. data frame type: think of an Excel spreadsheet
+> 1. character type: categories, think words, letters, etc.  
+> 2. factor type: think categories but with numeric values assigned to them so they can be used in statistical models  
+> 3. data frame type: think of an Excel spreadsheet
 
 **sources.** help("factor") and vignette("tibble")
 
@@ -253,13 +258,13 @@ my_numbers %>% scale() %>% parse_number() %>% mean(na.rm = TRUE) %>% round(1)
 ```
 
 # exercises
-1. install and load the `tidyverse` package.
-2. create your own numeric object with the `c()` function.
-3. create your own character object with the `c()` function.
-4. store your new objects in a tibble data frame with the `tibble()` function.
-5. **advanced:** create your own **simple** function with one argument.
+> 1. install and load the `tidyverse` package.  
+> 2. create your own numeric object with the `c()` function.  
+> 3. create your own character object with the `c()` function.  
+> 4. store your new objects in a tibble data frame with the `tibble()` function.  
+> 5. **advanced:** create your own **simple** function with one argument.
 
 # resources
-* [**R for Data Science: Import, Tidy, Transform, Visualize, and Model Data.**](http://r4ds.had.co.nz/)
-* [**tidyverse.org**](http://tidyverse.org/)
-* [**the tidyverse style guide**](http://style.tidyverse.org/)
+> * [**R for Data Science: Import, Tidy, Transform, Visualize, and Model Data.**](http://r4ds.had.co.nz/)  
+> * [**tidyverse.org**](http://tidyverse.org/)  
+> * [**the tidyverse style guide**](http://style.tidyverse.org/)
