@@ -22,11 +22,10 @@ output:
 
 **sources.** `help("install.packages")` and `help("library")`
 
-```{r, warning = FALSE, message = FALSE}
 
+```r
 # install.packages("tidyverse")
 library(tidyverse)
-
 ```
 
 # how do I run R code?
@@ -37,65 +36,78 @@ library(tidyverse)
 > `<-`: "Assign a value to a name."  
 > **English:** combine 10, 6, 2, 8, and 3, sane save this "combination" (i.e., vector of these numbers) to an object called `my_numbers`.
 
-```{r}
 
+```r
 my_numbers <- c(10, 6, 2, 8, 3)
-
 ```
 
 > **note:** if you want to print and save at the same time, surround everything with `()`
 
-```{r}
 
+```r
 (my_numbers <- c(10, 6, 2, 8, 3))
+```
 
+```
+## [1] 10  6  2  8  3
 ```
 
 # how to I learn more about the details of an R function or package or dataset?
 > use a `?` before the name of an R function or package or dataset, or use `help("functionname")` or `help("packagename")` or `help("datasetname")` to see documentation about those things.
 
-```{r}
 
+```r
 help("c")
 help("sum")
 help("length")
 help("mean")
-
 ```
 
 # how long is `my_numbers` (i.e., how many numbers are in `my_numbers`)?
 > the first argument of the length() function asks for an R object. below, we use `my_numbers`, which is an R object.
 
-```{r}
 
+```r
 length(my_numbers)
+```
 
+```
+## [1] 5
 ```
 
 # what is the sum of `my_numbers`?
 
-```{r}
 
+```r
 sum(my_numbers)
+```
 
+```
+## [1] 29
 ```
 
 # what is the mean of `my_numbers`?
 > the sum of `my_numbers` divided by the length of `my_numbers`
 
-```{r}
 
+```r
 sum(my_numbers) / length(my_numbers)
+```
 
+```
+## [1] 5.8
 ```
 
 # what is the mean of `my_numbers`?
 > we can also just use the `mean()` function
 
-```{r}
 
+```r
 mean(my_numbers)
+```
 
+```
+## [1] 5.8
 ```
 
 # but what are functions and how do they work?
@@ -104,39 +116,55 @@ mean(my_numbers)
 # how would a simple mean function work?
 > out custom `compute_mean()` function has one argument: values, which are numbers. our function takes the sum of the input (i.e., values) and divides by the length of that input. the function outputs the result of that computation.
 
-```{r}
 
+```r
 (compute_mean <- function(values) {
   
   sum(values) / length(values)
   
 })
+```
 
+```
+## function(values) {
+##   
+##   sum(values) / length(values)
+##   
+## }
 ```
 
 # use the `compute_mean()` function to compute the mean of `my_numbers`.
 
-```{r}
 
+```r
 compute_mean(values = my_numbers)
+```
 
+```
+## [1] 5.8
 ```
 
 # functions are "stupid"; R is "stupid"
 > they only do exactly what you tell them to do and assume what they are programmed to assume. what if we add a missing value (a.k.a., NA, "Not available")
 
-```{r}
 
+```r
 (my_numbers <- c(10, 6, 2, 8, 3, NA))
+```
 
+```
+## [1] 10  6  2  8  3 NA
 ```
 
 # use the `compute_mean()` function to compute the mean of of new `my_numbers` that includes a missing value.
 
-```{r}
 
+```r
 compute_mean(values = my_numbers)
+```
 
+```
+## [1] NA
 ```
 
 # is this what you expected?
@@ -145,8 +173,8 @@ compute_mean(values = my_numbers)
 # when you use functions throughout this course and in your own research ...
 > think about what the functions "assume" or "know"; ask, "What do I want the function to do? What do I expect it to do? Can the function do what I want with the information I gave it?"
 
-```{r}
 
+```r
 (compute_mean <- function(values, remove_missing = TRUE) {
   
   if(remove_missing == TRUE) {
@@ -155,18 +183,37 @@ compute_mean(values = my_numbers)
   
   sum(values) / length(values)
   })
+```
 
+```
+## function(values, remove_missing = TRUE) {
+##   
+##   if(remove_missing == TRUE) {
+##     values <- na.omit(values)
+##   }
+##   
+##   sum(values) / length(values)
+##   }
 ```
 
 # remember this example every time you give data to a function
 
-```{r}
 
+```r
 compute_mean(values = my_numbers, remove_missing = TRUE)
+```
 
+```
+## [1] 5.8
+```
+
+```r
 # by the way, the mean() function also has this argument; so does sum() and many other trusty functions
 mean(my_numbers, na.rm = TRUE)
+```
 
+```
+## [1] 5.8
 ```
 
 # how do I use the pipe operator (`%>%`) from tidyverse?
@@ -181,10 +228,23 @@ mean(my_numbers, na.rm = TRUE)
 
 **source.** `help("scale")`
 
-```{r}
 
+```r
 my_numbers %>% scale()
+```
 
+```
+##             [,1]
+## [1,]  1.25499004
+## [2,]  0.05976143
+## [3,] -1.13546718
+## [4,]  0.65737574
+## [5,] -0.83666003
+## [6,]          NA
+## attr(,"scaled:center")
+## [1] 5.8
+## attr(,"scaled:scale")
+## [1] 3.34664
 ```
 
 # how do convert z-scores outputted from the `scale()` function into only numbers?
@@ -192,28 +252,37 @@ my_numbers %>% scale()
 
 **source.** `help("parse_number")`
 
-```{r}
 
+```r
 my_numbers %>% scale() %>% parse_number()
+```
 
+```
+## [1]  1.25499004  0.05976143 -1.13546718  0.65737574 -0.83666003          NA
 ```
 
 # compute the mean of our new z-scores
 > should be zero
 
-```{r}
 
+```r
 my_numbers %>% scale() %>% parse_number() %>% mean()
+```
 
+```
+## [1] NA
 ```
 
 # oops!
 > we forgot to tell `mean()` to remove NA values before computing
 
-```{r}
 
+```r
 my_numbers %>% scale() %>% parse_number() %>% mean(na.rm = TRUE)
+```
 
+```
+## [1] 2.941874e-16
 ```
 
 # the result rounds to zero
@@ -221,10 +290,13 @@ my_numbers %>% scale() %>% parse_number() %>% mean(na.rm = TRUE)
 
 **source.** `help("round")`
 
-```{r}
 
+```r
 my_numbers %>% scale() %>% parse_number() %>% mean(na.rm = TRUE) %>% round(1)
+```
 
+```
+## [1] 0
 ```
 
 # here are some other basic data types in R
@@ -234,13 +306,46 @@ my_numbers %>% scale() %>% parse_number() %>% mean(na.rm = TRUE) %>% round(1)
 
 **sources.** help("factor") and vignette("tibble")
 
-```{r}
 
+```r
 (my_ids <- c(1, 2, 3, 4, 5, 6))
-(my_condtions <- c("control", "control", "control", "treatment", "treatment", "treatment"))
-(my_condtionsF <- factor(my_condtions))
-(my_dataframe <- tibble(my_ids, my_numbers, my_condtions, my_condtionsF))
+```
 
+```
+## [1] 1 2 3 4 5 6
+```
+
+```r
+(my_condtions <- c("control", "control", "control", "treatment", "treatment", "treatment"))
+```
+
+```
+## [1] "control"   "control"   "control"   "treatment" "treatment" "treatment"
+```
+
+```r
+(my_condtionsF <- factor(my_condtions))
+```
+
+```
+## [1] control   control   control   treatment treatment treatment
+## Levels: control treatment
+```
+
+```r
+(my_dataframe <- tibble(my_ids, my_numbers, my_condtions, my_condtionsF))
+```
+
+```
+## # A tibble: 6 x 4
+##   my_ids my_numbers my_condtions my_condtionsF
+##    <dbl>      <dbl> <chr>        <fct>        
+## 1      1         10 control      control      
+## 2      2          6 control      control      
+## 3      3          2 control      control      
+## 4      4          8 treatment    treatment    
+## 5      5          3 treatment    treatment    
+## 6      6         NA treatment    treatment
 ```
 
 # exercises
