@@ -162,7 +162,8 @@ library(tidyverse)</code></pre>
 <div id="example-save-five-numbers-to-an-r-object-called-my_numbers" class="section level1">
 <h1>example: save five numbers to an R object called <code>my_numbers</code></h1>
 <blockquote>
-<p><code>c()</code>: “Combine Values into a Vector or List” <code>&lt;-</code>: “Assign a value to a name.”<br />
+<p><code>c()</code>: “Combine Values into a Vector or List”<br />
+<code>&lt;-</code>: “Assign a value to a name.”<br />
 <strong>English:</strong> combine 10, 6, 2, 8, and 3, sane save this “combination” (i.e., vector of these numbers) to an object called <code>my_numbers</code>.</p>
 </blockquote>
 <pre class="r"><code>my_numbers &lt;- c(10, 6, 2, 8, 3)</code></pre>
@@ -361,14 +362,18 @@ mean(my_numbers, na.rm = TRUE)</code></pre>
 <li>data frame type: think of an Excel spreadsheet</li>
 </ol>
 <p><strong>sources.</strong> help(“factor”) and vignette(“tibble”)</p>
-<pre class="r"><code>(my_ids &lt;- c(1, 2, 3, 4, 5, 6))</code></pre>
+<pre class="r"><code># numeric type
+(my_ids &lt;- c(1, 2, 3, 4, 5, 6))</code></pre>
 <pre><code>## [1] 1 2 3 4 5 6</code></pre>
-<pre class="r"><code>(my_condtions &lt;- c(&quot;control&quot;, &quot;control&quot;, &quot;control&quot;, &quot;treatment&quot;, &quot;treatment&quot;, &quot;treatment&quot;))</code></pre>
+<pre class="r"><code># character type
+(my_condtions &lt;- c(&quot;control&quot;, &quot;control&quot;, &quot;control&quot;, &quot;treatment&quot;, &quot;treatment&quot;, &quot;treatment&quot;))</code></pre>
 <pre><code>## [1] &quot;control&quot;   &quot;control&quot;   &quot;control&quot;   &quot;treatment&quot; &quot;treatment&quot; &quot;treatment&quot;</code></pre>
-<pre class="r"><code>(my_condtionsF &lt;- factor(my_condtions))</code></pre>
+<pre class="r"><code># factor type
+(my_condtionsF &lt;- factor(my_condtions))</code></pre>
 <pre><code>## [1] control   control   control   treatment treatment treatment
 ## Levels: control treatment</code></pre>
-<pre class="r"><code>(my_dataframe &lt;- tibble(my_ids, my_numbers, my_condtions, my_condtionsF))</code></pre>
+<pre class="r"><code># data.frame type but with more intutive assumptions and printing defaults
+(my_dataframe &lt;- tibble(my_ids, my_numbers, my_condtions, my_condtionsF))</code></pre>
 <pre><code>## # A tibble: 6 x 4
 ##   my_ids my_numbers my_condtions my_condtionsF
 ##    &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;        &lt;fct&gt;        

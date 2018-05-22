@@ -32,7 +32,7 @@ library(tidyverse)
 > start with simple examples
 
 # example: save five numbers to an R object called `my_numbers`
-> `c()`: "Combine Values into a Vector or List"
+> `c()`: "Combine Values into a Vector or List"  
 > `<-`: "Assign a value to a name."  
 > **English:** combine 10, 6, 2, 8, and 3, sane save this "combination" (i.e., vector of these numbers) to an object called `my_numbers`.
 
@@ -308,6 +308,7 @@ my_numbers %>% scale() %>% parse_number() %>% mean(na.rm = TRUE) %>% round(1)
 
 
 ```r
+# numeric type
 (my_ids <- c(1, 2, 3, 4, 5, 6))
 ```
 
@@ -316,6 +317,7 @@ my_numbers %>% scale() %>% parse_number() %>% mean(na.rm = TRUE) %>% round(1)
 ```
 
 ```r
+# character type
 (my_condtions <- c("control", "control", "control", "treatment", "treatment", "treatment"))
 ```
 
@@ -324,6 +326,7 @@ my_numbers %>% scale() %>% parse_number() %>% mean(na.rm = TRUE) %>% round(1)
 ```
 
 ```r
+# factor type
 (my_condtionsF <- factor(my_condtions))
 ```
 
@@ -333,6 +336,7 @@ my_numbers %>% scale() %>% parse_number() %>% mean(na.rm = TRUE) %>% round(1)
 ```
 
 ```r
+# data.frame type but with more intutive assumptions and printing defaults
 (my_dataframe <- tibble(my_ids, my_numbers, my_condtions, my_condtionsF))
 ```
 
