@@ -18,6 +18,7 @@ output:
 
 # install.packages("tidyverse")
 # install.packages("psych")
+# install.packages("datasauRus")
 # install.packages("knitr")
 # install.packages("lme4")
 # install.packages("fivethirtyeight")
@@ -25,8 +26,86 @@ output:
 library(tidyverse)
 library(knitr)
 library(psych)
+library(datasauRus)
 library(lme4)
 library(fivethirtyeight)
+
+```
+
+# Anscombe's quartet
+
+## same descriptives ...
+
+```{r}
+
+describe(anscombe)
+
+```
+
+## same linear regression results ...
+
+```{r}
+
+summary(lm(y1 ~ x1, data = anscombe))
+summary(lm(y2 ~ x2, data = anscombe))
+summary(lm(y3 ~ x3, data = anscombe))
+summary(lm(y4 ~ x4, data = anscombe))
+
+```
+
+## but the plots ...
+
+```{r}
+
+tibble(set = rep(1:4, each = nrow(anscombe)) %>% factor(),
+       x = with(anscombe, c(x1, x2, x3, x4)),
+       y = with(anscombe, c(y1, y2, y3, y4))) %>% 
+  ggplot(mapping = aes(x = x, y = y, color = set)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  facet_wrap(facets = ~ set) +
+  theme(legend.position = "none")
+
+```
+
+# datasaurus dozen
+
+## same descriptives ...
+
+```{r}
+
+
+with(datasaurus_dozen, describeBy(x, group = dataset, mat = TRUE))
+with(datasaurus_dozen, describeBy(y, group = dataset, mat = TRUE))
+
+```
+
+## same linear regression results ...
+
+```{r}
+
+summary(lm(y ~ x, data = datasaurus_dozen[datasaurus_dozen$dataset == "away", ]))
+summary(lm(y ~ x, data = datasaurus_dozen[datasaurus_dozen$dataset == "bullseye", ]))
+summary(lm(y ~ x, data = datasaurus_dozen[datasaurus_dozen$dataset == "circle", ]))
+summary(lm(y ~ x, data = datasaurus_dozen[datasaurus_dozen$dataset == "dino", ]))
+summary(lm(y ~ x, data = datasaurus_dozen[datasaurus_dozen$dataset == "h_lines", ]))
+summary(lm(y ~ x, data = datasaurus_dozen[datasaurus_dozen$dataset == "high_lines", ]))
+summary(lm(y ~ x, data = datasaurus_dozen[datasaurus_dozen$dataset == "slant_down", ]))
+summary(lm(y ~ x, data = datasaurus_dozen[datasaurus_dozen$dataset == "slant_up", ]))
+summary(lm(y ~ x, data = datasaurus_dozen[datasaurus_dozen$dataset == "v_lines", ]))
+summary(lm(y ~ x, data = datasaurus_dozen[datasaurus_dozen$dataset == "wide_lines", ]))
+summary(lm(y ~ x, data = datasaurus_dozen[datasaurus_dozen$dataset == "x_shape", ]))
+
+```
+
+## but the plots ...
+
+```{r, fig.height = 7.5, fig.width = 10.5}
+
+ggplot(data = datasaurus_dozen, aes(x = x, y = y, color = dataset)) +
+  geom_point() +
+  theme(legend.position = "none") +
+  facet_wrap(~dataset, ncol = 3)
 
 ```
 
