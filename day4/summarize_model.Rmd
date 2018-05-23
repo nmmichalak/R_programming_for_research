@@ -1,0 +1,528 @@
+---
+title: "day 4 summarize and model"
+date: "5/23/2018"
+output:
+  html_document:
+    df_print: kable
+---
+
+# install and/or load packages for this session
+> - `install.packages()`: "Download and install packages from CRAN-like repositories or from local files."
+> - `library()`: loads your package you installed
+> - **best practice note.** `install.packages()` downloads files from the internet, so it's "polite" to "comment out" (# = comment) this code before you share it with people so they don't download files they don't really want by accident
+
+# install and/or load packages for this session
+
+```{r, warning = FALSE, message = FALSE}
+
+# install.packages("tidyverse")
+# install.packages("psych")
+# install.packages("car")
+# install.packages("lme4")
+# install.packages("lmerTest")
+# install.packages("lavaan")
+# install.packages("AMCP")
+
+library(tidyverse)
+library(psych)
+library(car)
+library(lme4)
+library(lmerTest)
+library(lavaan)
+library(AMCP)
+
+# when packages contain functions with the same name,
+# R has to "decide" which function stays and which is ignored.
+# in this session, I want recode from the dplyr package,
+# so I save that specific function to the object recode
+recode <- dplyr::recode
+
+```
+
+# how do I generate summary/descriptive statistics of my data?
+> - **use psych**
+> - **psych package summary.** psych is a package for personality, psychometric, and psychological research. It has been developed at Northwestern University (maintained by William Revelle) to include functions most useful for personality and psychological research.
+
+**source.** `help(psych)`
+
+# example: generate descriptive statistics
+> - **C3T3.** "Although different mood states have, of course, always been of interest to clinicians, recent years have seen a profusion of studies attempting to manipulate mood states in controlled laboratory studies. In such induced-mood research, participants typically are **randomly assigned to one of three groups: a depressed-mood induction, a neutral-mood induction, or an elated-mood induction.** One study (Pruitt, 1988) used selected videoslips from several movies and public television programs as the mood-induction treatments. After viewing the video for her assigned condition, each participant was asked to indicate her mood on various scales. In addition, each subject was herself **videotaped, and her facial expressions of emotion were rated on a scale of 1 to 7 (1 indicating sad; 4, neutral; and 7, happy) by an assistant** who viewed the videotapes but was kept "blind" regarding the subjects' assigned conditions."
+
+**source.** `help(C3T3)` and Maxwell, Delaney, & Kelley, (2018). *Designing experiments and analyzing data: A model comparison perspective.* (3rd ed.). Routledge.
+
+```{r}
+
+data("C3T3")
+C3T3 %>% sample_n(size = 15)
+
+```
+
+# example: generate descriptive statistics
+
+```{r}
+
+C3T3 <- C3T3 %>% 
+  mutate(condition_lbl = Condition %>% recode(`1` = "Pleasant/elated", `2` = "Neutral", `3` = "Unpleasant/depressed"))
+
+C3T3 %>% sample_n(size = 15)
+
+```
+
+# example: generate descriptive statistics
+> - `describe()`: "There are many summary statistics available in R; this function provides the ones most useful for scale construction and item analysis in classic psychometrics. Range is most useful for the first pass in a data set, to check for coding errors."
+
+**sources.** `help(describe)`
+
+```{r}
+
+C3T3 %>% 
+  select(Rating) %>% 
+  describe()
+
+```
+
+# example: generate descriptive statistics by one grouping variable.
+> - `describe()`: "There are many summary statistics available in R; this function provides the ones most useful for scale construction and item analysis in classic psychometrics. Range is most useful for the first pass in a data set, to check for coding errors."
+> - `describeBy()`: "Report basic summary statistics by a grouping variable. Useful if the grouping variable is some experimental variable and data are to be aggregated for plotting. Partly a wrapper for by and describe"
+
+**sources.** `help(describe)` and `help(describeBy)`
+
+```{r}
+
+C3T3 %>% 
+  select(Rating) %>% 
+  describeBy(group = select(C3T3, condition_lbl), mat = TRUE)
+
+```
+
+# how do I test whether the difference between two group means = 0?
+> - `t.test()`: "Performs one and two sample t-tests on vectors of data."
+
+**source.** `help(t.test)`
+
+# example: test whether the difference between two mean increases in hours of sleep = 0
+> - **sleep.** "Data which show the effect of two soporific drugs (increase in hours of sleep compared to control) on 10 patients."
+>     + **extra.** numeric increase in hours of sleep
+>     + **group.** drug given
+
+**source.** `help(sleep)` and `help(count)`
+
+# example: test whether the difference between two mean increases in hours of sleep = 0
+
+```{r}
+
+sleep <- sleep %>% 
+  mutate(group = group %>% recode(`1` = "no drug", `2` = "drug given"),
+         givedrug = group %>% recode("no drug" = -1 / 2, "drug given" = 1 / 2))
+
+# count/tally observations by group
+sleep %>% 
+  count(group, givedrug)
+
+```
+
+# example: test whether the difference between two mean increases in hours of sleep = 0
+> - **sleep.** "Data which show the effect of two soporific drugs (increase in hours of sleep compared to control) on 10 patients."
+>     + **extra.** numeric	increase in hours of sleep
+>     + **group.** drug given
+> - not a bad idea to visualize data before you model it
+
+**source.** `help(sleep)`
+
+```{r}
+
+sleep %>% 
+  ggplot(mapping = aes(x = group, y = extra)) +
+  geom_boxplot()
+
+```
+
+# example: test whether the difference between two mean increases in hours of sleep = 0
+> - `t.test(formula, var.equal, paired)`
+>     + **formula.** "a formula of the form lhs ~ rhs where lhs is a numeric variable giving the data values and rhs a factor with two levels giving the corresponding groups."
+>     + **var.equal.** "a logical variable indicating whether to treat the two variances as being equal. If TRUE then the pooled variance is used to estimate the variance otherwise the Welch (or Satterthwaite) approximation to the degrees of freedom is used."
+>     + **paired.** "a logical indicating whether you want a paired t-test."
+
+**source.** `help(t.test)`
+
+```{r}
+
+# Welch t-test (equal variance not assumed)
+t.test(extra ~ group, data = sleep)
+
+# Student t-test (equal variance assumed)
+t.test(extra ~ group, data = sleep, var.equal = TRUE)
+
+# paired t-test
+t.test(extra ~ group, data = sleep, paired = TRUE)
+
+```
+
+# how do I test specific contrasts using linear regression?
+> - `lm()`: "lm is used to fit linear models. It can be used to carry out regression, single stratum analysis of variance and analysis of covariance (although aov may provide a more convenient interface for these)."
+
+**source.** `help(lm)`
+
+# example: test mean difference via linear regression
+> - fit and save the linear model via `lm(formula, data)`
+>     + **formula.** "an object of class "formula" (or one that can be coerced to that class): a symbolic description of the model to be fitted."
+>     + **data.** "an optional data frame, list or environment (or object coercible by as.data.frame to a data frame) containing the variables in the model. If not found in data, the variables are taken from environment(formula), typically the environment from which lm is called."
+> - save the fitted model as an object called `lm1` (i.e., linear model 1)
+
+**source.** `help(lm)`
+
+```{r}
+
+lm1 <- lm(extra ~ givedrug, data = sleep)
+
+```
+
+# example: test mean difference via linear regression
+> - print `lm1`'s results with `summary()`
+>     + **summary() for lm objects.** "print.summary.lm tries to be smart about formatting the coefficients, standard errors, etc. and additionally gives 'significance stars' if signif.stars is TRUE."
+>     + compare to `t.test(formula, var.equal)`
+
+**source.** `help(print.summary.lm)`
+
+```{r}
+
+# linear regression summary
+summary(lm1)
+
+# compare to Student t-test
+t.test(extra ~ givedrug, data = sleep, var.equal = TRUE)
+
+```
+
+# nerdy aside: test mean difference via linear regression, "controling" for ID
+> - print `lm1`'s results with `summary()`
+>     + **summary() for lm objects.** "print.summary.lm tries to be smart about formatting the coefficients, standard errors, etc. and additionally gives 'significance stars' if signif.stars is TRUE."
+>     + `factor()` treats `ID` like a categorigcal variable
+> - compare to `t.test(formula, paired)`
+
+**source.** `help(print.summary.lm)` ahd `help(factor)`
+
+```{r}
+
+# linear regression controling for ID
+summary(lm(extra ~ givedrug + factor(ID), data = sleep))
+
+# compare to paired t-test
+t.test(extra ~ givedrug, data = sleep, paired = TRUE)
+
+```
+
+# example: test two contrasts ...
+> - **Contrast 1.** Pleasant/elated vs. Neutral
+> - **Contrast 2.** Pleasant/elated and Neutral combined vs. Unpleasant/depressed
+> - compute and save new columns that represent these contrasts
+>     + Nick often uses effect coding (i.e., coefficients = difference from grand mean)
+
+**source.** `help(C3T3)` and Maxwell, Delaney, & Kelley, (2018). *Designing experiments and analyzing data: A model comparison perspective.* (3rd ed.). Routledge.
+
+```{r}
+
+C3T3 <- C3T3 %>% 
+  mutate(plsntVneut = condition_lbl %>% recode("Pleasant/elated" = 1 / 2, "Neutral" = -1 / 2, "Unpleasant/depressed" = 0),
+         plsntneutVunplsnt = condition_lbl %>% recode("Pleasant/elated" = 1 / 2, "Neutral" = 1 / 2, "Unpleasant/depressed" = -1))
+
+C3T3 %>% 
+  count(Condition, condition_lbl, plsntVneut, plsntneutVunplsnt)
+
+```
+
+# example: test two contrasts ...
+> - **Contrast 1.** Pleasant/elated vs. Neutral
+> - **Contrast 2.** Pleasant/elated and Neutral combined vs. Unpleasant/depressed
+> - not a bad idea to visualize data before you model it
+
+**source.** `help(C3T3)` and Maxwell, Delaney, & Kelley, (2018). *Designing experiments and analyzing data: A model comparison perspective.* (3rd ed.). Routledge.
+
+```{r}
+
+C3T3 %>% 
+  ggplot(mapping = aes(x = condition_lbl, y = Rating)) +
+  geom_boxplot()
+
+```
+
+# example: test two contrasts ...
+> - **Contrast 1.** Pleasant/elated vs. Neutral
+> - **Contrast 2.** Pleasant/elated and Neutral combined vs. Unpleasant/depressed
+> - fit and save the linear model via `lm(formula, data)`
+>     + **formula.** "an object of class "formula" (or one that can be coerced to that class): a symbolic description of the model to be fitted."
+>     + **data.** "an optional data frame, list or environment (or object coercible by as.data.frame to a data frame) containing the variables in the model. If not found in data, the variables are taken from environment(formula), typically the environment from which lm is called."
+> save the fitted model as an object called `lm2` (i.e., linear model 1)
+
+**source.** `help(lm)`
+
+```{r}
+
+lm2 <- lm(Rating ~ plsntVneut + plsntneutVunplsnt, data = C3T3)
+
+```
+
+# example: test two contrasts ...
+> - **Contrast 1.** Pleasant/elated vs. Neutral
+> - **Contrast 2.** Pleasant/elated and Neutral combined vs. Unpleasant/depressed
+> - print `lm2`'s results with `summary()`
+>     + **summary() for lm objects.** "print.summary.lm tries to be smart about formatting the coefficients, standard errors, etc. and additionally gives 'significance stars' if signif.stars is TRUE."
+
+**source.** `help(print.summary.lm)`
+
+```{r}
+
+summary(lm2)
+
+```
+
+# example: test two contrasts ...
+> - **Contrast 1.** Pleasant/elated vs. Neutral
+> - **Contrast 2.** Pleasant/elated and Neutral combined vs. Unpleasant/depressed
+> - `Anova()`: "**Calculates type-II or type-III analysis-of-variance tables for model objects produced by lm**, glm, multinom (in the nnet package), polr (in the MASS package), coxph (in the survival package), coxme (in the coxme pckage), svyglm (in the survey package), rlm (in the MASS package), lmer in the lme4 package, lme in the nlme package, and (by the default method) for most models with a linear predictor and asymptotically normal coefficients (see details below). **For linear models, F-tests are calculated; for generalized linear models, likelihood-ratio chisquare, Wald chisquare, or F-tests are calculated**; for multinomial logit and proportional-odds logit models, likelihood-ratio tests are calculated. Various test statistics are provided for multivariate linear models produced by lm or manova. Partial-likelihood-ratio tests or Wald tests are provided for Cox models. Wald chi-square tests are provided for fixed effects in linear and generalized linear mixed-effects models. Wald chi-square or F tests are provided in the default case."
+
+```{r}
+
+Anova(lm2, type = "III")
+
+```
+
+# aside about lm(formula)
+> - `+`, `:`, and `*`
+>     + `:` means "compute interaction" in model formula
+>     + `*` means "compute all main effects and interactions" in model formula
+>     + example: `variable1 * variable2` expands to `variable1 + variable2 + variable1:variable2`
+
+# example: test 3 contrasts (i.e., 2 main effects and an interaction in a 2 x 2 between-subjects design)
+> - **C3T3.** "This data is the hypothetical data from a psychologist's evaluation of the effectiveness of biofeedback and drug therapy for treating hypertension (lowering blood pressure). **There are four groups: both biofeedback training and drug therapy, biofeedback but not drug therapy, drug therapy but no biofeedback, and neither biofeedback nor drug therapy** ... As usual, in this data set, the number of subjects is kept small to minimize the computational burden. We assume that the scores in the table represent systolic blood pressure readings taken at the end of the treatment period.  
+> The following data consists specifically of blood pressure measurements taken after the end of treatment for five individuals that were randomly assigned to one of four groups. The initial question of interest is whether there is a significant difference between any of the group means, that is, are all of the population group means equal or is there a difference somewhere."
+
+**source.** `help("C7T1")` and Maxwell, Delaney, & Kelley, (2018). *Designing experiments and analyzing data: A model comparison perspective.* (3rd ed.). Routledge.
+
+```{r}
+
+data("C7T1")
+C7T1 %>% sample_n(size = 15)
+
+```
+
+# example: test 3 contrasts (i.e., 2 main effects and an interaction in a 2 x 2 between-subjects design)
+> - **C3T3.**
+>     + **Group.** a numeric vector between 1 and 4 equal to the drug therapy group
+>         + subjects in Groups 1 and 2 received the biofeedback treatment
+>         + subjects in Groups 1 and 3 received the drug treatment
+>     + **Score.** the blood pressure of one of the individuals in the study
+
+**source.** `help("C7T1")` and Maxwell, Delaney, & Kelley, (2018). *Designing experiments and analyzing data: A model comparison perspective.* (3rd ed.). Routledge.
+
+```{r}
+
+# if any value of Group is equal to any of the values in c(1, 2), then ...
+C7T1 <- C7T1 %>% 
+  mutate(biofeedback = ifelse(Group %in% c(1, 2), "Biofeedback",
+                       ifelse(Group %in% c(3, 4), "No biofeedback", NA)),
+         biofeed_cont = biofeedback %>% recode("Biofeedback" = 1 / 2, "No biofeedback" = -1 / 2),
+         drug = ifelse(Group %in% c(1, 3), "Drug",
+                ifelse(Group %in% c(2, 4), "No drug", NA)),
+         drug_cont = drug %>% recode("Drug" = 1 / 2, "No drug" = -1 / 2),
+         group_lbl = interaction(biofeedback, drug, sep = " x "))
+
+C7T1 %>% 
+  count(Group, group_lbl, biofeedback, biofeed_cont, drug, drug_cont)
+
+```
+
+# example: test 3 contrasts (i.e., 2 main effects and an interaction in a 2 x 2 between-subjects design)
+> - not a bad idea to visualize data before you model it
+
+**source.** `help(C3T3)` and Maxwell, Delaney, & Kelley, (2018). *Designing experiments and analyzing data: A model comparison perspective.* (3rd ed.). Routledge.
+
+```{r}
+
+C7T1 %>% 
+  ggplot(mapping = aes(x = biofeedback, y = Score, fill = drug)) +
+  geom_boxplot()
+
+```
+
+# example: test 3 contrasts (i.e., 2 main effects and an interaction in a 2 x 2 between-subjects design)
+> - **remember** ...
+> - `+`, `:`, and `*`
+>     + `:` means "compute interaction" in model formula
+>     + `*` means "compute all main effects and interactions" in model formula
+>     + example: `variable1 * variable2` expands to `variable1 + variable2 + variable1:variable2`
+
+```{r}
+
+# write model the long way
+lm3.1 <- lm(Score ~ biofeed_cont + drug_cont + biofeed_cont:drug_cont, data = C7T1)
+
+# same model as above
+lm3.2 <- lm(Score ~ biofeed_cont * drug_cont, data = C7T1)
+
+```
+
+# example: test 3 contrasts (i.e., 2 main effects and an interaction in a 2 x 2 between-subjects design)
+> - print `lm2`'s results with `summary()`
+> - **biofeed_cont.** compares biofeedback to no biofeedback
+> - **drug_cont** compares drug to no drug
+> - **biofeed_cont.:drug_cont** compares biofeedback "effect" in no drug treatment condition to biofeedback "effect" in drug treatment condition
+
+```{r}
+
+# results from model written the long way
+summary(lm3.1)
+
+# results from model written the shortcut way
+summary(lm3.2)
+
+# ANOVA source table
+Anova(lm3.2, type = "III")
+
+```
+
+# exercise: play with the `C3E19` dataset from `AMCP`
+> - **C3E19.** "Psychologists have investigated under what conditions recalling negative emotions can be helpful as opposed to harmful. The current problem asks you to analyze data like that reported by Kross, E., Ayduk, O., & Mischel, W. (2005). When asking “why” does not hurt: Distinguishing rumination from reflective processing of negative emotions. Psychological Science, 16, 709–715. One hundred fifty-five undergraduate students were asked to “recall an interpersonal experience in which they felt overwhelming anger and hostility,” and were **randomly assigned to one of four conditions instructing them to adopt a perspective combining a type of self-perspective (self-immersed vs. self-distanced) and type of emotional focus (what vs. why).** In the self-immersed perspective, participants were told to “relive the situation as if it were happening to you all over again,” whereas in the self-distanced perspective they were to move away from their experience and watch it unfold from a distance. Participants were to focus on either the specific feelings they were experiencing (what focus) or on the reasons underlying their feelings (why focus). **The dependent variable was a measure of implicit anger, namely, how many of seven target word fragments were completed as anger (e.g., rage, hate) rather than neutral words.** The investigators treated this as a one-way design with four groups."
+
+**source.** Chapter 3 exercises in Maxwell, Delaney, & Kelley, (2018). *Designing experiments and analyzing data: A model comparison perspective.* (3rd ed.). Routledge.
+
+# exercise: play with the `C3E19` dataset from `AMCP`
+> - conditions ...
+>     + 1 = immersed-what
+>     + 2 = immersed-why
+>     + 3 = distanced-what
+>     + 4 = distanced-why
+> - not a bad idea to visualize the data before you model it; plot somes boxes.
+> - using one factor (i.e., what vs. why or self-immersed vs. self-distanced), test whether the difference in two group means = 0.
+> - which contrasts test meaningful research questions? compute new columns with those contrasts. use those new contrasts as predictors in a linear regression.
+
+```{r}
+
+data("C3E19")
+C3E19 %>% sample_n(size = 15)
+
+```
+
+**source.** Chapter 3 exercises in Maxwell, Delaney, & Kelley, (2018). *Designing experiments and analyzing data: A model comparison perspective.* (3rd ed.). Routledge.
+
+![](https://lsru.github.io/tv_course/img/01_tidyverse_data_science.png)
+
+# see below for plot exercise solution
+> - look at this after you've tried to solve yourself
+
+# exercise: play with the `C3E19` dataset from `AMCP`
+> - conditions ...
+>     + 1 = immersed-what
+>     + 2 = immersed-why
+>     + 3 = distanced-what
+>     + 4 = distanced-why
+
+**source.** Chapter 3 exercises in Maxwell, Delaney, & Kelley, (2018). *Designing experiments and analyzing data: A model comparison perspective.* (3rd ed.). Routledge.
+
+```{r}
+
+# if any value of Condition is equal to any of the values in c(1, 2), then ...
+C3E19 <- C3E19 %>% 
+  mutate(selfpersp = ifelse(Condition %in% c(1, 2), "self-immersed",
+                     ifelse(Condition %in% c(3, 4), "self-distanced", NA)),
+         immrVdstn = selfpersp %>% recode("self-immersed" = -1 / 2, "self-distanced" = 1 / 2),
+         emotfocus = ifelse(Condition %in% c(1, 3), "focus on what",
+                     ifelse(Condition %in% c(2, 4), "focus on why", NA)),
+         whatVwhy = emotfocus %>% recode("focus on what" = -1 / 2, "focus on why" = 1 / 2),
+         condition_lbl = interaction(emotfocus, selfpersp, sep = " x "))
+
+C3E19 %>% 
+  count(Condition, condition_lbl, selfpersp, immrVdstn, emotfocus, whatVwhy)
+
+```
+
+# exercise: play with the `C3E19` dataset from `AMCP`
+> - not a bad idea to visualize the data before you model it; plot somes boxes.
+
+**source.** Chapter 3 exercises in Maxwell, Delaney, & Kelley, (2018). *Designing experiments and analyzing data: A model comparison perspective.* (3rd ed.). Routledge.
+
+```{r}
+
+C3E19 %>% 
+  ggplot(mapping = aes(x = emotfocus, y = Anger, fill = selfpersp)) +
+  geom_boxplot()
+
+```
+
+# exercise: play with the `C3E19` dataset from `AMCP`
+> - using one factor (i.e., what vs. why or self-immersed vs. self-distanced), test whether the difference in two group means = 0.
+
+```{r}
+
+C3E19 %>% 
+  count(Condition, condition_lbl, selfpersp, immrVdstn, emotfocus, whatVwhy)
+
+t.test(Anger ~ selfpersp, data = C3E19)
+t.test(Anger ~ emotfocus, data = C3E19)
+
+```
+
+# exercise: play with the `C3E19` dataset from `AMCP`
+> - which contrasts test meaningful research questions? compute new columns with those contrasts. use those new contrasts as predictors in a linear regression.
+
+```{r}
+
+C3E19 %>% 
+  count(Condition, condition_lbl, selfpersp, immrVdstn, emotfocus, whatVwhy)
+
+lm4 <- lm(Anger ~ immrVdstn * whatVwhy, data = C3E19)
+summary(lm4)
+Anova(lm4, type = "III")
+
+```
+
+# how do I test correlations?
+> - `corr.test()`: "Although the cor function finds the correlations for a matrix, it does not report probability values. cor.test does, but for only one pair of variables at a time. corr.test uses cor to find the correlations for either complete or pairwise data and reports the sample sizes and probability values as well. For symmetric matrices, raw probabilites are reported below the diagonal and correlations adjusted for multiple comparisons above the diagonal. In the case of different x and ys, the default is to adjust the probabilities for multiple tests. Both corr.test and corr.p return raw and adjusted confidence intervals for each correlation."
+
+> - **source.** help("corr.test")
+
+# example: test all pairwise correlations
+> - **sat.act.** "Self reported scores on the SAT Verbal, SAT Quantitative and ACT were collected as part of the Synthetic Aperture Personality Assessment (SAPA) web based personality assessment project. Age, gender, and education are also reported. The data from 700 subjects are included here as a demonstration set for correlation and analysis."
+
+```{r}
+
+sat.act %>% sample_n(size = 15)
+
+```
+
+# example: test all pairwise correlations
+> - `corr.test()`
+>     + **x.** "A matrix or dataframe"
+>     + **use.** "use = "pairwise" is the default value and will do pairwise deletion of cases. use = "complete" will select just complete cases."
+>     + **method.** "method = "pearson" is the default value. The alternatives to be passed to cor are "spearman" and "kendall""
+>     + **adjust.** "What adjustment for multiple tests should be used? ("holm", "hochberg", "hommel", "bonferroni", "BH", "BY", "fdr", "none"). See p.adjust for details about why to use "holm" rather than "bonferroni")."
+> - **note.** "The t and Standard Errors are returned as objects in the result, but are not normally displayed. Confidence intervals are found and printed if using the print(short=FALSE) option."
+
+> - **source.** `help("corr.test")`
+
+```{r}
+
+sat.act %>%
+  select(education, age, ACT, SATV, SATQ) %>% 
+  corr.test(method = "pearson", use = "pairwise", adjust = "none") %>% 
+  print(short = FALSE)
+
+```
+
+# example: plot all pairwise correlations
+> - `pairs.panels()`: "Adapted from the help page for pairs, pairs.panels shows a scatter plot of matrices (SPLOM), with bivariate scatter plots below the diagonal, histograms on the diagonal, and the Pearson correlation above the diagonal. Useful for descriptive statistics of small data sets. If lm=TRUE, linear regression fits are shown for both y by x and x by y. Correlation ellipses are also shown. Points may be given different colors depending upon some grouping variable. Robust fitting is done using lowess or loess regression. Confidence intervals of either the lm or loess are drawn if requested."
+>     + **x.** "a data.frame or matrix"
+>     + **scale.** "TRUE scales the correlation font by the size of the absolute correlation."
+>     + **pch.** "The plot character (defaults to 20 which is a '.')."
+>     + see other defaults (there are many)
+
+> - **source.** `help("pairs.panels")`
+
+```{r}
+
+sat.act %>%
+  select(education, age, ACT, SATV, SATQ) %>% 
+  pairs.panels(scale = FALSE, pch = ".")
+
+```
+

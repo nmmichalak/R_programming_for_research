@@ -93,7 +93,7 @@
 > - cheat sheets
 >     + [Data transformation cheat sheet](https://github.com/rstudio/cheatsheets/raw/master/source/pdfs/data-transformation-cheatsheet.pdf)
 
-## **day 4. describing and modeling**
+## **day 4. summarizing and modeling**
 
 ### Before workshop
 
@@ -107,26 +107,23 @@
 ### during workshop
 
 > - `describe()` and `describeBy()`
-> - `cor.plot()` and `pairs.panels()`
-> - `corr.test()`
 > - `t.test()`
 > - `lm()` and `Anova()`
 >     + [contrasts](https://people.ucsc.edu/~dgbonett/psyc204.html)
+> - `cor.plot()` and `pairs.panels()`
+> - `corr.test()`
 > - `lmer()`
 > - `sem()`
 > - `fa.parallel()` and `fa()`
 
-## **Day 5. Miscellaneous topics**
+## **day 5. your data**
 
-### During the workshop
+### during the workshop
 
-> - Tidy data
 > - R Projects
 > - R Markdown
-> - Making MS Powerpoint slides with the officer package
-> - Writing functions
-> - [Iteration](http://r4ds.had.co.nz/iteration.html) (e.g. for loops, map functions)
-> - Student selected topics
+> - importing data
+> - writing code you and others can read 
 
 ## **R resources**
 
