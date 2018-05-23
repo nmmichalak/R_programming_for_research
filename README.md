@@ -67,7 +67,7 @@
 >     + [Data visualization cheat sheet](https://www.rstudio.com/wp-content/uploads/2016/11/ggplot2-cheatsheet-2.1.pdf)
 >     + [Data import cheat sheet](https://github.com/rstudio/cheatsheets/raw/master/source/pdfs/data-import-cheatsheet.pdf)
 
-## **Day 3. workflow and data transformation**
+## **day 3. workflow and data transformation**
 
 ### before workshop
 
@@ -93,37 +93,28 @@
 > - cheat sheets
 >     + [Data transformation cheat sheet](https://github.com/rstudio/cheatsheets/raw/master/source/pdfs/data-transformation-cheatsheet.pdf)
 
-## **Day 4. Vectors, strings, factors, and statistics**
+## **day 4. describing and modeling**
 
 ### Before workshop
 
-> - Skim [Vectors](http://r4ds.had.co.nz/vectors.html), [Strings](http://r4ds.had.co.nz/strings.html), and [Factors](http://r4ds.had.co.nz/factors.html) (Wickham &amp; Grolemund)
-> - Skim [R Library Contrast Coding Systems for Categorical Variables](https://stats.idre.ucla.edu/r/library/r-library-contrast-coding-systems-for-categorical-variables/) (UCLA: Statistical Consulting Group)
+> - your favorite regression or ANOVA text, or any tutorials at [https://designingexperiments.com/supplements/](https://designingexperiments.com/supplements/)
+> - skim `help("lm")`, `help("car")`, and `help("afex")`
+> - skim [An introduction to the psych package: Part I: data entry and data description](https://cran.r-project.org/web/packages/psych/vignettes/intro.pdf)
+> - skim [An introduction to the psych package: Part II Scale construction and psychometrics](https://cran.r-project.org/web/packages/psych/vignettes/overview.pdf)
+> - skim [lavaan: tutorial](http://lavaan.ugent.be/tutorial/index.html)
+> - Judd, C. M., Westfall, J., & Kenny, D. A. (2017). [Experiments with more than one random factor: Designs, analytic models, and statistical power](http://jakewestfall.org/publications/JWK_AnnRev.pdf). *Annual Review of Psychology, 68*, 601-625.
 
-### During workshop
+### during workshop
 
-> - Vector basics
-> - Important types of atomic vectors
-> - String basics
-> - Creating factors
-> - Modifying factor order
-> - Modifying factor levels
-> - Review Day 00 through Day 02
-> - Contrasts coding systems in R
-> - Statistics
->     + `t.test()`
->     + `cor.test()`
->     + `lm()`
->     + `glm()`
->     + `aov_car()` / `aov_ez()`
->     + `lmer()`
->     + `sem()` / `cfa()` / `growth()`
->     + contrasts (and more) [[Douglas Bonett&#39;s R functions](https://people.ucsc.edu/~dgbonett/psyc204.html)]
->     + afex package [[introduction](http://singmann.org/anova-in-r-afex-may-be-the-solution-you-are-looking-for/)]
->     + psych package [[verview](http://personality-project.org/r/overview.pdf)]
->     + lavaan package [[website](http://lavaan.ugent.be/)]
->     + lme4 package [[Experiments with more than one random factor](http://jakewestfall.org/publications/JWK_AnnRev.pdf)]
-> - Exercises and spend more time [wrangling](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf) your own data
+> - `describe()` and `describeBy()`
+> - `cor.plot()` and `pairs.panels()`
+> - `corr.test()`
+> - `t.test()`
+> - `lm()` and `Anova()`
+>     + [contrasts](https://people.ucsc.edu/~dgbonett/psyc204.html)
+> - `lmer()`
+> - `sem()`
+> - `fa.parallel()` and `fa()`
 
 ## **Day 5. Miscellaneous topics**
 
