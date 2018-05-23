@@ -130,7 +130,6 @@
 ### **websites**
 
 > - [Quick-R](http://www.statmethods.net/) a roadmap to the language and the code necessary to get started quickly (i.e. tutorials)
-
 > - [R Studio Cheat Sheets](https://www.rstudio.com/resources/cheatsheets/) just like it reads, these are cheat sheets for &quot;favorite&quot; R packages and more (e.g. dplyr, ggplot2, base, R Markdown, regular expressions)
 > - [UCLA Institute for Digital Research and Education: R](http://stats.idre.ucla.edu/r/) statistics and programming tutorials for R, among other helpful related resources
 > - [The Personality Project: Using R for psychological research](https://www.personality-project.org/r/r.guide.html) seemingly endless tutorials and explainers about R programming for (personality-themed) psychology research; also, some tutorials cover the psych package, which is written by Michigan Psychology alumni, William Revelle (1973)
@@ -142,6 +141,7 @@
 > - [{ swirl }: Learn R, in R](http://swirlstats.com/) _&quot;swirl teaches you R programming and data science interactively, at your own pace, and right in the R console!&quot;_
 > - [A language, not a letter: Learning statistics in R](http://ademos.people.uic.edu/index.html) _&quot;This online collection of tutorials was created by graduate students in psychology as a resource for other experimental psychologists interested in using R for statistical analyses and graphics. Each chapter was created to provide an overview of how to code a particular topic in the R language.&quot;_
 > - [STAT 545 @ UBC: Data wrangling, exploration, and analysis with R](http://stat545.com/index.html) _&quot;Learn how to explore, groom, visualize, and analyze data and make all of that reproducible, reusable, and shareable using R&quot;_
+> - [designingexperiments.com](https://designingexperiments.com/) site accompanies Designing Experiments and Analyzing Data: A Model Comparison Perspective (3rd edition; Maxwell, Delaney, & Kelley, 2018). It's full of modeling examples for R, but it also includes some extremely useful website applications for power analyses for all sorts of common designs
 
 ### **texts**
 
@@ -150,6 +150,7 @@
 > - Gelman, A., &amp; Hill, J. (2007). [_Data analysis using regression and multilevel/hierarchical models_](http://www.stat.columbia.edu/~gelman/arm/). New York, NY: Cambridge University Press.
 > - Ismay, C. & Kim, A.Y. (2017). [ ModernDive: An Introduction to Statistical and Data Sciences via R. ](https://ismayc.github.io/moderndiver-book/)
 > - Navarro, D. (2015). [_Learning Statistics with R_](https://health.adelaide.edu.au/psychology/ccs/teaching/lsr/). Raleigh, North Carolina: Lulu Press, Inc.
+> - Maxwell, Delaney, & Kelley, (2018). *Designing experiments and analyzing data: A model comparison perspective.* (3rd ed.). Routledge.
 > - Wickham, H. (2015). [_Advanced R_](http://adv-r.had.co.nz/). Boca Raton, FL: CRC Press.
 > - Wickham, H. (2016). [_ggplot2: Elegant graphics for data analysis_](http://ggplot2.org/book/). New York, NY: Springer.
 > - Zuur, A. F., Ieno, E. N., Walker, N. J., Saveliev, A. A., &amp; Smith, G. M. (2009). [_Mixed effects models and extensions in ecology with R_](https://www.amazon.com/Effects-Extensions-Ecology-Statistics-Biology/dp/0387874577). New York, NY: Springer.
@@ -157,4 +158,4 @@
 ## acknowledgements
 
 > - Iris and I couldn't have done this alone. We thank all of these thoughtful and helpful people:  
-> - Josh Wondra (he started this workshop in the Psychology Department last summer and helped us take it over this summer); Brian Wallace and everyone at Psychology Student Academic Affairs (they approved us!); Rich Gonzalez (especially his Psychology 613/614 course); Adrienne Beltz and Pam Davis-Kean and everyone who's a part of the Psychology Methods Hour; Instructional Support Services and Blue Corps at the University of Michigan; and, of course, the R community, especially Hadley Wickham and Garrett Grolemund (they wrote the book!).
+> Josh Wondra (he started this workshop in the Psychology Department last summer and helped us take it over this summer); Brian Wallace and everyone at Psychology Student Academic Affairs (they approved us!); Rich Gonzalez (especially his Psychology 613/614 course); Adrienne Beltz and Pam Davis-Kean and everyone who's a part of the Psychology Methods Hour; Instructional Support Services and Blue Corps at the University of Michigan; and, of course, the R community, especially Hadley Wickham and Garrett Grolemund (they wrote the book!).
