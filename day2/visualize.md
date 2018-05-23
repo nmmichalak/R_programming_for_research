@@ -7,8 +7,6 @@ output:
     df_print: kable
 ---
 
-
-
 # install and/or load packages for this session
 - `install.packages()`: "Download and install packages from CRAN-like repositories or from local files."  
 - `library()`: loads your package you installed  
@@ -555,28 +553,247 @@ ggplot(data = datasaurus_dozen, aes(x = x, y = y, color = dataset)) +
 
 
 ```r
-mpg %>% sample_n(size = 15)
+mpg
 ```
 
 <div class="kable-table">
 
-manufacturer   model                  displ   year   cyl  trans        drv    cty   hwy  fl   class      
--------------  --------------------  ------  -----  ----  -----------  ----  ----  ----  ---  -----------
-toyota         4runner 4wd              3.4   1999     6  manual(m5)   4       15    17  r    suv        
-ford           explorer 4wd             4.0   2008     6  auto(l5)     4       13    19  r    suv        
-honda          civic                    1.6   1999     4  auto(l4)     f       24    32  r    subcompact 
-chevrolet      malibu                   3.5   2008     6  auto(l4)     f       18    29  r    midsize    
-dodge          ram 1500 pickup 4wd      4.7   2008     8  manual(m6)   4       12    16  r    pickup     
-subaru         impreza awd              2.5   1999     4  auto(l4)     4       19    26  r    subcompact 
-land rover     range rover              4.4   2008     8  auto(s6)     4       12    18  r    suv        
-dodge          caravan 2wd              2.4   1999     4  auto(l3)     f       18    24  r    minivan    
-chevrolet      c1500 suburban 2wd       6.0   2008     8  auto(l4)     r       12    17  r    suv        
-nissan         maxima                   3.0   1999     6  auto(l4)     f       18    26  r    midsize    
-chevrolet      malibu                   3.1   1999     6  auto(l4)     f       18    26  r    midsize    
-pontiac        grand prix               5.3   2008     8  auto(s4)     f       16    25  p    midsize    
-dodge          caravan 2wd              3.3   1999     6  auto(l4)     f       16    22  r    minivan    
-ford           mustang                  3.8   1999     6  manual(m5)   r       18    26  r    subcompact 
-audi           a4                       2.0   2008     4  auto(av)     f       21    30  p    compact    
+manufacturer   model                     displ   year   cyl  trans        drv    cty   hwy  fl   class      
+-------------  -----------------------  ------  -----  ----  -----------  ----  ----  ----  ---  -----------
+audi           a4                          1.8   1999     4  auto(l5)     f       18    29  p    compact    
+audi           a4                          1.8   1999     4  manual(m5)   f       21    29  p    compact    
+audi           a4                          2.0   2008     4  manual(m6)   f       20    31  p    compact    
+audi           a4                          2.0   2008     4  auto(av)     f       21    30  p    compact    
+audi           a4                          2.8   1999     6  auto(l5)     f       16    26  p    compact    
+audi           a4                          2.8   1999     6  manual(m5)   f       18    26  p    compact    
+audi           a4                          3.1   2008     6  auto(av)     f       18    27  p    compact    
+audi           a4 quattro                  1.8   1999     4  manual(m5)   4       18    26  p    compact    
+audi           a4 quattro                  1.8   1999     4  auto(l5)     4       16    25  p    compact    
+audi           a4 quattro                  2.0   2008     4  manual(m6)   4       20    28  p    compact    
+audi           a4 quattro                  2.0   2008     4  auto(s6)     4       19    27  p    compact    
+audi           a4 quattro                  2.8   1999     6  auto(l5)     4       15    25  p    compact    
+audi           a4 quattro                  2.8   1999     6  manual(m5)   4       17    25  p    compact    
+audi           a4 quattro                  3.1   2008     6  auto(s6)     4       17    25  p    compact    
+audi           a4 quattro                  3.1   2008     6  manual(m6)   4       15    25  p    compact    
+audi           a6 quattro                  2.8   1999     6  auto(l5)     4       15    24  p    midsize    
+audi           a6 quattro                  3.1   2008     6  auto(s6)     4       17    25  p    midsize    
+audi           a6 quattro                  4.2   2008     8  auto(s6)     4       16    23  p    midsize    
+chevrolet      c1500 suburban 2wd          5.3   2008     8  auto(l4)     r       14    20  r    suv        
+chevrolet      c1500 suburban 2wd          5.3   2008     8  auto(l4)     r       11    15  e    suv        
+chevrolet      c1500 suburban 2wd          5.3   2008     8  auto(l4)     r       14    20  r    suv        
+chevrolet      c1500 suburban 2wd          5.7   1999     8  auto(l4)     r       13    17  r    suv        
+chevrolet      c1500 suburban 2wd          6.0   2008     8  auto(l4)     r       12    17  r    suv        
+chevrolet      corvette                    5.7   1999     8  manual(m6)   r       16    26  p    2seater    
+chevrolet      corvette                    5.7   1999     8  auto(l4)     r       15    23  p    2seater    
+chevrolet      corvette                    6.2   2008     8  manual(m6)   r       16    26  p    2seater    
+chevrolet      corvette                    6.2   2008     8  auto(s6)     r       15    25  p    2seater    
+chevrolet      corvette                    7.0   2008     8  manual(m6)   r       15    24  p    2seater    
+chevrolet      k1500 tahoe 4wd             5.3   2008     8  auto(l4)     4       14    19  r    suv        
+chevrolet      k1500 tahoe 4wd             5.3   2008     8  auto(l4)     4       11    14  e    suv        
+chevrolet      k1500 tahoe 4wd             5.7   1999     8  auto(l4)     4       11    15  r    suv        
+chevrolet      k1500 tahoe 4wd             6.5   1999     8  auto(l4)     4       14    17  d    suv        
+chevrolet      malibu                      2.4   1999     4  auto(l4)     f       19    27  r    midsize    
+chevrolet      malibu                      2.4   2008     4  auto(l4)     f       22    30  r    midsize    
+chevrolet      malibu                      3.1   1999     6  auto(l4)     f       18    26  r    midsize    
+chevrolet      malibu                      3.5   2008     6  auto(l4)     f       18    29  r    midsize    
+chevrolet      malibu                      3.6   2008     6  auto(s6)     f       17    26  r    midsize    
+dodge          caravan 2wd                 2.4   1999     4  auto(l3)     f       18    24  r    minivan    
+dodge          caravan 2wd                 3.0   1999     6  auto(l4)     f       17    24  r    minivan    
+dodge          caravan 2wd                 3.3   1999     6  auto(l4)     f       16    22  r    minivan    
+dodge          caravan 2wd                 3.3   1999     6  auto(l4)     f       16    22  r    minivan    
+dodge          caravan 2wd                 3.3   2008     6  auto(l4)     f       17    24  r    minivan    
+dodge          caravan 2wd                 3.3   2008     6  auto(l4)     f       17    24  r    minivan    
+dodge          caravan 2wd                 3.3   2008     6  auto(l4)     f       11    17  e    minivan    
+dodge          caravan 2wd                 3.8   1999     6  auto(l4)     f       15    22  r    minivan    
+dodge          caravan 2wd                 3.8   1999     6  auto(l4)     f       15    21  r    minivan    
+dodge          caravan 2wd                 3.8   2008     6  auto(l6)     f       16    23  r    minivan    
+dodge          caravan 2wd                 4.0   2008     6  auto(l6)     f       16    23  r    minivan    
+dodge          dakota pickup 4wd           3.7   2008     6  manual(m6)   4       15    19  r    pickup     
+dodge          dakota pickup 4wd           3.7   2008     6  auto(l4)     4       14    18  r    pickup     
+dodge          dakota pickup 4wd           3.9   1999     6  auto(l4)     4       13    17  r    pickup     
+dodge          dakota pickup 4wd           3.9   1999     6  manual(m5)   4       14    17  r    pickup     
+dodge          dakota pickup 4wd           4.7   2008     8  auto(l5)     4       14    19  r    pickup     
+dodge          dakota pickup 4wd           4.7   2008     8  auto(l5)     4       14    19  r    pickup     
+dodge          dakota pickup 4wd           4.7   2008     8  auto(l5)     4        9    12  e    pickup     
+dodge          dakota pickup 4wd           5.2   1999     8  manual(m5)   4       11    17  r    pickup     
+dodge          dakota pickup 4wd           5.2   1999     8  auto(l4)     4       11    15  r    pickup     
+dodge          durango 4wd                 3.9   1999     6  auto(l4)     4       13    17  r    suv        
+dodge          durango 4wd                 4.7   2008     8  auto(l5)     4       13    17  r    suv        
+dodge          durango 4wd                 4.7   2008     8  auto(l5)     4        9    12  e    suv        
+dodge          durango 4wd                 4.7   2008     8  auto(l5)     4       13    17  r    suv        
+dodge          durango 4wd                 5.2   1999     8  auto(l4)     4       11    16  r    suv        
+dodge          durango 4wd                 5.7   2008     8  auto(l5)     4       13    18  r    suv        
+dodge          durango 4wd                 5.9   1999     8  auto(l4)     4       11    15  r    suv        
+dodge          ram 1500 pickup 4wd         4.7   2008     8  manual(m6)   4       12    16  r    pickup     
+dodge          ram 1500 pickup 4wd         4.7   2008     8  auto(l5)     4        9    12  e    pickup     
+dodge          ram 1500 pickup 4wd         4.7   2008     8  auto(l5)     4       13    17  r    pickup     
+dodge          ram 1500 pickup 4wd         4.7   2008     8  auto(l5)     4       13    17  r    pickup     
+dodge          ram 1500 pickup 4wd         4.7   2008     8  manual(m6)   4       12    16  r    pickup     
+dodge          ram 1500 pickup 4wd         4.7   2008     8  manual(m6)   4        9    12  e    pickup     
+dodge          ram 1500 pickup 4wd         5.2   1999     8  auto(l4)     4       11    15  r    pickup     
+dodge          ram 1500 pickup 4wd         5.2   1999     8  manual(m5)   4       11    16  r    pickup     
+dodge          ram 1500 pickup 4wd         5.7   2008     8  auto(l5)     4       13    17  r    pickup     
+dodge          ram 1500 pickup 4wd         5.9   1999     8  auto(l4)     4       11    15  r    pickup     
+ford           expedition 2wd              4.6   1999     8  auto(l4)     r       11    17  r    suv        
+ford           expedition 2wd              5.4   1999     8  auto(l4)     r       11    17  r    suv        
+ford           expedition 2wd              5.4   2008     8  auto(l6)     r       12    18  r    suv        
+ford           explorer 4wd                4.0   1999     6  auto(l5)     4       14    17  r    suv        
+ford           explorer 4wd                4.0   1999     6  manual(m5)   4       15    19  r    suv        
+ford           explorer 4wd                4.0   1999     6  auto(l5)     4       14    17  r    suv        
+ford           explorer 4wd                4.0   2008     6  auto(l5)     4       13    19  r    suv        
+ford           explorer 4wd                4.6   2008     8  auto(l6)     4       13    19  r    suv        
+ford           explorer 4wd                5.0   1999     8  auto(l4)     4       13    17  r    suv        
+ford           f150 pickup 4wd             4.2   1999     6  auto(l4)     4       14    17  r    pickup     
+ford           f150 pickup 4wd             4.2   1999     6  manual(m5)   4       14    17  r    pickup     
+ford           f150 pickup 4wd             4.6   1999     8  manual(m5)   4       13    16  r    pickup     
+ford           f150 pickup 4wd             4.6   1999     8  auto(l4)     4       13    16  r    pickup     
+ford           f150 pickup 4wd             4.6   2008     8  auto(l4)     4       13    17  r    pickup     
+ford           f150 pickup 4wd             5.4   1999     8  auto(l4)     4       11    15  r    pickup     
+ford           f150 pickup 4wd             5.4   2008     8  auto(l4)     4       13    17  r    pickup     
+ford           mustang                     3.8   1999     6  manual(m5)   r       18    26  r    subcompact 
+ford           mustang                     3.8   1999     6  auto(l4)     r       18    25  r    subcompact 
+ford           mustang                     4.0   2008     6  manual(m5)   r       17    26  r    subcompact 
+ford           mustang                     4.0   2008     6  auto(l5)     r       16    24  r    subcompact 
+ford           mustang                     4.6   1999     8  auto(l4)     r       15    21  r    subcompact 
+ford           mustang                     4.6   1999     8  manual(m5)   r       15    22  r    subcompact 
+ford           mustang                     4.6   2008     8  manual(m5)   r       15    23  r    subcompact 
+ford           mustang                     4.6   2008     8  auto(l5)     r       15    22  r    subcompact 
+ford           mustang                     5.4   2008     8  manual(m6)   r       14    20  p    subcompact 
+honda          civic                       1.6   1999     4  manual(m5)   f       28    33  r    subcompact 
+honda          civic                       1.6   1999     4  auto(l4)     f       24    32  r    subcompact 
+honda          civic                       1.6   1999     4  manual(m5)   f       25    32  r    subcompact 
+honda          civic                       1.6   1999     4  manual(m5)   f       23    29  p    subcompact 
+honda          civic                       1.6   1999     4  auto(l4)     f       24    32  r    subcompact 
+honda          civic                       1.8   2008     4  manual(m5)   f       26    34  r    subcompact 
+honda          civic                       1.8   2008     4  auto(l5)     f       25    36  r    subcompact 
+honda          civic                       1.8   2008     4  auto(l5)     f       24    36  c    subcompact 
+honda          civic                       2.0   2008     4  manual(m6)   f       21    29  p    subcompact 
+hyundai        sonata                      2.4   1999     4  auto(l4)     f       18    26  r    midsize    
+hyundai        sonata                      2.4   1999     4  manual(m5)   f       18    27  r    midsize    
+hyundai        sonata                      2.4   2008     4  auto(l4)     f       21    30  r    midsize    
+hyundai        sonata                      2.4   2008     4  manual(m5)   f       21    31  r    midsize    
+hyundai        sonata                      2.5   1999     6  auto(l4)     f       18    26  r    midsize    
+hyundai        sonata                      2.5   1999     6  manual(m5)   f       18    26  r    midsize    
+hyundai        sonata                      3.3   2008     6  auto(l5)     f       19    28  r    midsize    
+hyundai        tiburon                     2.0   1999     4  auto(l4)     f       19    26  r    subcompact 
+hyundai        tiburon                     2.0   1999     4  manual(m5)   f       19    29  r    subcompact 
+hyundai        tiburon                     2.0   2008     4  manual(m5)   f       20    28  r    subcompact 
+hyundai        tiburon                     2.0   2008     4  auto(l4)     f       20    27  r    subcompact 
+hyundai        tiburon                     2.7   2008     6  auto(l4)     f       17    24  r    subcompact 
+hyundai        tiburon                     2.7   2008     6  manual(m6)   f       16    24  r    subcompact 
+hyundai        tiburon                     2.7   2008     6  manual(m5)   f       17    24  r    subcompact 
+jeep           grand cherokee 4wd          3.0   2008     6  auto(l5)     4       17    22  d    suv        
+jeep           grand cherokee 4wd          3.7   2008     6  auto(l5)     4       15    19  r    suv        
+jeep           grand cherokee 4wd          4.0   1999     6  auto(l4)     4       15    20  r    suv        
+jeep           grand cherokee 4wd          4.7   1999     8  auto(l4)     4       14    17  r    suv        
+jeep           grand cherokee 4wd          4.7   2008     8  auto(l5)     4        9    12  e    suv        
+jeep           grand cherokee 4wd          4.7   2008     8  auto(l5)     4       14    19  r    suv        
+jeep           grand cherokee 4wd          5.7   2008     8  auto(l5)     4       13    18  r    suv        
+jeep           grand cherokee 4wd          6.1   2008     8  auto(l5)     4       11    14  p    suv        
+land rover     range rover                 4.0   1999     8  auto(l4)     4       11    15  p    suv        
+land rover     range rover                 4.2   2008     8  auto(s6)     4       12    18  r    suv        
+land rover     range rover                 4.4   2008     8  auto(s6)     4       12    18  r    suv        
+land rover     range rover                 4.6   1999     8  auto(l4)     4       11    15  p    suv        
+lincoln        navigator 2wd               5.4   1999     8  auto(l4)     r       11    17  r    suv        
+lincoln        navigator 2wd               5.4   1999     8  auto(l4)     r       11    16  p    suv        
+lincoln        navigator 2wd               5.4   2008     8  auto(l6)     r       12    18  r    suv        
+mercury        mountaineer 4wd             4.0   1999     6  auto(l5)     4       14    17  r    suv        
+mercury        mountaineer 4wd             4.0   2008     6  auto(l5)     4       13    19  r    suv        
+mercury        mountaineer 4wd             4.6   2008     8  auto(l6)     4       13    19  r    suv        
+mercury        mountaineer 4wd             5.0   1999     8  auto(l4)     4       13    17  r    suv        
+nissan         altima                      2.4   1999     4  manual(m5)   f       21    29  r    compact    
+nissan         altima                      2.4   1999     4  auto(l4)     f       19    27  r    compact    
+nissan         altima                      2.5   2008     4  auto(av)     f       23    31  r    midsize    
+nissan         altima                      2.5   2008     4  manual(m6)   f       23    32  r    midsize    
+nissan         altima                      3.5   2008     6  manual(m6)   f       19    27  p    midsize    
+nissan         altima                      3.5   2008     6  auto(av)     f       19    26  p    midsize    
+nissan         maxima                      3.0   1999     6  auto(l4)     f       18    26  r    midsize    
+nissan         maxima                      3.0   1999     6  manual(m5)   f       19    25  r    midsize    
+nissan         maxima                      3.5   2008     6  auto(av)     f       19    25  p    midsize    
+nissan         pathfinder 4wd              3.3   1999     6  auto(l4)     4       14    17  r    suv        
+nissan         pathfinder 4wd              3.3   1999     6  manual(m5)   4       15    17  r    suv        
+nissan         pathfinder 4wd              4.0   2008     6  auto(l5)     4       14    20  p    suv        
+nissan         pathfinder 4wd              5.6   2008     8  auto(s5)     4       12    18  p    suv        
+pontiac        grand prix                  3.1   1999     6  auto(l4)     f       18    26  r    midsize    
+pontiac        grand prix                  3.8   1999     6  auto(l4)     f       16    26  p    midsize    
+pontiac        grand prix                  3.8   1999     6  auto(l4)     f       17    27  r    midsize    
+pontiac        grand prix                  3.8   2008     6  auto(l4)     f       18    28  r    midsize    
+pontiac        grand prix                  5.3   2008     8  auto(s4)     f       16    25  p    midsize    
+subaru         forester awd                2.5   1999     4  manual(m5)   4       18    25  r    suv        
+subaru         forester awd                2.5   1999     4  auto(l4)     4       18    24  r    suv        
+subaru         forester awd                2.5   2008     4  manual(m5)   4       20    27  r    suv        
+subaru         forester awd                2.5   2008     4  manual(m5)   4       19    25  p    suv        
+subaru         forester awd                2.5   2008     4  auto(l4)     4       20    26  r    suv        
+subaru         forester awd                2.5   2008     4  auto(l4)     4       18    23  p    suv        
+subaru         impreza awd                 2.2   1999     4  auto(l4)     4       21    26  r    subcompact 
+subaru         impreza awd                 2.2   1999     4  manual(m5)   4       19    26  r    subcompact 
+subaru         impreza awd                 2.5   1999     4  manual(m5)   4       19    26  r    subcompact 
+subaru         impreza awd                 2.5   1999     4  auto(l4)     4       19    26  r    subcompact 
+subaru         impreza awd                 2.5   2008     4  auto(s4)     4       20    25  p    compact    
+subaru         impreza awd                 2.5   2008     4  auto(s4)     4       20    27  r    compact    
+subaru         impreza awd                 2.5   2008     4  manual(m5)   4       19    25  p    compact    
+subaru         impreza awd                 2.5   2008     4  manual(m5)   4       20    27  r    compact    
+toyota         4runner 4wd                 2.7   1999     4  manual(m5)   4       15    20  r    suv        
+toyota         4runner 4wd                 2.7   1999     4  auto(l4)     4       16    20  r    suv        
+toyota         4runner 4wd                 3.4   1999     6  auto(l4)     4       15    19  r    suv        
+toyota         4runner 4wd                 3.4   1999     6  manual(m5)   4       15    17  r    suv        
+toyota         4runner 4wd                 4.0   2008     6  auto(l5)     4       16    20  r    suv        
+toyota         4runner 4wd                 4.7   2008     8  auto(l5)     4       14    17  r    suv        
+toyota         camry                       2.2   1999     4  manual(m5)   f       21    29  r    midsize    
+toyota         camry                       2.2   1999     4  auto(l4)     f       21    27  r    midsize    
+toyota         camry                       2.4   2008     4  manual(m5)   f       21    31  r    midsize    
+toyota         camry                       2.4   2008     4  auto(l5)     f       21    31  r    midsize    
+toyota         camry                       3.0   1999     6  auto(l4)     f       18    26  r    midsize    
+toyota         camry                       3.0   1999     6  manual(m5)   f       18    26  r    midsize    
+toyota         camry                       3.5   2008     6  auto(s6)     f       19    28  r    midsize    
+toyota         camry solara                2.2   1999     4  auto(l4)     f       21    27  r    compact    
+toyota         camry solara                2.2   1999     4  manual(m5)   f       21    29  r    compact    
+toyota         camry solara                2.4   2008     4  manual(m5)   f       21    31  r    compact    
+toyota         camry solara                2.4   2008     4  auto(s5)     f       22    31  r    compact    
+toyota         camry solara                3.0   1999     6  auto(l4)     f       18    26  r    compact    
+toyota         camry solara                3.0   1999     6  manual(m5)   f       18    26  r    compact    
+toyota         camry solara                3.3   2008     6  auto(s5)     f       18    27  r    compact    
+toyota         corolla                     1.8   1999     4  auto(l3)     f       24    30  r    compact    
+toyota         corolla                     1.8   1999     4  auto(l4)     f       24    33  r    compact    
+toyota         corolla                     1.8   1999     4  manual(m5)   f       26    35  r    compact    
+toyota         corolla                     1.8   2008     4  manual(m5)   f       28    37  r    compact    
+toyota         corolla                     1.8   2008     4  auto(l4)     f       26    35  r    compact    
+toyota         land cruiser wagon 4wd      4.7   1999     8  auto(l4)     4       11    15  r    suv        
+toyota         land cruiser wagon 4wd      5.7   2008     8  auto(s6)     4       13    18  r    suv        
+toyota         toyota tacoma 4wd           2.7   1999     4  manual(m5)   4       15    20  r    pickup     
+toyota         toyota tacoma 4wd           2.7   1999     4  auto(l4)     4       16    20  r    pickup     
+toyota         toyota tacoma 4wd           2.7   2008     4  manual(m5)   4       17    22  r    pickup     
+toyota         toyota tacoma 4wd           3.4   1999     6  manual(m5)   4       15    17  r    pickup     
+toyota         toyota tacoma 4wd           3.4   1999     6  auto(l4)     4       15    19  r    pickup     
+toyota         toyota tacoma 4wd           4.0   2008     6  manual(m6)   4       15    18  r    pickup     
+toyota         toyota tacoma 4wd           4.0   2008     6  auto(l5)     4       16    20  r    pickup     
+volkswagen     gti                         2.0   1999     4  manual(m5)   f       21    29  r    compact    
+volkswagen     gti                         2.0   1999     4  auto(l4)     f       19    26  r    compact    
+volkswagen     gti                         2.0   2008     4  manual(m6)   f       21    29  p    compact    
+volkswagen     gti                         2.0   2008     4  auto(s6)     f       22    29  p    compact    
+volkswagen     gti                         2.8   1999     6  manual(m5)   f       17    24  r    compact    
+volkswagen     jetta                       1.9   1999     4  manual(m5)   f       33    44  d    compact    
+volkswagen     jetta                       2.0   1999     4  manual(m5)   f       21    29  r    compact    
+volkswagen     jetta                       2.0   1999     4  auto(l4)     f       19    26  r    compact    
+volkswagen     jetta                       2.0   2008     4  auto(s6)     f       22    29  p    compact    
+volkswagen     jetta                       2.0   2008     4  manual(m6)   f       21    29  p    compact    
+volkswagen     jetta                       2.5   2008     5  auto(s6)     f       21    29  r    compact    
+volkswagen     jetta                       2.5   2008     5  manual(m5)   f       21    29  r    compact    
+volkswagen     jetta                       2.8   1999     6  auto(l4)     f       16    23  r    compact    
+volkswagen     jetta                       2.8   1999     6  manual(m5)   f       17    24  r    compact    
+volkswagen     new beetle                  1.9   1999     4  manual(m5)   f       35    44  d    subcompact 
+volkswagen     new beetle                  1.9   1999     4  auto(l4)     f       29    41  d    subcompact 
+volkswagen     new beetle                  2.0   1999     4  manual(m5)   f       21    29  r    subcompact 
+volkswagen     new beetle                  2.0   1999     4  auto(l4)     f       19    26  r    subcompact 
+volkswagen     new beetle                  2.5   2008     5  manual(m5)   f       20    28  r    subcompact 
+volkswagen     new beetle                  2.5   2008     5  auto(s6)     f       20    29  r    subcompact 
+volkswagen     passat                      1.8   1999     4  manual(m5)   f       21    29  p    midsize    
+volkswagen     passat                      1.8   1999     4  auto(l5)     f       18    29  p    midsize    
+volkswagen     passat                      2.0   2008     4  auto(s6)     f       19    28  p    midsize    
+volkswagen     passat                      2.0   2008     4  manual(m6)   f       21    29  p    midsize    
+volkswagen     passat                      2.8   1999     6  auto(l5)     f       16    26  p    midsize    
+volkswagen     passat                      2.8   1999     6  manual(m5)   f       18    26  p    midsize    
+volkswagen     passat                      3.6   2008     6  auto(s6)     f       17    26  p    midsize    
 
 </div>
 
@@ -702,21 +919,21 @@ sleepstudy %>% sample_n(size = 15)
 
        Reaction   Days  Subject 
 ----  ---------  -----  --------
-164    281.7895      3  371     
-109    336.2806      8  349     
-62     289.5550      1  333     
+107    281.5648      6  349     
+29     261.0125      8  310     
+38     318.2613      7  330     
+1      249.5600      0  308     
+47     290.0750      6  331     
+108    308.1020      7  349     
+116    329.7247      5  350     
+25     229.3074      4  310     
+126    304.6336      5  351     
+159    365.1630      8  370     
+77     305.5248      6  334     
+40     354.0487      9  330     
+151    225.2640      0  370     
 168    304.6306      7  371     
-18     217.7272      7  309     
-75     279.0244      4  334     
-144    277.6566      3  369     
-110    351.6451      9  349     
-58     346.8311      7  332     
-146    317.2135      5  369     
-105    250.7103      4  349     
-139    375.6406      8  352     
-91     312.3666      0  337     
-79     335.7469      8  334     
-149    340.2800      8  369     
+174    310.6316      3  372     
 
 </div>
 
@@ -759,21 +976,21 @@ US_births_2000_2014 %>% sample_n(size = 15)
 
  year   month   date_of_month  date         day_of_week    births
 -----  ------  --------------  -----------  ------------  -------
- 2012       1              11  2012-01-11   Wed             11860
- 2010       3              22  2010-03-22   Mon             11657
- 2004      10              29  2004-10-29   Fri             12473
- 2006       3              19  2006-03-19   Sun              7355
- 2006       7              30  2006-07-30   Sun              8105
- 2003      11              24  2003-11-24   Mon             13035
- 2014       8               5  2014-08-05   Tues            13415
- 2014       5              26  2014-05-26   Mon              7657
- 2007       4              21  2007-04-21   Sat              8302
- 2001       6               6  2001-06-06   Wed             12804
- 2005      11              14  2005-11-14   Mon             12164
- 2009       8              24  2009-08-24   Mon             12664
- 2002       7              10  2002-07-10   Wed             13264
- 2014       2              14  2014-02-14   Fri             12494
- 2004       1               4  2004-01-04   Sun              7359
+ 2013       5              12  2013-05-12   Sun              7060
+ 2007      10              14  2007-10-14   Sun              7579
+ 2012      10              12  2012-10-12   Fri             12349
+ 2005      10               3  2005-10-03   Mon             12816
+ 2014       4               8  2014-04-08   Tues            12187
+ 2013       8              11  2013-08-11   Sun              7797
+ 2008      11              23  2008-11-23   Sun              7301
+ 2013      10              17  2013-10-17   Thurs           12220
+ 2009       1              30  2009-01-30   Fri             12527
+ 2010       8              20  2010-08-20   Fri             12910
+ 2013      11              20  2013-11-20   Wed             12503
+ 2009      10               4  2009-10-04   Sun              7443
+ 2004       3               7  2004-03-07   Sun              7304
+ 2011       1               9  2011-01-09   Sun              6933
+ 2011       4              28  2011-04-28   Thurs           12180
 
 </div>
 
