@@ -95,7 +95,7 @@
 
 ## **day 4. summarizing and modeling**
 
-### Before workshop
+### before workshop
 
 > - your favorite regression or ANOVA text, or any tutorials at [https://designingexperiments.com/supplements/](https://designingexperiments.com/supplements/)
 > - skim `help("lm")`, `help("car")`, and `help("afex")`

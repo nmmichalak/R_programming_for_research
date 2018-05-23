@@ -7,6 +7,12 @@ output:
     df_print: kable
 ---
 
+```{include = FALSE, echo = FALSE}
+
+options(knitr.table.format = "markdown")
+
+```
+
 # install and/or load packages for this session
 - `install.packages()`: "Download and install packages from CRAN-like repositories or from local files."  
 - `library()`: loads your package you installed  
@@ -19,12 +25,10 @@ output:
 # install.packages("tidyverse")
 # install.packages("psych")
 # install.packages("datasauRus")
-# install.packages("knitr")
 # install.packages("lme4")
 # install.packages("fivethirtyeight")
 
 library(tidyverse)
-library(knitr)
 library(psych)
 library(datasauRus)
 library(lme4)

@@ -7,6 +7,8 @@ output:
     df_print: kable
 ---
 
+
+
 # install and/or load packages for this session
 - `install.packages()`: "Download and install packages from CRAN-like repositories or from local files."  
 - `library()`: loads your package you installed  
@@ -19,12 +21,10 @@ output:
 # install.packages("tidyverse")
 # install.packages("psych")
 # install.packages("datasauRus")
-# install.packages("knitr")
 # install.packages("lme4")
 # install.packages("fivethirtyeight")
 
 library(tidyverse)
-library(knitr)
 library(psych)
 library(datasauRus)
 library(lme4)
@@ -562,21 +562,21 @@ mpg %>% sample_n(size = 15)
 
 manufacturer   model                  displ   year   cyl  trans        drv    cty   hwy  fl   class      
 -------------  --------------------  ------  -----  ----  -----------  ----  ----  ----  ---  -----------
-dodge          caravan 2wd              4.0   2008     6  auto(l6)     f       16    23  r    minivan    
-subaru         impreza awd              2.5   2008     4  auto(s4)     4       20    25  p    compact    
-honda          civic                    1.6   1999     4  manual(m5)   f       25    32  r    subcompact 
+toyota         4runner 4wd              3.4   1999     6  manual(m5)   4       15    17  r    suv        
+ford           explorer 4wd             4.0   2008     6  auto(l5)     4       13    19  r    suv        
+honda          civic                    1.6   1999     4  auto(l4)     f       24    32  r    subcompact 
+chevrolet      malibu                   3.5   2008     6  auto(l4)     f       18    29  r    midsize    
+dodge          ram 1500 pickup 4wd      4.7   2008     8  manual(m6)   4       12    16  r    pickup     
+subaru         impreza awd              2.5   1999     4  auto(l4)     4       19    26  r    subcompact 
+land rover     range rover              4.4   2008     8  auto(s6)     4       12    18  r    suv        
 dodge          caravan 2wd              2.4   1999     4  auto(l3)     f       18    24  r    minivan    
-toyota         corolla                  1.8   2008     4  auto(l4)     f       26    35  r    compact    
-dodge          ram 1500 pickup 4wd      5.2   1999     8  manual(m5)   4       11    16  r    pickup     
-dodge          ram 1500 pickup 4wd      4.7   2008     8  auto(l5)     4       13    17  r    pickup     
-subaru         impreza awd              2.5   1999     4  manual(m5)   4       19    26  r    subcompact 
-chevrolet      corvette                 6.2   2008     8  auto(s6)     r       15    25  p    2seater    
-subaru         forester awd             2.5   2008     4  manual(m5)   4       20    27  r    suv        
-nissan         pathfinder 4wd           3.3   1999     6  manual(m5)   4       15    17  r    suv        
-ford           mustang                  4.6   2008     8  auto(l5)     r       15    22  r    subcompact 
-dodge          durango 4wd              3.9   1999     6  auto(l4)     4       13    17  r    suv        
-toyota         4runner 4wd              4.7   2008     8  auto(l5)     4       14    17  r    suv        
-toyota         camry solara             2.2   1999     4  auto(l4)     f       21    27  r    compact    
+chevrolet      c1500 suburban 2wd       6.0   2008     8  auto(l4)     r       12    17  r    suv        
+nissan         maxima                   3.0   1999     6  auto(l4)     f       18    26  r    midsize    
+chevrolet      malibu                   3.1   1999     6  auto(l4)     f       18    26  r    midsize    
+pontiac        grand prix               5.3   2008     8  auto(s4)     f       16    25  p    midsize    
+dodge          caravan 2wd              3.3   1999     6  auto(l4)     f       16    22  r    minivan    
+ford           mustang                  3.8   1999     6  manual(m5)   r       18    26  r    subcompact 
+audi           a4                       2.0   2008     4  auto(av)     f       21    30  p    compact    
 
 </div>
 
@@ -702,21 +702,21 @@ sleepstudy %>% sample_n(size = 15)
 
        Reaction   Days  Subject 
 ----  ---------  -----  --------
-68     348.8399      7  333     
-175    287.1726      4  372     
-80     377.2990      9  334     
-70     362.0428      9  333     
-161    269.8804      0  371     
-66     338.1665      5  333     
-169    350.7807      8  371     
-126    304.6336      5  351     
-14     204.7070      3  309     
-122    300.0576      1  351     
-62     289.5550      1  333     
-86     254.6362      5  335     
 164    281.7895      3  371     
-49     293.7469      8  331     
-40     354.0487      9  330     
+109    336.2806      8  349     
+62     289.5550      1  333     
+168    304.6306      7  371     
+18     217.7272      7  309     
+75     279.0244      4  334     
+144    277.6566      3  369     
+110    351.6451      9  349     
+58     346.8311      7  332     
+146    317.2135      5  369     
+105    250.7103      4  349     
+139    375.6406      8  352     
+91     312.3666      0  337     
+79     335.7469      8  334     
+149    340.2800      8  369     
 
 </div>
 
@@ -759,21 +759,21 @@ US_births_2000_2014 %>% sample_n(size = 15)
 
  year   month   date_of_month  date         day_of_week    births
 -----  ------  --------------  -----------  ------------  -------
- 2002       8              16  2002-08-16   Fri             13132
- 2002       5              11  2002-05-11   Sat              8329
- 2002      11               5  2002-11-05   Tues            12906
- 2014       5              14  2014-05-14   Wed             12234
- 2007       9              13  2007-09-13   Thurs           14525
- 2007       8              29  2007-08-29   Wed             14517
- 2012       4              22  2012-04-22   Sun              6843
- 2007       6               3  2007-06-03   Sun              7813
- 2011       8              23  2011-08-23   Tues            13422
- 2009       2              20  2009-02-20   Fri             12995
- 2003       3              12  2003-03-12   Wed             12520
- 2003      11               2  2003-11-02   Sun              7716
- 2009       7              18  2009-07-18   Sat              8626
- 2011       8               9  2011-08-09   Tues            13360
- 2010       8              20  2010-08-20   Fri             12910
+ 2012       1              11  2012-01-11   Wed             11860
+ 2010       3              22  2010-03-22   Mon             11657
+ 2004      10              29  2004-10-29   Fri             12473
+ 2006       3              19  2006-03-19   Sun              7355
+ 2006       7              30  2006-07-30   Sun              8105
+ 2003      11              24  2003-11-24   Mon             13035
+ 2014       8               5  2014-08-05   Tues            13415
+ 2014       5              26  2014-05-26   Mon              7657
+ 2007       4              21  2007-04-21   Sat              8302
+ 2001       6               6  2001-06-06   Wed             12804
+ 2005      11              14  2005-11-14   Mon             12164
+ 2009       8              24  2009-08-24   Mon             12664
+ 2002       7              10  2002-07-10   Wed             13264
+ 2014       2              14  2014-02-14   Fri             12494
+ 2004       1               4  2004-01-04   Sun              7359
 
 </div>
 

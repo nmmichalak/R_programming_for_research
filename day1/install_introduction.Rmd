@@ -7,6 +7,12 @@ output:
     df_print: kable
 ---
 
+```{include = FALSE, echo = FALSE}
+
+options(knitr.table.format = "markdown")
+
+```
+
 # how do I install R and R Studio (you need both in that order)
 > - installing R ([**Macintosh**](https://stats.idre.ucla.edu/r/icu/installing-r-for-macintosh/) / [**Windows**](https://stats.idre.ucla.edu/r/icu/installing-r-for-windows/))
 > - uninstalling R ([**Macintosh**](https://cran.r-project.org/doc/manuals/r-release/R-admin.html#Uninstalling-under-macOS) / [**Windows**](https://cran.r-project.org/doc/manuals/r-release/R-admin.html#Uninstallation))
