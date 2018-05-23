@@ -110,8 +110,8 @@
 > - `t.test()`
 > - `lm()` and `Anova()`
 >     + [contrasts](https://people.ucsc.edu/~dgbonett/psyc204.html)
-> - `cor.plot()` and `pairs.panels()`
 > - `corr.test()`
+> -  `pairs.panels()` and `cor.plot()`
 > - `lmer()`
 > - `sem()`
 > - `fa.parallel()` and `fa()`
@@ -154,36 +154,7 @@
 > - Wickham, H. (2016). [_ggplot2: Elegant graphics for data analysis_](http://ggplot2.org/book/). New York, NY: Springer.
 > - Zuur, A. F., Ieno, E. N., Walker, N. J., Saveliev, A. A., &amp; Smith, G. M. (2009). [_Mixed effects models and extensions in ecology with R_](https://www.amazon.com/Effects-Extensions-Ecology-Statistics-Biology/dp/0387874577). New York, NY: Springer.
 
-### **packages (Google these)**
-
-> - psych
-> - lavaan
-> - tidyverse
->     + ggplot2
->     + tibble
->     + tidyr
->     + readr
->     + purrr
->     + dplyr
-> - stringr
-> - knitr
-> - haven
-> - table
-> - broom
-> - lme4
-> - nlme
-> - gmodels
-> - gtools
-> - googlesheets
-> - multcomp
-> - car
-> - Hmisc
-> - afex
-> - data.table
-> - officer
-
 ## acknowledgements
 
-Iris and I couldn't have done this alone. We thank all of these thoughtful and helpful people:
-
-Josh Wondra (he started this workshop in the Psychology Department last summer and helped us take it over this summer); Brian Wallace and everyone at Psychology Student Academic Affairs (they approved us!); Rich Gonzalez (especially his Psychology 613 / 614 course); Adrienne Beltz and Pam Davis-Kean and everyone who's a part of the Psychology Methods Hour; Instructional Support Services and Blue Corps at the University of Michigan; and, of course, the R community, especially Hadley Wickham and Garrett Grolemund (they wrote the book!).
+> - Iris and I couldn't have done this alone. We thank all of these thoughtful and helpful people:  
+> - Josh Wondra (he started this workshop in the Psychology Department last summer and helped us take it over this summer); Brian Wallace and everyone at Psychology Student Academic Affairs (they approved us!); Rich Gonzalez (especially his Psychology 613/614 course); Adrienne Beltz and Pam Davis-Kean and everyone who's a part of the Psychology Methods Hour; Instructional Support Services and Blue Corps at the University of Michigan; and, of course, the R community, especially Hadley Wickham and Garrett Grolemund (they wrote the book!).
