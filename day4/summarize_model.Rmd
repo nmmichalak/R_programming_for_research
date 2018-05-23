@@ -365,9 +365,9 @@ lm3.2 <- lm(Score ~ biofeed_cont * drug_cont, data = C7T1)
 
 # example: test 3 contrasts (i.e., 2 main effects and an interaction in a 2 x 2 between-subjects design)
 > - print `lm2`'s results with `summary()`
-> - **biofeed_cont.** compares biofeedback to no biofeedback
-> - **drug_cont** compares drug to no drug
-> - **biofeed_cont.:drug_cont** compares biofeedback "effect" in no drug treatment condition to biofeedback "effect" in drug treatment condition
+>     + **biofeed_cont.** compares biofeedback to no biofeedback
+>     + **drug_cont** compares drug to no drug
+>     + **biofeed_cont.:drug_cont** compares biofeedback "effect" in no drug treatment condition to biofeedback "effect" in drug treatment condition
 
 ```{r}
 
@@ -733,7 +733,7 @@ bfi %>%
 >     + **r.** "A correlation or covariance matrix or a raw data matrix. If raw data, the correlation matrix will be found using pairwise deletion. If covariances are supplied, they will be converted to correlations unless the covar option is TRUE."
 >     + **nfactors.** "Number of factors to extract, default is 1"
 >     + **rotate.** ""none", "varimax", "quartimax", "bentlerT", "equamax", "varimin", "geominT" and "bifactor" are orthogonal rotations. "Promax", "promax", "oblimin", "simplimax", "bentlerQ, "geominQ" and "biquartimin" and "cluster" are possible oblique transformations of the solution. The default is to do a oblimin transformation, although versions prior to 2009 defaulted to varimax. SPSS seems to do a Kaiser normalization before doing Promax, this is done here by the call to "promax" which does the normalization before calling Promax in GPArotation."
->     + **fm.** "Factoring method fm="minres" will do a minimum residual as will fm="uls". Both of these use a first derivative. fm="ols" differs very slightly from "minres" in that it minimizes the entire residual matrix using an OLS procedure but uses the empirical first derivative. This will be slower. fm="wls" will do a weighted least squares (WLS) solution, fm="gls" does a generalized weighted least squares (GLS), fm="pa" will do the principal factor solution, fm="ml" will do a maximum likelihood factor analysis. fm="minchi" will minimize the sample size weighted chi square when treating pairwise correlations with different number of subjects per pair. fm ="minrank" will do a minimum rank factor analysis. "old.min" will do minimal residual the way it was done prior to April, 2017 (see discussion below). fm="alpha" will do alpha factor analysis as described in Kaiser and Coffey (1965)"
+>     + **fm.** "Factoring method fm="minres" will do a minimum residual as will fm = "uls". Both of these use a first derivative. fm = "ols" differs very slightly from "minres" in that it minimizes the entire residual matrix using an OLS procedure but uses the empirical first derivative. This will be slower. fm = "wls" will do a weighted least squares (WLS) solution, fm = "gls" does a generalized weighted least squares (GLS), fm = "pa" will do the principal factor solution, fm = "ml" will do a maximum likelihood factor analysis. fm = "minchi" will minimize the sample size weighted chi square when treating pairwise correlations with different number of subjects per pair. fm = "minrank" will do a minimum rank factor analysis. "old.min" will do minimal residual the way it was done prior to April, 2017 (see discussion below). fm = "alpha" will do alpha factor analysis as described in Kaiser and Coffey (1965)"
 >     + **use.** "How to treat missing data, use="pairwise" is the default". See cor for other options."
 
 **source.** `help("fa")`
@@ -751,6 +751,6 @@ bfi %>%
 > - [**UCLA Institute for Digital Research and Education: R**](http://stats.idre.ucla.edu/r/) statistics and programming tutorials for R, among other helpful related resources
 > - [**The Personality Project: Using R for psychological research**](https://www.personality-project.org/r/r.guide.html) seemingly endless tutorials and explainers about R programming for (personality-themed) psychology research; also, some tutorials cover the psych package, which is written by Michigan Psychology alumni, William Revelle (1973)
 > - [**RExRepos: R code examples for a number of common data analysis tasks**](http://dwoll.de/rexrepos/) just like it reads, how-to guide for common procedures
-- [**lme4: Mixed-effects modeling
+> - [**lme4: Mixed-effects modeling
 with R**](http://lme4.r-forge.r-project.org/book/front.pdf) pretty accessible book by Douglas Bates who authored both the nlme and lme4 packages for R; the examples are great even if the maths get hairy.
 > - [**lavaan: latent variable analysis**](http://lavaan.ugent.be/) overview and tutorials for the best sem package (IMO) in R (disclaimer: no support for discrete latent variables, aka mixture modeling, latent class analysis)
