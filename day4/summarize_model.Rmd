@@ -17,6 +17,7 @@ output:
 
 # install.packages("tidyverse")
 # install.packages("psych")
+# install.packages("GPArotation")
 # install.packages("car")
 # install.packages("lme4")
 # install.packages("lmerTest")
@@ -491,7 +492,7 @@ sat.act %>% sample_n(size = 15)
 ```
 
 # example: test all pairwise correlations
-> - `corr.test()`
+> - `corr.test(x, use, method, adjust)`
 >     + **x.** "A matrix or dataframe"
 >     + **use.** "use = "pairwise" is the default value and will do pairwise deletion of cases. use = "complete" will select just complete cases."
 >     + **method.** "method = "pearson" is the default value. The alternatives to be passed to cor are "spearman" and "kendall""
@@ -510,7 +511,7 @@ sat.act %>%
 ```
 
 # example: plot all pairwise correlations
-> - `pairs.panels()`: "Adapted from the help page for pairs, pairs.panels shows a scatter plot of matrices (SPLOM), with bivariate scatter plots below the diagonal, histograms on the diagonal, and the Pearson correlation above the diagonal. Useful for descriptive statistics of small data sets. If lm=TRUE, linear regression fits are shown for both y by x and x by y. Correlation ellipses are also shown. Points may be given different colors depending upon some grouping variable. Robust fitting is done using lowess or loess regression. Confidence intervals of either the lm or loess are drawn if requested."
+> - `pairs.panels(x, scale, pch)`: "Adapted from the help page for pairs, pairs.panels shows a scatter plot of matrices (SPLOM), with bivariate scatter plots below the diagonal, histograms on the diagonal, and the Pearson correlation above the diagonal. Useful for descriptive statistics of small data sets. If lm=TRUE, linear regression fits are shown for both y by x and x by y. Correlation ellipses are also shown. Points may be given different colors depending upon some grouping variable. Robust fitting is done using lowess or loess regression. Confidence intervals of either the lm or loess are drawn if requested."
 >     + **x.** "a data.frame or matrix"
 >     + **scale.** "TRUE scales the correlation font by the size of the absolute correlation."
 >     + **pch.** "The plot character (defaults to 20 which is a '.')."
@@ -526,3 +527,230 @@ sat.act %>%
 
 ```
 
+# how do I model non-indepdendent data?
+> - **use the lme4 package.** "`lme4` provides functions for fitting and analyzing mixed models: linear (`lmer()`), generalized linear (`glmer()`) and nonlinear (`nlmer()`.)"
+>     + `lme4` uses modern, efficient linear algebra methods as implemented in the Eigen package, and uses reference classes to avoid undue copying of large objects; it is therefore likely to be faster and more memory-efficient than nlme.
+>     + lme4 includes generalized linear mixed model (GLMM) capabilities, via the glmer function.
+>     + `lme4` does not currently implement nlme's features for modeling heteroscedasticity and correlation of residuals.
+>     + `lme4` does not currently offer the same flexibility as nlme for composing complex variance-covariance structures, but it does implement crossed random effects in a way that is both easier for the user and much faster.
+>     + `lme4` offers built-in facilities for likelihood profiling and parametric bootstrapping.
+>     + `lme4` is designed to be more modular than nlme, making it easier for downstream package developers and end-users to re-use its components for extensions of the basic mixed model framework. It also allows more flexibility for specifying different functions for optimizing over the random-effects variance-covariance parameters.
+
+**source.** `help("lme4")`
+
+# example: test whether average reaction time change over days = 0.
+> - **sleepstudy.** "The average reaction time per day for subjects in a sleep deprivation study. On day 0 the subjects had their normal amount of sleep. Starting that night they were restricted to 3 hours of sleep per night. The observations represent the average reaction time on a series of tests given each day to each subject."
+>     + **Reaction.** Average reaction time (ms)
+>     + **Days.** Number of days of sleep deprivation
+
+**source.** `help("sleepstudy")`
+
+```{r}
+
+sleepstudy %>% sample_n(size = 15)
+
+```
+
+# example: test whether average reaction time change over days = 0.
+> - **sleepstudy.** "The average reaction time per day for subjects in a sleep deprivation study. On day 0 the subjects had their normal amount of sleep. Starting that night they were restricted to 3 hours of sleep per night. The observations represent the average reaction time on a series of tests given each day to each subject."
+>     + **Reaction.** Average reaction time (ms)
+>     + **Days.** Number of days of sleep deprivation
+> - not a bad idea to visualize the data before you model it
+
+**source.** `help("sleepstudy")`
+
+```{r}
+
+ggplot(data = sleepstudy, mapping = aes(x = Days, y = Reaction)) +
+  geom_point() +
+  scale_x_continuous(breaks = seq(from = 0, to = 9, by = 1)) +
+  facet_wrap(facets = ~ Subject)
+
+```
+
+# example: test whether average reaction time change over days = 0.
+> - fit and save the linear mixed effects model via `lmer(formula, data, REML)`
+>     + **formula.** "a two-sided linear formula object describing **both the fixed-effects and random-effects part of the model**, with the response on the left of a ~ operator and the terms, separated by + operators, on the right. **Random-effects terms are distinguished by vertical bars (|)** separating expressions for design matrices from grouping factors. Two vertical bars (||) can be used to specify multiple uncorrelated random effects for the same grouping variable."  
+>     + **data.** "an optional data frame containing the variables named in formula. By default the variables are taken from the environment from which lmer is called. While data is optional, the package authors strongly recommend its use, especially when later applying methods such as update and drop1 to the fitted model (such methods are not guaranteed to work properly if data is omitted). If data is omitted, variables will be taken from the environment of formula (if specified as a formula) or from the parent frame (if specified as a character vector)."  
+>     + **REML.** "logical scalar - Should the estimates be chosen to optimize the REML criterion (as opposed to the log-likelihood)?"
+
+**source.** `help("lmer")`
+
+# example: test whether average reaction time change over days = 0.
+> - fit and save the linear mixed effects model via `lmer(formula, data, REML)`
+>     + specify random intercepts and Days slopes for Subjects
+> - save the fitted model as an object called `lmer1` (i.e., linear mixed effects via REML model 1)
+
+**source.** `help("lmer")`
+
+```{r}
+
+lmer1 <- lmer(Reaction ~ Days + (1 + Days | Subject), data = sleepstudy, REML = TRUE)
+
+```
+
+# example: test whether average reaction time change over days = 0.
+> - fit and save the linear mixed effects model via `lmer(formula, data, REML)`
+>     + specify random intercepts and Days slopes for Subjects
+> - save the fitted model as an object called `lmer1` (i.e., linear mixed effects via REML model 1)
+> - print `lmer1`'s results with `summary()`
+>     + **summary() for merMod objects.** "Computes and returns a list of summary statistics of the fitted model, the amount of output can be controlled via the print method, see also summary."
+> - **note.** `lme4` package developers expect users to know their degrees of freedom. turns out, it's not easy to write computer code that computes the correct df (and then p-values) for general cases. people developed `lmerTest` and `pbkrtest` to compute df and p-values for you, but you should use them cautioulsy. **test them on data where you know the right answer** and move from there.
+
+```{r}
+
+summary(lmer1)
+
+```
+
+# how do I test indirect effects?
+> **use the lavaan package.** "The lavaan package is developed to provide useRs, researchers and teachers a free open-source, but commercial-quality package for latent variable modeling. You can use lavaan to estimate a large variety of multivariate statistical models, including path analysis, confirmatory factor analysis, structural equation modeling and growth curve models."
+
+**source.** [**lavaan: What is lavaan?**](http://lavaan.ugent.be/index.html)
+
+# example: test whether the indirect effect of protest on liking through appropriateness = 0
+> - **Garcia.** "The reaction of women to women who protest discriminatory treatment was examined in an experiment reported by Garcia et al. (2010). 129 women were given a description of sex discrimination in the workplace (a male lawyer was promoted over a clearly more qualified female lawyer). Subjects then read that the target lawyer felt that the decision was unfair. **Subjects were then randomly assigned to three conditions**: Control (no protest), Individual Protest (“They are treating me unfairly") , or Collective Protest (“The firm is is treating women unfairly").  
+**Participants were then asked how much they liked the target (liking)**, how angry they were to the target (anger) and to **evaluate the appropriateness of the target's response (respappr).**"
+
+**source.** `help("Garcia")`
+
+```{r}
+
+data("Garcia")
+Garcia %>% sample_n(size = 15)
+
+```
+
+# example: test whether the indirect effect of protest on liking through appropriateness = 0
+> - **Garcia.**
+>     + **protest.** "0 = no protest, 1 = Individual Protest, 2 = Collective Protest"
+>     + **prot2.** "A recoding of protest into two levels (to match Hayes, 2013)."
+>     + **liking.** "Mean rating of 6 liking ratings of the target."
+>     + **respappr.** "Mean of four items of appropriateness of the target's response."
+
+**source.** `help("Garcia")`
+
+```{r}
+
+Garcia <- Garcia %>% 
+  mutate(protest_lbl = protest %>% recode(`0` = "no protest", `1` = "individual protest", `2` = "collective protest"),
+         prot2_cont = prot2 %>% recode(`0` = -1 / 2, `1` = 1 / 2))
+
+Garcia %>% 
+  count(protest, prot2, protest_lbl, prot2_cont)
+
+```
+
+# example: test whether the indirect effect of protest on liking through appropriateness = 0
+> - in `lavaan`, you write models as character strings (i.e., text in quotes)
+> - `~` still means regress onto, like formulas in `t.test()` and `lm()`
+> - but `*` below labels the path like this: `label * predictor`
+> - `:=`: "... **defines new parameters which take on values that are an arbitrary function of the original model parameters.** The function, however, must be specified in terms of the parameter labels that are explicitly mentioned in the model syntax. By default, the standard errors for these defined parameters are computed by using the so-called Delta method."
+> - comments (`#`) make code easier to follow
+
+**source.** `help("model.syntax")` and [**lavaan: mediation**](http://lavaan.ugent.be/tutorial/mediation.html)
+
+```{r}
+
+model1 <- "# a path
+           respappr ~ a * prot2
+    
+           # b and cprime path
+           liking ~ cp * prot2 + b * respappr
+
+           # define indirect and total effect
+           indirect := a * b
+           total := cp + a * b"
+
+```
+
+# example: test whether the indirect effect of protest on liking through appropriateness = 0
+> - `sem(model, data)`: "Fit a Structural Equation Model (SEM)."
+>       + **model.** "A description of the user-specified model. Typically, the model is described using the lavaan model syntax. See model.syntax for more information. Alternatively, a parameter table (eg. the output of the lavaanify() function) is also accepted."
+>       + **data.** "An optional data frame containing the observed variables used in the model. If some variables are declared as ordered factors, lavaan will treat them as ordinal variables."
+
+**source.** `help("sem")`
+
+```{r}
+
+sem1 <- sem(model1, data = Garcia, se = "bootstrap", bootstrap = 10000)
+
+```
+
+# example: test whether the indirect effect of protest on liking through appropriateness = 0
+> - `summary()`: "signature(object = "lavaan", header = TRUE, fit.measures=FALSE, estimates = TRUE, ci = FALSE, fmi = FALSE, standardized = FALSE, rsquare=FALSE, std.nox = FALSE, modindices=FALSE, ci=FALSE, nd = 3L): Print a nice summary of the model estimates. If header = TRUE, the header section (including fit measures) is printed. If fit.measures = TRUE, additional fit measures are added to the header section. If estimates = TRUE, print the parameter estimates section. If ci = TRUE, add confidence intervals to the parameter estimates section. If fmi = TRUE, add the fmi (fraction of missing information) column, if it is available. If **standardized=TRUE, the standardized solution is also printed.** If rsquare=TRUE, the R-Square values for the dependent variables in the model are printed. If std.nox = TRUE, the std.all column contains the the std.nox column from the parameterEstimates() output. If modindices=TRUE, modification indices are printed for all fixed parameters. The argument nd determines the number of digits after the decimal point to be printed (currently only in the parameter estimates section.) Nothing is returned (use lavInspect or another extractor function to extract information from a fitted model)."
+
+**source.** `help("lavaan-class")`
+
+```{r}
+
+summary(sem1, standardized = TRUE)
+
+```
+
+# example: test whether the indirect effect of protest on liking through appropriateness = 0
+> - `parameterestimates(standardized, boot.ci.type)`: "Parameter estimates of a latent variable model."
+>     + **standardized.** "Logical. If TRUE, standardized estimates are added to the output"
+>     + **boot.ci.type.** "If bootstrapping was used, the type of interval required. The value should be one of "norm", "basic", "perc", or "bca.simple". For the first three options, see the help page of the boot.ci function in the boot package. **The "bca.simple" option produces intervals using the adjusted bootstrap percentile (BCa) method, but with no correction for acceleration (only for bias).**"
+
+**source.** `help("parameterestimates")`
+
+```{r}
+
+parameterestimates(sem1, standardized = TRUE, boot.ci.type = "bca.simple")
+
+```
+
+# how do I conduct explortatory factor analyses?
+> **use the psych package.**
+>     + `fa.parallel()`: "Scree plots of data or correlation matrix compared to random “parallel" matrices"
+>     + `fa()`: "Exploratory Factor analysis using MinRes (minimum residual) as well as EFA by Principal Axis, Weighted Least Squares or Maximum Likelihood"
+
+**sources.** `help("fa.parallel")` and `help("fa")`
+
+# example: conduct a parallel analysis to help asses how many factor to extract
+> - **bfi.** "25 personality self report items taken from the International Personality Item Pool (ipip.ori.org) were included as part of the Synthetic Aperture Personality Assessment (SAPA) web based personality assessment project. The data from 2800 subjects are included here as a demonstration set for scale construction, factor analysis, and Item Response Theory analysis. Three additional demographic variables (sex, education, and age) are also included."
+
+**source.** `help("bfi")`
+
+# example: conduct a parallel analysis to help asses how many factor to extract
+> - `fa.parallel(x, fm)`
+>     + **x.** "A data.frame or data matrix of scores. If the matrix is square, it is assumed to be a correlation matrix. Otherwise, correlations (with pairwise deletion) will be found"
+>     + **fm.** "What factor method to use. (minres, ml, uls, wls, gls, pa) See fa for details."
+
+**source.** `help("fa.parallel")`
+
+```{r}
+
+bfi %>%
+  select(A1:O5) %>% 
+  fa.parallel(fm = "minres")
+
+```
+
+# example: extract 5 factors in an exploratory factor analysis
+> - `fa(r, nfactors, rotate, fm, use)`
+>     + **r.** "A correlation or covariance matrix or a raw data matrix. If raw data, the correlation matrix will be found using pairwise deletion. If covariances are supplied, they will be converted to correlations unless the covar option is TRUE."
+>     + **nfactors.** "Number of factors to extract, default is 1"
+>     + **rotate.** ""none", "varimax", "quartimax", "bentlerT", "equamax", "varimin", "geominT" and "bifactor" are orthogonal rotations. "Promax", "promax", "oblimin", "simplimax", "bentlerQ, "geominQ" and "biquartimin" and "cluster" are possible oblique transformations of the solution. The default is to do a oblimin transformation, although versions prior to 2009 defaulted to varimax. SPSS seems to do a Kaiser normalization before doing Promax, this is done here by the call to "promax" which does the normalization before calling Promax in GPArotation."
+>     + **fm.** "Factoring method fm="minres" will do a minimum residual as will fm="uls". Both of these use a first derivative. fm="ols" differs very slightly from "minres" in that it minimizes the entire residual matrix using an OLS procedure but uses the empirical first derivative. This will be slower. fm="wls" will do a weighted least squares (WLS) solution, fm="gls" does a generalized weighted least squares (GLS), fm="pa" will do the principal factor solution, fm="ml" will do a maximum likelihood factor analysis. fm="minchi" will minimize the sample size weighted chi square when treating pairwise correlations with different number of subjects per pair. fm ="minrank" will do a minimum rank factor analysis. "old.min" will do minimal residual the way it was done prior to April, 2017 (see discussion below). fm="alpha" will do alpha factor analysis as described in Kaiser and Coffey (1965)"
+>     + **use.** "How to treat missing data, use="pairwise" is the default". See cor for other options."
+
+**source.** `help("fa")`
+
+```{r}
+
+bfi %>%
+  select(A1:O5) %>% 
+  fa(nfactors = 5, rotate = "oblimin", fm = "minres", use = "pairwise") %>% 
+  print(cut = 0.30, sort = TRUE)
+
+```
+
+# resources
+> - [**UCLA Institute for Digital Research and Education: R**](http://stats.idre.ucla.edu/r/) statistics and programming tutorials for R, among other helpful related resources
+> - [**The Personality Project: Using R for psychological research**](https://www.personality-project.org/r/r.guide.html) seemingly endless tutorials and explainers about R programming for (personality-themed) psychology research; also, some tutorials cover the psych package, which is written by Michigan Psychology alumni, William Revelle (1973)
+> - [**RExRepos: R code examples for a number of common data analysis tasks**](http://dwoll.de/rexrepos/) just like it reads, how-to guide for common procedures
+- [**lme4: Mixed-effects modeling
+with R**](http://lme4.r-forge.r-project.org/book/front.pdf) pretty accessible book by Douglas Bates who authored both the nlme and lme4 packages for R; the examples are great even if the maths get hairy.
+> - [**lavaan: latent variable analysis**](http://lavaan.ugent.be/) overview and tutorials for the best sem package (IMO) in R (disclaimer: no support for discrete latent variables, aka mixture modeling, latent class analysis)

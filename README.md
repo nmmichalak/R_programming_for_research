@@ -148,9 +148,9 @@
 > - Beaujean, A. A. (2014). [_Latent variable modeling using R: A step-by-step guide_](https://blogs.baylor.edu/rlatentvariable/). New York, NY: Routledge.
 > - Field, A., Miles., J., &amp; Field, Z. (2012). [_Discovering statistics using R_](https://us.sagepub.com/en-us/nam/discovering-statistics-using-r/book236067%20#resources). London: SAGE Publications.
 > - Gelman, A., &amp; Hill, J. (2007). [_Data analysis using regression and multilevel/hierarchical models_](http://www.stat.columbia.edu/~gelman/arm/). New York, NY: Cambridge University Press.
-> - Ismay, C. & Kim, A.Y. (2017). [ ModernDive: An Introduction to Statistical and Data Sciences via R. ](https://ismayc.github.io/moderndiver-book/)
+> - Ismay, C. & Kim, A.Y. (2017). [_ModernDive: An Introduction to Statistical and Data Sciences via R._](https://ismayc.github.io/moderndiver-book/)
 > - Navarro, D. (2015). [_Learning Statistics with R_](https://health.adelaide.edu.au/psychology/ccs/teaching/lsr/). Raleigh, North Carolina: Lulu Press, Inc.
-> - Maxwell, Delaney, & Kelley, (2018). *Designing experiments and analyzing data: A model comparison perspective.* (3rd ed.). Routledge.
+> - Maxwell, Delaney, & Kelley, (2018). [**Designing experiments and analyzing data: A model comparison perspective. (3rd ed.)**](https://www.routledge.com/Designing-Experiments-and-Analyzing-Data-A-Model-Comparison-Perspective/Maxwell-Delaney-Kelley/p/book/9781138892286). Routledge.
 > - Wickham, H. (2015). [_Advanced R_](http://adv-r.had.co.nz/). Boca Raton, FL: CRC Press.
 > - Wickham, H. (2016). [_ggplot2: Elegant graphics for data analysis_](http://ggplot2.org/book/). New York, NY: Springer.
 > - Zuur, A. F., Ieno, E. N., Walker, N. J., Saveliev, A. A., &amp; Smith, G. M. (2009). [_Mixed effects models and extensions in ecology with R_](https://www.amazon.com/Effects-Extensions-Ecology-Statistics-Biology/dp/0387874577). New York, NY: Springer.
