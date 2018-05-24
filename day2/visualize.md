@@ -908,7 +908,7 @@ ggplot(data = mpg, mapping = aes(x = class, y = cty)) +
 # exercise: play with the sleepstudy dataset that comes with `lme4`
 > - **sleepstudy.** "The average reaction time per day for subjects in a sleep deprivation study. On day 0 the subjects had their normal amount of sleep. Starting that night they were restricted to 3 hours of sleep per night. The observations represent the average reaction time on a series of tests given each day to each subject."
 
-**source.** `help(sleepstudy)`
+**source.** `help("sleepstudy")`
 
 
 ```r
@@ -919,21 +919,21 @@ sleepstudy %>% sample_n(size = 15)
 
        Reaction   Days  Subject 
 ----  ---------  -----  --------
-107    281.5648      6  349     
-29     261.0125      8  310     
-38     318.2613      7  330     
-1      249.5600      0  308     
-47     290.0750      6  331     
-108    308.1020      7  349     
-116    329.7247      5  350     
-25     229.3074      4  310     
-126    304.6336      5  351     
-159    365.1630      8  370     
-77     305.5248      6  334     
-40     354.0487      9  330     
-151    225.2640      0  370     
+144    277.6566      3  369     
+43     301.8206      2  331     
+131    221.6771      0  352     
+123    269.8939      2  351     
+16     215.9618      5  309     
 168    304.6306      7  371     
-174    310.6316      3  372     
+1      249.5600      0  308     
+135    348.7402      4  352     
+78     331.5229      7  334     
+129    321.5418      8  351     
+76     284.1912      5  334     
+42     285.0000      1  331     
+153    238.9008      2  370     
+74     254.6723      3  334     
+176    329.6076      5  372     
 
 </div>
 
@@ -941,9 +941,9 @@ sleepstudy %>% sample_n(size = 15)
 > - **sleepstudy.**
 >     + does average reaction time change over time?
 >     + does change over time depend on Subject?
->     + **hint.** `help(facet_wrap)`
+>     + **hint.** `help("facet_wrap")`
 
-**source.** `help(sleepstudy)`
+**source.** `help("sleepstudy")`
 
 ![](https://lsru.github.io/tv_course/img/01_tidyverse_data_science.png)
 
@@ -963,7 +963,7 @@ ggplot(data = sleepstudy, mapping = aes(x = Days, y = Reaction)) +
 # exercise: play with the `US_births_2000_2014` dataset that comes with the `fivethirtyeight` package
 > - "The raw data behind the story "Some People Are Too Superstitious To Have A Baby On Friday The 13th" [**Some people aare too superstitious to have a baby on friday the 13th**](https://fivethirtyeight.com/features/some-people-are-too-superstitious-to-have-a-baby-on-friday-the-13th/)."
 
-**source.** `help(US_births_2000_2014)`
+**source.** `help("US_births_2000_2014")`
 
 # exercise: play with the `US_births_2000_2014` dataset that comes with the `fivethirtyeight` package
 
@@ -976,21 +976,21 @@ US_births_2000_2014 %>% sample_n(size = 15)
 
  year   month   date_of_month  date         day_of_week    births
 -----  ------  --------------  -----------  ------------  -------
- 2013       5              12  2013-05-12   Sun              7060
- 2007      10              14  2007-10-14   Sun              7579
- 2012      10              12  2012-10-12   Fri             12349
- 2005      10               3  2005-10-03   Mon             12816
- 2014       4               8  2014-04-08   Tues            12187
- 2013       8              11  2013-08-11   Sun              7797
- 2008      11              23  2008-11-23   Sun              7301
- 2013      10              17  2013-10-17   Thurs           12220
- 2009       1              30  2009-01-30   Fri             12527
- 2010       8              20  2010-08-20   Fri             12910
- 2013      11              20  2013-11-20   Wed             12503
- 2009      10               4  2009-10-04   Sun              7443
- 2004       3               7  2004-03-07   Sun              7304
- 2011       1               9  2011-01-09   Sun              6933
- 2011       4              28  2011-04-28   Thurs           12180
+ 2010       2               6  2010-02-06   Sat              7948
+ 2014       5              10  2014-05-10   Sat              8100
+ 2007      11              25  2007-11-25   Sun              7668
+ 2004      10              28  2004-10-28   Thurs           13287
+ 2013       6              14  2013-06-14   Fri             12046
+ 2006       1               2  2006-01-02   Mon              8198
+ 2005      11              20  2005-11-20   Sun              7594
+ 2003       9              17  2003-09-17   Wed             14018
+ 2003      11              23  2003-11-23   Sun              7383
+ 2009      12              26  2009-12-26   Sat              7172
+ 2003      12              14  2003-12-14   Sun              7462
+ 2005       4               2  2005-04-02   Sat              8574
+ 2012       8              30  2012-08-30   Thurs           13323
+ 2002       8              23  2002-08-23   Fri             13133
+ 2014       1              18  2014-01-18   Sat              8143
 
 </div>
 
@@ -998,7 +998,7 @@ US_births_2000_2014 %>% sample_n(size = 15)
 > - do births change over the week?
 > - does the weekly pattern of births change over the years?
 
-**source.** `help(US_births_2000_2014)`
+**source.** `help("US_births_2000_2014")`
 
 ![](https://lsru.github.io/tv_course/img/01_tidyverse_data_science.png)
 
@@ -1013,6 +1013,19 @@ ggplot(data = US_births_2000_2014, mapping = aes(x = day_of_week, y = births)) +
 ```
 
 ![](visualize_files/figure-html/unnamed-chunk-19-1.png)<!-- -->
+
+# more exercises
+> - datasets
+>     + `data()`
+>     + `data(package = "ggplot2")`
+>     + `data(package = "fivethirtyeight")`
+> - using datasets from above, complete these exercises:
+>     + generate a boxplot with `geom_boxplot()`
+>     + generate a scatterplot with `geom_point()`
+>     + generate bars of means with 95% confidence intervals with `stat_summary()`
+>     + generate a QQ-plot with `geom_qq()`
+>     + generate a histogram with `geom_histogram()`
+>     + use the `help()` function, the [**tidyverse website**](https://www.tidyverse.org/), and Google (e.g., "qq-plot in ggplot2") to troubleshoot problems
 
 # resources
 > - [**R for Data Science: Import, Tidy, Transform, Visualize, and Model Data**](http://r4ds.had.co.nz/). This guide is extremely useful in general, but see [**Chapter 3**](http://r4ds.had.co.nz/data-visualisation.html) for an introduction to data visualization.

@@ -242,7 +242,7 @@ ggplot(data = mpg, mapping = aes(x = class, y = cty)) +
 # exercise: play with the sleepstudy dataset that comes with `lme4`
 > - **sleepstudy.** "The average reaction time per day for subjects in a sleep deprivation study. On day 0 the subjects had their normal amount of sleep. Starting that night they were restricted to 3 hours of sleep per night. The observations represent the average reaction time on a series of tests given each day to each subject."
 
-**source.** `help(sleepstudy)`
+**source.** `help("sleepstudy")`
 
 ```{r}
 
@@ -254,9 +254,9 @@ sleepstudy %>% sample_n(size = 15)
 > - **sleepstudy.**
 >     + does average reaction time change over time?
 >     + does change over time depend on Subject?
->     + **hint.** `help(facet_wrap)`
+>     + **hint.** `help("facet_wrap")`
 
-**source.** `help(sleepstudy)`
+**source.** `help("sleepstudy")`
 
 ![](https://lsru.github.io/tv_course/img/01_tidyverse_data_science.png)
 
@@ -275,7 +275,7 @@ ggplot(data = sleepstudy, mapping = aes(x = Days, y = Reaction)) +
 # exercise: play with the `US_births_2000_2014` dataset that comes with the `fivethirtyeight` package
 > - "The raw data behind the story "Some People Are Too Superstitious To Have A Baby On Friday The 13th" [**Some people aare too superstitious to have a baby on friday the 13th**](https://fivethirtyeight.com/features/some-people-are-too-superstitious-to-have-a-baby-on-friday-the-13th/)."
 
-**source.** `help(US_births_2000_2014)`
+**source.** `help("US_births_2000_2014")`
 
 # exercise: play with the `US_births_2000_2014` dataset that comes with the `fivethirtyeight` package
 
@@ -289,7 +289,7 @@ US_births_2000_2014 %>% sample_n(size = 15)
 > - do births change over the week?
 > - does the weekly pattern of births change over the years?
 
-**source.** `help(US_births_2000_2014)`
+**source.** `help("US_births_2000_2014")`
 
 ![](https://lsru.github.io/tv_course/img/01_tidyverse_data_science.png)
 
@@ -303,6 +303,19 @@ ggplot(data = US_births_2000_2014, mapping = aes(x = day_of_week, y = births)) +
   facet_wrap(facets = ~ year)
 
 ```
+
+# more exercises
+> - datasets
+>     + `data()`
+>     + `data(package = "ggplot2")`
+>     + `data(package = "fivethirtyeight")`
+> - using datasets from above, complete these exercises:
+>     + generate a boxplot with `geom_boxplot()`
+>     + generate a scatterplot with `geom_point()`
+>     + generate bars of means with 95% confidence intervals with `stat_summary()`
+>     + generate a QQ-plot with `geom_qq()`
+>     + generate a histogram with `geom_histogram()`
+>     + use the `help()` function, the [**tidyverse website**](https://www.tidyverse.org/), and Google (e.g., "qq-plot in ggplot2") to troubleshoot problems
 
 # resources
 > - [**R for Data Science: Import, Tidy, Transform, Visualize, and Model Data**](http://r4ds.had.co.nz/). This guide is extremely useful in general, but see [**Chapter 3**](http://r4ds.had.co.nz/data-visualisation.html) for an introduction to data visualization.

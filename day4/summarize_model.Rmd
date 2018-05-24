@@ -44,12 +44,12 @@ recode <- dplyr::recode
 > - **use psych**
 > - **psych package summary.** psych is a package for personality, psychometric, and psychological research. It has been developed at Northwestern University (maintained by William Revelle) to include functions most useful for personality and psychological research.
 
-**source.** `help(psych)`
+**source.** `help("psych")`
 
 # example: generate descriptive statistics
 > - **C3T3.** "Although different mood states have, of course, always been of interest to clinicians, recent years have seen a profusion of studies attempting to manipulate mood states in controlled laboratory studies. In such induced-mood research, participants typically are **randomly assigned to one of three groups: a depressed-mood induction, a neutral-mood induction, or an elated-mood induction.** One study (Pruitt, 1988) used selected videoslips from several movies and public television programs as the mood-induction treatments. After viewing the video for her assigned condition, each participant was asked to indicate her mood on various scales. In addition, each subject was herself **videotaped, and her facial expressions of emotion were rated on a scale of 1 to 7 (1 indicating sad; 4, neutral; and 7, happy) by an assistant** who viewed the videotapes but was kept "blind" regarding the subjects' assigned conditions."
 
-**source.** `help(C3T3)` and Maxwell, Delaney, & Kelley, (2018). *Designing experiments and analyzing data: A model comparison perspective.* (3rd ed.). Routledge.
+**source.** `help("C3T3")` and Maxwell, Delaney, & Kelley, (2018). *Designing experiments and analyzing data: A model comparison perspective.* (3rd ed.). Routledge.
 
 ```{r}
 
@@ -72,7 +72,7 @@ C3T3 %>% sample_n(size = 15)
 # example: generate descriptive statistics
 > - `describe()`: "There are many summary statistics available in R; this function provides the ones most useful for scale construction and item analysis in classic psychometrics. Range is most useful for the first pass in a data set, to check for coding errors."
 
-**sources.** `help(describe)`
+**sources.** `help("describe")`
 
 ```{r}
 
@@ -86,7 +86,7 @@ C3T3 %>%
 > - `describe()`: "There are many summary statistics available in R; this function provides the ones most useful for scale construction and item analysis in classic psychometrics. Range is most useful for the first pass in a data set, to check for coding errors."
 > - `describeBy()`: "Report basic summary statistics by a grouping variable. Useful if the grouping variable is some experimental variable and data are to be aggregated for plotting. Partly a wrapper for by and describe"
 
-**sources.** `help(describe)` and `help(describeBy)`
+**sources.** `help("describe")` and `help("describeBy")`
 
 ```{r}
 
@@ -99,14 +99,14 @@ C3T3 %>%
 # how do I test whether the difference between two group means = 0?
 > - `t.test()`: "Performs one and two sample t-tests on vectors of data."
 
-**source.** `help(t.test)`
+**source.** `help("t.test")`
 
 # example: test whether the difference between two mean increases in hours of sleep = 0
 > - **sleep.** "Data which show the effect of two soporific drugs (increase in hours of sleep compared to control) on 10 patients."
 >     + **extra.** numeric increase in hours of sleep
 >     + **group.** drug given
 
-**source.** `help(sleep)` and `help(count)`
+**source.** `help("sleep")` and `help("count")`
 
 # example: test whether the difference between two mean increases in hours of sleep = 0
 
@@ -128,7 +128,7 @@ sleep %>%
 >     + **group.** drug given
 > - not a bad idea to visualize data before you model it
 
-**source.** `help(sleep)`
+**source.** `help("sleep")`
 
 ```{r}
 
@@ -144,7 +144,7 @@ sleep %>%
 >     + **var.equal.** "a logical variable indicating whether to treat the two variances as being equal. If TRUE then the pooled variance is used to estimate the variance otherwise the Welch (or Satterthwaite) approximation to the degrees of freedom is used."
 >     + **paired.** "a logical indicating whether you want a paired t-test."
 
-**source.** `help(t.test)`
+**source.** `help("t.test")`
 
 ```{r}
 
@@ -162,7 +162,7 @@ t.test(extra ~ group, data = sleep, paired = TRUE)
 # how do I test specific contrasts using linear regression?
 > - `lm()`: "lm is used to fit linear models. It can be used to carry out regression, single stratum analysis of variance and analysis of covariance (although aov may provide a more convenient interface for these)."
 
-**source.** `help(lm)`
+**source.** `help("lm")`
 
 # example: test mean difference via linear regression
 > - fit and save the linear model via `lm(formula, data)`
@@ -170,7 +170,7 @@ t.test(extra ~ group, data = sleep, paired = TRUE)
 >     + **data.** "an optional data frame, list or environment (or object coercible by as.data.frame to a data frame) containing the variables in the model. If not found in data, the variables are taken from environment(formula), typically the environment from which lm is called."
 > - save the fitted model as an object called `lm1` (i.e., linear model 1)
 
-**source.** `help(lm)`
+**source.** `help("lm")`
 
 ```{r}
 
@@ -183,7 +183,7 @@ lm1 <- lm(extra ~ givedrug, data = sleep)
 >     + **summary() for lm objects.** "print.summary.lm tries to be smart about formatting the coefficients, standard errors, etc. and additionally gives 'significance stars' if signif.stars is TRUE."
 >     + compare to `t.test(formula, var.equal)`
 
-**source.** `help(print.summary.lm)`
+**source.** `help("print.summary.lm")`
 
 ```{r}
 
@@ -201,7 +201,7 @@ t.test(extra ~ givedrug, data = sleep, var.equal = TRUE)
 >     + `factor()` treats `ID` like a categorigcal variable
 > - compare to `t.test(formula, paired)`
 
-**source.** `help(print.summary.lm)` ahd `help(factor)`
+**source.** `help("print.summary.lm")` ahd `help("factor")`
 
 ```{r}
 
@@ -219,7 +219,7 @@ t.test(extra ~ givedrug, data = sleep, paired = TRUE)
 > - compute and save new columns that represent these contrasts
 >     + Nick often uses effect coding (i.e., coefficients = difference from grand mean)
 
-**source.** `help(C3T3)` and Maxwell, Delaney, & Kelley, (2018). *Designing experiments and analyzing data: A model comparison perspective.* (3rd ed.). Routledge.
+**source.** `help("C3T3")` and Maxwell, Delaney, & Kelley, (2018). *Designing experiments and analyzing data: A model comparison perspective.* (3rd ed.). Routledge.
 
 ```{r}
 
@@ -237,7 +237,7 @@ C3T3 %>%
 > - **Contrast 2.** Pleasant/elated and Neutral combined vs. Unpleasant/depressed
 > - not a bad idea to visualize data before you model it
 
-**source.** `help(C3T3)` and Maxwell, Delaney, & Kelley, (2018). *Designing experiments and analyzing data: A model comparison perspective.* (3rd ed.). Routledge.
+**source.** `help("C3T3")` and Maxwell, Delaney, & Kelley, (2018). *Designing experiments and analyzing data: A model comparison perspective.* (3rd ed.). Routledge.
 
 ```{r}
 
@@ -255,7 +255,7 @@ C3T3 %>%
 >     + **data.** "an optional data frame, list or environment (or object coercible by as.data.frame to a data frame) containing the variables in the model. If not found in data, the variables are taken from environment(formula), typically the environment from which lm is called."
 > save the fitted model as an object called `lm2` (i.e., linear model 1)
 
-**source.** `help(lm)`
+**source.** `help("lm")`
 
 ```{r}
 
@@ -269,7 +269,7 @@ lm2 <- lm(Rating ~ plsntVneut + plsntneutVunplsnt, data = C3T3)
 > - print `lm2`'s results with `summary()`
 >     + **summary() for lm objects.** "print.summary.lm tries to be smart about formatting the coefficients, standard errors, etc. and additionally gives 'significance stars' if signif.stars is TRUE."
 
-**source.** `help(print.summary.lm)`
+**source.** `help("print.summary.lm")`
 
 ```{r}
 
@@ -336,7 +336,7 @@ C7T1 %>%
 # example: test 3 contrasts (i.e., 2 main effects and an interaction in a 2 x 2 between-subjects design)
 > - not a bad idea to visualize data before you model it
 
-**source.** `help(C3T3)` and Maxwell, Delaney, & Kelley, (2018). *Designing experiments and analyzing data: A model comparison perspective.* (3rd ed.). Routledge.
+**source.** `help("C3T3")` and Maxwell, Delaney, & Kelley, (2018). *Designing experiments and analyzing data: A model comparison perspective.* (3rd ed.). Routledge.
 
 ```{r}
 
@@ -746,6 +746,27 @@ bfi %>%
   print(cut = 0.30, sort = TRUE)
 
 ```
+
+# more exercises
+> - datasets
+>     + `data()`
+>     + `data(package = "psych")`
+>     + `data(package = "lme4")`
+>     + `data(package = "AMCP")`
+>     + `data(package = "lavaan")`
+> - using datasets from above, complete these exercises:
+>     + describe 2 or more interval/ratio variables with `describe()`
+>     + describe 2 or more interval/ratio variables by a grouping variable with `describeBy()`
+>     + test whether two groups means are equal with `t.test()`
+>     + test whether multiple contrasts = 0 using `lm()` and `Anova()`
+>     + test whether multiple regression coefficients = 0 using `lm()`
+>     + test whether multiple correlations = 0 using `corr.test()`
+>     + visualize correlations and single variable histograms with `pairs.panels()`
+>     + reproduce `lmer()` examples from [**lme4: Mixed-effects modeling
+with R**](http://lme4.r-forge.r-project.org/book/front.pdf)
+>     + reproduce `sem()` and `cfa()` examples from the [**lavaan website**](http://lavaan.ugent.be/)
+>     + reproduce `fa()` examples from [**An introduction to the psych package: Part II Scale construction and psychometrics**](https://cran.r-project.org/web/packages/psych/vignettes/overview.pdf)
+>     + use the `help()` function, the [**tidyverse website**](https://www.tidyverse.org/), and Google (e.g., "contrasts in R") to troubleshoot problems
 
 # resources
 > - [**UCLA Institute for Digital Research and Education: R**](http://stats.idre.ucla.edu/r/) statistics and programming tutorials for R, among other helpful related resources
