@@ -1,0 +1,479 @@
+---
+title: "Day 3. Workflow and data transformation"
+author: "Iris Wang"
+date: "June 23, 2017"
+output: 
+  html_document:
+    fig_height: 7.5
+    fig_width: 10.5
+    keep_md: yes
+    theme: readable
+    toc: true
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
+---
+
+<style type="text/css">
+
+body{ /* Normal  */
+      font-size: 20px;
+  }
+td {  /* Table  */
+  font-size: 8px;
+}
+h1.title {
+  font-size: 38px;
+  color: DarkRed;
+}
+h1 { /* Header 1 */
+  font-size: 28px;
+  color: DarkBlue;
+}
+h2 { /* Header 2 */
+    font-size: 22px;
+  color: DarkBlue;
+}
+h3 { /* Header 3 */
+  font-size: 18px;
+  font-family: "Times New Roman", Times, serif;
+  color: DarkBlue;
+}
+code.r{ /* Code block */
+    font-size: 12px;
+}
+pre { /* Code block - determines code spacing between lines */
+    font-size: 14px;
+}
+</style>
+
+# Basics <br>
+## 1. Basic functionality (Tools ----> Keyboard shortcuts help) <br>
+  + You can use the up arrow key to replay a line you already ran
+  + Ctrl Enter will run a line
+  + Alt +- will draw an arrow
+  + Ctrl Shift M will draw a pipe operator
+  + R is case sensitive so it matters if you caps or not, have a space in there or not
+  + When writing code, use # in front of a comment. Frequently comment your code so you know what's happening 5 years later.
+  + broom thing will always clear environment stuff
+  
+## 2. R is like a calculator
+  + Operators are the same (+, -, *, /)
+  
+```{r, operations}
+
+1 + 1
+
+2 - 4
+
+5 * 8
+
+8 / 4
+
+# : denotes through
+
+1:10
+
+```
+
+## 3. Create new objects with `<-`
+  + `Object_name <- value`
+  
+```{r, objects}
+
+# save
+# the : denotes all numbers 4 through 10 in this case
+x <- 3 * 4:10
+
+# print
+x
+
+# save
+y <- 10 / 2
+
+# print
+y
+
+# save
+z <- x * y
+
+# print
+z
+
+#rm() removes objects from your memory
+rm(x, y)
+
+```
+
+  + Names should start w/ a character and be helpful (i.e., not a, b, c, but real descriptors of what the thing is)
+  
+## 4. Calling functions
+  + R has several built-in functions
+  + Sometimes a function you need will be in a specific package
+      + Installing and Loading packages
+      
+```{r, packages}
+
+# install the package if you don't have it
+# install.packages("nycflights13")
+
+# load the library
+library(tidyverse)
+library(nycflights13)
+
+# sets the functions as being part of the packages you actually want to pull from so you don't have to keep writing this
+
+filter <- dplyr::filter
+tibble <- tibble::tibble
+
+```
+  
+  + ?function will bring up a help screen for that function
+      + Can see what the arguments are that you need
+      + Can see the defaults for the arguments
+  + Calling a function requires you type the name + the arguments it requires 
+
+## 5. Loading datasets
+
+```{r, loading datasets}
+#packages you need (use install.packages() if needed)
+#install.packages("haven", "readxl")
+library(tidyverse)
+library(haven)
+library(readxl)
+
+```
+
+  + finding your file path
+    + file.choose() #do not put anything in the parens
+
+  + reading csv files
+    + read_csv(file = )
+
+  + reading sav files
+    + read_sav(file = , user_na = )
+
+  + reading excel files
+
+    + read_xls(path = , sheet = ) 
+    + need to give them a sheet number or a string name in quotes
+
+  + Writing datasets: once you've worked on your dataset in R you may want to save that dataset 
+    + write_sav(dataframename, "filepath")
+    + write_csv()
+    + writing xls requires package xlsx and the function is write.xls()
+
++ Reading in data for today
+```{r, read in todays data}
+#Let's try loading two datasets I've made for the purposes of the examples for today.
+
+time1_survey <- read_csv("time1_survey.csv")
+
+time2_survey <- read_csv("time2_survey.csv")
+
+```
+
+## 6. Merging datasets 
+
+  + full join and inner join
+
+```{r, full and inner joins}
+# join time 1 and time 2 by subject id
+# ?left_join (Join matching rows from y to x)
+# right_join
+# ?full_join
+
+#full join will retain all data regardless if there is a match (regardless of whether participant did part 1 or part 2 of the survey)
+full_joined_survey <- full_join(x = time1_survey, y = time2_survey, by = "id")
+
+#inner join only retains data that is matched (only people who did both parts are retained)
+joined_survey <- inner_join(x = time1_survey, y = time2_survey, by = "id")
+
+```
+
+  + left and right join
+    + For left join and right join it matters what dataset you're listing on the left or right. You set either the left or the right one as the reference point, so it depends, which is the dataset that is more important?
+    
+```{r, left and right joins}
+left_joined_survey <- left_join(x = time1_survey, y = time2_survey, by = "id")
+
+right_joined_survey <- right_join(x = time1_survey, y = time2_survey, by = "id")
+
+```
+
+## 7. Useful functions for data wrangling/transformation
+
+  + `mutate()`
+    + allows you to create new variables
+    
+```{r, mutate}
+
+# mutate gratitude_mean
+# two ways to do it
+# note: Right now, I'm not saving mutated variables; to do so, you must save to old or new object (joined_survey) with <-
+
+joined_survey %>%
+mutate(gratitude_mean = (gratitude_t1 + gratitude_t2) / 2,
+       gratitude_mean_alt = mean(c(gratitude_t1, gratitude_t2),
+                                 na.rm = TRUE))
+#what's wrong?
+
+# have to use rowwise
+joined_survey %>% 
+  rowwise() %>% 
+  mutate(gratitude_mean = (gratitude_t1 + gratitude_t2) / 2, 
+         gratitude_mean_alt = mean(c(gratitude_t1, gratitude_t2), na.rm = TRUE)) %>%
+  ungroup()
+
+```
+  
+  + `summarise()`
+    + will also allow you to create variables at the total group level
+    
+```{r, summarise}
+joined_survey %>%
+summarise(mean(x = c(gratitude_t1, gratitude_t2), na.rm = TRUE))
+
+#group by
+
+joined_survey %>%
+  group_by(cond) %>%
+  summarise(mean_grat = mean(gratitude_t1, na.rm = TRUE))
+
+```
+  + `scale()`
+    + will center your variable if the argument scale is FALSE
+    + will z-score your variable if the argument scale is TRUE
+        
+```{r, center}
+
+# ?scale (will z-score, will center)
+joined_survey <- joined_survey %>%
+  mutate(interdep_c = parse_number(scale(interdep, center = TRUE, scale = FALSE)))
+  
+```
+
+   + `ifelse()`
+     + use for Recoding variables 
+     + the same as the if function in excel, basically says, "if statement is true, return this value, otherwise return this other value."
+    
+```{r, ifelse}
+
+joined_survey <- 
+  joined_survey %>%
+  mutate(cond2 = ifelse((cond == "Treatment" & id <= 3) | (cond == "Control" & id <= 7), "Family",
+                 ifelse((cond == "Treatment" & id <= 5) | (cond == "Control" & id >= 8), "Friends",  NA)))
+
+```
+
+  + `filter()`
+    + filter will remove the entire row 
+     + Remember that to save these things, we need to assign it to either the same dataframe object or a new dataframe. If I am worried about overwriting my dataframe, I'll create a new dataframe.
+  
+```{r, filtering}
+# filter only id exactly equal to 9
+joined_survey %>%
+  filter(id == 9)
+
+# filter only id less than 7
+joined_survey %>%
+  filter(id < 7)
+
+# filter only id "less than or equal to" 7
+joined_survey %>%
+  filter(id <= 7)
+
+# filter only ids 1 or 2 or 7
+joined_survey %>%
+  filter(id %in% c(1, 2, 7))
+
+# filter only id "less than" 7 "or" id "exactly equal to" 9
+joined_survey %>%
+  filter(id < 7 | id == 9)
+
+# filter only id "less than" 9 "and" gratitude_t1 "greater than" 4
+joined_survey %>%
+  filter(id < 9 & gratitude_t1 > 4)
+
+# filter only condition "not equal to" Treatment
+joined_survey %>%
+  filter(cond != "Treatment")
+
+#filter out NAs for specific variable (I chose id)
+time2_survey
+
+time2_survey %>%
+  filter(!is.na(id))
+
+```
+  
+  + `arrange()`
+    + allows you to sort the data based on certain columns
+    
+```{r, arrange}
+
+# arrange joined_survey by cond
+joined_survey %>%
+  arrange(cond)
+
+# arrange joined_survey by id
+joined_survey %>%
+  arrange(id)
+
+# arrange joined_survey by cond, then interdependence
+joined_survey %>%
+  arrange(cond, interdep)
+
+```
+  
+  + `select()`
+    + select allows you to select specific columns (for instance if you're working with a giant dataframe)
+    
+```{r, select}
+
+# from joined_survey, select id, interdep_c, and gratitude_t1
+joined_survey %>%
+  select(id, interdep_c, gratitude_t1)
+
+#same result
+joined_survey %>%
+  select(-gratitude_t2, -interdep)
+
+```
+
++ Sometimes you may want to change the format of your data to fit the statistical analysis you need. In this case, I may want to run a linear mixed model, so I need to put my data in long format.
+
+  + `gather()`
+    + puts data into long format
+    
+```{r, gather}
+
+# variable name (key) = time and response value (value) = gratitude
+# arrange by Subj ID
+joined_survey_long <- joined_survey %>%
+  gather(data = ., key = time, value = gratitude_score, gratitude_t1, gratitude_t2) %>%
+  arrange(id)
+
+```
+ 
+  + `spread()` 
+    + puts data into wide format
+    
+```{r}
+
+joined_survey_wide <- joined_survey_long %>%
+  spread(data = ., key = time, value = gratitude_score)
+
+```
+## 8. Piping + Data Wrangling explained
++ Piping is very useful for combining functions. This keeps your code neat and readable. It is parismonious. So far I've been showing you 1-2 functions at a time, but let's try integrating some of these functions
+
++ Example
+
+```{r, piping example}
+#Compare this code which is not "tidy" to the tidy version below. Both should yield the same result, but first one takes way more time to write and hard to follow.
+
+final_data_untidy <- full_join(x = time1_survey, y = time2_survey, by = "id")
+final_data_untidy <- ungroup(mutate(rowwise(final_data_untidy), cond2 =   ifelse((cond == "Treatment" & id <= 3) | (cond == "Control" & id <= 7), "Family",
+                 ifelse((cond == "Treatment" & id <= 5) | (cond == "Control" & id                   >= 8), "Friends",  NA))))
+final_data_untidy <- filter(final_data_untidy, !is.na(id))
+final_data_untidy <- mutate(final_data_untidy, interdep_C = scale(interdep, 
+                                                                  scale = FALSE,
+                                                                  center = TRUE))
+final_data_untidy <- arrange(final_data_untidy, cond)
+
+#tidy version
+final_data_tidy <- time1_survey %>%
+  full_join(x = ., y = time2_survey, by = "id") %>%
+  rowwise() %>%
+  mutate(gratitude_mean = mean(c(gratitude_t1, gratitude_t2), na.rm = TRUE),
+         cond2 = ifelse((cond == "Treatment" & id <= 3) | (cond == "Control" & id <= 7), "Family",
+                 ifelse((cond == "Treatment" & id <= 5) | (cond == "Control" & id >= 8), "Friends",  NA))) %>%
+  ungroup() %>%
+  filter(!is.na(id)) %>%
+  mutate(interdep_C = scale(interdep, scale = FALSE, center = TRUE)) %>%
+  arrange(cond) 
+
+```
+
++ A tip: think about what you want to do with your data, or what your end result to be. If you want to save something into an object, what do you want saved? If you want R to show you something, what do you want to see?
+
+##9. Exercises 
+
+  + Exercise 1: Data Wrangling 
+
+    + Below in the #comments, I will request you do certain things with some datasets that R already has loaded. Given what I've already explained, your job is to write the code beneath that solves the problem. 
+    + Try to be as tidy as you can.
+
+```{r, data wrangling exercise}
+#Let me just walk you through loading the datasets(these are datasets that are preloaded into your tidyverse package but you have to call them up)
+
+airlines <- as.tibble(airlines)
+
+flights <- as.tibble(flights)
+
+#Okay your turn!
+
+## With airlines dataset, arrange the name to be ordered alphabetically
+
+## With flights dataset, select only the columns year, month, tailnum, carrier, air_time, distance, dep_delay, and arr_delay. Save this dataset as flights2. View flights2.
+
+## merge (join) flights2 with airlines by carrier and save this as a dataset named "merged". View merged.
+
+## subset (filter) merged dataset so that we only look at months 1-9. Save this as a dataset named "merged_6mo". View merged_6mo.
+
+## subset (filter) merged_6mo so that we only look at the carriers "9E" and "EV". You will need quotes. Let's save it back into merged_6mo. View it to see if it worked.
+
+## Using merged_6mo dataset, mutate flightspeed as distance/airtime, mean_delay as the average between arr_delay and dep_delay. Save this back to the merged_6mo dataset. View the dataset to see if it worked.
+
+## Center flightspeed, mean_delay and save them respectively as flightspeedC and mean_delayC in merged_6mo. See if it worked.
+
+## Use ifelse to recode 9E into "Endeavor Air Inc." and EV into "ExpressJet Airlines Inc." Name this variable carrier_recoded. Save this back into merged_6mo.
+
+## Summarize flightspeed and mean_delay by carrier. Let's NOT save it back into the dataset, so it should print out in the console. 
+
+
+```
+  + Exercise 2: Gather and Spread
+    + Let's try making a dataset into long form and then back to wide form again.
+
+```{r} 
+#Again, I'll start off by creating you a dataset you can use.
+set.seed(4567)
+N <- 10
+beliefjustworld <- rnorm(n = N, mean = 6, sd = .98)
+prejudice_t1 <- rnorm(n = N, mean = 5.4, sd = .95)
+prejudice_t2 <- rnorm(n = N-1, mean = 4.5, sd = .97) %>%
+  c(., NA)
+prejudice_t3 <- rnorm(n = N-1, mean = 4.57, sd = .95) %>%
+  c(., NA)
+id <- 1:10
+timedata <- tibble(id, beliefjustworld, prejudice_t1, prejudice_t2, prejudice_t3)
+
+##Put your timedata dataset into long form using gather. Save the data as "data_long". View your dataframe.
+
+##Put data_long back into wide form using spread. Save this as "data_wide". View your dataframe. It should look about the same as timedata!
+
+```
+
+
+  + Exercise 3: Tidying code
+    + Try turning my untidy code into tidy code
+
+```{r}
+##My untidy version.
+#back to using the airport data.
+
+flights2 <- select(flights, carrier, air_time, distance, tailnum)
+data_final <- inner_join(x = flights2, y = planes, by = "tailnum")
+data_final <- mutate(data_final, speed = distance/air_time)
+data_final <- arrange(data_final, tailnum)
+data_final <- filter(data_final, carrier == "UA" | carrier == "YV")
+data_final <- mutate(data_final, speedZ = scale(speed, scale = TRUE))
+
+##Your version of what I made but tidy
+
+
+```
+
+Good luck!
