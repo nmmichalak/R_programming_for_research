@@ -249,7 +249,7 @@ library(readxl)
 ```r
 #Let's try loading two datasets I've made for the purposes of the examples for today.
 
-time1_survey <- read_csv("time1_survey.csv")
+time1_survey <- read_csv("data/time1_survey.csv")
 ```
 
 ```
@@ -263,7 +263,7 @@ time1_survey <- read_csv("time1_survey.csv")
 ```
 
 ```r
-time2_survey <- read_csv("time2_survey.csv")
+time2_survey <- read_csv("data/time2_survey.csv")
 ```
 
 ```
