@@ -1,6 +1,6 @@
 ---
 title: "day 1 installation and introduction"
-date: "05/22/2018"
+date: "06/04/2018"
 output: 
   html_document: 
     keep_md: yes
@@ -194,7 +194,7 @@ my_numbers %>% scale()
 
 ```
 
-# how do convert z-scores outputted from the `scale()` function into only numbers?
+# how do I convert z-scores outputted from the `scale()` function into only numbers?
 > - use the `parse_number()` function: "This drops any non-numeric characters before or after the first number. The grouping mark specified by the locale is ignored inside the number."
 
 **source.** `help("parse_number")`

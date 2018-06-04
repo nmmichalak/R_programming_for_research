@@ -400,6 +400,7 @@ Anova(lm3.2, type = "III")
 ```{r}
 
 data("C3E19")
+
 C3E19 %>% sample_n(size = 15)
 
 ```
@@ -617,6 +618,7 @@ summary(lmer1)
 ```{r}
 
 data("Garcia")
+
 Garcia %>% sample_n(size = 15)
 
 ```
@@ -624,7 +626,6 @@ Garcia %>% sample_n(size = 15)
 # example: test whether the indirect effect of protest on liking through appropriateness = 0
 > - **Garcia.**
 >     + **protest.** "0 = no protest, 1 = Individual Protest, 2 = Collective Protest"
->     + **prot2.** "A recoding of protest into two levels (to match Hayes, 2013)."
 >     + **liking.** "Mean rating of 6 liking ratings of the target."
 >     + **respappr.** "Mean of four items of appropriateness of the target's response."
 
@@ -634,10 +635,11 @@ Garcia %>% sample_n(size = 15)
 
 Garcia <- Garcia %>% 
   mutate(protest_lbl = protest %>% recode(`0` = "no protest", `1` = "individual protest", `2` = "collective protest"),
-         prot2_cont = prot2 %>% recode(`0` = -1 / 2, `1` = 1 / 2))
+         protestVnone = protest_lbl %>% recode("no protest" = -1 / 2, "individual protest" = 1 / 4, "collective protest" = 1 / 4),
+         indvVclct = protest_lbl %>% recode("no protest" = 0, "individual protest" = -1 / 2, "collective protest" = 1 / 2))
 
 Garcia %>% 
-  count(protest, prot2, protest_lbl, prot2_cont)
+  count(protest, protest_lbl, protestVnone, indvVclct)
 
 ```
 
@@ -652,15 +654,17 @@ Garcia %>%
 
 ```{r}
 
-model1 <- "# a path
-           respappr ~ a * prot2
+model1 <- "# a paths
+           respappr ~ a1 * protestVnone + a2 * indvVclct
     
-           # b and cprime path
-           liking ~ cp * prot2 + b * respappr
+           # b and cprime paths
+           liking ~ cp1 * protestVnone + cp2 * indvVclct + b * respappr
 
            # define indirect and total effect
-           indirect := a * b
-           total := cp + a * b"
+           indirect1 := a1 * b
+           indirect2 := a2 * b
+           total1 := cp1 + (a1 * b)
+           total2 := cp2 + (a2 * b)"
 
 ```
 

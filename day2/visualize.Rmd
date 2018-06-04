@@ -8,9 +8,9 @@ output:
 ---
 
 # install and/or load packages for this session
-- `install.packages()`: "Download and install packages from CRAN-like repositories or from local files."  
-- `library()`: loads your package you installed  
-- **best practice note.** `install.packages()` downloads files from the internet, so it's "polite" to "comment out" (# = comment) this code before you share it with people so they don't download files they don't really want by accident.  
+> - `install.packages()`: "Download and install packages from CRAN-like repositories or from local files."  
+> - `library()`: loads your package you installed  
+> - **best practice note.** `install.packages()` downloads files from the internet, so it's "polite" to "comment out" (`#` = comment) this code before you share it with people so they don't download files they don't really want by accident.  
 
 # install and/or load packages for this session
 
@@ -108,10 +108,10 @@ ggplot(data = datasaurus_dozen, aes(x = x, y = y, color = dataset)) +
 ```
 
 # how do I answer research questions with plots?
-- **use ggplot2.**
-- **ggplot2 metaphor.** think of a ggplot2 plot like a "map of the world" that you build one layer at a time.
-- imagine a map of the world without land (i.e., water only).
-- now imagine adding "layers" (e.g., continents, colors, mountains, legends). ggplot2's kinda like that.
+> - **use ggplot2.**
+> - **ggplot2 metaphor.** think of a ggplot2 plot like a "map of the world" that you build one layer at a time.
+> - imagine a map of the world without land (i.e., water only).
+> - now imagine adding "layers" (e.g., continents, colors, mountains, legends). ggplot2's kinda like that.
 
 ![](https://pbs.twimg.com/media/CELudTlUgAAA7a-.png)
 

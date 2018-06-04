@@ -1,0 +1,52 @@
+---
+title: "untitled"
+---
+
+# packages
+
+```{r}
+
+# install.packages("tidyverse")
+library(tidyverse)
+
+```
+
+# custom functions
+
+```{r}
+
+
+
+```
+
+# data
+
+```{r}
+
+
+
+```
+
+# wrangling
+
+```{r}
+
+
+
+```
+
+# plots
+
+```{r}
+
+
+
+```
+
+# models
+
+```{r}
+
+
+
+```

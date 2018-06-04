@@ -8,9 +8,9 @@ output:
 ---
 
 # install and/or load packages for this session
-- `install.packages()`: "Download and install packages from CRAN-like repositories or from local files."  
-- `library()`: loads your package you installed  
-- **best practice note.** `install.packages()` downloads files from the internet, so it's "polite" to "comment out" (# = comment) this code before you share it with people so they don't download files they don't really want by accident.  
+> - `install.packages()`: "Download and install packages from CRAN-like repositories or from local files."  
+> - `library()`: loads your package you installed  
+> - **best practice note.** `install.packages()` downloads files from the internet, so it's "polite" to "comment out" (# = comment) this code before you share it with people so they don't download files they don't really want by accident.  
 
 # install and/or load packages for this session
 
@@ -527,10 +527,10 @@ ggplot(data = datasaurus_dozen, aes(x = x, y = y, color = dataset)) +
 ![](visualize_files/figure-html/unnamed-chunk-7-1.png)<!-- -->
 
 # how do I answer research questions with plots?
-- **use ggplot2.**
-- **ggplot2 metaphor.** think of a ggplot2 plot like a "map of the world" that you build one layer at a time.
-- imagine a map of the world without land (i.e., water only).
-- now imagine adding "layers" (e.g., continents, colors, mountains, legends). ggplot2's kinda like that.
+> - **use ggplot2.**
+> - **ggplot2 metaphor.** think of a ggplot2 plot like a "map of the world" that you build one layer at a time.
+> - imagine a map of the world without land (i.e., water only).
+> - now imagine adding "layers" (e.g., continents, colors, mountains, legends). ggplot2's kinda like that.
 
 ![](https://pbs.twimg.com/media/CELudTlUgAAA7a-.png)
 
@@ -919,21 +919,21 @@ sleepstudy %>% sample_n(size = 15)
 
        Reaction   Days  Subject 
 ----  ---------  -----  --------
-144    277.6566      3  369     
-43     301.8206      2  331     
-131    221.6771      0  352     
-123    269.8939      2  351     
-16     215.9618      5  309     
-168    304.6306      7  371     
-1      249.5600      0  308     
-135    348.7402      4  352     
-78     331.5229      7  334     
-129    321.5418      8  351     
-76     284.1912      5  334     
-42     285.0000      1  331     
-153    238.9008      2  370     
-74     254.6723      3  334     
+118    362.9184      7  350     
+34     285.1330      3  330     
+113    256.2046      2  350     
+30     247.5153      9  310     
+143    257.2424      2  369     
+101    236.1032      0  349     
+180    364.1236      9  372     
 176    329.6076      5  372     
+32     300.4002      1  330     
+126    304.6336      5  351     
+91     312.3666      0  337     
+173    297.5968      2  372     
+162    272.4428      1  371     
+96     391.8385      5  337     
+154    240.4730      3  370     
 
 </div>
 
@@ -976,21 +976,21 @@ US_births_2000_2014 %>% sample_n(size = 15)
 
  year   month   date_of_month  date         day_of_week    births
 -----  ------  --------------  -----------  ------------  -------
- 2010       2               6  2010-02-06   Sat              7948
- 2014       5              10  2014-05-10   Sat              8100
- 2007      11              25  2007-11-25   Sun              7668
- 2004      10              28  2004-10-28   Thurs           13287
- 2013       6              14  2013-06-14   Fri             12046
- 2006       1               2  2006-01-02   Mon              8198
- 2005      11              20  2005-11-20   Sun              7594
- 2003       9              17  2003-09-17   Wed             14018
- 2003      11              23  2003-11-23   Sun              7383
- 2009      12              26  2009-12-26   Sat              7172
- 2003      12              14  2003-12-14   Sun              7462
- 2005       4               2  2005-04-02   Sat              8574
- 2012       8              30  2012-08-30   Thurs           13323
- 2002       8              23  2002-08-23   Fri             13133
- 2014       1              18  2014-01-18   Sat              8143
+ 2003       1              10  2003-01-10   Fri             12517
+ 2005       9              13  2005-09-13   Tues            13951
+ 2013       1               1  2013-01-01   Tues             7537
+ 2003       8              14  2003-08-14   Thurs           13391
+ 2014       5               4  2014-05-04   Sun              7171
+ 2013      10              28  2013-10-28   Mon             12199
+ 2009       6               2  2009-06-02   Tues            13408
+ 2004      12              13  2004-12-13   Mon             11809
+ 2009       5               6  2009-05-06   Wed             12686
+ 2010      11              12  2010-11-12   Fri             12090
+ 2008       3              31  2008-03-31   Mon             12211
+ 2012      12              16  2012-12-16   Sun              7146
+ 2014       7               1  2014-07-01   Tues            13575
+ 2001       1               3  2001-01-03   Wed             12449
+ 2001       7              29  2001-07-29   Sun              7892
 
 </div>
 
