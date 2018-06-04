@@ -374,12 +374,13 @@ joined_survey_wide <- joined_survey_long %>%
 #Compare this code which is not "tidy" to the tidy version below. Both should yield the same result, but first one takes way more time to write and hard to follow.
 
 final_data_untidy <- full_join(x = time1_survey, y = time2_survey, by = "id")
-final_data_untidy <- ungroup(mutate(rowwise(final_data_untidy), cond2 =   ifelse((cond == "Treatment" & id <= 3) | (cond == "Control" & id <= 7), "Family",
-                 ifelse((cond == "Treatment" & id <= 5) | (cond == "Control" & id                   >= 8), "Friends",  NA))))
+final_data_untidy <- ungroup(mutate(rowwise(final_data_untidy), 
+                      gratitude_mean = mean(c(gratitude_t1, gratitude_t2), na.rm = TRUE), 
+                      cond2 =   ifelse((cond == "Treatment" & id <= 3) | (cond == "Control" & id <= 7), "Family",
+                 ifelse((cond == "Treatment" & id <= 5) | (cond == "Control" & id >= 8), "Friends",  NA))))
+
 final_data_untidy <- filter(final_data_untidy, !is.na(id))
-final_data_untidy <- mutate(final_data_untidy, interdep_C = scale(interdep, 
-                                                                  scale = FALSE,
-                                                                  center = TRUE))
+final_data_untidy <- mutate(final_data_untidy, interdep_C = scale(interdep, scale = FALSE, center = TRUE))
 final_data_untidy <- arrange(final_data_untidy, cond)
 
 #tidy version
