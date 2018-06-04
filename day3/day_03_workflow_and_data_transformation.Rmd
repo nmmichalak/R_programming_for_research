@@ -120,6 +120,7 @@ rm(x, y)
 # load the library
 library(tidyverse)
 library(nycflights13)
+library(magrittr)
 
 # sets the functions as being part of the packages you actually want to pull from so you don't have to keep writing this
 
@@ -163,11 +164,26 @@ library(readxl)
     + write_csv()
     + writing xls requires package xlsx and the function is write.xls()
 
-+ Reading in data for today
++ Reading in data for today + some helpful ways of looking at your data
 ```{r, read in todays data}
 #Let's try loading two datasets I've made for the purposes of the examples for today.
 
 time1_survey <- read_csv("data/time1_survey.csv")
+#see the first few rows of your data
+head(time1_survey)
+
+#see what column names are going on
+names(time1_survey)
+
+#see how many rows
+nrow(time1_survey)
+
+#see how many columns
+ncol(time1_survey)
+
+#quickly see what the frequency of something is
+time1_survey %$%
+  table(cond)
 
 time2_survey <- read_csv("data/time2_survey.csv")
 

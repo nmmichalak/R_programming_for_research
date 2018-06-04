@@ -352,6 +352,15 @@ library(tidyverse)</code></pre>
 ## x dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(nycflights13)</code></pre>
 <pre><code>## Warning: package 'nycflights13' was built under R version 3.4.4</code></pre>
+<pre class="r"><code>library(magrittr)</code></pre>
+<pre><code>## 
+## Attaching package: 'magrittr'</code></pre>
+<pre><code>## The following object is masked from 'package:purrr':
+## 
+##     set_names</code></pre>
+<pre><code>## The following object is masked from 'package:tidyr':
+## 
+##     extract</code></pre>
 <pre class="r"><code># sets the functions as being part of the packages you actually want to pull from so you don't have to keep writing this
 
 filter &lt;- dplyr::filter
@@ -396,7 +405,7 @@ library(readxl)</code></pre>
 <li>write_csv()</li>
 <li>writing xls requires package xlsx and the function is write.xls()</li>
 </ul></li>
-<li><p>Reading in data for today</p></li>
+<li><p>Reading in data for today + some helpful ways of looking at your data</p></li>
 </ul>
 <pre class="r"><code>#Let's try loading two datasets I've made for the purposes of the examples for today.
 
@@ -408,6 +417,32 @@ time1_survey &lt;- read_csv(&quot;data/time1_survey.csv&quot;)</code></pre>
 ##   gratitude_t1 = col_double(),
 ##   interdep = col_double()
 ## )</code></pre>
+<pre class="r"><code>#see the first few rows of your data
+head(time1_survey)</code></pre>
+<pre><code>## # A tibble: 6 x 4
+##      id cond      gratitude_t1 interdep
+##   &lt;int&gt; &lt;chr&gt;            &lt;dbl&gt;    &lt;dbl&gt;
+## 1     1 Treatment         3.35     3.89
+## 2     2 Treatment         4.76     3.88
+## 3     3 Treatment         5.53     4.18
+## 4     4 Treatment         2.27     1.60
+## 5     5 Treatment         4.91     4.16
+## 6     6 Control           4.98     3.64</code></pre>
+<pre class="r"><code>#see what column names are going on
+names(time1_survey)</code></pre>
+<pre><code>## [1] &quot;id&quot;           &quot;cond&quot;         &quot;gratitude_t1&quot; &quot;interdep&quot;</code></pre>
+<pre class="r"><code>#see how many rows
+nrow(time1_survey)</code></pre>
+<pre><code>## [1] 10</code></pre>
+<pre class="r"><code>#see how many columns
+ncol(time1_survey)</code></pre>
+<pre><code>## [1] 4</code></pre>
+<pre class="r"><code>#quickly see what the frequency of something is
+time1_survey %$%
+  table(cond)</code></pre>
+<pre><code>## cond
+##   Control Treatment 
+##         5         5</code></pre>
 <pre class="r"><code>time2_survey &lt;- read_csv(&quot;data/time2_survey.csv&quot;)</code></pre>
 <pre><code>## Parsed with column specification:
 ## cols(
