@@ -140,7 +140,11 @@ tibble <- tibble::tibble
 #packages you need (use install.packages() if needed)
 #install.packages("haven", "readxl")
 library(tidyverse)
+
+#reads other data files
 library(haven)
+
+#reads excel files
 library(readxl)
 
 ```
