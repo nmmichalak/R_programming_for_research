@@ -224,10 +224,18 @@ library(magrittr)
 ```
 
 ```r
+#install.packages("haven", "readxl")
+#reads other data files
+library(haven)
+#reads excel files
+library(readxl)
+```
+
 # sets the functions as being part of the packages you actually want to pull from so you don't have to keep writing this
 
 filter <- dplyr::filter
 tibble <- tibble::tibble
+
 ```
   
   + ?function will bring up a help screen for that function
@@ -236,19 +244,6 @@ tibble <- tibble::tibble
   + Calling a function requires you type the name + the arguments it requires 
 
 ## 5. Loading datasets
-
-
-```r
-#packages you need (use install.packages() if needed)
-#install.packages("haven", "readxl")
-library(tidyverse)
-
-#reads other data files
-library(haven)
-
-#reads excel files
-library(readxl)
-```
 
   + finding your file path
     + file.choose() #do not put anything in the parens

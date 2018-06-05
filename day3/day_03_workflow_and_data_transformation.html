@@ -361,10 +361,17 @@ library(tidyverse)</code></pre>
 <pre><code>## The following object is masked from 'package:tidyr':
 ## 
 ##     extract</code></pre>
-<pre class="r"><code># sets the functions as being part of the packages you actually want to pull from so you don't have to keep writing this
-
-filter &lt;- dplyr::filter
-tibble &lt;- tibble::tibble</code></pre>
+<pre class="r"><code>#install.packages(&quot;haven&quot;, &quot;readxl&quot;)
+#reads other data files
+library(haven)
+#reads excel files
+library(readxl)</code></pre>
+</div>
+</div>
+<div id="sets-the-functions-as-being-part-of-the-packages-you-actually-want-to-pull-from-so-you-dont-have-to-keep-writing-this" class="section level1">
+<h1>sets the functions as being part of the packages you actually want to pull from so you don’t have to keep writing this</h1>
+<p>filter &lt;- dplyr::filter tibble &lt;- tibble::tibble</p>
+<p>```</p>
 <ul>
 <li>?function will bring up a help screen for that function
 <ul>
@@ -373,18 +380,8 @@ tibble &lt;- tibble::tibble</code></pre>
 </ul></li>
 <li>Calling a function requires you type the name + the arguments it requires</li>
 </ul>
-</div>
 <div id="loading-datasets" class="section level2">
 <h2>5. Loading datasets</h2>
-<pre class="r"><code>#packages you need (use install.packages() if needed)
-#install.packages(&quot;haven&quot;, &quot;readxl&quot;)
-library(tidyverse)
-
-#reads other data files
-library(haven)
-
-#reads excel files
-library(readxl)</code></pre>
 <ul>
 <li>finding your file path
 <ul>
