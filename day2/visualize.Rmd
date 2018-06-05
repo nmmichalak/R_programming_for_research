@@ -1,6 +1,6 @@
 ---
 title: "day 2 visualize"
-date: "05/22/2018"
+date: "06/05/2018"
 output: 
   html_document: 
     keep_md: yes
@@ -108,12 +108,19 @@ ggplot(data = datasaurus_dozen, aes(x = x, y = y, color = dataset)) +
 ```
 
 # how do I answer research questions with plots?
-> - **use ggplot2.**
-> - **ggplot2 metaphor.** think of a ggplot2 plot like a "map of the world" that you build one layer at a time.
+> - **use `ggplot2`.**
+> - **`ggplot2` metaphor.** think of a `ggplot2` plot like a "map of the world" that you build one layer at a time.
 > - imagine a map of the world without land (i.e., water only).
-> - now imagine adding "layers" (e.g., continents, colors, mountains, legends). ggplot2's kinda like that.
+> - now imagine adding "layers" (e.g., continents, colors, mountains, legends). `ggplot2`'s kinda like that.
 
 ![](https://pbs.twimg.com/media/CELudTlUgAAA7a-.png)
+
+# how do I answer research questions with plots?
+> - with `ggplot2`, you build plots step-by-step, layer-by-layer. this system is based on the grammar of graphics: statistical graphics map **data** onto *perceivable* **aesthetic attributes** (e.g., position, color, shape, size, line type) of **geometric objects** (e.g., points, bars, lines).
+
+![](images/ggplot_basic_structure.jpg)
+
+**source.** [**grammar of graphics**](http://vita.had.co.nz/papers/layered-grammar.html)
 
 # how do I answer research questions with plots?
 > 1. [**grammar of graphics**](http://vita.had.co.nz/papers/layered-grammar.html), a visualization philosophy
@@ -134,14 +141,14 @@ ggplot(data = datasaurus_dozen, aes(x = x, y = y, color = dataset)) +
 
 ```{r}
 
-mpg
+mpg %>% sample_n(size = 15)
 
 ```
 
 # example: do cars with big engines use more fuel than cars with small engines?
 > 1. start with mapping and `aes()`
->     + **displ.** engine displacement, in litres (bigger numbers = greater engine size)
->     + **hwy.** highway miles per gallon (bigger numbers = using less fuel each mile)
+>   - **displ.** engine displacement, in litres (bigger numbers = greater engine size)
+>   - **hwy.** highway miles per gallon (bigger numbers = using less fuel each mile)
 >     + you are mapping aesthetics onto data
 >     + x-axis position maps onto displ
 >     + y-axis position maps onto hwy
@@ -155,7 +162,7 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy))
 
 # example: do cars with big engines use more fuel than cars with small engines?
 > 2. add a layer, like `geom_point()`
-  >     + layers determine physical representations of data
+>   - layers determine physical representations of data
 
 **source.** [**A layered grammar of graphics**](http://vita.had.co.nz/papers/layered-grammar.pdf)
 
@@ -168,8 +175,8 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
 
 # example: what types have cars have big engines but decent highway mpg?
 > 3. add a new aesthetic mapping, like color
-  >     + **class.** "type" of car
-  >     + color maps onto class
+>     + **class.** "type" of car
+>     + color maps onto class
 
 **source.** [A layered grammar of graphics](http://vita.had.co.nz/papers/layered-grammar.pdf)
 
@@ -225,8 +232,8 @@ ggplot(data = mpg, mapping = aes(x = class, y = cty)) +
 # which type of car has better mpg in the city?
 > - **cty.** city miles per gallon  
 > - standard bars representing means + 95% confidence intervals  
-> - `stat_summary()`: "Summarise y values at unique/binned x"  
-> - `mean_cl_normal()`: "... computes 3 summary variables: the sample mean and lower and upper Gaussian   confidence limits based on the t-distribution."  
+>   + `stat_summary()`: "Summarise y values at unique/binned x"  
+>   + `mean_cl_normal()`: "... computes 3 summary variables: the sample mean and lower and upper Gaussian   confidence limits based on the t-distribution."  
 > - fill the bars with fill = white, and color their outline with color = "black"
 
 **sources.** `help("stat_summary")` and `help("mean_cl_normal")`
