@@ -445,7 +445,11 @@ time1_survey %$%
 <pre><code>## cond
 ##   Control Treatment 
 ##         5         5</code></pre>
-<pre class="r"><code>time2_survey &lt;- read_csv(&quot;data/time2_survey.csv&quot;)</code></pre>
+<pre class="r"><code>#using the %$% pipe will help with selecting specific variables. What table() function uses is a specific variable, not a dataframe, and using the %$% pipe, I'm saying choose this variable (cond) from that tibble
+
+#some functions are looking for just a list and do not give you the room to specify a data frame 
+
+time2_survey &lt;- read_csv(&quot;data/time2_survey.csv&quot;)</code></pre>
 <pre><code>## Parsed with column specification:
 ## cols(
 ##   id = col_integer(),
@@ -579,6 +583,7 @@ joined_survey &lt;- joined_survey %&gt;%
 <pre class="r"><code>joined_survey &lt;- 
   joined_survey %&gt;%
   mutate(gender2 = gender %&gt;% recode(&quot;male&quot;= &quot;1&quot;, &quot;female&quot; = &quot;0&quot;))</code></pre>
+<p>Did you notice I have an embedded pipe scenario going on here, how crazy is that!</p>
 <ul>
 <li><code>filter()</code>
 <ul>

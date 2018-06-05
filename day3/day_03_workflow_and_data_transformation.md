@@ -342,6 +342,10 @@ time1_survey %$%
 ```
 
 ```r
+#using the %$% pipe will help with selecting specific variables. What table() function uses is a specific variable, not a dataframe, and using the %$% pipe, I'm saying choose this variable (cond) from that tibble
+
+#some functions are looking for just a list and do not give you the room to specify a data frame 
+
 time2_survey <- read_csv("data/time2_survey.csv")
 ```
 
@@ -504,6 +508,7 @@ joined_survey <-
   joined_survey %>%
   mutate(gender2 = gender %>% recode("male"= "1", "female" = "0"))
 ```
+Did you notice I have an embedded pipe scenario going on here, how crazy is that!
 
   + `filter()`
     + filter will remove the entire row 
