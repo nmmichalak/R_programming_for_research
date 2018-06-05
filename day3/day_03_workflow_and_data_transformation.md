@@ -147,7 +147,7 @@ rm(x, y)
 
 ```r
 # install the package if you don't have it
-# install.packages("nycflights13", "magrittr")
+# install.packages("nycflights13", "magrittr", "haven", "readxl")
 
 # load the library
 library(tidyverse)
@@ -224,7 +224,6 @@ library(magrittr)
 ```
 
 ```r
-#install.packages("haven", "readxl")
 #reads other data files
 library(haven)
 #reads excel files
