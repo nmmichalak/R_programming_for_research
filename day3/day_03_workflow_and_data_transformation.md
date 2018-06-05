@@ -203,6 +203,27 @@ library(nycflights13)
 ```
 
 ```r
+library(magrittr)
+```
+
+```
+## 
+## Attaching package: 'magrittr'
+```
+
+```
+## The following object is masked from 'package:purrr':
+## 
+##     set_names
+```
+
+```
+## The following object is masked from 'package:tidyr':
+## 
+##     extract
+```
+
+```r
 # sets the functions as being part of the packages you actually want to pull from so you don't have to keep writing this
 
 filter <- dplyr::filter
@@ -244,12 +265,12 @@ library(readxl)
     + write_csv()
     + writing xls requires package xlsx and the function is write.xls()
 
-+ Reading in data for today
++ Reading in data for today + some helpful ways of looking at your data
 
 ```r
 #Let's try loading two datasets I've made for the purposes of the examples for today.
 
-time1_survey <- read_csv("time1_survey.csv")
+time1_survey <- read_csv("data/time1_survey.csv")
 ```
 
 ```
@@ -263,7 +284,63 @@ time1_survey <- read_csv("time1_survey.csv")
 ```
 
 ```r
-time2_survey <- read_csv("time2_survey.csv")
+#see the first few rows of your data
+head(time1_survey)
+```
+
+```
+## # A tibble: 6 x 4
+##      id cond      gratitude_t1 interdep
+##   <int> <chr>            <dbl>    <dbl>
+## 1     1 Treatment         3.35     3.89
+## 2     2 Treatment         4.76     3.88
+## 3     3 Treatment         5.53     4.18
+## 4     4 Treatment         2.27     1.60
+## 5     5 Treatment         4.91     4.16
+## 6     6 Control           4.98     3.64
+```
+
+```r
+#see what column names are going on
+names(time1_survey)
+```
+
+```
+## [1] "id"           "cond"         "gratitude_t1" "interdep"
+```
+
+```r
+#see how many rows
+nrow(time1_survey)
+```
+
+```
+## [1] 10
+```
+
+```r
+#see how many columns
+ncol(time1_survey)
+```
+
+```
+## [1] 4
+```
+
+```r
+#quickly see what the frequency of something is
+time1_survey %$%
+  table(cond)
+```
+
+```
+## cond
+##   Control Treatment 
+##         5         5
+```
+
+```r
+time2_survey <- read_csv("data/time2_survey.csv")
 ```
 
 ```
