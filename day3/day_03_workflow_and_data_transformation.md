@@ -279,7 +279,8 @@ time1_survey <- read_csv("data/time1_survey.csv")
 ##   id = col_integer(),
 ##   cond = col_character(),
 ##   gratitude_t1 = col_double(),
-##   interdep = col_double()
+##   interdep = col_double(),
+##   gender = col_character()
 ## )
 ```
 
@@ -289,15 +290,15 @@ head(time1_survey)
 ```
 
 ```
-## # A tibble: 6 x 4
-##      id cond      gratitude_t1 interdep
-##   <int> <chr>            <dbl>    <dbl>
-## 1     1 Treatment         3.35     3.89
-## 2     2 Treatment         4.76     3.88
-## 3     3 Treatment         5.53     4.18
-## 4     4 Treatment         2.27     1.60
-## 5     5 Treatment         4.91     4.16
-## 6     6 Control           4.98     3.64
+## # A tibble: 6 x 5
+##      id cond      gratitude_t1 interdep gender
+##   <int> <chr>            <dbl>    <dbl> <chr> 
+## 1     1 Treatment         3.35     3.89 male  
+## 2     2 Treatment         4.76     3.88 female
+## 3     3 Treatment         5.53     4.18 male  
+## 4     4 Treatment         2.27     1.60 female
+## 5     5 Treatment         4.91     4.16 male  
+## 6     6 Control           4.98     3.64 female
 ```
 
 ```r
@@ -306,7 +307,8 @@ names(time1_survey)
 ```
 
 ```
-## [1] "id"           "cond"         "gratitude_t1" "interdep"
+## [1] "id"           "cond"         "gratitude_t1" "interdep"    
+## [5] "gender"
 ```
 
 ```r
@@ -324,7 +326,7 @@ ncol(time1_survey)
 ```
 
 ```
-## [1] 4
+## [1] 5
 ```
 
 ```r
@@ -397,18 +399,18 @@ mutate(gratitude_mean = (gratitude_t1 + gratitude_t2) / 2,
 ```
 
 ```
-## # A tibble: 9 x 7
-##      id cond      gratitude_t1 interdep gratitude_t2 gratitude_mean
-##   <int> <chr>            <dbl>    <dbl>        <dbl>          <dbl>
-## 1     1 Treatment         3.35     3.89         5.05           4.20
-## 2     2 Treatment         4.76     3.88         4.55           4.66
-## 3     3 Treatment         5.53     4.18         4.76           5.15
-## 4     4 Treatment         2.27     1.60         5.56           3.92
-## 5     5 Treatment         4.91     4.16         6.41           5.66
-## 6     6 Control           4.98     3.64         5.40           5.19
-## 7     7 Control           3.95     2.44         5.01           4.48
-## 8     8 Control           3.98     3.47         4.63           4.31
-## 9     9 Control           3.96     2.66         4.70           4.33
+## # A tibble: 9 x 8
+##      id cond      gratitude_t1 interdep gender gratitude_t2 gratitude_mean
+##   <int> <chr>            <dbl>    <dbl> <chr>         <dbl>          <dbl>
+## 1     1 Treatment         3.35     3.89 male           5.05           4.20
+## 2     2 Treatment         4.76     3.88 female         4.55           4.66
+## 3     3 Treatment         5.53     4.18 male           4.76           5.15
+## 4     4 Treatment         2.27     1.60 female         5.56           3.92
+## 5     5 Treatment         4.91     4.16 male           6.41           5.66
+## 6     6 Control           4.98     3.64 female         5.40           5.19
+## 7     7 Control           3.95     2.44 male           5.01           4.48
+## 8     8 Control           3.98     3.47 female         4.63           4.31
+## 9     9 Control           3.96     2.66 male           4.70           4.33
 ## # ... with 1 more variable: gratitude_mean_alt <dbl>
 ```
 
@@ -424,18 +426,18 @@ joined_survey %>%
 ```
 
 ```
-## # A tibble: 9 x 7
-##      id cond      gratitude_t1 interdep gratitude_t2 gratitude_mean
-##   <int> <chr>            <dbl>    <dbl>        <dbl>          <dbl>
-## 1     1 Treatment         3.35     3.89         5.05           4.20
-## 2     2 Treatment         4.76     3.88         4.55           4.66
-## 3     3 Treatment         5.53     4.18         4.76           5.15
-## 4     4 Treatment         2.27     1.60         5.56           3.92
-## 5     5 Treatment         4.91     4.16         6.41           5.66
-## 6     6 Control           4.98     3.64         5.40           5.19
-## 7     7 Control           3.95     2.44         5.01           4.48
-## 8     8 Control           3.98     3.47         4.63           4.31
-## 9     9 Control           3.96     2.66         4.70           4.33
+## # A tibble: 9 x 8
+##      id cond      gratitude_t1 interdep gender gratitude_t2 gratitude_mean
+##   <int> <chr>            <dbl>    <dbl> <chr>         <dbl>          <dbl>
+## 1     1 Treatment         3.35     3.89 male           5.05           4.20
+## 2     2 Treatment         4.76     3.88 female         4.55           4.66
+## 3     3 Treatment         5.53     4.18 male           4.76           5.15
+## 4     4 Treatment         2.27     1.60 female         5.56           3.92
+## 5     5 Treatment         4.91     4.16 male           6.41           5.66
+## 6     6 Control           4.98     3.64 female         5.40           5.19
+## 7     7 Control           3.95     2.44 male           5.01           4.48
+## 8     8 Control           3.98     3.47 female         4.63           4.31
+## 9     9 Control           3.96     2.66 male           4.70           4.33
 ## # ... with 1 more variable: gratitude_mean_alt <dbl>
 ```
   
@@ -493,6 +495,16 @@ joined_survey <-
                  ifelse((cond == "Treatment" & id <= 5) | (cond == "Control" & id >= 8), "Friends",  NA)))
 ```
 
++ `recode()`
+     + use for Recoding categorical variables (can't really handle greater than or less than numbers)
+     
+
+```r
+joined_survey <- 
+  joined_survey %>%
+  mutate(gender2 = gender %>% recode("male"= "1", "female" = "0"))
+```
+
   + `filter()`
     + filter will remove the entire row 
      + Remember that to save these things, we need to assign it to either the same dataframe object or a new dataframe. If I am worried about overwriting my dataframe, I'll create a new dataframe.
@@ -505,10 +517,11 @@ joined_survey %>%
 ```
 
 ```
-## # A tibble: 1 x 7
-##      id cond    gratitude_t1 interdep gratitude_t2 interdep_c cond2  
-##   <int> <chr>          <dbl>    <dbl>        <dbl>      <dbl> <chr>  
-## 1     9 Control         3.96     2.66         4.70     -0.664 Friends
+## # A tibble: 1 x 9
+##      id cond   gratitude_t1 interdep gender gratitude_t2 interdep_c cond2 
+##   <int> <chr>         <dbl>    <dbl> <chr>         <dbl>      <dbl> <chr> 
+## 1     9 Contr~         3.96     2.66 male           4.70     -0.664 Frien~
+## # ... with 1 more variable: gender2 <chr>
 ```
 
 ```r
@@ -518,15 +531,16 @@ joined_survey %>%
 ```
 
 ```
-## # A tibble: 6 x 7
-##      id cond      gratitude_t1 interdep gratitude_t2 interdep_c cond2  
-##   <int> <chr>            <dbl>    <dbl>        <dbl>      <dbl> <chr>  
-## 1     1 Treatment         3.35     3.89         5.05      0.567 Family 
-## 2     2 Treatment         4.76     3.88         4.55      0.555 Family 
-## 3     3 Treatment         5.53     4.18         4.76      0.856 Family 
-## 4     4 Treatment         2.27     1.60         5.56     -1.73  Friends
-## 5     5 Treatment         4.91     4.16         6.41      0.833 Friends
-## 6     6 Control           4.98     3.64         5.40      0.315 Family
+## # A tibble: 6 x 9
+##      id cond    gratitude_t1 interdep gender gratitude_t2 interdep_c cond2
+##   <int> <chr>          <dbl>    <dbl> <chr>         <dbl>      <dbl> <chr>
+## 1     1 Treatm~         3.35     3.89 male           5.05      0.567 Fami~
+## 2     2 Treatm~         4.76     3.88 female         4.55      0.555 Fami~
+## 3     3 Treatm~         5.53     4.18 male           4.76      0.856 Fami~
+## 4     4 Treatm~         2.27     1.60 female         5.56     -1.73  Frie~
+## 5     5 Treatm~         4.91     4.16 male           6.41      0.833 Frie~
+## 6     6 Control         4.98     3.64 female         5.40      0.315 Fami~
+## # ... with 1 more variable: gender2 <chr>
 ```
 
 ```r
@@ -536,16 +550,17 @@ joined_survey %>%
 ```
 
 ```
-## # A tibble: 7 x 7
-##      id cond      gratitude_t1 interdep gratitude_t2 interdep_c cond2  
-##   <int> <chr>            <dbl>    <dbl>        <dbl>      <dbl> <chr>  
-## 1     1 Treatment         3.35     3.89         5.05      0.567 Family 
-## 2     2 Treatment         4.76     3.88         4.55      0.555 Family 
-## 3     3 Treatment         5.53     4.18         4.76      0.856 Family 
-## 4     4 Treatment         2.27     1.60         5.56     -1.73  Friends
-## 5     5 Treatment         4.91     4.16         6.41      0.833 Friends
-## 6     6 Control           4.98     3.64         5.40      0.315 Family 
-## 7     7 Control           3.95     2.44         5.01     -0.884 Family
+## # A tibble: 7 x 9
+##      id cond    gratitude_t1 interdep gender gratitude_t2 interdep_c cond2
+##   <int> <chr>          <dbl>    <dbl> <chr>         <dbl>      <dbl> <chr>
+## 1     1 Treatm~         3.35     3.89 male           5.05      0.567 Fami~
+## 2     2 Treatm~         4.76     3.88 female         4.55      0.555 Fami~
+## 3     3 Treatm~         5.53     4.18 male           4.76      0.856 Fami~
+## 4     4 Treatm~         2.27     1.60 female         5.56     -1.73  Frie~
+## 5     5 Treatm~         4.91     4.16 male           6.41      0.833 Frie~
+## 6     6 Control         4.98     3.64 female         5.40      0.315 Fami~
+## 7     7 Control         3.95     2.44 male           5.01     -0.884 Fami~
+## # ... with 1 more variable: gender2 <chr>
 ```
 
 ```r
@@ -555,12 +570,13 @@ joined_survey %>%
 ```
 
 ```
-## # A tibble: 3 x 7
-##      id cond      gratitude_t1 interdep gratitude_t2 interdep_c cond2 
-##   <int> <chr>            <dbl>    <dbl>        <dbl>      <dbl> <chr> 
-## 1     1 Treatment         3.35     3.89         5.05      0.567 Family
-## 2     2 Treatment         4.76     3.88         4.55      0.555 Family
-## 3     7 Control           3.95     2.44         5.01     -0.884 Family
+## # A tibble: 3 x 9
+##      id cond    gratitude_t1 interdep gender gratitude_t2 interdep_c cond2
+##   <int> <chr>          <dbl>    <dbl> <chr>         <dbl>      <dbl> <chr>
+## 1     1 Treatm~         3.35     3.89 male           5.05      0.567 Fami~
+## 2     2 Treatm~         4.76     3.88 female         4.55      0.555 Fami~
+## 3     7 Control         3.95     2.44 male           5.01     -0.884 Fami~
+## # ... with 1 more variable: gender2 <chr>
 ```
 
 ```r
@@ -570,16 +586,17 @@ joined_survey %>%
 ```
 
 ```
-## # A tibble: 7 x 7
-##      id cond      gratitude_t1 interdep gratitude_t2 interdep_c cond2  
-##   <int> <chr>            <dbl>    <dbl>        <dbl>      <dbl> <chr>  
-## 1     1 Treatment         3.35     3.89         5.05      0.567 Family 
-## 2     2 Treatment         4.76     3.88         4.55      0.555 Family 
-## 3     3 Treatment         5.53     4.18         4.76      0.856 Family 
-## 4     4 Treatment         2.27     1.60         5.56     -1.73  Friends
-## 5     5 Treatment         4.91     4.16         6.41      0.833 Friends
-## 6     6 Control           4.98     3.64         5.40      0.315 Family 
-## 7     9 Control           3.96     2.66         4.70     -0.664 Friends
+## # A tibble: 7 x 9
+##      id cond    gratitude_t1 interdep gender gratitude_t2 interdep_c cond2
+##   <int> <chr>          <dbl>    <dbl> <chr>         <dbl>      <dbl> <chr>
+## 1     1 Treatm~         3.35     3.89 male           5.05      0.567 Fami~
+## 2     2 Treatm~         4.76     3.88 female         4.55      0.555 Fami~
+## 3     3 Treatm~         5.53     4.18 male           4.76      0.856 Fami~
+## 4     4 Treatm~         2.27     1.60 female         5.56     -1.73  Frie~
+## 5     5 Treatm~         4.91     4.16 male           6.41      0.833 Frie~
+## 6     6 Control         4.98     3.64 female         5.40      0.315 Fami~
+## 7     9 Control         3.96     2.66 male           4.70     -0.664 Frie~
+## # ... with 1 more variable: gender2 <chr>
 ```
 
 ```r
@@ -589,13 +606,14 @@ joined_survey %>%
 ```
 
 ```
-## # A tibble: 4 x 7
-##      id cond      gratitude_t1 interdep gratitude_t2 interdep_c cond2  
-##   <int> <chr>            <dbl>    <dbl>        <dbl>      <dbl> <chr>  
-## 1     2 Treatment         4.76     3.88         4.55      0.555 Family 
-## 2     3 Treatment         5.53     4.18         4.76      0.856 Family 
-## 3     5 Treatment         4.91     4.16         6.41      0.833 Friends
-## 4     6 Control           4.98     3.64         5.40      0.315 Family
+## # A tibble: 4 x 9
+##      id cond    gratitude_t1 interdep gender gratitude_t2 interdep_c cond2
+##   <int> <chr>          <dbl>    <dbl> <chr>         <dbl>      <dbl> <chr>
+## 1     2 Treatm~         4.76     3.88 female         4.55      0.555 Fami~
+## 2     3 Treatm~         5.53     4.18 male           4.76      0.856 Fami~
+## 3     5 Treatm~         4.91     4.16 male           6.41      0.833 Frie~
+## 4     6 Control         4.98     3.64 female         5.40      0.315 Fami~
+## # ... with 1 more variable: gender2 <chr>
 ```
 
 ```r
@@ -605,13 +623,14 @@ joined_survey %>%
 ```
 
 ```
-## # A tibble: 4 x 7
-##      id cond    gratitude_t1 interdep gratitude_t2 interdep_c cond2  
-##   <int> <chr>          <dbl>    <dbl>        <dbl>      <dbl> <chr>  
-## 1     6 Control         4.98     3.64         5.40      0.315 Family 
-## 2     7 Control         3.95     2.44         5.01     -0.884 Family 
-## 3     8 Control         3.98     3.47         4.63      0.149 Friends
-## 4     9 Control         3.96     2.66         4.70     -0.664 Friends
+## # A tibble: 4 x 9
+##      id cond   gratitude_t1 interdep gender gratitude_t2 interdep_c cond2 
+##   <int> <chr>         <dbl>    <dbl> <chr>         <dbl>      <dbl> <chr> 
+## 1     6 Contr~         4.98     3.64 female         5.40      0.315 Family
+## 2     7 Contr~         3.95     2.44 male           5.01     -0.884 Family
+## 3     8 Contr~         3.98     3.47 female         4.63      0.149 Frien~
+## 4     9 Contr~         3.96     2.66 male           4.70     -0.664 Frien~
+## # ... with 1 more variable: gender2 <chr>
 ```
 
 ```r
@@ -666,18 +685,19 @@ joined_survey %>%
 ```
 
 ```
-## # A tibble: 9 x 7
-##      id cond      gratitude_t1 interdep gratitude_t2 interdep_c cond2  
-##   <int> <chr>            <dbl>    <dbl>        <dbl>      <dbl> <chr>  
-## 1     6 Control           4.98     3.64         5.40      0.315 Family 
-## 2     7 Control           3.95     2.44         5.01     -0.884 Family 
-## 3     8 Control           3.98     3.47         4.63      0.149 Friends
-## 4     9 Control           3.96     2.66         4.70     -0.664 Friends
-## 5     1 Treatment         3.35     3.89         5.05      0.567 Family 
-## 6     2 Treatment         4.76     3.88         4.55      0.555 Family 
-## 7     3 Treatment         5.53     4.18         4.76      0.856 Family 
-## 8     4 Treatment         2.27     1.60         5.56     -1.73  Friends
-## 9     5 Treatment         4.91     4.16         6.41      0.833 Friends
+## # A tibble: 9 x 9
+##      id cond    gratitude_t1 interdep gender gratitude_t2 interdep_c cond2
+##   <int> <chr>          <dbl>    <dbl> <chr>         <dbl>      <dbl> <chr>
+## 1     6 Control         4.98     3.64 female         5.40      0.315 Fami~
+## 2     7 Control         3.95     2.44 male           5.01     -0.884 Fami~
+## 3     8 Control         3.98     3.47 female         4.63      0.149 Frie~
+## 4     9 Control         3.96     2.66 male           4.70     -0.664 Frie~
+## 5     1 Treatm~         3.35     3.89 male           5.05      0.567 Fami~
+## 6     2 Treatm~         4.76     3.88 female         4.55      0.555 Fami~
+## 7     3 Treatm~         5.53     4.18 male           4.76      0.856 Fami~
+## 8     4 Treatm~         2.27     1.60 female         5.56     -1.73  Frie~
+## 9     5 Treatm~         4.91     4.16 male           6.41      0.833 Frie~
+## # ... with 1 more variable: gender2 <chr>
 ```
 
 ```r
@@ -687,18 +707,19 @@ joined_survey %>%
 ```
 
 ```
-## # A tibble: 9 x 7
-##      id cond      gratitude_t1 interdep gratitude_t2 interdep_c cond2  
-##   <int> <chr>            <dbl>    <dbl>        <dbl>      <dbl> <chr>  
-## 1     1 Treatment         3.35     3.89         5.05      0.567 Family 
-## 2     2 Treatment         4.76     3.88         4.55      0.555 Family 
-## 3     3 Treatment         5.53     4.18         4.76      0.856 Family 
-## 4     4 Treatment         2.27     1.60         5.56     -1.73  Friends
-## 5     5 Treatment         4.91     4.16         6.41      0.833 Friends
-## 6     6 Control           4.98     3.64         5.40      0.315 Family 
-## 7     7 Control           3.95     2.44         5.01     -0.884 Family 
-## 8     8 Control           3.98     3.47         4.63      0.149 Friends
-## 9     9 Control           3.96     2.66         4.70     -0.664 Friends
+## # A tibble: 9 x 9
+##      id cond    gratitude_t1 interdep gender gratitude_t2 interdep_c cond2
+##   <int> <chr>          <dbl>    <dbl> <chr>         <dbl>      <dbl> <chr>
+## 1     1 Treatm~         3.35     3.89 male           5.05      0.567 Fami~
+## 2     2 Treatm~         4.76     3.88 female         4.55      0.555 Fami~
+## 3     3 Treatm~         5.53     4.18 male           4.76      0.856 Fami~
+## 4     4 Treatm~         2.27     1.60 female         5.56     -1.73  Frie~
+## 5     5 Treatm~         4.91     4.16 male           6.41      0.833 Frie~
+## 6     6 Control         4.98     3.64 female         5.40      0.315 Fami~
+## 7     7 Control         3.95     2.44 male           5.01     -0.884 Fami~
+## 8     8 Control         3.98     3.47 female         4.63      0.149 Frie~
+## 9     9 Control         3.96     2.66 male           4.70     -0.664 Frie~
+## # ... with 1 more variable: gender2 <chr>
 ```
 
 ```r
@@ -708,18 +729,19 @@ joined_survey %>%
 ```
 
 ```
-## # A tibble: 9 x 7
-##      id cond      gratitude_t1 interdep gratitude_t2 interdep_c cond2  
-##   <int> <chr>            <dbl>    <dbl>        <dbl>      <dbl> <chr>  
-## 1     7 Control           3.95     2.44         5.01     -0.884 Family 
-## 2     9 Control           3.96     2.66         4.70     -0.664 Friends
-## 3     8 Control           3.98     3.47         4.63      0.149 Friends
-## 4     6 Control           4.98     3.64         5.40      0.315 Family 
-## 5     4 Treatment         2.27     1.60         5.56     -1.73  Friends
-## 6     2 Treatment         4.76     3.88         4.55      0.555 Family 
-## 7     1 Treatment         3.35     3.89         5.05      0.567 Family 
-## 8     5 Treatment         4.91     4.16         6.41      0.833 Friends
-## 9     3 Treatment         5.53     4.18         4.76      0.856 Family
+## # A tibble: 9 x 9
+##      id cond    gratitude_t1 interdep gender gratitude_t2 interdep_c cond2
+##   <int> <chr>          <dbl>    <dbl> <chr>         <dbl>      <dbl> <chr>
+## 1     7 Control         3.95     2.44 male           5.01     -0.884 Fami~
+## 2     9 Control         3.96     2.66 male           4.70     -0.664 Frie~
+## 3     8 Control         3.98     3.47 female         4.63      0.149 Frie~
+## 4     6 Control         4.98     3.64 female         5.40      0.315 Fami~
+## 5     4 Treatm~         2.27     1.60 female         5.56     -1.73  Frie~
+## 6     2 Treatm~         4.76     3.88 female         4.55      0.555 Fami~
+## 7     1 Treatm~         3.35     3.89 male           5.05      0.567 Fami~
+## 8     5 Treatm~         4.91     4.16 male           6.41      0.833 Frie~
+## 9     3 Treatm~         5.53     4.18 male           4.76      0.856 Fami~
+## # ... with 1 more variable: gender2 <chr>
 ```
   
   + `select()`
@@ -754,18 +776,18 @@ joined_survey %>%
 ```
 
 ```
-## # A tibble: 9 x 5
-##      id cond      gratitude_t1 interdep_c cond2  
-##   <int> <chr>            <dbl>      <dbl> <chr>  
-## 1     1 Treatment         3.35      0.567 Family 
-## 2     2 Treatment         4.76      0.555 Family 
-## 3     3 Treatment         5.53      0.856 Family 
-## 4     4 Treatment         2.27     -1.73  Friends
-## 5     5 Treatment         4.91      0.833 Friends
-## 6     6 Control           4.98      0.315 Family 
-## 7     7 Control           3.95     -0.884 Family 
-## 8     8 Control           3.98      0.149 Friends
-## 9     9 Control           3.96     -0.664 Friends
+## # A tibble: 9 x 7
+##      id cond      gratitude_t1 gender interdep_c cond2   gender2
+##   <int> <chr>            <dbl> <chr>       <dbl> <chr>   <chr>  
+## 1     1 Treatment         3.35 male        0.567 Family  1      
+## 2     2 Treatment         4.76 female      0.555 Family  0      
+## 3     3 Treatment         5.53 male        0.856 Family  1      
+## 4     4 Treatment         2.27 female     -1.73  Friends 0      
+## 5     5 Treatment         4.91 male        0.833 Friends 1      
+## 6     6 Control           4.98 female      0.315 Family  0      
+## 7     7 Control           3.95 male       -0.884 Family  1      
+## 8     8 Control           3.98 female      0.149 Friends 0      
+## 9     9 Control           3.96 male       -0.664 Friends 1
 ```
 
 + Sometimes you may want to change the format of your data to fit the statistical analysis you need. In this case, I may want to run a linear mixed model, so I need to put my data in long format.

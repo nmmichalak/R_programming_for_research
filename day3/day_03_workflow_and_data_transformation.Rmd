@@ -282,6 +282,16 @@ joined_survey <-
 
 ```
 
++ `recode()`
+     + use for Recoding categorical variables (can't really handle greater than or less than numbers)
+     
+```{r, recode}
+joined_survey <- 
+  joined_survey %>%
+  mutate(gender2 = gender %>% recode("male"= "1", "female" = "0"))
+
+```
+
   + `filter()`
     + filter will remove the entire row 
      + Remember that to save these things, we need to assign it to either the same dataframe object or a new dataframe. If I am worried about overwriting my dataframe, I'll create a new dataframe.
