@@ -173,7 +173,7 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
 
 ```
 
-# example: what types have cars have big engines but decent highway mpg?
+# example: which types of cars have big engines but decent highway mpg?
 > 3. add a new aesthetic mapping, like color
 >     + **class.** "type" of car
 >     + color maps onto class
@@ -187,62 +187,19 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = class)) +
 
 ```
 
-# which type of car has better mpg in the city?
-> - **cty.** city miles per gallon
->     + use new x- and y-axis aesthetics with `aes()`
->     + now x-position maps onto class
->     + and y-position maps onto cty
+# example: which types of cars use more fuel as their engines get bigger?
+> 4. add a faceting specification with `facet_wrap(facets)`
+>     + **class.** "type" of car
+>     + **facets.** facets = ~ "categorical variable name"
+>     + this "formula" splits your plot into facets, which are subsets of data based on categorical variables (preferably)
+
+**source.** [Data visualization: facets](http://r4ds.had.co.nz/data-visualisation.html#facets)
 
 ```{r}
 
-ggplot(data = mpg, mapping = aes(x = class, y = cty))
-
-```
-
-# which type of car has better mpg in the city?
-> - add a boxplot layer
->     + boxplots are a complex layer
->     + e.g., they require statistics like fences, hinges, and outliers in addition to the shapes we see
-
-**source.** [A layered grammar of graphics](http://vita.had.co.nz/papers/layered-grammar.pdf)
-
-```{r}
-
-ggplot(data = mpg, mapping = aes(x = class, y = cty)) +
-  geom_boxplot()
-
-```
-
-# which type of car has better mpg in the city?
-> - add a statistical summary layer
->     + normative bars representing means + 95% confidence intervals
->     + `stat_summary()`: "Summarise y values at unique/binned x"
->     + `mean_cl_normal()`: "... computes 3 summary variables: the sample mean and lower and upper Gaussian confidence limits based on the t-distribution."
-
-**sources.** `help("stat_summary")` and `help("mean_cl_normal")`
-
-```{r}
-
-ggplot(data = mpg, mapping = aes(x = class, y = cty)) +
-  stat_summary(geom = "bar", fun.data = mean_cl_normal) +
-  stat_summary(geom = "errorbar", fun.data = mean_cl_normal, width = 0)
-
-```
-
-# which type of car has better mpg in the city?
-> - **cty.** city miles per gallon  
-> - standard bars representing means + 95% confidence intervals  
->   + `stat_summary()`: "Summarise y values at unique/binned x"  
->   + `mean_cl_normal()`: "... computes 3 summary variables: the sample mean and lower and upper Gaussian   confidence limits based on the t-distribution."  
-> - fill the bars with fill = white, and color their outline with color = "black"
-
-**sources.** `help("stat_summary")` and `help("mean_cl_normal")`
-
-```{r}
-
-ggplot(data = mpg, mapping = aes(x = class, y = cty)) +
-  stat_summary(geom = "bar", fun.data = mean_cl_normal, fill = "white", color = "black") +
-  stat_summary(geom = "errorbar", fun.data = mean_cl_normal, width = 0)
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+  geom_point() +
+  facet_wrap(facets = ~ class)
 
 ```
 
@@ -274,8 +231,80 @@ sleepstudy %>% sample_n(size = 15)
 
 ggplot(data = sleepstudy, mapping = aes(x = Days, y = Reaction)) +
   geom_point() +
-  scale_x_continuous(breaks = seq(from = 0, to = 9, by = 1)) +
   facet_wrap(facets = ~ Subject)
+
+```
+
+# example: which type of car has better mpg in the city, on average?
+> - **cty.** city miles per gallon
+>     + use new x- and y-axis aesthetics with `aes()`
+>     + now x-position maps onto class
+>     + and y-position maps onto cty
+
+```{r}
+
+ggplot(data = mpg, mapping = aes(x = class, y = cty))
+
+```
+
+# which type of car has better mpg in the city, on average?
+> - add a boxplot layer
+>     + boxplots are a complex layer
+>     + e.g., they require statistics like fences, hinges, and outliers in addition to the shapes we see
+
+**source.** [A layered grammar of graphics](http://vita.had.co.nz/papers/layered-grammar.pdf)
+
+```{r}
+
+ggplot(data = mpg, mapping = aes(x = class, y = cty)) +
+  geom_boxplot()
+
+```
+
+# which type of car has better mpg in the city, on average?
+> - add a statistical summary layer
+>     + normative bars representing means + 95% confidence intervals
+>     + `stat_summary()`: "Summarise y values at unique/binned x"
+
+**sources.** `help("stat_summary")`
+
+```{r}
+
+ggplot(data = mpg, mapping = aes(x = class, y = cty)) +
+  stat_summary(geom = "bar", fun.data = mean_cl_normal)
+
+```
+
+# which type of car has better mpg in the city, on average?
+> - add a statistical summary layer
+>     + normative bars representing means + 95% confidence intervals
+>     + `stat_summary()`: "Summarise y values at unique/binned x"
+>     + `mean_cl_normal()`: "... computes 3 summary variables: the sample mean and lower and upper Gaussian confidence limits based on the t-distribution."
+
+**sources.** `help("stat_summary")` and `help("mean_cl_normal")`
+
+```{r}
+
+ggplot(data = mpg, mapping = aes(x = class, y = cty)) +
+  stat_summary(geom = "bar", fun.data = mean_cl_normal) +
+  stat_summary(geom = "errorbar", fun.data = mean_cl_normal, width = 0)
+
+```
+
+# which type of car has better mpg in the city, on average?
+> - **cty.** city miles per gallon  
+> - standard bars representing means + 95% confidence intervals  
+>   + `stat_summary()`: "Summarise y values at unique/binned x"  
+>   + `mean_cl_normal()`: "... computes 3 summary variables: the sample mean and lower and upper Gaussian   confidence limits based on the t-distribution."  
+> - fill the bars with fill = white, and color their outline with color = "black"
+
+**sources.** `help("stat_summary")` and `help("mean_cl_normal")`
+
+```{r}
+
+ggplot(data = mpg, mapping = aes(x = class, y = cty)) +
+  stat_summary(geom = "bar", fun.data = mean_cl_normal, fill = "white", color = "black") +
+  stat_summary(geom = "errorbar", fun.data = mean_cl_normal, width = 0)
 
 ```
 
@@ -322,6 +351,7 @@ ggplot(data = US_births_2000_2014, mapping = aes(x = day_of_week, y = births)) +
 >     + generate bars of means with 95% confidence intervals with `stat_summary()`
 >     + generate a QQ-plot with `geom_qq()`
 >     + generate a histogram with `geom_histogram()`
+>     + facet your data with `facet_wrap()`
 >     + use the `help()` function, the [**tidyverse website**](https://www.tidyverse.org/), and Google (e.g., "qq-plot in ggplot2") to troubleshoot problems
 
 # resources
