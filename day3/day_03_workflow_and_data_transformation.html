@@ -332,7 +332,7 @@ rm(x, y)</code></pre>
 </ul></li>
 </ul>
 <pre class="r"><code># install the package if you don't have it
-# install.packages(&quot;nycflights13&quot;)
+# install.packages(&quot;nycflights13&quot;, &quot;magrittr&quot;)
 
 # load the library
 library(tidyverse)</code></pre>
@@ -370,7 +370,7 @@ library(readxl)</code></pre>
 </div>
 <div id="sets-the-functions-as-being-part-of-the-packages-you-actually-want-to-pull-from-so-you-dont-have-to-keep-writing-this" class="section level1">
 <h1>sets the functions as being part of the packages you actually want to pull from so you don’t have to keep writing this</h1>
-<p>filter &lt;- dplyr::filter tibble &lt;- tibble::tibble</p>
+<p>filter &lt;- dplyr::filter tibble &lt;- tibble::tibble mutate &lt;- dplyr::mutate</p>
 <p>```</p>
 <ul>
 <li>?function will bring up a help screen for that function
@@ -398,11 +398,12 @@ library(readxl)</code></pre>
 <li><p>reading excel files</p>
 <ul>
 <li>read_xls(path = , sheet = )</li>
+<li>read_xlsx(path = , sheet = )</li>
 <li>need to give them a sheet number or a string name in quotes</li>
 </ul></li>
 <li>Writing datasets: once you’ve worked on your dataset in R you may want to save that dataset
 <ul>
-<li>write_sav(dataframename, “filepath”)</li>
+<li>write_sav(dataframename, file)</li>
 <li>write_csv()</li>
 <li>writing xls requires package xlsx and the function is write.xls()</li>
 </ul></li>
@@ -441,8 +442,15 @@ nrow(time1_survey)</code></pre>
 ncol(time1_survey)</code></pre>
 <pre><code>## [1] 5</code></pre>
 <pre class="r"><code>#quickly see what the frequency of something is
-time1_survey %$%
-  table(cond)</code></pre>
+time1_survey %&gt;%
+  count(cond)</code></pre>
+<pre><code>## # A tibble: 2 x 2
+##   cond          n
+##   &lt;chr&gt;     &lt;int&gt;
+## 1 Control       5
+## 2 Treatment     5</code></pre>
+<pre class="r"><code>time1_survey %$%
+  table(cond)  </code></pre>
 <pre><code>## cond
 ##   Control Treatment 
 ##         5         5</code></pre>
@@ -471,7 +479,9 @@ time2_survey &lt;- read_csv(&quot;data/time2_survey.csv&quot;)</code></pre>
 full_joined_survey &lt;- full_join(x = time1_survey, y = time2_survey, by = &quot;id&quot;)
 
 #inner join only retains data that is matched (only people who did both parts are retained)
-joined_survey &lt;- inner_join(x = time1_survey, y = time2_survey, by = &quot;id&quot;)</code></pre>
+#joined_survey &lt;- inner_join(x = time1_survey, y = time2_survey, by = (&quot;subjectid&quot;=&quot;participantid&quot;))
+
+joined_survey &lt;- inner_join(x = time1_survey, y = time2_survey, by = (&quot;id&quot;))</code></pre>
 <ul>
 <li>left and right join
 <ul>
@@ -583,8 +593,7 @@ joined_survey &lt;- joined_survey %&gt;%
 </ul>
 <pre class="r"><code>joined_survey &lt;- 
   joined_survey %&gt;%
-  mutate(gender2 = gender %&gt;% recode(&quot;male&quot;= &quot;1&quot;, &quot;female&quot; = &quot;0&quot;))</code></pre>
-<p>Did you notice I have an embedded pipe scenario going on here, how crazy is that!</p>
+  mutate(gender2 = recode(gender, &quot;male&quot;= &quot;1&quot;, &quot;female&quot; = &quot;0&quot;))</code></pre>
 <ul>
 <li><code>filter()</code>
 <ul>

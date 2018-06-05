@@ -39,7 +39,7 @@ pre { /* Code block - determines code spacing between lines */
 ## 1. Basic functionality (Tools ----> Keyboard shortcuts help) <br>
   + You can use the up arrow key to replay a line you already ran
   + Ctrl Enter will run a line
-  + Alt +- will draw an arrow
+  + Alt +- will draw an arrow 
   + Ctrl Shift M will draw a pipe operator
   + R is case sensitive so it matters if you caps or not, have a space in there or not
   + When writing code, use # in front of a comment. Frequently comment your code so you know what's happening 5 years later.
@@ -147,7 +147,7 @@ rm(x, y)
 
 ```r
 # install the package if you don't have it
-# install.packages("nycflights13")
+# install.packages("nycflights13", "magrittr")
 
 # load the library
 library(tidyverse)
@@ -235,6 +235,7 @@ library(readxl)
 
 filter <- dplyr::filter
 tibble <- tibble::tibble
+mutate <- dplyr::mutate
 
 ```
   
@@ -257,10 +258,11 @@ tibble <- tibble::tibble
   + reading excel files
 
     + read_xls(path = , sheet = ) 
+    + read_xlsx(path = , sheet = )
     + need to give them a sheet number or a string name in quotes
 
   + Writing datasets: once you've worked on your dataset in R you may want to save that dataset 
-    + write_sav(dataframename, "filepath")
+    + write_sav(dataframename, file)
     + write_csv()
     + writing xls requires package xlsx and the function is write.xls()
 
@@ -330,8 +332,21 @@ ncol(time1_survey)
 
 ```r
 #quickly see what the frequency of something is
+time1_survey %>%
+  count(cond)
+```
+
+```
+## # A tibble: 2 x 2
+##   cond          n
+##   <chr>     <int>
+## 1 Control       5
+## 2 Treatment     5
+```
+
+```r
 time1_survey %$%
-  table(cond)
+  table(cond)  
 ```
 
 ```
@@ -371,7 +386,9 @@ time2_survey <- read_csv("data/time2_survey.csv")
 full_joined_survey <- full_join(x = time1_survey, y = time2_survey, by = "id")
 
 #inner join only retains data that is matched (only people who did both parts are retained)
-joined_survey <- inner_join(x = time1_survey, y = time2_survey, by = "id")
+#joined_survey <- inner_join(x = time1_survey, y = time2_survey, by = ("subjectid"="participantid"))
+
+joined_survey <- inner_join(x = time1_survey, y = time2_survey, by = ("id"))
 ```
 
   + left and right join
@@ -505,9 +522,8 @@ joined_survey <-
 ```r
 joined_survey <- 
   joined_survey %>%
-  mutate(gender2 = gender %>% recode("male"= "1", "female" = "0"))
+  mutate(gender2 = recode(gender, "male"= "1", "female" = "0"))
 ```
-Did you notice I have an embedded pipe scenario going on here, how crazy is that!
 
   + `filter()`
     + filter will remove the entire row 
