@@ -1,6 +1,6 @@
 ---
 title: "day 4 summarize and model"
-date: "5/23/2018"
+date: "06/06/2018"
 output:
   html_document:
     df_print: kable
@@ -53,17 +53,21 @@ recode <- dplyr::recode
 
 ```{r}
 
-data("C3T3")
+# the semicolon is equivalent to starting a new line of code
+data("C3T3"); C3T3 <- as_tibble(C3T3)
 C3T3 %>% sample_n(size = 15)
 
 ```
 
 # example: generate descriptive statistics
+> - `recode()`: recodes values in a vector; use `` for numbers (see example below)
+
+**source.** `help("recode")`
 
 ```{r}
 
 C3T3 <- C3T3 %>% 
-  mutate(condition_lbl = Condition %>% recode(`1` = "Pleasant/elated", `2` = "Neutral", `3` = "Unpleasant/depressed"))
+  mutate(condition_lbl = recode(Condition, `1` = "Pleasant/elated", `2` = "Neutral", `3` = "Unpleasant/depressed"))
 
 C3T3 %>% sample_n(size = 15)
 
@@ -71,13 +75,14 @@ C3T3 %>% sample_n(size = 15)
 
 # example: generate descriptive statistics
 > - `describe()`: "There are many summary statistics available in R; this function provides the ones most useful for scale construction and item analysis in classic psychometrics. Range is most useful for the first pass in a data set, to check for coding errors."
+> - `pull()`: "Pull out a single variable" (from a data.frame)
 
-**sources.** `help("describe")`
+**sources.** `help("describe")` and `help("pull")`
 
 ```{r}
 
 C3T3 %>% 
-  select(Rating) %>% 
+  pull(Rating) %>% 
   describe()
 
 ```
@@ -91,8 +96,8 @@ C3T3 %>%
 ```{r}
 
 C3T3 %>% 
-  select(Rating) %>% 
-  describeBy(group = select(C3T3, condition_lbl), mat = TRUE)
+  pull(Rating) %>% 
+  describeBy(group = pull(C3T3, condition_lbl), mat = TRUE)
 
 ```
 
@@ -106,19 +111,17 @@ C3T3 %>%
 >     + **extra.** numeric increase in hours of sleep
 >     + **group.** drug given
 
-**source.** `help("sleep")` and `help("count")`
+**source.** `help("sleep")`
 
 # example: test whether the difference between two mean increases in hours of sleep = 0
 
 ```{r}
 
 sleep <- sleep %>% 
-  mutate(group = group %>% recode(`1` = "no drug", `2` = "drug given"),
-         givedrug = group %>% recode("no drug" = -1 / 2, "drug given" = 1 / 2))
+  mutate(group = recode(group, `1` = "no drug", `2` = "drug given"),
+         givedrug = recode(group, "no drug" = -1 / 2, "drug given" = 1 / 2))
 
-# count/tally observations by group
-sleep %>% 
-  count(group, givedrug)
+sleep %>% sample_n(size = 15)
 
 ```
 
@@ -195,24 +198,6 @@ t.test(extra ~ givedrug, data = sleep, var.equal = TRUE)
 
 ```
 
-# nerdy aside: test mean difference via linear regression, "controling" for ID
-> - print `lm1`'s results with `summary()`
->     + **summary() for lm objects.** "print.summary.lm tries to be smart about formatting the coefficients, standard errors, etc. and additionally gives 'significance stars' if signif.stars is TRUE."
->     + `factor()` treats `ID` like a categorigcal variable
-> - compare to `t.test(formula, paired)`
-
-**source.** `help("print.summary.lm")` ahd `help("factor")`
-
-```{r}
-
-# linear regression controling for ID
-summary(lm(extra ~ givedrug + factor(ID), data = sleep))
-
-# compare to paired t-test
-t.test(extra ~ givedrug, data = sleep, paired = TRUE)
-
-```
-
 # example: test two contrasts ...
 > - **Contrast 1.** Pleasant/elated vs. Neutral
 > - **Contrast 2.** Pleasant/elated and Neutral combined vs. Unpleasant/depressed
@@ -224,11 +209,10 @@ t.test(extra ~ givedrug, data = sleep, paired = TRUE)
 ```{r}
 
 C3T3 <- C3T3 %>% 
-  mutate(plsntVneut = condition_lbl %>% recode("Pleasant/elated" = 1 / 2, "Neutral" = -1 / 2, "Unpleasant/depressed" = 0),
-         plsntneutVunplsnt = condition_lbl %>% recode("Pleasant/elated" = 1 / 4, "Neutral" = 1 / 4, "Unpleasant/depressed" = -1 / 2))
+  mutate(plsntVneut = recode(condition_lbl, "Pleasant/elated" = 1 / 2, "Neutral" = -1 / 2, "Unpleasant/depressed" = 0),
+         plsntneutVunplsnt = recode(condition_lbl, "Pleasant/elated" = 1 / 4, "Neutral" = 1 / 4, "Unpleasant/depressed" = -1 / 2))
 
-C3T3 %>% 
-  count(Condition, condition_lbl, plsntVneut, plsntneutVunplsnt)
+C3T3 %>% sample_n(size = 15)
 
 ```
 
@@ -322,14 +306,15 @@ C7T1 %>% sample_n(size = 15)
 C7T1 <- C7T1 %>% 
   mutate(biofeedback = ifelse(Group %in% c(1, 2), "Biofeedback",
                        ifelse(Group %in% c(3, 4), "No biofeedback", NA)),
-         biofeed_cont = biofeedback %>% recode("Biofeedback" = 1 / 2, "No biofeedback" = -1 / 2),
+         biofeed_cont = recode(biofeedback, "Biofeedback" = 1 / 2, "No biofeedback" = -1 / 2),
          drug = ifelse(Group %in% c(1, 3), "Drug",
                 ifelse(Group %in% c(2, 4), "No drug", NA)),
-         drug_cont = drug %>% recode("Drug" = 1 / 2, "No drug" = -1 / 2),
+         drug_cont = recode(drug, "Drug" = 1 / 2, "No drug" = -1 / 2),
          group_lbl = interaction(biofeedback, drug, sep = " x "))
 
-C7T1 %>% 
-  count(Group, group_lbl, biofeedback, biofeed_cont, drug, drug_cont)
+# count/tally observations by group
+C7T1 %>%
+  count(Group, group_lbl, biofeedback, drug, biofeed_cont, drug_cont)
 
 ```
 
@@ -399,7 +384,7 @@ Anova(lm3.2, type = "III")
 
 ```{r}
 
-data("C3E19")
+data("C3E19"); C3E19 <- as_tibble(C3E19)
 
 C3E19 %>% sample_n(size = 15)
 
@@ -430,7 +415,7 @@ C3E19 <- C3E19 %>%
          immrVdstn = selfpersp %>% recode("self-immersed" = -1 / 2, "self-distanced" = 1 / 2),
          emotfocus = ifelse(Condition %in% c(1, 3), "focus on what",
                      ifelse(Condition %in% c(2, 4), "focus on why", NA)),
-         whatVwhy = emotfocus %>% recode("focus on what" = -1 / 2, "focus on why" = 1 / 2),
+         whatVwhy = recode(emotfocus, "focus on what" = -1 / 2, "focus on why" = 1 / 2),
          condition_lbl = interaction(emotfocus, selfpersp, sep = " x "))
 
 C3E19 %>% 
@@ -488,6 +473,7 @@ Anova(lm4, type = "III")
 
 ```{r}
 
+sat.act <- as_tibble(sat.act)
 sat.act %>% sample_n(size = 15)
 
 ```
@@ -548,6 +534,7 @@ sat.act %>%
 
 ```{r}
 
+sleepstudy <- as_tibble(sleepstudy)
 sleepstudy %>% sample_n(size = 15)
 
 ```
@@ -617,7 +604,7 @@ summary(lmer1)
 
 ```{r}
 
-data("Garcia")
+data("Garcia"); Garcia <- as_tibble(Garcia)
 
 Garcia %>% sample_n(size = 15)
 
@@ -635,8 +622,8 @@ Garcia %>% sample_n(size = 15)
 
 Garcia <- Garcia %>% 
   mutate(protest_lbl = protest %>% recode(`0` = "no protest", `1` = "individual protest", `2` = "collective protest"),
-         protestVnone = protest_lbl %>% recode("no protest" = -1 / 2, "individual protest" = 1 / 4, "collective protest" = 1 / 4),
-         indvVclct = protest_lbl %>% recode("no protest" = 0, "individual protest" = -1 / 2, "collective protest" = 1 / 2))
+         protestVnone = recode(protest_lbl, "no protest" = -1 / 2, "individual protest" = 1 / 4, "collective protest" = 1 / 4),
+         indvVclct = recode(protest_lbl, "no protest" = 0, "individual protest" = -1 / 2, "collective protest" = 1 / 2))
 
 Garcia %>% 
   count(protest, protest_lbl, protestVnone, indvVclct)
@@ -714,6 +701,12 @@ parameterestimates(sem1, standardized = TRUE, boot.ci.type = "bca.simple")
 
 # example: conduct a parallel analysis to help asses how many factor to extract
 > - **bfi.** "25 personality self report items taken from the International Personality Item Pool (ipip.ori.org) were included as part of the Synthetic Aperture Personality Assessment (SAPA) web based personality assessment project. The data from 2800 subjects are included here as a demonstration set for scale construction, factor analysis, and Item Response Theory analysis. Three additional demographic variables (sex, education, and age) are also included."
+
+```{r}
+
+bfi %>% sample_n(size = 15)
+
+```
 
 **source.** `help("bfi")`
 
