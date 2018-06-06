@@ -1,0 +1,163 @@
+---
+title: "study 1 data analysis"
+date: "06/06/2018"
+---
+
+# packages
+
+```{r, warning = FALSE, message = FALSE}
+
+# install.packages("tidyverse")
+# install.packages("knitr")
+# install.packages("psych")
+# install.packages("car")
+# install.packages("heplots")
+library(tidyverse)
+library(knitr)
+library(psych)
+library(car)
+library(heplots)
+
+# I want recode from dplyr
+recode <- dplyr::recode
+
+```
+
+# data
+
+```{r, warning = FALSE, message = FALSE}
+
+hsb2 <- "data/study1/cleandata/hsb2.csv" %>% read_csv()
+
+```
+
+# custom functions
+
+```{r}
+
+source("functions/oneway.R")
+
+```
+
+# create contrast variables
+
+```{r}
+
+hsb2 <- hsb2 %>%
+  mutate(lowhigh = recode(ses_lbl, "Low" = -0.5, "Middle" = 0, "High" = 0.5),
+         lomidVhi = recode(ses_lbl, "Low" = -0.25, "Middle" = -0.25, "High" = 0.5),
+         acadgenrl = recode(program_lbl, "Academic" = -0.5, "General" = 0.5, "Vocation" = 0),
+         vocVacgen = recode(program_lbl, "Academic" = -0.25, "General" = -0.25, "Vocation" = 0.5),
+         ses_program = interaction(ses_lbl, program_lbl, sep = " x ") %>% factor(levels = ))
+
+hsb2 %>% 
+  count(ses_program, ses_lbl, program_lbl, lowhigh, lomidVhi, acadgenrl, vocVacgen) %>% 
+  kable()
+
+```
+
+# model
+
+## does social studies score depend on socioeconomic status and program?
+
+### fit linear regression
+
+```{r}
+
+lm1 <- lm(SOCST ~ (lowhigh + lomidVhi) * (acadgenrl + vocVacgen), data = hsb2)
+
+```
+
+### results (specific contrasts)
+
+```{r}
+
+summary(lm1)
+
+```
+
+### ANOVA results
+
+```{r}
+
+Anova(lm1, type = "3")
+
+```
+
+### eta-squared and partial eta-squared
+
+```{r}
+
+etasq(lm1, partial = FALSE)
+etasq(lm1, partial = TRUE)
+
+```
+
+## Welch contrasts
+> see [Testing Between-Subjects Contrasts in R
+](http://nickmichalak.com/blog_entries/2018/nrg06/nrg06.html)
+
+```{r}
+
+with(hsb2, oneway(dv = SOCST, group = ses_program, contrast = list(lowhigh = c(1, -1, 0, 1, -1, 0, -1, 1, 0)), alpha = 0.05))
+
+```
+
+# Does reading aptidude supress, mediate, or confound the relationship between math and science aptitude?
+> MacKinnon, D. P., Krull, J. L., & Lockwood, C. M. (2000). Equivalence of the mediation, confounding and suppression effect. Prevention science, 1(4), 173-181. [.pdf](http://w3dev.ualg.pt/~lfaisca/SMAD05/Prevention%20Science_Mackinnon_2000.pdf)
+
+## save math only and math + science models
+
+```{r}
+
+lm2 <- lm(SCIENCE ~ MATH, data = hsb2)
+lm3 <- lm(SCIENCE ~ MATH + READ, data = hsb2)
+
+```
+
+### examine diagnostic plots for the full model
+
+```{r}
+
+plot(lm3)
+
+```
+
+### results for both models
+
+```{r}
+
+summary(lm2)
+summary(lm3)
+
+```
+
+### (adjusted) R-squared change
+
+```{r}
+
+summary(lm3)$adj.r.squared - summary(lm2)$adj.r.squared
+
+```
+
+### test (adjusted) R-squared change
+
+```{r}
+
+anova(lm2, lm3)
+
+```
+
+### simple indirect effect test
+
+```{r}
+
+mediate(SCIENCE ~ MATH + (READ), data = hsb2, n.iter = 10000, use = "pairwise", plot = TRUE) %>% 
+  print(short = FALSE)
+
+```
+
+
+
+
+

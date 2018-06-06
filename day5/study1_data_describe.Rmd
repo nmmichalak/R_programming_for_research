@@ -1,0 +1,280 @@
+---
+title: "study 1 data describe"
+date: "06/06/2018"
+---
+
+# packages
+
+```{r, warning = FALSE, message = FALSE}
+
+# install.packages("tidyverse")
+# install.packages("psych")
+# install.packages("knitr")
+library(tidyverse)
+library(psych)
+library(knitr)
+
+```
+
+# data
+
+```{r, warning = FALSE, message = FALSE}
+
+hsb2 <- "data/study1/cleandata/hsb2.csv" %>% read_csv()
+
+```
+
+# demographics
+
+## gender
+
+```{r}
+
+hsb2 %>% 
+  count(FEMALE, gender_lbl) %>% 
+  kable()
+
+```
+
+## race
+
+```{r}
+
+hsb2 %>% 
+  count(RACE, race_lbl) %>% 
+  kable()
+
+```
+
+## socioeconomic status
+
+```{r}
+
+hsb2 %>% 
+  count(SES, ses_lbl) %>% 
+  kable()
+
+```
+
+## school type
+
+```{r}
+
+hsb2 %>% 
+  count(SCHTYP, schooltype_lbl) %>% 
+  kable()
+
+```
+
+## program
+
+```{r}
+
+hsb2 %>% 
+  count(PROG, program_lbl) %>% 
+  kable()
+
+```
+
+# visualize reading, writing, math, and science scores
+
+## boxplots of scores by gender
+
+```{r}
+
+hsb2 %>% 
+  select(gender_lbl, READ, WRITE, MATH, SCIENCE, SOCST) %>% 
+  gather(key = measure, value = score, READ, WRITE, MATH, SCIENCE, SOCST) %>% 
+  ggplot(mapping = aes(x = gender_lbl, y = score)) +
+  geom_boxplot() +
+  facet_wrap(facets = ~ measure)
+
+```
+
+## boxplots of scores by race
+
+```{r}
+
+hsb2 %>% 
+  select(race_lbl, READ, WRITE, MATH, SCIENCE, SOCST) %>% 
+  gather(key = measure, value = score, READ, WRITE, MATH, SCIENCE, SOCST) %>% 
+  ggplot(mapping = aes(x = race_lbl, y = score)) +
+  geom_boxplot() +
+  facet_wrap(facets = ~ measure)
+
+```
+
+## boxplots of scores by socioeconomic status
+
+```{r}
+
+hsb2 %>% 
+  select(ses_lbl, READ, WRITE, MATH, SCIENCE, SOCST) %>% 
+  gather(key = measure, value = score, READ, WRITE, MATH, SCIENCE, SOCST) %>% 
+  ggplot(mapping = aes(x = ses_lbl, y = score)) +
+  geom_boxplot() +
+  facet_wrap(facets = ~ measure)
+
+```
+
+## boxplots of scores by school type
+
+```{r}
+
+hsb2 %>% 
+  select(schooltype_lbl, READ, WRITE, MATH, SCIENCE, SOCST) %>% 
+  gather(key = measure, value = score, READ, WRITE, MATH, SCIENCE, SOCST) %>% 
+  ggplot(mapping = aes(x = schooltype_lbl, y = score)) +
+  geom_boxplot() +
+  facet_wrap(facets = ~ measure)
+
+```
+
+## boxplots of scores by program
+
+```{r}
+
+hsb2 %>% 
+  select(program_lbl, READ, WRITE, MATH, SCIENCE, SOCST) %>% 
+  gather(key = measure, value = score, READ, WRITE, MATH, SCIENCE, SOCST) %>% 
+  ggplot(mapping = aes(x = program_lbl, y = score)) +
+  geom_boxplot() +
+  facet_wrap(facets = ~ measure)
+
+```
+
+# visualize reading, writing, math, and science score normality
+
+## QQ-plots by gender
+
+```{r}
+
+hsb2 %>% 
+  select(gender_lbl, READ, WRITE, MATH, SCIENCE, SOCST) %>% 
+  gather(key = measure, value = score, READ, WRITE, MATH, SCIENCE, SOCST) %>% 
+  ggplot(mapping = aes(sample = score)) +
+  geom_qq() +
+  facet_grid(facets = gender_lbl ~ measure)
+
+```
+
+## QQ-plots by race
+
+```{r}
+
+hsb2 %>% 
+  select(race_lbl, READ, WRITE, MATH, SCIENCE, SOCST) %>% 
+  gather(key = measure, value = score, READ, WRITE, MATH, SCIENCE, SOCST) %>% 
+  ggplot(mapping = aes(sample = score)) +
+  geom_qq() +
+  facet_grid(facets = race_lbl ~ measure)
+
+```
+
+## QQ-plots by socioeconomic status
+
+```{r}
+
+hsb2 %>% 
+  select(ses_lbl, READ, WRITE, MATH, SCIENCE, SOCST) %>% 
+  gather(key = measure, value = score, READ, WRITE, MATH, SCIENCE, SOCST) %>% 
+  ggplot(mapping = aes(sample = score)) +
+  geom_qq() +
+  facet_grid(facets = ses_lbl ~ measure)
+
+```
+
+## QQ-plots by school type
+
+```{r}
+
+hsb2 %>% 
+  select(schooltype_lbl, READ, WRITE, MATH, SCIENCE, SOCST) %>% 
+  gather(key = measure, value = score, READ, WRITE, MATH, SCIENCE, SOCST) %>% 
+  ggplot(mapping = aes(sample = score)) +
+  geom_qq() +
+  facet_grid(facets = schooltype_lbl ~ measure)
+
+```
+
+## QQ-plots by program
+
+```{r}
+
+hsb2 %>% 
+  select(program_lbl, READ, WRITE, MATH, SCIENCE, SOCST) %>% 
+  gather(key = measure, value = score, READ, WRITE, MATH, SCIENCE, SOCST) %>% 
+  ggplot(mapping = aes(sample = score)) +
+  geom_qq() +
+  facet_grid(facets = program_lbl ~ measure)
+
+```
+
+# scatterplot matrices (i.e., correlations and histograms)
+
+## ignoring gender, race, socioeconomic status, schooltype, and program
+
+```{r}
+
+hsb2 %>% 
+  select(READ, WRITE, MATH, SCIENCE, SOCST) %>% 
+  pairs.panels(scale = FALSE, smooth = TRUE, pch = ".", ci = TRUE)
+
+```
+
+# describe reading, writing, math, and science scores
+
+## describe by gender
+
+```{r}
+
+hsb2 %>% 
+  select(READ, WRITE, MATH, SCIENCE, SOCST) %>% 
+  describeBy(group = select(hsb2, gender_lbl), mat = TRUE) %>% 
+  kable()
+
+```
+
+## describe by race
+
+```{r}
+
+hsb2 %>% 
+  select(READ, WRITE, MATH, SCIENCE, SOCST) %>% 
+  describeBy(group = select(hsb2, race_lbl), mat = TRUE) %>% 
+  kable()
+
+```
+
+## describe by socioeconomic status
+
+```{r}
+
+hsb2 %>% 
+  select(READ, WRITE, MATH, SCIENCE, SOCST) %>% 
+  describeBy(group = select(hsb2, ses_lbl), mat = TRUE) %>% 
+  kable()
+
+```
+
+## describe by school type
+
+```{r}
+
+hsb2 %>% 
+  select(READ, WRITE, MATH, SCIENCE, SOCST) %>% 
+  describeBy(group = select(hsb2, schooltype_lbl), mat = TRUE) %>% 
+  kable()
+
+```
+
+## describe by program
+
+```{r}
+
+hsb2 %>% 
+  select(READ, WRITE, MATH, SCIENCE, SOCST) %>% 
+  describeBy(group = select(hsb2, program_lbl), mat = TRUE) %>% 
+  kable()
+
+```
