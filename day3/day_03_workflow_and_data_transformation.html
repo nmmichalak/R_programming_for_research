@@ -331,46 +331,11 @@ rm(x, y)</code></pre>
 <li>Installing and Loading packages</li>
 </ul></li>
 </ul>
-<pre class="r"><code># install the package if you don't have it
-# install.packages(&quot;nycflights13&quot;, &quot;magrittr&quot;, &quot;haven&quot;, &quot;readxl&quot;)
+<pre class="r"><code># sets the functions as being part of the packages you actually want to pull from so you don't have to keep writing this
 
-# load the library
-library(tidyverse)</code></pre>
-<pre><code>## Warning: package 'tidyverse' was built under R version 3.4.4</code></pre>
-<pre><code>## -- Attaching packages ---------------------------------- tidyverse 1.2.1 --</code></pre>
-<pre><code>## v ggplot2 2.2.1     v purrr   0.2.4
-## v tibble  1.4.2     v dplyr   0.7.4
-## v tidyr   0.8.0     v stringr 1.2.0
-## v readr   1.1.1     v forcats 0.2.0</code></pre>
-<pre><code>## Warning: package 'tibble' was built under R version 3.4.4</code></pre>
-<pre><code>## Warning: package 'tidyr' was built under R version 3.4.4</code></pre>
-<pre><code>## Warning: package 'purrr' was built under R version 3.4.4</code></pre>
-<pre><code>## Warning: package 'dplyr' was built under R version 3.4.3</code></pre>
-<pre><code>## Warning: package 'stringr' was built under R version 3.4.3</code></pre>
-<pre><code>## -- Conflicts ------------------------------------- tidyverse_conflicts() --
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()</code></pre>
-<pre class="r"><code>library(nycflights13)</code></pre>
-<pre><code>## Warning: package 'nycflights13' was built under R version 3.4.4</code></pre>
-<pre class="r"><code>library(magrittr)</code></pre>
-<pre><code>## 
-## Attaching package: 'magrittr'</code></pre>
-<pre><code>## The following object is masked from 'package:purrr':
-## 
-##     set_names</code></pre>
-<pre><code>## The following object is masked from 'package:tidyr':
-## 
-##     extract</code></pre>
-<pre class="r"><code>#reads other data files
-library(haven)
-#reads excel files
-library(readxl)</code></pre>
-</div>
-</div>
-<div id="sets-the-functions-as-being-part-of-the-packages-you-actually-want-to-pull-from-so-you-dont-have-to-keep-writing-this" class="section level1">
-<h1>sets the functions as being part of the packages you actually want to pull from so you don’t have to keep writing this</h1>
-<p>filter &lt;- dplyr::filter tibble &lt;- tibble::tibble mutate &lt;- dplyr::mutate</p>
-<p>```</p>
+filter &lt;- dplyr::filter
+tibble &lt;- tibble::tibble
+mutate &lt;- dplyr::mutate</code></pre>
 <ul>
 <li>?function will bring up a help screen for that function
 <ul>
@@ -379,6 +344,7 @@ library(readxl)</code></pre>
 </ul></li>
 <li>Calling a function requires you type the name + the arguments it requires</li>
 </ul>
+</div>
 <div id="loading-datasets" class="section level2">
 <h2>5. Loading datasets</h2>
 <ul>

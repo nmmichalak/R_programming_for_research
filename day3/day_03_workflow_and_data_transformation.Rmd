@@ -112,7 +112,7 @@ rm(x, y)
   + Sometimes a function you need will be in a specific package
       + Installing and Loading packages
       
-```{r, packages}
+```{r, packages, include = FALSE}
 
 # install the package if you don't have it
 # install.packages("nycflights13", "magrittr", "haven", "readxl")
@@ -128,6 +128,7 @@ library(readxl)
 
 ```
 
+```{r, set function}
 # sets the functions as being part of the packages you actually want to pull from so you don't have to keep writing this
 
 filter <- dplyr::filter
@@ -164,7 +165,7 @@ mutate <- dplyr::mutate
     + writing xls requires package xlsx and the function is write.xls()
 
 + Reading in data for today + some helpful ways of looking at your data
-```{r, read in todays data}
+```{r, readdata}
 #Let's try loading two datasets I've made for the purposes of the examples for today.
 
 time1_survey <- read_csv("data/time1_survey.csv")

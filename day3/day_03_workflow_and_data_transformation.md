@@ -145,97 +145,14 @@ rm(x, y)
       + Installing and Loading packages
       
 
-```r
-# install the package if you don't have it
-# install.packages("nycflights13", "magrittr", "haven", "readxl")
 
-# load the library
-library(tidyverse)
-```
-
-```
-## Warning: package 'tidyverse' was built under R version 3.4.4
-```
-
-```
-## -- Attaching packages ---------------------------------- tidyverse 1.2.1 --
-```
-
-```
-## v ggplot2 2.2.1     v purrr   0.2.4
-## v tibble  1.4.2     v dplyr   0.7.4
-## v tidyr   0.8.0     v stringr 1.2.0
-## v readr   1.1.1     v forcats 0.2.0
-```
-
-```
-## Warning: package 'tibble' was built under R version 3.4.4
-```
-
-```
-## Warning: package 'tidyr' was built under R version 3.4.4
-```
-
-```
-## Warning: package 'purrr' was built under R version 3.4.4
-```
-
-```
-## Warning: package 'dplyr' was built under R version 3.4.3
-```
-
-```
-## Warning: package 'stringr' was built under R version 3.4.3
-```
-
-```
-## -- Conflicts ------------------------------------- tidyverse_conflicts() --
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()
-```
 
 ```r
-library(nycflights13)
-```
-
-```
-## Warning: package 'nycflights13' was built under R version 3.4.4
-```
-
-```r
-library(magrittr)
-```
-
-```
-## 
-## Attaching package: 'magrittr'
-```
-
-```
-## The following object is masked from 'package:purrr':
-## 
-##     set_names
-```
-
-```
-## The following object is masked from 'package:tidyr':
-## 
-##     extract
-```
-
-```r
-#reads other data files
-library(haven)
-#reads excel files
-library(readxl)
-```
-
 # sets the functions as being part of the packages you actually want to pull from so you don't have to keep writing this
 
 filter <- dplyr::filter
 tibble <- tibble::tibble
 mutate <- dplyr::mutate
-
 ```
   
   + ?function will bring up a help screen for that function
