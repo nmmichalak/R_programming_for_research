@@ -44,14 +44,16 @@ source("functions/oneway.R")
 ```{r}
 
 hsb2 <- hsb2 %>%
-  mutate(lowVhigh = recode(ses_lbl, "Low" = -0.5, "Middle" = 0, "High" = 0.5),
-         lomidVhi = recode(ses_lbl, "Low" = -0.25, "Middle" = -0.25, "High" = 0.5),
+  mutate(ses_linear = recode(ses_lbl, "Low" = -0.5, "Middle" = 0, "High" = 0.5),
+         ses_quad = recode(ses_lbl, "Low" = 0.25, "Middle" = -0.5, "High" = 0.25),
          acadVgenrl = recode(program_lbl, "Academic" = -0.5, "General" = 0.5, "Vocation" = 0),
          vocVacgen = recode(program_lbl, "Academic" = -0.25, "General" = -0.25, "Vocation" = 0.5),
-         ses_program = interaction(ses_lbl, program_lbl, sep = " x ") %>% factor(levels = ))
+         ses_lbl = factor(ses_lbl, levels = c("Low", "Middle", "High"), labels = c("Low", "Middle", "High")),
+         program_lbl = factor(program_lbl, c("Academic", "General", "Vocation"), labels = c("Academic", "General", "Vocation")),
+         ses_program = interaction(ses_lbl, program_lbl, sep = " x "))
 
 hsb2 %>% 
-  count(ses_program, ses_lbl, program_lbl, lowVhigh, lomidVhi, acadVgenrl, vocVacgen) %>% 
+  count(ses_program, ses_lbl, program_lbl, ses_linear, ses_quad, acadVgenrl, vocVacgen) %>% 
   kable()
 
 ```
@@ -64,7 +66,7 @@ hsb2 %>%
 
 ```{r}
 
-lm1 <- lm(SOCST ~ (lowVhigh + lomidVhi) * (acadVgenrl + vocVacgen), data = hsb2)
+lm1 <- lm(SOCST ~ (ses_linear + ses_quad) * (acadVgenrl + vocVacgen), data = hsb2)
 
 ```
 
@@ -99,19 +101,16 @@ etasq(lm1, partial = TRUE)
 
 ```{r}
 
-with(hsb2, oneway(dv = SOCST, group = ses_program, contrast = list(lowVhigh = c(1, -1, 0, 1, -1, 0, 1, -1, 0),
-                                                                   lomidVhi = c(1, -0.5, -0.5, 1, -0.5, -0.5, 1, -0.5, -0.5),
-                                                                   acadVgenrl = c(-1, -1, -1, 1, 1, 1, 0, 0, 0),
-                                                                   vocVacgen = c(-0.5, -0.5, -0.5, -0.5, -0.5, -0.5, 1, 1, 1),
-                                                                   "lowVhigh:acadVgenrl" = c(1, -1, 0, 1, -1, 0, 1, -1, 0) * c(-1, -1, -1, 1, 1, 1, 0, 0, 0),
-                                                                   "lowVhigh:vocVacgen" = c(1, -1, 0, 1, -1, 0, 1, -1, 0) * c(-0.5, -0.5, -0.5, -0.5, -0.5, -0.5, 1, 1, 1),
-                                                                   "lomidVhi:acadVgenrl" = c(1, -0.5, -0.5, 1, -0.5, -0.5, 1, -0.5, -0.5) * c(-1, -1, -1, 1, 1, 1, 0, 0, 0),
-                                                                   "lomidVhi:vocVacgen" = c(1, -0.5, -0.5, 1, -0.5, -0.5, 1, -0.5, -0.5) * c(-0.5, -0.5, -0.5, -0.5, -0.5, -0.5, 1, 1, 1))))
+with(hsb2, oneway(dv = SOCST, group = ses_program, contrast = list(ses_linear = c(-1, 0, 1, -1, 0, 1, -1, 0, 1) / 3,
+                                                                   ses_quad = c(0.5, -1, 0.5, 0.5, -1, 0.5, 0.5, -1, 0.5) / 3,
+                                                                   acadVgenrl = c(-1, -1, -1, 1, 1, 1, 0, 0, 0) / 3,
+                                                                   vocVacgen = c(-0.5, -0.5, -0.5, -0.5, -0.5, -0.5, 1, 1, 1) / 3))) %>% 
+  kable()
 
 ```
 
 # Does reading aptidude supress, mediate, or confound the relationship between math and science aptitude?
-> MacKinnon, D. P., Krull, J. L., & Lockwood, C. M. (2000). Equivalence of the mediation, confounding and suppression effect. Prevention science, 1(4), 173-181. [.pdf](http://w3dev.ualg.pt/~lfaisca/SMAD05/Prevention%20Science_Mackinnon_2000.pdf)
+> MacKinnon, D. P., Krull, J. L., & Lockwood, C. M. (2000). Equivalence of the mediation, confounding and suppression effect. Prevention science, 1(4), 173-181. [[.pdf](http://w3dev.ualg.pt/~lfaisca/SMAD05/Prevention%20Science_Mackinnon_2000.pdf)]
 
 ## save math only and math + science models
 

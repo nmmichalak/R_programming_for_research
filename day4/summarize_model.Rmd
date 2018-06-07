@@ -1,6 +1,6 @@
 ---
 title: "day 4 summarize and model"
-date: "06/06/2018"
+date: "06/07/2018"
 output:
   html_document:
     df_print: kable
@@ -69,7 +69,11 @@ C3T3 %>% sample_n(size = 15)
 C3T3 <- C3T3 %>% 
   mutate(condition_lbl = recode(Condition, `1` = "Pleasant/elated", `2` = "Neutral", `3` = "Unpleasant/depressed"))
 
+# print random subset
 C3T3 %>% sample_n(size = 15)
+
+# count/tally
+C3T3 %>% count(Condition, condition_lbl)
 
 ```
 
@@ -118,10 +122,14 @@ C3T3 %>%
 ```{r}
 
 sleep <- sleep %>% 
-  mutate(group = recode(group, `1` = "no drug", `2` = "drug given"),
-         givedrug = recode(group, "no drug" = -1 / 2, "drug given" = 1 / 2))
+  mutate(group_lbl = recode(group, `1` = "no drug", `2` = "drug given"),
+         givedrug = recode(group_lbl, "no drug" = -1 / 2, "drug given" = 1 / 2))
 
+# print random subset
 sleep %>% sample_n(size = 15)
+
+# count/tally
+sleep %>% count(group, group_lbl, givedrug)
 
 ```
 
@@ -136,7 +144,7 @@ sleep %>% sample_n(size = 15)
 ```{r}
 
 sleep %>% 
-  ggplot(mapping = aes(x = group, y = extra)) +
+  ggplot(mapping = aes(x = group_lbl, y = extra)) +
   geom_boxplot()
 
 ```
@@ -152,13 +160,13 @@ sleep %>%
 ```{r}
 
 # Welch t-test (equal variance not assumed)
-t.test(extra ~ group, data = sleep)
+t.test(extra ~ group_lbl, data = sleep)
 
 # Student t-test (equal variance assumed)
-t.test(extra ~ group, data = sleep, var.equal = TRUE)
+t.test(extra ~ group_lbl, data = sleep, var.equal = TRUE)
 
 # paired t-test
-t.test(extra ~ group, data = sleep, paired = TRUE)
+t.test(extra ~ group_lbl, data = sleep, paired = TRUE)
 
 ```
 
@@ -212,7 +220,11 @@ C3T3 <- C3T3 %>%
   mutate(plsntVneut = recode(condition_lbl, "Pleasant/elated" = 1 / 2, "Neutral" = -1 / 2, "Unpleasant/depressed" = 0),
          plsntneutVunplsnt = recode(condition_lbl, "Pleasant/elated" = 1 / 4, "Neutral" = 1 / 4, "Unpleasant/depressed" = -1 / 2))
 
+# print random subset
 C3T3 %>% sample_n(size = 15)
+
+# count/tally
+C3T3 %>% count(Condition, condition_lbl, plsntVneut, plsntneutVunplsnt)
 
 ```
 
@@ -311,6 +323,9 @@ C7T1 <- C7T1 %>%
                 ifelse(Group %in% c(2, 4), "No drug", NA)),
          drug_cont = recode(drug, "Drug" = 1 / 2, "No drug" = -1 / 2),
          group_lbl = interaction(biofeedback, drug, sep = " x "))
+
+# print random subset
+C7T1 %>% sample_n(size = 15)
 
 # count/tally observations by group
 C7T1 %>%
@@ -418,6 +433,10 @@ C3E19 <- C3E19 %>%
          whatVwhy = recode(emotfocus, "focus on what" = -1 / 2, "focus on why" = 1 / 2),
          condition_lbl = interaction(emotfocus, selfpersp, sep = " x "))
 
+# print random subset
+C7T1 %>% sample_n(size = 15)
+
+# count/tally
 C3E19 %>% 
   count(Condition, condition_lbl, selfpersp, immrVdstn, emotfocus, whatVwhy)
 
@@ -441,6 +460,7 @@ C3E19 %>%
 
 ```{r}
 
+# count/tally (remember contrasts)
 C3E19 %>% 
   count(Condition, condition_lbl, selfpersp, immrVdstn, emotfocus, whatVwhy)
 
@@ -454,6 +474,7 @@ t.test(Anger ~ emotfocus, data = C3E19)
 
 ```{r}
 
+# count/tally (remember contrasts)
 C3E19 %>% 
   count(Condition, condition_lbl, selfpersp, immrVdstn, emotfocus, whatVwhy)
 
@@ -625,8 +646,38 @@ Garcia <- Garcia %>%
          protestVnone = recode(protest_lbl, "no protest" = -1 / 2, "individual protest" = 1 / 4, "collective protest" = 1 / 4),
          indvVclct = recode(protest_lbl, "no protest" = 0, "individual protest" = -1 / 2, "collective protest" = 1 / 2))
 
+# print random subset
+Garcia %>% sample_n(size = 15)
+
+# count/tally
 Garcia %>% 
   count(protest, protest_lbl, protestVnone, indvVclct)
+
+```
+
+# example: test whether the indirect effect of protest on liking through appropriateness = 0
+> - **Garcia.**
+>     + **protest.** "0 = no protest, 1 = Individual Protest, 2 = Collective Protest"
+>     + **liking.** "Mean rating of 6 liking ratings of the target."
+>     + **respappr.** "Mean of four items of appropriateness of the target's response."
+> - not a bad idea to visualize your data
+
+**source.** `help("Garcia")`
+
+```{r}
+
+# boxplots
+Garcia %>% 
+  select(protest_lbl, respappr, liking) %>% 
+  gather(key = measure, value = response, respappr, liking) %>% 
+  ggplot(mapping = aes(x = protest_lbl, y = response)) +
+  geom_boxplot() +
+  facet_wrap(facets = ~ measure, scales = "free")
+
+# scatterplot matrix
+Garcia %>% 
+  select(respappr, liking) %>% 
+  pairs.panels(scale = FALSE, pch = ".")
 
 ```
 
