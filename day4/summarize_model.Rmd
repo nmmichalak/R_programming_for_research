@@ -816,6 +816,104 @@ with R**](http://lme4.r-forge.r-project.org/book/front.pdf)
 >     + reproduce `fa()` examples from [**An introduction to the psych package: Part II Scale construction and psychometrics**](https://cran.r-project.org/web/packages/psych/vignettes/overview.pdf)
 >     + use the `help()` function, the [**tidyverse website**](https://www.tidyverse.org/), and Google (e.g., "contrasts in R") to troubleshoot problems
 
+# why we don't want to recommend factors ...
+> - **factor type.** "A factor is a vector that can contain only predefined values, and is used to store categorical data. Factors are built on top of integer vectors using two attributes: the class, “factor”, which makes them behave differently from regular integer vectors, and the levels, which defines the set of allowed values."
+> - `factor(levels, labels)`: "factor returns an object of class "factor" which has a set of integer codes the length of x with a "levels" attribute of mode character and unique (!anyDuplicated(.)) entries."
+>     + **levels.** "an optional vector of the unique values (as character strings) that x might have taken. The default is the unique set of values taken by as.character(x), sorted into increasing order of x."
+>     + **labels.** "either an optional character vector of labels for the levels (in the same order as levels after removing those in exclude), or a character string of length 1."
+
+**sources.** [Advanced R: Data structures](http://adv-r.had.co.nz/Data-structures.html)
+
+```{r}
+
+C3E19 <- C3E19 %>%
+  mutate(selfperspF = factor(selfpersp, levels = c("self-immersed", "self-distanced"), labels = c("self-immersed", "self-distanced")),
+         emotfocusF = factor(emotfocus, levels = c("focus on what", "focus on why"), labels = c("focus on what", "focus on why")))
+
+# count/tally
+C3E19 %>% 
+  count(selfpersp, selfperspF, emotfocus, emotfocusF)
+
+```
+
+# why we don't want to recommend factors ...
+> - instead of using our effect-coded variables, let's use factors.
+
+```{r}
+
+# for comparison
+lm4 <- lm(Anger ~ immrVdstn * whatVwhy, data = C3E19)
+
+# using factors
+lm5 <- lm(Anger ~ selfperspF * emotfocusF, data = C3E19)
+
+```
+
+# why we don't want to recommend factors ...
+> - instead of using our effect-coded variables, let's use factors.
+> - compare results -- why are they different?
+
+```{r}
+
+summary(lm4)
+summary(lm5)
+
+```
+
+# why we don't want to recommend factors ...
+> - instead of using our effect-coded variables, let's use factors.
+> - compare results -- why are they different?
+> - because R contrasts are reference-group coded (i.e., dummy-coded) by default
+
+```{r}
+
+contrasts(C3E19$selfperspF)
+contrasts(C3E19$emotfocusF)
+
+```
+
+# why we don't want to recommend factors ...
+> - instead of using our effect-coded variables, let's use factors.
+> - compare results -- why are they different?
+> - because R contrasts are reference-group coded (i.e., dummy-coded) by default
+> - here's how the main effects and interactions were coded in `lm()`
+>     + DC = dummy code, EC = effect code
+>     + compare the effect-coded interaction to the dummy-coded interaction
+
+```{r}
+
+C3E19 <- C3E19 %>% 
+  mutate(immrVdstnDC = recode(immrVdstn, `-0.5` = 0, `0.5` = 1),
+         whatVwhyDC = recode(whatVwhy, `-0.5` = 0, `0.5` = 1),
+         interactionEC = immrVdstn * whatVwhy,
+         interactionDC = immrVdstnDC * whatVwhyDC)
+
+# count/tally
+C3E19 %>% 
+  count(selfperspF, emotfocusF, immrVdstn, whatVwhy, interactionEC, immrVdstnDC, whatVwhyDC, interactionDC)
+
+```
+
+# why we don't want to recommend factors ...
+> From [Rich Gonzalez, p. 32](http://www-personal.umich.edu/~gonzo/coursenotes/file8.pdf): "The entry in the first row/fourth column is 0 but it should be a 1 to code the correct interaction term. The mathematics of regression are such that the total R2 for the full model (all three predictors) will be correct if you enter these three predictors, but the test of the main effects will be wrong because the resulting codes are not the ones intended by the researcher. One needs to be very careful when using dummy coding. Because of their simplicity dummy codes are the most frequently used codes in regression and **it makes me wonder how many incorrect main effects are reported in the literature.**"
+> - Be careful when you code your effects! :-)
+
+```{r}
+
+# use effect codes
+contrasts(C3E19$selfperspF) <- c(-0.5, 0.5)
+contrasts(C3E19$emotfocusF) <- c(-0.5, 0.5)
+
+# print to make sure things are coded like you expect them to be
+contrasts(C3E19$selfperspF)
+contrasts(C3E19$emotfocusF)
+
+# now you get the same results
+summary(lm4)
+summary(lm(Anger ~ selfperspF * emotfocusF, data = C3E19))
+
+```
+
 # resources
 > - [**UCLA Institute for Digital Research and Education: R**](http://stats.idre.ucla.edu/r/) statistics and programming tutorials for R, among other helpful related resources
 > - [**The Personality Project: Using R for psychological research**](https://www.personality-project.org/r/r.guide.html) seemingly endless tutorials and explainers about R programming for (personality-themed) psychology research; also, some tutorials cover the psych package, which is written by Michigan Psychology alumni, William Revelle (1973)
