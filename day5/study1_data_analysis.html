@@ -151,14 +151,14 @@ recode &lt;- dplyr::recode</code></pre>
 <div id="create-contrast-variables" class="section level1">
 <h1>create contrast variables</h1>
 <pre class="r"><code>hsb2 &lt;- hsb2 %&gt;%
-  mutate(lowhigh = recode(ses_lbl, &quot;Low&quot; = -0.5, &quot;Middle&quot; = 0, &quot;High&quot; = 0.5),
+  mutate(lowVhigh = recode(ses_lbl, &quot;Low&quot; = -0.5, &quot;Middle&quot; = 0, &quot;High&quot; = 0.5),
          lomidVhi = recode(ses_lbl, &quot;Low&quot; = -0.25, &quot;Middle&quot; = -0.25, &quot;High&quot; = 0.5),
-         acadgenrl = recode(program_lbl, &quot;Academic&quot; = -0.5, &quot;General&quot; = 0.5, &quot;Vocation&quot; = 0),
+         acadVgenrl = recode(program_lbl, &quot;Academic&quot; = -0.5, &quot;General&quot; = 0.5, &quot;Vocation&quot; = 0),
          vocVacgen = recode(program_lbl, &quot;Academic&quot; = -0.25, &quot;General&quot; = -0.25, &quot;Vocation&quot; = 0.5),
          ses_program = interaction(ses_lbl, program_lbl, sep = &quot; x &quot;) %&gt;% factor(levels = ))
 
 hsb2 %&gt;% 
-  count(ses_program, ses_lbl, program_lbl, lowhigh, lomidVhi, acadgenrl, vocVacgen) %&gt;% 
+  count(ses_program, ses_lbl, program_lbl, lowVhigh, lomidVhi, acadVgenrl, vocVacgen) %&gt;% 
   kable()</code></pre>
 <table>
 <thead>
@@ -166,9 +166,9 @@ hsb2 %&gt;%
 <th align="left">ses_program</th>
 <th align="left">ses_lbl</th>
 <th align="left">program_lbl</th>
-<th align="right">lowhigh</th>
+<th align="right">lowVhigh</th>
 <th align="right">lomidVhi</th>
-<th align="right">acadgenrl</th>
+<th align="right">acadVgenrl</th>
 <th align="right">vocVacgen</th>
 <th align="right">n</th>
 </tr>
@@ -273,14 +273,14 @@ hsb2 %&gt;%
 <h2>does social studies score depend on socioeconomic status and program?</h2>
 <div id="fit-linear-regression" class="section level3">
 <h3>fit linear regression</h3>
-<pre class="r"><code>lm1 &lt;- lm(SOCST ~ (lowhigh + lomidVhi) * (acadgenrl + vocVacgen), data = hsb2)</code></pre>
+<pre class="r"><code>lm1 &lt;- lm(SOCST ~ (lowVhigh + lomidVhi) * (acadVgenrl + vocVacgen), data = hsb2)</code></pre>
 </div>
 <div id="results-specific-contrasts" class="section level3">
 <h3>results (specific contrasts)</h3>
 <pre class="r"><code>summary(lm1)</code></pre>
 <pre><code>## 
 ## Call:
-## lm(formula = SOCST ~ (lowhigh + lomidVhi) * (acadgenrl + vocVacgen), 
+## lm(formula = SOCST ~ (lowVhigh + lomidVhi) * (acadVgenrl + vocVacgen), 
 ##     data = hsb2)
 ## 
 ## Residuals:
@@ -288,16 +288,16 @@ hsb2 %&gt;%
 ## -28.4762  -5.3083   0.6833   6.5238  18.3871 
 ## 
 ## Coefficients:
-##                    Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)          50.375      0.780  64.584  &lt; 2e-16 ***
-## lowhigh              10.876      3.381   3.216  0.00153 ** 
-## lomidVhi             -4.355      3.874  -1.124  0.26236    
-## acadgenrl            -5.216      1.744  -2.991  0.00315 ** 
-## vocVacgen           -12.499      2.383  -5.245 4.13e-07 ***
-## lowhigh:acadgenrl     1.632      7.982   0.205  0.83818    
-## lowhigh:vocVacgen    23.367      9.900   2.360  0.01927 *  
-## lomidVhi:acadgenrl   -4.153      9.030  -0.460  0.64606    
-## lomidVhi:vocVacgen  -19.194     11.464  -1.674  0.09572 .  
+##                     Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)           50.375      0.780  64.584  &lt; 2e-16 ***
+## lowVhigh              10.876      3.381   3.216  0.00153 ** 
+## lomidVhi              -4.355      3.874  -1.124  0.26236    
+## acadVgenrl            -5.216      1.744  -2.991  0.00315 ** 
+## vocVacgen            -12.499      2.383  -5.245 4.13e-07 ***
+## lowVhigh:acadVgenrl    1.632      7.982   0.205  0.83818    
+## lowVhigh:vocVacgen    23.367      9.900   2.360  0.01927 *  
+## lomidVhi:acadVgenrl   -4.153      9.030  -0.460  0.64606    
+## lomidVhi:vocVacgen   -19.194     11.464  -1.674  0.09572 .  
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
@@ -311,44 +311,44 @@ hsb2 %&gt;%
 <pre><code>## Anova Table (Type III tests)
 ## 
 ## Response: SOCST
-##                    Sum Sq  Df   F value    Pr(&gt;F)    
-## (Intercept)        353641   1 4171.1257 &lt; 2.2e-16 ***
-## lowhigh               877   1   10.3441  0.001526 ** 
-## lomidVhi              107   1    1.2637  0.262363    
-## acadgenrl             758   1    8.9462  0.003147 ** 
-## vocVacgen            2332   1   27.5075 4.131e-07 ***
-## lowhigh:acadgenrl       4   1    0.0418  0.838179    
-## lowhigh:vocVacgen     472   1    5.5713  0.019265 *  
-## lomidVhi:acadgenrl     18   1    0.2116  0.646061    
-## lomidVhi:vocVacgen    238   1    2.8031  0.095716 .  
-## Residuals           16194 191                        
+##                     Sum Sq  Df   F value    Pr(&gt;F)    
+## (Intercept)         353641   1 4171.1257 &lt; 2.2e-16 ***
+## lowVhigh               877   1   10.3441  0.001526 ** 
+## lomidVhi               107   1    1.2637  0.262363    
+## acadVgenrl             758   1    8.9462  0.003147 ** 
+## vocVacgen             2332   1   27.5075 4.131e-07 ***
+## lowVhigh:acadVgenrl      4   1    0.0418  0.838179    
+## lowVhigh:vocVacgen     472   1    5.5713  0.019265 *  
+## lomidVhi:acadVgenrl     18   1    0.2116  0.646061    
+## lomidVhi:vocVacgen     238   1    2.8031  0.095716 .  
+## Residuals            16194 191                        
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 <div id="eta-squared-and-partial-eta-squared" class="section level3">
 <h3>eta-squared and partial eta-squared</h3>
 <pre class="r"><code>etasq(lm1, partial = FALSE)</code></pre>
-<pre><code>##                           eta^2
-## lowhigh            0.0357262188
-## lomidVhi           0.0019211023
-## acadgenrl          0.0355489458
-## vocVacgen          0.1158304932
-## lowhigh:acadgenrl  0.0001698959
-## lowhigh:vocVacgen  0.0226330688
-## lomidVhi:acadgenrl 0.0008594977
-## lomidVhi:vocVacgen 0.0113875639
-## Residuals                    NA</code></pre>
-<pre class="r"><code>etasq(lm1, partial = TRUE)</code></pre>
-<pre><code>##                    Partial eta^2
-## lowhigh             0.0440168099
-## lomidVhi            0.0024697774
-## acadgenrl           0.0438079673
-## vocVacgen           0.1298906776
-## lowhigh:acadgenrl   0.0002189118
-## lowhigh:vocVacgen   0.0283424842
-## lomidVhi:acadgenrl  0.0011064841
-## lomidVhi:vocVacgen  0.0144638740
+<pre><code>##                            eta^2
+## lowVhigh            0.0357262188
+## lomidVhi            0.0019211023
+## acadVgenrl          0.0355489458
+## vocVacgen           0.1158304932
+## lowVhigh:acadVgenrl 0.0001698959
+## lowVhigh:vocVacgen  0.0226330688
+## lomidVhi:acadVgenrl 0.0008594977
+## lomidVhi:vocVacgen  0.0113875639
 ## Residuals                     NA</code></pre>
+<pre class="r"><code>etasq(lm1, partial = TRUE)</code></pre>
+<pre><code>##                     Partial eta^2
+## lowVhigh             0.0440168099
+## lomidVhi             0.0024697774
+## acadVgenrl           0.0438079673
+## vocVacgen            0.1298906776
+## lowVhigh:acadVgenrl  0.0002189118
+## lowVhigh:vocVacgen   0.0283424842
+## lomidVhi:acadVgenrl  0.0011064841
+## lomidVhi:vocVacgen   0.0144638740
+## Residuals                      NA</code></pre>
 </div>
 </div>
 <div id="welch-contrasts" class="section level2">
@@ -356,13 +356,48 @@ hsb2 %&gt;%
 <blockquote>
 <p>see <a href="http://nickmichalak.com/blog_entries/2018/nrg06/nrg06.html">Testing Between-Subjects Contrasts in R</a></p>
 </blockquote>
-<pre class="r"><code>with(hsb2, oneway(dv = SOCST, group = ses_program, contrast = list(lowhigh = c(1, -1, 0, 1, -1, 0, -1, 1, 0)), alpha = 0.05))</code></pre>
-<pre><code>##   contrast   equal_var       est       se          t       df         p
-## 1  lowhigh     Assumed -1.362469 6.354314 -0.2144163 191.0000 0.8304511
-## 2  lowhigh Not Assumed -1.362469 6.678524 -0.2040074  27.3799 0.8398565
-##         lwr      upr
-## 1 -13.89611 11.17117
-## 2 -15.05678 12.33184</code></pre>
+<pre class="r"><code>with(hsb2, oneway(dv = SOCST, group = ses_program, contrast = list(lowVhigh = c(1, -1, 0, 1, -1, 0, 1, -1, 0),
+                                                                   lomidVhi = c(1, -0.5, -0.5, 1, -0.5, -0.5, 1, -0.5, -0.5),
+                                                                   acadVgenrl = c(-1, -1, -1, 1, 1, 1, 0, 0, 0),
+                                                                   vocVacgen = c(-0.5, -0.5, -0.5, -0.5, -0.5, -0.5, 1, 1, 1),
+                                                                   &quot;lowVhigh:acadVgenrl&quot; = c(1, -1, 0, 1, -1, 0, 1, -1, 0) * c(-1, -1, -1, 1, 1, 1, 0, 0, 0),
+                                                                   &quot;lowVhigh:vocVacgen&quot; = c(1, -1, 0, 1, -1, 0, 1, -1, 0) * c(-0.5, -0.5, -0.5, -0.5, -0.5, -0.5, 1, 1, 1),
+                                                                   &quot;lomidVhi:acadVgenrl&quot; = c(1, -0.5, -0.5, 1, -0.5, -0.5, 1, -0.5, -0.5) * c(-1, -1, -1, 1, 1, 1, 0, 0, 0),
+                                                                   &quot;lomidVhi:vocVacgen&quot; = c(1, -0.5, -0.5, 1, -0.5, -0.5, 1, -0.5, -0.5) * c(-0.5, -0.5, -0.5, -0.5, -0.5, -0.5, 1, 1, 1))))</code></pre>
+<pre><code>##               contrast   equal_var        est       se          t
+## 1             lowVhigh     Assumed  22.828008 6.354314  3.5925213
+## 2             lomidVhi     Assumed  14.671297 5.475646  2.6793726
+## 3           acadVgenrl     Assumed -15.646884 5.231274 -2.9910276
+## 4            vocVacgen     Assumed -28.123634 5.362239 -5.2447556
+## 5  lowVhigh:acadVgenrl     Assumed  -1.482769 4.604366 -0.3220355
+## 6   lowVhigh:vocVacgen     Assumed   6.728853 4.947440  1.3600677
+## 7  lomidVhi:acadVgenrl     Assumed  -1.890844 3.926932 -0.4815066
+## 8   lomidVhi:vocVacgen     Assumed   2.347531 4.291516  0.5470168
+## 9             lowVhigh Not Assumed  22.828008 6.678524  3.4181216
+## 10            lomidVhi Not Assumed  14.671297 6.100208  2.4050486
+## 11          acadVgenrl Not Assumed -15.646884 6.074479 -2.5758396
+## 12           vocVacgen Not Assumed -28.123634 5.150310 -5.4605716
+## 13 lowVhigh:acadVgenrl Not Assumed  -1.482769 5.561006 -0.2666369
+## 14  lowVhigh:vocVacgen Not Assumed   6.728853 4.626997  1.4542594
+## 15 lomidVhi:acadVgenrl Not Assumed  -1.890844 5.116458 -0.3695611
+## 16  lomidVhi:vocVacgen Not Assumed   2.347531 4.192724  0.5599060
+##           df            p        lwr        upr
+## 1  191.00000 4.165647e-04  10.294365  35.361650
+## 2  191.00000 8.019832e-03   3.870793  25.471801
+## 3  191.00000 3.146897e-03 -25.965373  -5.328396
+## 4  191.00000 4.131321e-07 -38.700447 -17.546821
+## 5  191.00000 7.477780e-01 -10.564706   7.599168
+## 6  191.00000 1.754116e-01  -3.029784  16.487491
+## 7  191.00000 6.307077e-01  -9.636567   5.854880
+## 8  191.00000 5.850057e-01  -6.117321  10.812383
+## 9   27.37990 1.989247e-03   9.133699  36.522316
+## 10  20.18440 2.587550e-02   1.953934  27.388659
+## 11  23.34844 1.678546e-02 -28.202534  -3.091235
+## 12  36.16553 3.607865e-06 -38.567286 -17.679982
+## 13  16.69417 7.930143e-01 -13.231860  10.266321
+## 14  24.18284 1.587314e-01  -2.816979  16.274686
+## 15  12.43407 7.179270e-01 -12.995638   9.213950
+## 16  18.24578 5.823531e-01  -6.452557  11.147620</code></pre>
 </div>
 </div>
 <div id="does-reading-aptidude-supress-mediate-or-confound-the-relationship-between-math-and-science-aptitude" class="section level1">
@@ -454,7 +489,7 @@ lm3 &lt;- lm(SCIENCE ~ MATH + READ, data = hsb2)</code></pre>
 ## Total effect(c) of  MATH  on  SCIENCE  =  0.67   S.E. =  0.06  t  =  11.44  df=  197   with p =  1.5e-23
 ## Direct effect (c') of  MATH  on  SCIENCE  removing  READ  =  0.4   S.E. =  0.07  t  =  5.53  df=  197   with p =  9.9e-08
 ## Indirect effect (ab) of  MATH  on  SCIENCE  through  READ   =  0.26 
-## Mean bootstrapped indirect effect =  0.26  with standard error =  0.06  Lower CI =  0.15    Upper CI =  0.37
+## Mean bootstrapped indirect effect =  0.26  with standard error =  0.05  Lower CI =  0.16    Upper CI =  0.37
 ## R = 0.69 R2 = 0.48   F = 90.27 on 2 and 197 DF   p-value:  1.49e-28 
 ## 
 ## 
@@ -479,7 +514,7 @@ lm3 &lt;- lm(SCIENCE ~ MATH + READ, data = hsb2)</code></pre>
 ## 
 ##  'ab'  effect estimates 
 ##      SCIENCE boot   sd lower upper
-## MATH    0.26 0.26 0.06  0.15  0.37</code></pre>
+## MATH    0.26 0.26 0.05  0.16  0.37</code></pre>
 </div>
 </div>
 </div>
