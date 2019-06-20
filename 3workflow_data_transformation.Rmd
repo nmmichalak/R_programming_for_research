@@ -1,6 +1,5 @@
 ---
 title: "Day 3. Workflow and Data Transformation"
-author: "Iris M. Wang"
 date: "06/20/2019"
 output: 
   html_document:
