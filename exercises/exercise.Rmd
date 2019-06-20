@@ -1,14 +1,16 @@
 ---
-title: "exercise: academic salaries"
+title: "Exercise: Academic Salaries"
+date: "06/20/2019"
 output: 
   html_document: 
-    toc: true
-    toc_float: true
     fig_height: 7.5
     fig_width: 10.5
+    theme: flatly
+    toc: yes
+    toc_float: yes
 ---
 
-# install packages and load their libraries
+# Install packages and load their libraries
 > Load the libraries you need for this session.  
 > Include code that installs those packages for a hypothetical user who hasn't installed those packages (make sure to # comment out the code before knitting this document)
 
@@ -16,15 +18,15 @@ output:
 
 ```
 
-# read data
-> read the data in the file called "C04e01dt1.txt" and save it to an object called "publications"
-> there are no variable names, so use an argument that tells the function not to use the first row of data to make column/variable names
+# Read data
+> Read the data in the file called "C04e01dt1.txt" and save it to an object called "publications"
+> There are no variable names, so use an argument that tells the function not to use the first row of data to make column/variable names
 
 ```{r, message = FALSE, warning = FALSE}
 
 ```
 
-## add variable names
+## Add variable names
 > 1. id1 (case ID #1)
 > 2. id2 (case ID #2)  
 > 3. yearsPhD (years since PhD)  
@@ -37,55 +39,55 @@ output:
 
 ```
 
-## transform id1 and id2 into factor variables
-> as is, they are numeric variables
+## Transform id1 and id2 into factor variables
+> As is, they are numeric variables.
 
 ```{r}
 
 ```
 
-## recode man so woman = -0.5 and man = 0.5
+## Recode man so woman = -0.5 and man = 0.5
 
 ```{r}
 
 ```
 
-## create new variable called gender_lbl
-> labels: Woman, Man
+## Create new variable called gender_lbl
+> Labels: Woman, Man
 
 ```{r}
 
 ```
 
-# plot a scatterplot matrix of years since PhD, publications, citations, and salary
+# Plot a scatterplot matrix of years since PhD, publications, citations, and salary
 
 ```{r}
 
 ```
 
-# plot boxplots of years since PhD, publications, citations, and salary by gender
+# Plot boxplots of years since PhD, publications, citations, and salary by gender
 
 ```{r}
 
 ```
 
-# test whether men and women have equal average salaries
+# Test whether men and women have equal average salaries
 
 ```{r}
 
 ```
 
-# estimate the relationship between publications and salary
-> report the estimate in salary units  
-> what does the intercept mean?
+# Estimate the relationship between publications and salary
+> Report the estimate in salary units  
+> What does the intercept mean?
 
-## fit the model
+## Fit the model
 
 ```{r}
 
 ```
 
-## generate diagnostic plots
+## Generate diagnostic plots
 > Is there a relationship between predicted values and residuals? (i.e., is there a pattern in the first plot?)  
 > Do the resduals look normal? (i.e., the dots "hug" the line in the second plot)  
 
@@ -93,44 +95,44 @@ output:
 
 ```
 
-## print results
+## Print results
 
 ```{r}
 
 ```
 
-# visualize the relationship between publications and salary by gender
+# Visualize the relationship between publications and salary by gender
 
 ```{r}
 
 ```
 
-## mean center the publications variable
-> subtract the mean of publications from each publications value
+## Mean center the publications variable
+> Subtract the mean of publications from each publications value.
 
 ```{r}
 
 ```
 
-## replot the relationship with the centered publication variable
+## Replot the relationship with the centered publication variable
 
 ```{r}
 
 ```
 
-# estimate the relationship between publications and salary and whether it depends on gender
-> use the mean-centered publications variable  
-> report the estimate in salary units  
-> what does the coefficient for gender mean?  
-> what does the intercept mean?  
+# Estimate the relationship between publications and salary and whether it depends on gender
+> Use the mean-centered publications variable  
+> Report the estimate in salary units  
+> What does the coefficient for gender mean?  
+> What does the intercept mean?  
 
-## fit the model
+## Fit the model
 
 ```{r}
 
 ```
 
-## generate diagnostic plots
+## Generate diagnostic plots
 > Is there a relationship between predicted values and residuals? (i.e., is there a pattern in the first plot?)  
 > Do the resduals look normal? (i.e., the dots "hug" the line in the second plot)  
 
@@ -138,23 +140,23 @@ output:
 
 ```
 
-## save the cook's distance values to your dataset
-> 1. create a new variable in dataset called "cooks.d2" (i.e., cook's distance values for the second model)  
-> 2. see help("cooks.distance")
+## Save the cook's distance values to your dataset
+> 1. Create a new variable in dataset called "cooks.d2" (i.e., cook's distance values for the second model)  
+> 2. See help("cooks.distance")
 
 ```{r}
 
 ```
 
-## plot cook's distance values on the y-axis and id1 on the y-axis
-> cook's distance indexes the influence of an observation on the regression: bigger values mean including that observation had a bigger effect on the regression results  
+## Plot cook's distance values on the y-axis and id1 on the y-axis
+> Cook's distance indexes the influence of an observation on the regression: bigger values mean including that observation had a bigger effect on the regression results  
 > Looking at the plot, are there any influential observations?  
 
 ```{r}
 
 ```
 
-## print results
+## Print results
 
 ```{r}
 
