@@ -1,0 +1,221 @@
+---
+title: "exercise key: academic salaries"
+output: 
+  html_document: 
+    toc: true
+    toc_float: true
+    fig_height: 7.5
+    fig_width: 10.5
+---
+
+# install packages and load their libraries
+> Load the libraries you need for this session.  
+> Include code that installs those packages for a hypothetical user who hasn't installed those packages (make sure to # comment out the code before knitting this document)
+
+```{r, message = FALSE, warning = FALSE}
+
+# install.packages("tidyverse")
+# install.packages("psych")
+
+library(tidyverse)
+library(psych)
+
+```
+
+# read data
+> read the data in the file called "C04e01dt1.txt" and save it to an object called "publications"
+> there are no variable names, so use an argument that tells the function not to use the first row of data to make column/variable names
+
+```{r, message = FALSE, warning = FALSE}
+
+publications <- read_table(file = "data/C04e01dt1.txt", col_names = FALSE)
+
+```
+
+## add variable names
+> 1. id1 (case ID #1)
+> 2. id2 (case ID #2)  
+> 3. yearsPhD (years since PhD)  
+> 4. publications (publication count)  
+> 5. man (dummy coded gender; 0 = woman, 1 = man)  
+> 6. citations (citation count)  
+> 7. salary (salary) 
+
+```{r}
+
+colnames(publications) <- c("id1", "id2", "yearsPhD", "publications", "man", "citations", "salary")
+
+```
+
+## transform id1 and id2 into factor variables
+> as is, they are numeric variables
+
+```{r}
+
+publications$id1 <- factor(publications$id1)
+publications$id2 <- factor(publications$id2)
+
+```
+
+## recode man so woman = -0.5 and man = 0.5
+
+```{r}
+
+publications$man <- with(data = publications, recode(man, "0" = -0.5, "1" = 0.5))
+
+```
+
+## create new variable called gender_lbl
+> labels: Woman, Man
+
+```{r}
+
+publications$gender_lbl <- with(data = publications, recode(man, "-0.5" = "Woman", "0.5" = "Man"))
+
+```
+
+# plot a scatterplot matrix of years since PhD, publications, citations, and salary
+
+```{r}
+
+publications %>% 
+  select(yearsPhD, publications, citations, salary) %>% 
+  pairs.panels()
+
+```
+
+# plot boxplots of years since PhD, publications, citations, and salary by gender
+
+```{r}
+
+publications %>% 
+  gather(key = variable, value = value, yearsPhD, publications, citations, salary) %>% 
+  ggplot(mapping = aes(x = gender_lbl, y = value)) +
+  geom_boxplot() +
+  facet_wrap(facets = ~ variable, scales = "free")
+
+```
+
+# test whether men and women have equal average salaries
+
+```{r}
+
+t.test(salary ~ gender_lbl, data = publications)
+
+```
+
+# estimate the relationship between publications and salary
+> report the estimate in salary units  
+> what does the intercept mean?
+
+## fit the model
+
+```{r}
+
+lm.fit1 <- lm(salary ~ publications, data = publications)
+
+```
+
+## generate diagnostic plots
+> Is there a relationship between predicted values and residuals? (i.e., is there a pattern in the first plot?)  
+> Do the resduals look normal? (i.e., the dots "hug" the line in the second plot)  
+
+```{r}
+
+plot(lm.fit1)
+
+```
+
+## print results
+
+```{r}
+
+summary(lm.fit1)
+
+```
+
+# visualize the relationship between publications and salary by gender
+
+```{r}
+
+publications %>% 
+  ggplot(mapping = aes(x = publications, y = salary, color = gender_lbl)) +
+  geom_point() +
+  geom_smooth(method = "lm")
+
+```
+
+## mean center the publications variable
+> subtract the mean of publications from each publications value
+
+```{r}
+
+publications$publications_c <- with(data = publications, publications - mean(publications))
+
+```
+
+## replot the relationship with the centered publication variable
+
+```{r}
+
+publications %>% 
+  ggplot(mapping = aes(x = publications_c, y = salary, color = gender_lbl)) +
+  geom_point() +
+  geom_smooth(method = "lm")
+
+```
+
+# estimate the relationship between publications and salary and whether it depends on gender
+> use the mean-centered publications variable  
+> report the estimate in salary units  
+> what does the coefficient for gender mean?  
+> what does the intercept mean?  
+
+## fit the model
+
+```{r}
+
+lm.fit2 <- lm(salary ~ publications_c * man, data = publications)
+
+```
+
+## generate diagnostic plots
+> Is there a relationship between predicted values and residuals? (i.e., is there a pattern in the first plot?)  
+> Do the resduals look normal? (i.e., the dots "hug" the line in the second plot)  
+
+```{r}
+
+plot(lm.fit2)
+
+```
+
+## save the cook's distance values to your dataset
+> 1. create a new variable in dataset called "cooks.d2" (i.e., cook's distance values for the second model)  
+> 2. see help("cooks.distance")
+
+```{r}
+
+publications$cooks.d2 <- cooks.distance(lm.fit2)
+
+```
+
+## plot cook's distance values on the y-axis and id1 on the y-axis
+> cook's distance indexes the influence of an observation on the regression: bigger values mean including that observation had a bigger effect on the regression results  
+> Looking at the plot, are there any influential observations?  
+
+```{r}
+
+publications %>% 
+  ggplot(mapping = aes(x = id1, y = cooks.d2)) +
+  geom_point() +
+  coord_flip()
+
+```
+
+## print results
+
+```{r}
+
+summary(lm.fit2)
+
+```
