@@ -1,13 +1,12 @@
 ---
-title: "Day 3. Workflow and data transformation"
-author: "Iris Wang"
-date: "June 23, 2017"
+title: "Day 3. Workflow and Data Transformation (Answers)"
+author: "Iris M. Wang"
+date: "06/20/2019"
 output: 
   html_document:
     fig_height: 7.5
     fig_width: 10.5
-    keep_md: yes
-    theme: readable
+    theme: flatly
     toc: true
     toc_float:
       collapsed: false
@@ -274,7 +273,7 @@ joined_survey %>%
 
 # ?scale (will z-score, will center)
 joined_survey <- joined_survey %>%
-  mutate(interdep_c = parse_number(scale(interdep, center = TRUE, scale = FALSE)))
+  mutate(interdep_c = as.numeric(scale(interdep, center = TRUE, scale = FALSE)))
   
 ```
 
@@ -487,8 +486,8 @@ merged_6mo <- merged_6mo %>%
 ## Center flightspeed, mean_delay and save them respectively as flightspeedC and mean_delayC in merged_6mo. See if it worked.
 
 merged_6mo <- merged_6mo %>%
-  mutate(flightspeedC = parse_number(scale(flightspeed, center = TRUE)), 
-         mean_delayC = parse_number(scale(mean_delay, center = TRUE)))
+  mutate(flightspeedC = as.numeric(scale(flightspeed, center = TRUE)), 
+         mean_delayC = as.numeric(scale(mean_delay, center = TRUE)))
 
 ## Use ifelse to recode 9E into "Endeavor Air Inc." and EV into "ExpressJet Airlines Inc." Name this variable carrier_recoded. Save this back into merged_6mo.
 
@@ -547,7 +546,7 @@ data_final <- inner_join(x = flights2, y = planes, by = "tailnum")
 data_final <- mutate(data_final, speed = distance/air_time)
 data_final <- arrange(data_final, tailnum)
 data_final <- filter(data_final, carrier == "UA" | carrier == "YV")
-data_final <- mutate(data_final, speedZ = parse_number(scale(speed, scale = TRUE)))
+data_final <- mutate(data_final, speedZ = as.numeric(scale(speed, scale = TRUE)))
 
 ##Your version of what I made but tidy
 
@@ -557,7 +556,7 @@ data_final <- flights %>%
   mutate(speed = distance/air_time) %>%
   arrange(tailnum) %>%
   filter(carrier == "UA" | carrier == "YV") %>%
-  mutate(speedZ = parse_number(scale(speed, scale = TRUE)))
+  mutate(speedZ = as.numeric(scale(speed, scale = TRUE)))
 
 ```
 

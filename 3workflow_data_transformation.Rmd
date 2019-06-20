@@ -1,13 +1,12 @@
 ---
-title: "Day 3. Workflow and data transformation"
-author: "Iris Wang"
-date: "June 23, 2017"
+title: "Day 3. Workflow and Data Transformation"
+author: "Iris M. Wang"
+date: "06/20/2019"
 output: 
   html_document:
     fig_height: 7.5
     fig_width: 10.5
-    keep_md: yes
-    theme: readable
+    theme: flatly
     toc: true
     toc_float:
       collapsed: false
@@ -273,7 +272,7 @@ joined_survey %>%
 
 # ?scale (will z-score, will center)
 joined_survey <- joined_survey %>%
-  mutate(interdep_c = parse_number(scale(interdep, center = TRUE, scale = FALSE)))
+  mutate(interdep_c = as.numeric(scale(interdep, center = TRUE, scale = FALSE)))
   
 ```
 

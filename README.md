@@ -28,11 +28,11 @@
 ### During Workshop
 
 > - Introduction / philosophy
-> - Installing (and uninstalling) R and R Studio
+> - Installing (and uninstalling) R and RStudio
 >     + Installing R ([Macintosh](https://stats.idre.ucla.edu/r/icu/installing-r-for-macintosh/) / [Windows](https://stats.idre.ucla.edu/r/icu/installing-r-for-windows/))
 >     + Uninstalling R ([Macintosh](https://cran.r-project.org/doc/manuals/r-release/R-admin.html#Uninstalling-under-macOS) / [Windows](https://cran.r-project.org/doc/manuals/r-release/R-admin.html#Uninstallation))
->     + [Installing R Studio](https://www.rstudio.com/products/rstudio/download/)
->     + [Uninstalling R Studio](https://support.rstudio.com/hc/en-us/articles/200554736-How-To-Uninstall-RStudio-Desktop)
+>     + [Installing RStudio](https://www.rstudio.com/products/rstudio/download/)
+>     + [Uninstalling RStudio](https://support.rstudio.com/hc/en-us/articles/200554736-How-To-Uninstall-RStudio-Desktop)
 > - R environment
 > - Running R code
 > - Demonstrations
@@ -120,7 +120,7 @@
 
 ### Before the Workshop
 
-> Browse [RMarkdown from R Studio](https://rmarkdown.rstudio.com/lesson-1.html)
+> Browse [RMarkdown from RStudio](https://rmarkdown.rstudio.com/lesson-1.html)
 > Skim [Workflow: projects](http://r4ds.had.co.nz/workflow-projects.html)
 > - find one or two datasets you know well and are OK with others seeing.
 >     1. Preferably, find the raw (hasn't been "cleaned") data
@@ -141,7 +141,7 @@
 ### **Websites**
 
 > - [**Quick-R**](http://www.statmethods.net/) a roadmap to the language and the code necessary to get started quickly (i.e. tutorials)
-> - [**R Studio Cheat Sheets**](https://www.rstudio.com/resources/cheatsheets/) just like it reads, these are cheat sheets for "favorite" R packages and more (e.g. dplyr, ggplot2, base, R Markdown, regular expressions)
+> - [**RStudio Cheat Sheets**](https://www.rstudio.com/resources/cheatsheets/) just like it reads, these are cheat sheets for "favorite" R packages and more (e.g. dplyr, ggplot2, base, R Markdown, regular expressions)
 > - [**UCLA Institute for Digital Research and Education: R**](http://stats.idre.ucla.edu/r/) statistics and programming tutorials for R, among other helpful related resources
 > - [**The Personality Project: Using R for psychological research**](https://www.personality-project.org/r/r.guide.html) seemingly endless tutorials and explainers about R programming for (personality-themed) psychology research; also, some tutorials cover the psych package, which is written by Michigan Psychology alumni, William Revelle (1973)
 > - [**Richard Gonzalez's Advanced Statistical Methods Course Notes**](http://www-personal.umich.edu/~gonzo/coursenotes/) Nick's regression bible, complete with SPSS and R code for common procedures + detailed notes
