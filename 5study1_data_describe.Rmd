@@ -1,9 +1,16 @@
 ---
-title: "study 1 data describe"
-date: "06/06/2018"
+title: "Study 1 Data Describe"
+date: "06/20/2019"
+output: 
+  html_document: 
+    fig_height: 7.5
+    fig_width: 10.5
+    theme: flatly
+    toc: yes
+    toc_float: yes
 ---
 
-# packages
+# Install and/or load packages
 
 ```{r, warning = FALSE, message = FALSE}
 
@@ -16,7 +23,7 @@ library(knitr)
 
 ```
 
-# data
+# Read Data
 
 ```{r, warning = FALSE, message = FALSE}
 
@@ -24,9 +31,9 @@ hsb2 <- "data/study1/cleandata/hsb2.csv" %>% read_csv()
 
 ```
 
-# demographics
+# Demographics
 
-## gender
+## Gender
 
 ```{r}
 
@@ -36,7 +43,7 @@ hsb2 %>%
 
 ```
 
-## race
+## Race
 
 ```{r}
 
@@ -46,7 +53,7 @@ hsb2 %>%
 
 ```
 
-## socioeconomic status
+## Socioeconomic Status
 
 ```{r}
 
@@ -56,7 +63,7 @@ hsb2 %>%
 
 ```
 
-## school type
+## School Type
 
 ```{r}
 
@@ -66,7 +73,7 @@ hsb2 %>%
 
 ```
 
-## program
+## Program
 
 ```{r}
 
@@ -76,9 +83,9 @@ hsb2 %>%
 
 ```
 
-# visualize reading, writing, math, and science scores
+# Visualize reading, writing, math, and science scores
 
-## boxplots of scores by gender
+## Boxplots of Scores by Gender
 
 ```{r}
 
@@ -91,7 +98,7 @@ hsb2 %>%
 
 ```
 
-## boxplots of scores by race
+## Boxplots of Scores by Race
 
 ```{r}
 
@@ -104,7 +111,7 @@ hsb2 %>%
 
 ```
 
-## boxplots of scores by socioeconomic status
+## Boxplots of Scores by Socioeconomic Status
 
 ```{r}
 
@@ -117,7 +124,7 @@ hsb2 %>%
 
 ```
 
-## boxplots of scores by school type
+## Boxplots of Scores by School Type
 
 ```{r}
 
@@ -130,7 +137,7 @@ hsb2 %>%
 
 ```
 
-## boxplots of scores by program
+## Boxplots of Scores by Program
 
 ```{r}
 
@@ -143,9 +150,9 @@ hsb2 %>%
 
 ```
 
-# visualize reading, writing, math, and science score normality
+# Visualize reading, writing, math, and science score normality
 
-## QQ-plots by gender
+## QQ-plots by Dender
 
 ```{r}
 
@@ -153,12 +160,13 @@ hsb2 %>%
   select(gender_lbl, READ, WRITE, MATH, SCIENCE, SOCST) %>% 
   gather(key = measure, value = score, READ, WRITE, MATH, SCIENCE, SOCST) %>% 
   ggplot(mapping = aes(sample = score)) +
+  geom_qq_line() +
   geom_qq() +
   facet_grid(facets = gender_lbl ~ measure)
 
 ```
 
-## QQ-plots by race
+## QQ-plots by Race
 
 ```{r}
 
@@ -166,12 +174,13 @@ hsb2 %>%
   select(race_lbl, READ, WRITE, MATH, SCIENCE, SOCST) %>% 
   gather(key = measure, value = score, READ, WRITE, MATH, SCIENCE, SOCST) %>% 
   ggplot(mapping = aes(sample = score)) +
+  geom_qq_line() +
   geom_qq() +
   facet_grid(facets = race_lbl ~ measure)
 
 ```
 
-## QQ-plots by socioeconomic status
+## QQ-plots by Socioeconomic Status
 
 ```{r}
 
@@ -179,12 +188,13 @@ hsb2 %>%
   select(ses_lbl, READ, WRITE, MATH, SCIENCE, SOCST) %>% 
   gather(key = measure, value = score, READ, WRITE, MATH, SCIENCE, SOCST) %>% 
   ggplot(mapping = aes(sample = score)) +
+  geom_qq_line() +
   geom_qq() +
   facet_grid(facets = ses_lbl ~ measure)
 
 ```
 
-## QQ-plots by school type
+## QQ-plots by School Type
 
 ```{r}
 
@@ -192,12 +202,13 @@ hsb2 %>%
   select(schooltype_lbl, READ, WRITE, MATH, SCIENCE, SOCST) %>% 
   gather(key = measure, value = score, READ, WRITE, MATH, SCIENCE, SOCST) %>% 
   ggplot(mapping = aes(sample = score)) +
+  geom_qq_line() +
   geom_qq() +
   facet_grid(facets = schooltype_lbl ~ measure)
 
 ```
 
-## QQ-plots by program
+## QQ-plots by Program
 
 ```{r}
 
@@ -205,14 +216,15 @@ hsb2 %>%
   select(program_lbl, READ, WRITE, MATH, SCIENCE, SOCST) %>% 
   gather(key = measure, value = score, READ, WRITE, MATH, SCIENCE, SOCST) %>% 
   ggplot(mapping = aes(sample = score)) +
+  geom_qq_line() +
   geom_qq() +
   facet_grid(facets = program_lbl ~ measure)
 
 ```
 
-# scatterplot matrices (i.e., correlations and histograms)
+# Scatterplot matrices (i.e., Correlations and Histograms)
 
-## ignoring gender, race, socioeconomic status, schooltype, and program
+## Ignoring gender, race, socioeconomic status, schooltype, and program
 
 ```{r}
 
@@ -222,9 +234,9 @@ hsb2 %>%
 
 ```
 
-# describe reading, writing, math, and science scores
+# Describe reading, writing, math, and science scores
 
-## describe by gender
+## Describe by Gender
 
 ```{r}
 
@@ -235,7 +247,7 @@ hsb2 %>%
 
 ```
 
-## describe by race
+## Describe by Race
 
 ```{r}
 
@@ -246,7 +258,7 @@ hsb2 %>%
 
 ```
 
-## describe by socioeconomic status
+## Describe by Socioeconomic Status
 
 ```{r}
 
@@ -257,7 +269,7 @@ hsb2 %>%
 
 ```
 
-## describe by school type
+## Describe by School Type
 
 ```{r}
 
@@ -268,7 +280,7 @@ hsb2 %>%
 
 ```
 
-## describe by program
+## Describe by Program
 
 ```{r}
 

@@ -15,9 +15,7 @@ output:
 # Install and/or load packages for this session
 > - `install.packages()`: "Download and install packages from CRAN-like repositories or from local files."  
 > - `library()`: loads your package you installed  
-> - **Best Practice Note.** `install.packages()` downloads files from the internet, so it's "polite" to "comment out" (`#` = comment) this code before you share it with people so they don't download files they don't really want by accident.  
-
-# Install and/or load packages for this session
+> - **Best Practice Note.** `install.packages()` downloads files from the internet, so it's "polite" to "comment out" (`#` = comment) this code before you share it with people so they don't download files they don't really want by accident.
 
 
 ```r
@@ -570,23 +568,23 @@ mpg %>% sample_n(size = 15)
 
 <div class="kable-table">
 
-manufacturer   model                  displ   year   cyl  trans        drv    cty   hwy  fl   class      
--------------  --------------------  ------  -----  ----  -----------  ----  ----  ----  ---  -----------
-lincoln        navigator 2wd            5.4   1999     8  auto(l4)     r       11    16  p    suv        
-volkswagen     new beetle               2.5   2008     5  manual(m5)   f       20    28  r    subcompact 
-volkswagen     jetta                    1.9   1999     4  manual(m5)   f       33    44  d    compact    
-chevrolet      c1500 suburban 2wd       5.7   1999     8  auto(l4)     r       13    17  r    suv        
-volkswagen     jetta                    2.0   1999     4  manual(m5)   f       21    29  r    compact    
-hyundai        tiburon                  2.0   2008     4  manual(m5)   f       20    28  r    subcompact 
-dodge          dakota pickup 4wd        3.7   2008     6  manual(m6)   4       15    19  r    pickup     
-subaru         forester awd             2.5   2008     4  manual(m5)   4       19    25  p    suv        
-toyota         corolla                  1.8   1999     4  auto(l3)     f       24    30  r    compact    
-honda          civic                    1.8   2008     4  auto(l5)     f       25    36  r    subcompact 
-jeep           grand cherokee 4wd       6.1   2008     8  auto(l5)     4       11    14  p    suv        
-nissan         pathfinder 4wd           5.6   2008     8  auto(s5)     4       12    18  p    suv        
-dodge          ram 1500 pickup 4wd      4.7   2008     8  auto(l5)     4        9    12  e    pickup     
-dodge          caravan 2wd              3.0   1999     6  auto(l4)     f       17    24  r    minivan    
-ford           expedition 2wd           5.4   1999     8  auto(l4)     r       11    17  r    suv        
+manufacturer   model                 displ   year   cyl  trans        drv    cty   hwy  fl   class      
+-------------  -------------------  ------  -----  ----  -----------  ----  ----  ----  ---  -----------
+honda          civic                   1.8   2008     4  auto(l5)     f       25    36  r    subcompact 
+audi           a4                      2.8   1999     6  auto(l5)     f       16    26  p    compact    
+toyota         corolla                 1.8   2008     4  manual(m5)   f       28    37  r    compact    
+hyundai        sonata                  2.4   2008     4  manual(m5)   f       21    31  r    midsize    
+volkswagen     passat                  2.0   2008     4  manual(m6)   f       21    29  p    midsize    
+toyota         camry                   3.0   1999     6  auto(l4)     f       18    26  r    midsize    
+toyota         camry solara            2.2   1999     4  auto(l4)     f       21    27  r    compact    
+chevrolet      c1500 suburban 2wd      5.3   2008     8  auto(l4)     r       11    15  e    suv        
+audi           a6 quattro              3.1   2008     6  auto(s6)     4       17    25  p    midsize    
+toyota         toyota tacoma 4wd       3.4   1999     6  manual(m5)   4       15    17  r    pickup     
+volkswagen     passat                  1.8   1999     4  auto(l5)     f       18    29  p    midsize    
+toyota         camry                   2.4   2008     4  auto(l5)     f       21    31  r    midsize    
+dodge          caravan 2wd             3.3   2008     6  auto(l4)     f       17    24  r    minivan    
+toyota         toyota tacoma 4wd       4.0   2008     6  manual(m6)   4       15    18  r    pickup     
+toyota         corolla                 1.8   2008     4  auto(l4)     f       26    35  r    compact    
 
 </div>
 
@@ -666,21 +664,21 @@ sleepstudy %>% sample_n(size = 15)
 
  Reaction   Days  Subject 
 ---------  -----  --------
- 350.7807      8  371     
- 455.8643      8  337     
- 297.5968      2  372     
- 304.6336      5  351     
- 343.2199      7  372     
- 291.6112      2  337     
- 229.3074      4  310     
- 317.2135      5  369     
- 348.7402      4  352     
- 240.4730      3  370     
- 273.9472      1  335     
+ 199.0539      0  310     
  354.0487      9  330     
- 284.5120      5  371     
- 404.2601      6  337     
- 285.7973      4  330     
+ 366.5131      9  369     
+ 394.4872      8  350     
+ 243.4543      1  350     
+ 266.5955      7  351     
+ 272.9613      2  332     
+ 224.2957      8  309     
+ 240.4730      3  370     
+ 362.9184      7  350     
+ 375.6406      8  352     
+ 330.3003      8  332     
+ 225.2640      0  370     
+ 204.7070      3  309     
+ 346.1222      3  337     
 
 </div>
 
@@ -800,21 +798,21 @@ US_births_2000_2014 %>% sample_n(size = 15)
 
  year   month   date_of_month  date         day_of_week    births
 -----  ------  --------------  -----------  ------------  -------
- 2003       4              28  2003-04-28   Mon             11666
- 2004       4               1  2004-04-01   Thurs           12138
- 2005       8              23  2005-08-23   Tues            13739
- 2009       3              14  2009-03-14   Sat              8396
- 2001       5              14  2001-05-14   Mon             11577
- 2003       8               4  2003-08-04   Mon             12233
- 2001       7              24  2001-07-24   Tues            13532
- 2000       1              15  2000-01-15   Sat              8525
- 2012       3              17  2012-03-17   Sat              8066
- 2004      10               4  2004-10-04   Mon             12591
- 2003       8              24  2003-08-24   Sun              7936
- 2007       4               2  2007-04-02   Mon             12450
- 2014      12               1  2014-12-01   Mon             12584
- 2010       4               4  2010-04-04   Sun              6721
- 2006       7              20  2006-07-20   Thurs           14239
+ 2000       5              20  2000-05-20   Sat              8673
+ 2008       7              24  2008-07-24   Thurs           13622
+ 2014       3              12  2014-03-12   Wed             11819
+ 2007       6              28  2007-06-28   Thurs           14224
+ 2005       6              24  2005-06-24   Fri             13032
+ 2003       2              17  2003-02-17   Mon             10707
+ 2008       2              24  2008-02-24   Sun              7505
+ 2010       9               6  2010-09-06   Mon              7815
+ 2005       1               6  2005-01-06   Thurs           12733
+ 2006       1              17  2006-01-17   Tues            13018
+ 2013       5              14  2013-05-14   Tues            12345
+ 2006       6              11  2006-06-11   Sun              7653
+ 2010      12              21  2010-12-21   Tues            14255
+ 2013      10               6  2013-10-06   Sun              7471
+ 2002       4              19  2002-04-19   Fri             12297
 
 </div>
 

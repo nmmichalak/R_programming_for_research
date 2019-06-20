@@ -1,0 +1,63 @@
+---
+title: "Title of Data Analysis"
+author: "[First Name] [Last Name] (email@email.email)"
+date: "06/20/2019"
+output: 
+  html_document: 
+    fig_height: 7.5
+    fig_width: 10.5
+    theme: flatly
+    toc: yes
+    toc_float: yes
+---
+
+# Install and/or load packages
+
+```{r, warning = FALSE, message = FALSE}
+
+# install.packages("tidyverse")
+
+library(tidyverse)
+
+```
+
+# Custom Function(s)
+
+```{r}
+
+
+
+```
+
+# Read data
+
+```{r}
+
+
+
+```
+
+# (Lightly) wrangle data
+> In many cases, you probably want to clean your data in a separate script rather than do everything in one script
+
+```{r}
+
+
+
+```
+
+# Plot data
+
+```{r}
+
+
+
+```
+
+# Model data
+
+```{r}
+
+
+
+```

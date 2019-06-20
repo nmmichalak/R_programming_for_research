@@ -1,0 +1,106 @@
+---
+title: "Study 1 Data Preparation"
+author: "Nicholas Michalak (nickmm@umich.edu)"
+date: "06/20/2019"
+output: 
+  html_document: 
+    fig_height: 7.5
+    fig_width: 10.5
+    theme: flatly
+    toc: yes
+    toc_float: yes
+---
+
+# Install and/or load packages
+
+```{r, warning = FALSE, message = FALSE}
+
+# install.packages("tidyverse")
+# install.packages("haven")
+
+library(tidyverse)
+library(haven)
+
+```
+
+# Custom Function(s)
+> `code.contrast` takes a vector, levels of that vector, and contrast weights (in the order of the levels)
+
+```{r}
+
+code.contrast <- function(x, xlevels, weights) {
+  # -- arguments --
+  # x: vector of values to be recoded
+  # xlevels: levels of x in order of weights (e.g., 1, 2, 3 or "a", "b", "c")
+  # values: replacement values in order of xlevels
+  
+  # make x a factor
+  f <- factor(x, levels = xlevels, labels = xlevels)
+  
+  # set contrasts for x
+  contrasts(f) <- cbind(weights)
+  
+  # output second column from model.matrix
+  as.vector(model.matrix.lm(~ f, na.action = "na.pass")[, 2])
+}
+
+```
+
+# Read data
+
+```{r, warning = FALSE, message = FALSE}
+
+hsb2 <- read_spss(file = "data/study1/rawdata/hsb2.sav")
+
+```
+
+# Mutate all labelled variables into numeric variables
+
+```{r}
+
+# I want this to be numeric, not labelled
+class(pull(hsb2, FEMALE))
+is.labelled(pull(hsb2, FEMALE))
+
+# mutate_if() mutates any variable where is.labelled(variable) == TRUE
+(hsb2 <- mutate_if(hsb2, is.labelled, as.double))
+
+```
+
+# Transform numeric/double variables to character variables
+
+```{r}
+
+hsb2 <- hsb2 %>%
+  mutate(gender_lbl = recode(FEMALE, "0" = "Male", "1" = "Female"),
+         female = code.contrast(gender_lbl, xlevels = c("Male", "Female"), weights = c(-0.5, 0.5)),
+         race_lbl = recode(RACE, "1" = "Hispanic", "2" = "Asian", "3" = "African-American", "4" = "White"),
+         aframerVmean = code.contrast(race_lbl, xlevels = c("African-American", "Asian", "Hispanic", "White"), weights = c(1, 0, 0, -1)),
+         asianVmean = code.contrast(race_lbl, xlevels = c("African-American", "Asian", "Hispanic", "White"), weights = c(0, 1, 0, -1)),
+         hsipanVmean = code.contrast(race_lbl, xlevels = c("African-American", "Asian", "Hispanic", "White"), weights = c(0, 0, 1, -1)),
+         ses_lbl = recode_factor(SES, "1" = "Low", "2" = "Middle", "3" = "High"),
+         ses_linear = code.contrast(ses_lbl, xlevels = c("Low", "Middle", "High"), weights = c(-1, 0, 1) / 2),
+         ses_quadratic = code.contrast(ses_lbl, xlevels = c("Low", "Middle", "High"), weights = c(1, -2, 1) / 3),
+         schooltype_lbl = recode(SCHTYP, "1" = "Public", "2" = "Private"),
+         private_school = code.contrast(schooltype_lbl, xlevels = c("Public", "Private"), weights = c(-0.5, 0.5)),
+         program_lbl = recode(PROG, "1" = "General", "2" = "Academic", "3" = "Vocation"),
+         acadVgenrl = code.contrast(program_lbl, xlevels = c("General", "Academic", "Vocation"), weights = c(-1, 1, 0) / 2),
+         vocVacgen = code.contrast(program_lbl, xlevels = c("General", "Academic", "Vocation"), weights = c(-1, -1, 2) / 3),
+         ses_program = interaction(ses_lbl, program_lbl, sep = " x "))
+
+# Print numeric/double variables next to their character versions 
+hsb2 %>%
+  select(FEMALE, gender_lbl, female, RACE, race_lbl, aframerVmean, asianVmean, hsipanVmean, SES, ses_lbl, ses_linear, ses_quadratic, SCHTYP, schooltype_lbl, private_school, PROG, program_lbl, acadVgenrl, vocVacgen) %>% 
+  sample_n(size = 15, replace = FALSE)
+
+```
+
+# Export cleaned data
+
+```{r}
+
+write_csv(hsb2, path = "data/study1/cleandata/hsb2.csv")
+
+```
+
+

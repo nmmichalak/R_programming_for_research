@@ -15,9 +15,7 @@ output:
 # Install and/or load packages for this session
 > - `install.packages()`: "Download and install packages from CRAN-like repositories or from local files."  
 > - `library()`: loads your package you installed  
-> - **Best Practice Note.** `install.packages()` downloads files from the internet, so it's "polite" to "comment out" (`#` = comment) this code before you share it with people so they don't download files they don't really want by accident.  
-
-# Install and/or load packages for this session
+> - **Best Practice Note.** `install.packages()` downloads files from the internet, so it's "polite" to "comment out" (`#` = comment) this code before you share it with people so they don't download files they don't really want by accident.
 
 ```{r, warning = FALSE, message = FALSE}
 

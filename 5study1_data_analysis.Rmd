@@ -1,0 +1,203 @@
+---
+title: "Study 1 Data Analysis"
+author: "Nicholas Michalak (nickmm@umich.edu)"
+date: "06/20/2019"
+output: 
+  html_document: 
+    fig_height: 7.5
+    fig_width: 10.5
+    theme: flatly
+    toc: yes
+    toc_float: yes
+---
+
+# Install and/or load packages
+
+```{r, warning = FALSE, message = FALSE}
+
+# install.packages("tidyverse")
+# install.packages("knitr")
+# install.packages("psych")
+# install.packages("car")
+# install.packages("heplots")
+
+library(tidyverse)
+library(knitr)
+library(psych)
+library(car)
+library(heplots)
+
+# I want recode from dplyr
+recode <- dplyr::recode
+
+```
+
+# Read data
+
+```{r, warning = FALSE, message = FALSE}
+
+hsb2 <- "data/study1/cleandata/hsb2.csv" %>% read_csv()
+
+```
+
+# Custom function(s)
+
+```{r}
+
+source("functions/oneway.R")
+
+```
+
+# Set factor levels
+> I don't typically recommend factors, but sometimes factors are useful.
+
+```{r}
+
+hsb2$ses_program <- factor(hsb2$ses_program, levels = c("Low x General", "Low x Academic", "Low x Vocation", "Middle x General", "Middle x Academic", "Middle x Vocation", "High x General", "High x Academic", "High x Vocation"))
+
+```
+
+# Print contrast variables
+
+```{r}
+
+hsb2 %>% 
+  count(ses_program, ses_lbl, ses_linear, ses_quadratic, program_lbl, acadVgenrl, vocVacgen) %>% 
+  kable()
+
+```
+
+# Plots
+
+## Does social studies score depend on socioeconomic status and program?
+
+```{r}
+
+hsb2 %>% 
+  ggplot(mapping = aes(x = ses_lbl, y = SOCST)) +
+  geom_violin(mapping = aes(fill = program_lbl, color = program_lbl), alpha = 0.20) +
+  geom_boxplot(mapping = aes(color = program_lbl), position = position_dodge(width = 0.90), width = 0.25, fill = "transparent", outlier.color = NULL) +
+  geom_point(mapping = aes(color = program_lbl), position = position_jitterdodge(jitter.width = 0.10, dodge.width = 0.90, seed = 10359), alpha = 0.50) +
+  theme_bw()
+
+```
+
+# Model
+
+## Does social studies score depend on socioeconomic status and program?
+
+### Fit linear regression
+
+```{r}
+
+lm1 <- lm(SOCST ~ (ses_linear + ses_quadratic) * (acadVgenrl + vocVacgen), data = hsb2)
+
+```
+
+### Results (specific contrasts)
+
+```{r}
+
+summary(lm1)
+
+```
+
+### ANOVA results
+
+```{r}
+
+Anova(lm1, type = "III")
+
+```
+
+### Eta-Squared and Partial Eta-Squared
+
+```{r}
+
+etasq(lm1, partial = FALSE)
+etasq(lm1, partial = TRUE)
+
+```
+
+## ANOVA contrasts, including Welch
+> see [Testing Between-Subjects Contrasts in R](https://nickmichalak.com/post/2019-02-13-testing-between-subjects-contrasts-in-r/testing-between-subjects-contrasts-in-r/)
+
+```{r}
+
+# Print levels of grouping variable, ses_program
+hsb2 %>% 
+  count(ses_program) %>% 
+  kable()
+
+
+with(hsb2,
+     oneway(dv = SOCST,
+            group = ses_program,
+            contrast = list(ses_linear = c(-1, -1, -1, 0, 0, 0, 1, 1, 1) / 3,
+                            ses_quad = c(1, 1, 1, -2, -2, -2, 1, 1, 1) / 9,
+                            acadVgenrl = c(-1, 1, 0, -1, 1, 0, -1, 1, 0) / 2,
+                            vocVacgen = c(-1, -1, 2, -1, -1, 2, -1, -1, 2) / 9),
+            alpha = 0.05)
+     ) %>% 
+  kable()
+
+```
+
+## Does reading aptidude supress, mediate, or confound the relationship between math and science aptitude?
+> MacKinnon, D. P., Krull, J. L., & Lockwood, C. M. (2000). Equivalence of the mediation, confounding and suppression effect. Prevention science, 1(4), 173-181. [[.pdf](http://w3dev.ualg.pt/~lfaisca/SMAD05/Prevention%20Science_Mackinnon_2000.pdf)]
+
+### Save math only and math + science models
+
+```{r}
+
+lm2 <- lm(SCIENCE ~ MATH, data = hsb2)
+lm3 <- lm(SCIENCE ~ MATH + READ, data = hsb2)
+
+```
+
+#### Examine diagnostic plots for the full model
+
+```{r}
+
+plot(lm3)
+
+```
+
+### Results for both models
+
+```{r}
+
+summary(lm2)
+summary(lm3)
+
+```
+
+### (Adjusted) R-squared change
+
+```{r}
+
+summary(lm3)$adj.r.squared - summary(lm2)$adj.r.squared
+
+```
+
+### Test (adjusted) R-squared change
+
+```{r}
+
+anova(lm2, lm3)
+
+```
+
+### Simple Indirect Effect Test
+
+```{r}
+
+mediate(SCIENCE ~ MATH + (READ), data = hsb2, n.iter = 10000, use = "pairwise", plot = TRUE) %>% 
+  print(short = FALSE)
+
+```
+
+
+
+
+
