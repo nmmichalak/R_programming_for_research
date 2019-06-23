@@ -10,6 +10,8 @@ output:
     toc_float:
       collapsed: false
       smooth_scroll: false
+editor_options: 
+  chunk_output_type: console
 ---
 
 <style type="text/css">
@@ -132,6 +134,7 @@ library(readxl)
 filter <- dplyr::filter
 tibble <- tibble::tibble
 mutate <- dplyr::mutate
+recode <- dplyr::recode
 
 ```
   
@@ -260,7 +263,17 @@ summarise(mean(x = c(gratitude_t1, gratitude_t2), na.rm = TRUE))
 
 joined_survey %>%
   group_by(cond) %>%
-  summarise(mean_grat = mean(gratitude_t1, na.rm = TRUE))
+  summarise(mean_grat = mean(gratitude_t1, na.rm = TRUE),
+            sd_grat = sd(gratitude_t1, na.rm = TRUE),
+            n = n()) %>%
+  ungroup()
+
+joined_survey %>%
+  group_by(cond, gender) %>%
+  summarise(mean_grat = mean(gratitude_t1, na.rm = TRUE),
+            sd_grat = sd(gratitude_t1, na.rm = TRUE),
+            n = n()) %>%
+  ungroup()
 
 ```
   + `scale()`
@@ -348,6 +361,9 @@ time2_survey %>%
 joined_survey %>%
   arrange(cond)
 
+joined_survey %>%
+  arrange(desc(cond))
+
 # arrange joined_survey by id
 joined_survey %>%
   arrange(id)
@@ -431,7 +447,7 @@ final_data_tidy <- time1_survey %>%
 
 + A tip: think about what you want to do with your data, or what your end result to be. If you want to save something into an object, what do you want saved? If you want R to show you something, what do you want to see?
 
-##9. Exercises 
+## 9. Exercises 
 
   + Exercise 1: Data Wrangling 
 
@@ -441,9 +457,9 @@ final_data_tidy <- time1_survey %>%
 ```{r, data wrangling exercise}
 #Let me just walk you through loading the datasets(these are datasets that are preloaded into your tidyverse package but you have to call them up)
 
-airlines <- as.tibble(airlines)
+airlines <- as_tibble(airlines)
 
-flights <- as.tibble(flights)
+flights <- as_tibble(flights)
 
 #Okay your turn!
 

@@ -1674,11 +1674,12 @@ rm(x, y)</code></pre>
 <li>Installing and Loading packages</li>
 </ul></li>
 </ul>
-<pre class="r"><code># sets the functions as being part of the packages you actually want to pull from so you don't have to keep writing this
+<pre class="r"><code># sets the functions as being part of the packages you actually want to pull from so you don&#39;t have to keep writing this
 
 filter &lt;- dplyr::filter
 tibble &lt;- tibble::tibble
-mutate &lt;- dplyr::mutate</code></pre>
+mutate &lt;- dplyr::mutate
+recode &lt;- dplyr:: recode</code></pre>
 <ul>
 <li>?function will bring up a help screen for that function
 <ul>
@@ -1717,7 +1718,7 @@ mutate &lt;- dplyr::mutate</code></pre>
 </ul></li>
 <li><p>Reading in data for today + some helpful ways of looking at your data</p></li>
 </ul>
-<pre class="r"><code>#Let's try loading two datasets I've made for the purposes of the examples for today.
+<pre class="r"><code>#Let&#39;s try loading two datasets I&#39;ve made for the purposes of the examples for today.
 
 time1_survey &lt;- read_csv(&quot;data/time1_survey.csv&quot;)</code></pre>
 <pre><code>## Parsed with column specification:
@@ -1762,7 +1763,7 @@ time1_survey %&gt;%
 <pre><code>## cond
 ##   Control Treatment 
 ##         5         5</code></pre>
-<pre class="r"><code>#using the %$% pipe will help with selecting specific variables. What table() function uses is a specific variable, not a dataframe, and using the %$% pipe, I'm saying choose this variable (cond) from that tibble
+<pre class="r"><code>#using the %$% pipe will help with selecting specific variables. What table() function uses is a specific variable, not a dataframe, and using the %$% pipe, I&#39;m saying choose this variable (cond) from that tibble
 
 #some functions are looking for just a list and do not give you the room to specify a data frame 
 
@@ -1810,13 +1811,13 @@ right_joined_survey &lt;- right_join(x = time1_survey, y = time2_survey, by = &q
 </ul>
 <pre class="r"><code># mutate gratitude_mean
 # two ways to do it
-# note: Right now, I'm not saving mutated variables; to do so, you must save to old or new object (joined_survey) with &lt;-
+# note: Right now, I&#39;m not saving mutated variables; to do so, you must save to old or new object (joined_survey) with &lt;-
 
 joined_survey &lt;- joined_survey %&gt;%
 mutate(gratitude_mean = (gratitude_t1 + gratitude_t2) / 2,
        gratitude_mean_alt = mean(c(gratitude_t1, gratitude_t2),
                                  na.rm = TRUE))
-#what's wrong?
+#what&#39;s wrong?
 
 # have to use rowwise
 joined_survey &lt;- joined_survey %&gt;% 
@@ -1840,13 +1841,28 @@ summarise(mean(x = c(gratitude_t1, gratitude_t2), na.rm = TRUE))</code></pre>
 
 joined_survey %&gt;%
   group_by(cond) %&gt;%
-  summarise(mean_grat = mean(gratitude_t1, na.rm = TRUE)) %&gt;%
+  summarise(mean_grat = mean(gratitude_t1, na.rm = TRUE),
+            sd_grat = sd(gratitude_t1, na.rm = TRUE),
+            n = n()) %&gt;%
   ungroup()</code></pre>
-<pre><code>## # A tibble: 2 x 2
-##   cond      mean_grat
-##   &lt;chr&gt;         &lt;dbl&gt;
-## 1 Control        4.22
-## 2 Treatment      4.17</code></pre>
+<pre><code>## # A tibble: 2 x 4
+##   cond      mean_grat sd_grat     n
+##   &lt;chr&gt;         &lt;dbl&gt;   &lt;dbl&gt; &lt;int&gt;
+## 1 Control        4.22   0.507     4
+## 2 Treatment      4.17   1.32      5</code></pre>
+<pre class="r"><code>joined_survey %&gt;%
+  group_by(cond, gender) %&gt;%
+  summarise(mean_grat = mean(gratitude_t1, na.rm = TRUE),
+            sd_grat = sd(gratitude_t1, na.rm = TRUE),
+            n = n()) %&gt;%
+  ungroup()</code></pre>
+<pre><code>## # A tibble: 4 x 5
+##   cond      gender mean_grat sd_grat     n
+##   &lt;chr&gt;     &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt; &lt;int&gt;
+## 1 Control   female      4.48 0.707       2
+## 2 Control   male        3.96 0.00691     2
+## 3 Treatment female      3.52 1.76        2
+## 4 Treatment male        4.60 1.12        3</code></pre>
 <ul>
 <li><code>scale()</code>
 <ul>
@@ -1896,8 +1912,8 @@ joined_survey %&gt;%
 <pre><code>## # A tibble: 1 x 11
 ##      id cond  gratitude_t1 interdep gender gratitude_t2 gratitude_mean
 ##   &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;         &lt;dbl&gt;          &lt;dbl&gt;
-## 1     9 Cont…         3.96     2.66 male           4.70           3.63
-## # … with 4 more variables: gratitude_mean_alt &lt;dbl&gt;, interdep_c &lt;dbl&gt;,
+## 1     9 Cont~         3.96     2.66 male           4.70           3.63
+## # ... with 4 more variables: gratitude_mean_alt &lt;dbl&gt;, interdep_c &lt;dbl&gt;,
 ## #   cond2 &lt;chr&gt;, gender2 &lt;chr&gt;</code></pre>
 <pre class="r"><code># filter only id less than 7
 joined_survey %&gt;%
@@ -1905,13 +1921,13 @@ joined_survey %&gt;%
 <pre><code>## # A tibble: 6 x 11
 ##      id cond  gratitude_t1 interdep gender gratitude_t2 gratitude_mean
 ##   &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;         &lt;dbl&gt;          &lt;dbl&gt;
-## 1     1 Trea…         3.35     3.89 male           5.05           3.15
-## 2     2 Trea…         4.76     3.88 female         4.55           4.11
-## 3     3 Trea…         5.53     4.18 male           4.76           4.38
-## 4     4 Trea…         2.27     1.60 female         5.56           2.36
-## 5     5 Trea…         4.91     4.16 male           6.41           3.25
-## 6     6 Cont…         4.98     3.64 female         5.40           3.79
-## # … with 4 more variables: gratitude_mean_alt &lt;dbl&gt;, interdep_c &lt;dbl&gt;,
+## 1     1 Trea~         3.35     3.89 male           5.05           3.15
+## 2     2 Trea~         4.76     3.88 female         4.55           4.11
+## 3     3 Trea~         5.53     4.18 male           4.76           4.38
+## 4     4 Trea~         2.27     1.60 female         5.56           2.36
+## 5     5 Trea~         4.91     4.16 male           6.41           3.25
+## 6     6 Cont~         4.98     3.64 female         5.40           3.79
+## # ... with 4 more variables: gratitude_mean_alt &lt;dbl&gt;, interdep_c &lt;dbl&gt;,
 ## #   cond2 &lt;chr&gt;, gender2 &lt;chr&gt;</code></pre>
 <pre class="r"><code># filter only id &quot;less than or equal to&quot; 7
 joined_survey %&gt;%
@@ -1919,14 +1935,14 @@ joined_survey %&gt;%
 <pre><code>## # A tibble: 7 x 11
 ##      id cond  gratitude_t1 interdep gender gratitude_t2 gratitude_mean
 ##   &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;         &lt;dbl&gt;          &lt;dbl&gt;
-## 1     1 Trea…         3.35     3.89 male           5.05           3.15
-## 2     2 Trea…         4.76     3.88 female         4.55           4.11
-## 3     3 Trea…         5.53     4.18 male           4.76           4.38
-## 4     4 Trea…         2.27     1.60 female         5.56           2.36
-## 5     5 Trea…         4.91     4.16 male           6.41           3.25
-## 6     6 Cont…         4.98     3.64 female         5.40           3.79
-## 7     7 Cont…         3.95     2.44 male           5.01           3.47
-## # … with 4 more variables: gratitude_mean_alt &lt;dbl&gt;, interdep_c &lt;dbl&gt;,
+## 1     1 Trea~         3.35     3.89 male           5.05           3.15
+## 2     2 Trea~         4.76     3.88 female         4.55           4.11
+## 3     3 Trea~         5.53     4.18 male           4.76           4.38
+## 4     4 Trea~         2.27     1.60 female         5.56           2.36
+## 5     5 Trea~         4.91     4.16 male           6.41           3.25
+## 6     6 Cont~         4.98     3.64 female         5.40           3.79
+## 7     7 Cont~         3.95     2.44 male           5.01           3.47
+## # ... with 4 more variables: gratitude_mean_alt &lt;dbl&gt;, interdep_c &lt;dbl&gt;,
 ## #   cond2 &lt;chr&gt;, gender2 &lt;chr&gt;</code></pre>
 <pre class="r"><code># filter only ids 1 or 2 or 7
 joined_survey %&gt;%
@@ -1934,10 +1950,10 @@ joined_survey %&gt;%
 <pre><code>## # A tibble: 3 x 11
 ##      id cond  gratitude_t1 interdep gender gratitude_t2 gratitude_mean
 ##   &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;         &lt;dbl&gt;          &lt;dbl&gt;
-## 1     1 Trea…         3.35     3.89 male           5.05           3.15
-## 2     2 Trea…         4.76     3.88 female         4.55           4.11
-## 3     7 Cont…         3.95     2.44 male           5.01           3.47
-## # … with 4 more variables: gratitude_mean_alt &lt;dbl&gt;, interdep_c &lt;dbl&gt;,
+## 1     1 Trea~         3.35     3.89 male           5.05           3.15
+## 2     2 Trea~         4.76     3.88 female         4.55           4.11
+## 3     7 Cont~         3.95     2.44 male           5.01           3.47
+## # ... with 4 more variables: gratitude_mean_alt &lt;dbl&gt;, interdep_c &lt;dbl&gt;,
 ## #   cond2 &lt;chr&gt;, gender2 &lt;chr&gt;</code></pre>
 <pre class="r"><code># filter only id &quot;less than&quot; 7 &quot;or&quot; id &quot;exactly equal to&quot; 9
 joined_survey %&gt;%
@@ -1945,14 +1961,14 @@ joined_survey %&gt;%
 <pre><code>## # A tibble: 7 x 11
 ##      id cond  gratitude_t1 interdep gender gratitude_t2 gratitude_mean
 ##   &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;         &lt;dbl&gt;          &lt;dbl&gt;
-## 1     1 Trea…         3.35     3.89 male           5.05           3.15
-## 2     2 Trea…         4.76     3.88 female         4.55           4.11
-## 3     3 Trea…         5.53     4.18 male           4.76           4.38
-## 4     4 Trea…         2.27     1.60 female         5.56           2.36
-## 5     5 Trea…         4.91     4.16 male           6.41           3.25
-## 6     6 Cont…         4.98     3.64 female         5.40           3.79
-## 7     9 Cont…         3.96     2.66 male           4.70           3.63
-## # … with 4 more variables: gratitude_mean_alt &lt;dbl&gt;, interdep_c &lt;dbl&gt;,
+## 1     1 Trea~         3.35     3.89 male           5.05           3.15
+## 2     2 Trea~         4.76     3.88 female         4.55           4.11
+## 3     3 Trea~         5.53     4.18 male           4.76           4.38
+## 4     4 Trea~         2.27     1.60 female         5.56           2.36
+## 5     5 Trea~         4.91     4.16 male           6.41           3.25
+## 6     6 Cont~         4.98     3.64 female         5.40           3.79
+## 7     9 Cont~         3.96     2.66 male           4.70           3.63
+## # ... with 4 more variables: gratitude_mean_alt &lt;dbl&gt;, interdep_c &lt;dbl&gt;,
 ## #   cond2 &lt;chr&gt;, gender2 &lt;chr&gt;</code></pre>
 <pre class="r"><code># filter only id &quot;less than&quot; 9 &quot;and&quot; gratitude_t1 &quot;greater than&quot; 4
 joined_survey %&gt;%
@@ -1960,11 +1976,11 @@ joined_survey %&gt;%
 <pre><code>## # A tibble: 4 x 11
 ##      id cond  gratitude_t1 interdep gender gratitude_t2 gratitude_mean
 ##   &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;         &lt;dbl&gt;          &lt;dbl&gt;
-## 1     2 Trea…         4.76     3.88 female         4.55           4.11
-## 2     3 Trea…         5.53     4.18 male           4.76           4.38
-## 3     5 Trea…         4.91     4.16 male           6.41           3.25
-## 4     6 Cont…         4.98     3.64 female         5.40           3.79
-## # … with 4 more variables: gratitude_mean_alt &lt;dbl&gt;, interdep_c &lt;dbl&gt;,
+## 1     2 Trea~         4.76     3.88 female         4.55           4.11
+## 2     3 Trea~         5.53     4.18 male           4.76           4.38
+## 3     5 Trea~         4.91     4.16 male           6.41           3.25
+## 4     6 Cont~         4.98     3.64 female         5.40           3.79
+## # ... with 4 more variables: gratitude_mean_alt &lt;dbl&gt;, interdep_c &lt;dbl&gt;,
 ## #   cond2 &lt;chr&gt;, gender2 &lt;chr&gt;</code></pre>
 <pre class="r"><code># filter only condition &quot;not equal to&quot; Treatment
 joined_survey %&gt;%
@@ -1972,11 +1988,11 @@ joined_survey %&gt;%
 <pre><code>## # A tibble: 4 x 11
 ##      id cond  gratitude_t1 interdep gender gratitude_t2 gratitude_mean
 ##   &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;         &lt;dbl&gt;          &lt;dbl&gt;
-## 1     6 Cont…         4.98     3.64 female         5.40           3.79
-## 2     7 Cont…         3.95     2.44 male           5.01           3.47
-## 3     8 Cont…         3.98     3.47 female         4.63           3.67
-## 4     9 Cont…         3.96     2.66 male           4.70           3.63
-## # … with 4 more variables: gratitude_mean_alt &lt;dbl&gt;, interdep_c &lt;dbl&gt;,
+## 1     6 Cont~         4.98     3.64 female         5.40           3.79
+## 2     7 Cont~         3.95     2.44 male           5.01           3.47
+## 3     8 Cont~         3.98     3.47 female         4.63           3.67
+## 4     9 Cont~         3.96     2.66 male           4.70           3.63
+## # ... with 4 more variables: gratitude_mean_alt &lt;dbl&gt;, interdep_c &lt;dbl&gt;,
 ## #   cond2 &lt;chr&gt;, gender2 &lt;chr&gt;</code></pre>
 <pre class="r"><code>#filter out NAs for specific variable (I chose id)
 time2_survey &lt;- time2_survey %&gt;%
@@ -1993,16 +2009,32 @@ joined_survey %&gt;%
 <pre><code>## # A tibble: 9 x 11
 ##      id cond  gratitude_t1 interdep gender gratitude_t2 gratitude_mean
 ##   &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;         &lt;dbl&gt;          &lt;dbl&gt;
-## 1     6 Cont…         4.98     3.64 female         5.40           3.79
-## 2     7 Cont…         3.95     2.44 male           5.01           3.47
-## 3     8 Cont…         3.98     3.47 female         4.63           3.67
-## 4     9 Cont…         3.96     2.66 male           4.70           3.63
-## 5     1 Trea…         3.35     3.89 male           5.05           3.15
-## 6     2 Trea…         4.76     3.88 female         4.55           4.11
-## 7     3 Trea…         5.53     4.18 male           4.76           4.38
-## 8     4 Trea…         2.27     1.60 female         5.56           2.36
-## 9     5 Trea…         4.91     4.16 male           6.41           3.25
-## # … with 4 more variables: gratitude_mean_alt &lt;dbl&gt;, interdep_c &lt;dbl&gt;,
+## 1     6 Cont~         4.98     3.64 female         5.40           3.79
+## 2     7 Cont~         3.95     2.44 male           5.01           3.47
+## 3     8 Cont~         3.98     3.47 female         4.63           3.67
+## 4     9 Cont~         3.96     2.66 male           4.70           3.63
+## 5     1 Trea~         3.35     3.89 male           5.05           3.15
+## 6     2 Trea~         4.76     3.88 female         4.55           4.11
+## 7     3 Trea~         5.53     4.18 male           4.76           4.38
+## 8     4 Trea~         2.27     1.60 female         5.56           2.36
+## 9     5 Trea~         4.91     4.16 male           6.41           3.25
+## # ... with 4 more variables: gratitude_mean_alt &lt;dbl&gt;, interdep_c &lt;dbl&gt;,
+## #   cond2 &lt;chr&gt;, gender2 &lt;chr&gt;</code></pre>
+<pre class="r"><code>joined_survey %&gt;%
+  arrange(desc(cond))</code></pre>
+<pre><code>## # A tibble: 9 x 11
+##      id cond  gratitude_t1 interdep gender gratitude_t2 gratitude_mean
+##   &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;         &lt;dbl&gt;          &lt;dbl&gt;
+## 1     1 Trea~         3.35     3.89 male           5.05           3.15
+## 2     2 Trea~         4.76     3.88 female         4.55           4.11
+## 3     3 Trea~         5.53     4.18 male           4.76           4.38
+## 4     4 Trea~         2.27     1.60 female         5.56           2.36
+## 5     5 Trea~         4.91     4.16 male           6.41           3.25
+## 6     6 Cont~         4.98     3.64 female         5.40           3.79
+## 7     7 Cont~         3.95     2.44 male           5.01           3.47
+## 8     8 Cont~         3.98     3.47 female         4.63           3.67
+## 9     9 Cont~         3.96     2.66 male           4.70           3.63
+## # ... with 4 more variables: gratitude_mean_alt &lt;dbl&gt;, interdep_c &lt;dbl&gt;,
 ## #   cond2 &lt;chr&gt;, gender2 &lt;chr&gt;</code></pre>
 <pre class="r"><code># arrange joined_survey by id
 joined_survey %&gt;%
@@ -2010,16 +2042,16 @@ joined_survey %&gt;%
 <pre><code>## # A tibble: 9 x 11
 ##      id cond  gratitude_t1 interdep gender gratitude_t2 gratitude_mean
 ##   &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;         &lt;dbl&gt;          &lt;dbl&gt;
-## 1     1 Trea…         3.35     3.89 male           5.05           3.15
-## 2     2 Trea…         4.76     3.88 female         4.55           4.11
-## 3     3 Trea…         5.53     4.18 male           4.76           4.38
-## 4     4 Trea…         2.27     1.60 female         5.56           2.36
-## 5     5 Trea…         4.91     4.16 male           6.41           3.25
-## 6     6 Cont…         4.98     3.64 female         5.40           3.79
-## 7     7 Cont…         3.95     2.44 male           5.01           3.47
-## 8     8 Cont…         3.98     3.47 female         4.63           3.67
-## 9     9 Cont…         3.96     2.66 male           4.70           3.63
-## # … with 4 more variables: gratitude_mean_alt &lt;dbl&gt;, interdep_c &lt;dbl&gt;,
+## 1     1 Trea~         3.35     3.89 male           5.05           3.15
+## 2     2 Trea~         4.76     3.88 female         4.55           4.11
+## 3     3 Trea~         5.53     4.18 male           4.76           4.38
+## 4     4 Trea~         2.27     1.60 female         5.56           2.36
+## 5     5 Trea~         4.91     4.16 male           6.41           3.25
+## 6     6 Cont~         4.98     3.64 female         5.40           3.79
+## 7     7 Cont~         3.95     2.44 male           5.01           3.47
+## 8     8 Cont~         3.98     3.47 female         4.63           3.67
+## 9     9 Cont~         3.96     2.66 male           4.70           3.63
+## # ... with 4 more variables: gratitude_mean_alt &lt;dbl&gt;, interdep_c &lt;dbl&gt;,
 ## #   cond2 &lt;chr&gt;, gender2 &lt;chr&gt;</code></pre>
 <pre class="r"><code># arrange joined_survey by cond, then interdependence
 joined_survey %&gt;%
@@ -2027,16 +2059,16 @@ joined_survey %&gt;%
 <pre><code>## # A tibble: 9 x 11
 ##      id cond  gratitude_t1 interdep gender gratitude_t2 gratitude_mean
 ##   &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;         &lt;dbl&gt;          &lt;dbl&gt;
-## 1     7 Cont…         3.95     2.44 male           5.01           3.47
-## 2     9 Cont…         3.96     2.66 male           4.70           3.63
-## 3     8 Cont…         3.98     3.47 female         4.63           3.67
-## 4     6 Cont…         4.98     3.64 female         5.40           3.79
-## 5     4 Trea…         2.27     1.60 female         5.56           2.36
-## 6     2 Trea…         4.76     3.88 female         4.55           4.11
-## 7     1 Trea…         3.35     3.89 male           5.05           3.15
-## 8     5 Trea…         4.91     4.16 male           6.41           3.25
-## 9     3 Trea…         5.53     4.18 male           4.76           4.38
-## # … with 4 more variables: gratitude_mean_alt &lt;dbl&gt;, interdep_c &lt;dbl&gt;,
+## 1     7 Cont~         3.95     2.44 male           5.01           3.47
+## 2     9 Cont~         3.96     2.66 male           4.70           3.63
+## 3     8 Cont~         3.98     3.47 female         4.63           3.67
+## 4     6 Cont~         4.98     3.64 female         5.40           3.79
+## 5     4 Trea~         2.27     1.60 female         5.56           2.36
+## 6     2 Trea~         4.76     3.88 female         4.55           4.11
+## 7     1 Trea~         3.35     3.89 male           5.05           3.15
+## 8     5 Trea~         4.91     4.16 male           6.41           3.25
+## 9     3 Trea~         5.53     4.18 male           4.76           4.38
+## # ... with 4 more variables: gratitude_mean_alt &lt;dbl&gt;, interdep_c &lt;dbl&gt;,
 ## #   cond2 &lt;chr&gt;, gender2 &lt;chr&gt;</code></pre>
 <ul>
 <li><code>select()</code>
@@ -2063,18 +2095,18 @@ joined_survey %&gt;%
 joined_survey %&gt;%
   select(-gratitude_t2, -interdep)</code></pre>
 <pre><code>## # A tibble: 9 x 9
-##      id cond  gratitude_t1 gender gratitude_mean gratitude_mean_…
+##      id cond  gratitude_t1 gender gratitude_mean gratitude_mean_~
 ##   &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt;           &lt;dbl&gt;            &lt;dbl&gt;
-## 1     1 Trea…         3.35 male             3.15             3.15
-## 2     2 Trea…         4.76 female           4.11             4.11
-## 3     3 Trea…         5.53 male             4.38             4.38
-## 4     4 Trea…         2.27 female           2.36             2.36
-## 5     5 Trea…         4.91 male             3.25             3.25
-## 6     6 Cont…         4.98 female           3.79             3.79
-## 7     7 Cont…         3.95 male             3.47             3.47
-## 8     8 Cont…         3.98 female           3.67             3.67
-## 9     9 Cont…         3.96 male             3.63             3.63
-## # … with 3 more variables: interdep_c &lt;dbl&gt;, cond2 &lt;chr&gt;, gender2 &lt;chr&gt;</code></pre>
+## 1     1 Trea~         3.35 male             3.15             3.15
+## 2     2 Trea~         4.76 female           4.11             4.11
+## 3     3 Trea~         5.53 male             4.38             4.38
+## 4     4 Trea~         2.27 female           2.36             2.36
+## 5     5 Trea~         4.91 male             3.25             3.25
+## 6     6 Cont~         4.98 female           3.79             3.79
+## 7     7 Cont~         3.95 male             3.47             3.47
+## 8     8 Cont~         3.98 female           3.67             3.67
+## 9     9 Cont~         3.96 male             3.63             3.63
+## # ... with 3 more variables: interdep_c &lt;dbl&gt;, cond2 &lt;chr&gt;, gender2 &lt;chr&gt;</code></pre>
 <ul>
 <li><p>Sometimes you may want to change the format of your data to fit the statistical analysis you need. In this case, I may want to run a linear mixed model, so I need to put my data in long format.</p>
 <ul>
@@ -2129,7 +2161,9 @@ final_data_tidy &lt;- time1_survey %&gt;%
 <ul>
 <li>A tip: think about what you want to do with your data, or what your end result to be. If you want to save something into an object, what do you want saved? If you want R to show you something, what do you want to see?</li>
 </ul>
-<p>##9. Exercises</p>
+</div>
+<div id="exercises" class="section level2">
+<h2>9. Exercises</h2>
 <ul>
 <li><p>Exercise 1: Data Wrangling</p>
 <ul>
@@ -2139,10 +2173,9 @@ final_data_tidy &lt;- time1_survey %&gt;%
 </ul>
 <pre class="r"><code>#Let me just walk you through loading the datasets(these are datasets that are preloaded into your tidyverse package but you have to call them up)
 
-airlines &lt;- as.tibble(airlines)</code></pre>
-<pre><code>## Warning: `as.tibble()` is deprecated, use `as_tibble()` (but mind the new semantics).
-## This warning is displayed once per session.</code></pre>
-<pre class="r"><code>flights &lt;- as.tibble(flights)
+airlines &lt;- as_tibble(airlines)
+
+flights &lt;- as_tibble(flights)
 
 #Okay your turn!
 
@@ -2182,7 +2215,7 @@ merged &lt;- flights2 %&gt;%
 merged_6mo &lt;- merged %&gt;%
   filter(month &lt;= 9)
 
-## subset (filter) merged_6mo so that we only look at the carriers &quot;9E&quot; and &quot;EV&quot;. You will need quotes. Let's save it back into merged_6mo. View it to see if it worked.
+## subset (filter) merged_6mo so that we only look at the carriers &quot;9E&quot; and &quot;EV&quot;. You will need quotes. Let&#39;s save it back into merged_6mo. View it to see if it worked.
 
 merged_6mo &lt;- merged_6mo %&gt;%
   filter(carrier == &quot;9E&quot; | carrier == &quot;EV&quot;)
@@ -2208,14 +2241,14 @@ merged_6mo &lt;- merged_6mo %&gt;%
                                   ifelse(carrier == &quot;EV&quot;, &quot;ExpressJet&quot;, NA)))
 
 
-## Summarize flightspeed and mean_delay by carrier. Let's NOT save it back into the dataset, so it should print out in the console. 
+## Summarize flightspeed and mean_delay by carrier. Let&#39;s NOT save it back into the dataset, so it should print out in the console. 
 merged_6mo %&gt;%
   group_by(carrier_recoded) %&gt;%
   summarize(mean(flightspeed, na.rm = TRUE),
             mean(mean_delay, na.rm = TRUE)) %&gt;%
   ungroup()</code></pre>
 <pre><code>## # A tibble: 2 x 3
-##   carrier_recoded  `mean(flightspeed, na.rm = … `mean(mean_delay, na.rm = …
+##   carrier_recoded  `mean(flightspeed, na.rm = ~ `mean(mean_delay, na.rm = ~
 ##   &lt;chr&gt;                                   &lt;dbl&gt;                       &lt;dbl&gt;
 ## 1 Endeavor Air Inc                         5.76                        13.7
 ## 2 ExpressJet                               6.09                        19.0</code></pre>
@@ -2225,7 +2258,7 @@ merged_6mo %&gt;%
 <li>Let’s try making a dataset into long form and then back to wide form again.</li>
 </ul></li>
 </ul>
-<pre class="r"><code>#Again, I'll start off by creating you a dataset you can use.
+<pre class="r"><code>#Again, I&#39;ll start off by creating you a dataset you can use.
 set.seed(4567)
 N &lt;- 10
 beliefjustworld &lt;- rnorm(n = N, mean = 6, sd = .98)
