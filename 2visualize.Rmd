@@ -74,27 +74,19 @@ tibble(set = rep(1:4, each = nrow(anscombe)) %>% factor(),
 
 ```{r}
 
-
 with(datasaurus_dozen, describeBy(x, group = dataset, mat = TRUE))
 with(datasaurus_dozen, describeBy(y, group = dataset, mat = TRUE))
 
 ```
 
 ## Same linear regression results ...
+> We haven't shown you some of the code below. Without getting into details, the code splits the `datasaurus_dozen` dataset into smaller datasets and then runs a linear regression using the y and x variables from each dataset.
 
 ```{r}
 
-summary(lm(y ~ x, data = datasaurus_dozen[datasaurus_dozen$dataset == "away", ]))
-summary(lm(y ~ x, data = datasaurus_dozen[datasaurus_dozen$dataset == "bullseye", ]))
-summary(lm(y ~ x, data = datasaurus_dozen[datasaurus_dozen$dataset == "circle", ]))
-summary(lm(y ~ x, data = datasaurus_dozen[datasaurus_dozen$dataset == "dino", ]))
-summary(lm(y ~ x, data = datasaurus_dozen[datasaurus_dozen$dataset == "h_lines", ]))
-summary(lm(y ~ x, data = datasaurus_dozen[datasaurus_dozen$dataset == "high_lines", ]))
-summary(lm(y ~ x, data = datasaurus_dozen[datasaurus_dozen$dataset == "slant_down", ]))
-summary(lm(y ~ x, data = datasaurus_dozen[datasaurus_dozen$dataset == "slant_up", ]))
-summary(lm(y ~ x, data = datasaurus_dozen[datasaurus_dozen$dataset == "v_lines", ]))
-summary(lm(y ~ x, data = datasaurus_dozen[datasaurus_dozen$dataset == "wide_lines", ]))
-summary(lm(y ~ x, data = datasaurus_dozen[datasaurus_dozen$dataset == "x_shape", ]))
+datasaurus_dozen %>% 
+  group_split(dataset) %>% 
+  map(function(dataframe) summary(lm(y ~ x, data = dataframe)))
 
 ```
 
