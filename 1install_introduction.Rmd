@@ -11,13 +11,13 @@ output:
     toc_float: true
 ---
 
-# How do I install R and R Studio (you need both in that order)
+# How do I install R and RStudio (you need both in that order)
 > - Installing R ([**Macintosh**](https://stats.idre.ucla.edu/r/icu/installing-r-for-macintosh/) / [**Windows**](https://stats.idre.ucla.edu/r/icu/installing-r-for-windows/))
 > - Uninstalling R ([**Macintosh**](https://cran.r-project.org/doc/manuals/r-release/R-admin.html#Uninstalling-under-macOS) / [**Windows**](https://cran.r-project.org/doc/manuals/r-release/R-admin.html#Uninstallation))
-> - Installing R Studio [[**.html**](https://www.rstudio.com/products/rstudio/download/)]
-> - Uninstalling R Studio [[**.html**](https://support.rstudio.com/hc/en-us/articles/200554736-How-To-Uninstall-RStudio-Desktop)]
+> - Installing RStudio [[**.html**](https://www.rstudio.com/products/rstudio/download/)]
+> - Uninstalling RStudio [[**.html**](https://support.rstudio.com/hc/en-us/articles/200554736-How-To-Uninstall-RStudio-Desktop)]
 
-# What are all the panels in R Studio?
+# What are all the panels in RStudio?
 ![](images/r_studio_panels_tutorial.png)
 
 # How do I install and load new R packages?
@@ -37,7 +37,7 @@ library(tidyverse)
 ```
 
 # How do I run R code?
-> start with simple examples
+> Start with simple examples
 
 ## Example: Save five numbers to an R object called `my_numbers`
 > - `c()`: "Combine Values into a Vector or List"  
@@ -239,6 +239,36 @@ my_numbers %>% scale() %>% as.numeric() %>% mean(na.rm = TRUE)
 ```{r}
 
 my_numbers %>% scale() %>% as.numeric() %>% mean(na.rm = TRUE) %>% round(digits = 1)
+
+```
+
+## This kind of coding with the `%>%` is especially useful when working with data frames
+
+### Example: Start with a bigger data frame
+
+```{r}
+
+mpg
+
+```
+
+### Create a new, smaller data frame
+> I want only cars that **get at least 30 miles per gallon on the highway** and that **have an authomatic transmission.** I also want to see their **average miles per gallon across city and highway driving.**  
+
+**Sources.** `help("mpg")`, `help("filter")`, `help("select")`, `help("mutate")`, and `help("arrange")`
+
+```{r}
+
+# We will explain this kind of code in more detail on later days of the workshop
+mpg %>% 
+  # Filter rows based on the criteria above
+  filter(hwy >= 30 & str_detect(trans, pattern = "auto")) %>% 
+  # Select variables in the order we want
+  select(manufacturer, model, year, class, trans, cty, hwy) %>% 
+  # Average city and highway mileage
+  mutate(mpg_mean = (cty + hwy) / 2) %>% 
+  # Arrange rows by average mile per gallon in descending order
+  arrange(desc(mpg_mean))
 
 ```
 
