@@ -432,7 +432,7 @@ C3E19 <- C3E19 %>%
          condition_lbl = interaction(emotfocus, selfpersp, sep = " x "))
 
 # Print a random subset
-C7T1 %>% sample_n(size = 15)
+C3E19 %>% sample_n(size = 15)
 
 # Count/Tally
 C3E19 %>% 
@@ -713,7 +713,7 @@ model1 <- "# a paths
 
 ```{r}
 
-sem1 <- sem(model1, data = Garcia, se = "bootstrap", bootstrap = 10000)
+sem1 <- sem(model1, data = Garcia, se = "bootstrap", bootstrap = 1000)
 
 ```
 

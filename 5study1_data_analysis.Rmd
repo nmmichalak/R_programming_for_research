@@ -1,7 +1,7 @@
 ---
 title: "Study 1 Data Analysis"
 author: "Nicholas Michalak (nickmm@umich.edu)"
-date: "06/20/2019"
+date: "06/28/2019"
 output: 
   html_document: 
     fig_height: 7.5
@@ -150,49 +150,69 @@ with(hsb2,
 
 ```{r}
 
-lm2 <- lm(SCIENCE ~ MATH, data = hsb2)
-lm3 <- lm(SCIENCE ~ MATH + READ, data = hsb2)
+# a path
+lm2 <- lm(READ ~ MATH, data = hsb2)
+
+# total effect (c path)
+lm3 <- lm(SCIENCE ~ MATH, data = hsb2)
+
+# b path and direct effect (c` path)
+lm4 <- lm(SCIENCE ~ MATH + READ, data = hsb2)
 
 ```
 
-#### Examine diagnostic plots for the full model
+#### Examine diagnostic plots for the reduced and full model
 
 ```{r}
 
 plot(lm3)
+plot(lm4)
 
 ```
 
-### Results for both models
+### Results for three models
+> 1. READ ~ MATH (a)  
+> 2. SCIENCE ~ MATH (total/c)  
+> 3. SCIENCE ~ MATH (c`) + READ (b)  
+> 4. c - c` = a * b (indirect effect)
 
 ```{r}
 
+# a path
 summary(lm2)
+
+# total effect (c path)
 summary(lm3)
+
+# b path and direct effect (c` path)
+summary(lm4)
 
 ```
 
 ### (Adjusted) R-squared change
+> This code is not directly relevant for mediation hypotheses, but it's useful to know for model comparisons.
 
 ```{r}
 
-summary(lm3)$adj.r.squared - summary(lm2)$adj.r.squared
+summary(lm4)$adj.r.squared - summary(lm3)$adj.r.squared
 
 ```
 
 ### Test (adjusted) R-squared change
+> You can compare as many models as you want with anova(model1, model2, model3, ...)
 
 ```{r}
 
-anova(lm2, lm3)
+anova(lm3, lm4)
 
 ```
 
 ### Simple Indirect Effect Test
+> In the analysis script from Day 4, we tested mediation using an SEM framework. This function from the psych package uses a simpler linear regression framework, like the popular Hayes macros.
 
 ```{r}
 
-mediate(SCIENCE ~ MATH + (READ), data = hsb2, n.iter = 10000, use = "pairwise", plot = TRUE) %>% 
+mediate(SCIENCE ~ MATH + (READ), data = hsb2, n.iter = 1000, use = "pairwise", plot = TRUE) %>% 
   print(short = FALSE)
 
 ```
